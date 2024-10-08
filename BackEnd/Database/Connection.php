@@ -1,13 +1,16 @@
 <?php
 namespace Pi\Visgo\Database;
 
+use PDO;
+use PDOException;
+
 class Connection {
     
     private static $instance = null;
     private $connection;
     private $dns = 'mysql:host=localhost;dbname=nome_do_banco';
     private $usuario = 'root';
-    private $senha = 'root' ;
+    private $senha = 'root';
 
 
     private function __construct() {
@@ -16,13 +19,13 @@ class Connection {
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             echo 'Falha na conexão: ' . $e->getMessage();        
+        } 
     }
 
     public static function getInstance() {
         if (self::$instance === null) {
             self::$instance = new self();
         }
-        return self::$instance->conn;
+        return self::$instance->connection;
     }
-
 }
