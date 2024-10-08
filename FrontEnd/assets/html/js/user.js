@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const templateNavbar = `
         <div class="sidebar">
         <div class="logo">
-            <img src="FrontEnd/assets/docs/visgo.jpg" alt="Logo" class="img-fluid">
+            <img src="docs/visgo.jpg" alt="Logo" class="img-fluid">
         </div>
         
         <ul class="nav flex-column">
