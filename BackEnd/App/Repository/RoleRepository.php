@@ -1,7 +1,7 @@
 <?php
 
 namespace Pi\Visgo\RoleRepository;
-use Pi\visgo\Model\Role;
+use Pi\Visgo\Model\Role;
 use Pi\Visgo\Database\Connection;
 use PDO;
 
@@ -15,43 +15,44 @@ class RoleRepository{
     }
 
     public function createRole(Role $role) {
+
         $name = $role->getName();
 
 
-    $query = "INSERT INTO $this->table (name) VALUES (:name)";
+        $query = "INSERT INTO $this->table (name) VALUES (:name)";
 
 
-    $stmt = $this->connection->prepare($query);
+        $stmt = $this->connection->prepare($query);
 
 
-    $stmt->bindParam(":name", $name);
+        $stmt->bindParam(":name", $name);
 
 
-    $executionCompleted = $stmt->execute();
+        $executionCompleted = $stmt->execute();
 
 
 
-    return $executeCompleted = $stmt->execute();
+        return $executeCompleted = $stmt->execute();
 
     }
 
 
-    public function updateRole(Role $role) {
+    public function updateRole($id, Role $role) {
 
-      $name = $role->getName();  
+        $name = $role->getName();  
 
-      $query = "UPDATE $this->table SET nome = :nome WHERE role.id = :role_id";
-
-
-      $stmt = $this->connection->prepare($query);
-
-      $stmt->bindParam(":nome", $nome);
-      $stmt->bindParam(":role_id", $id);
-
-      $executeCompleted = $stmt->execute();
+        $query = "UPDATE $this->table SET name = :name WHERE role.id = :role_id";
 
 
-      return $executeCompleted;
+        $stmt = $this->connection->prepare($query);
+
+        $stmt->bindParam(":name", $name);
+        $stmt->bindParam(":role_id", $id);
+
+        $executeCompleted = $stmt->execute();
+
+
+        return $executeCompleted;
 
     }
 

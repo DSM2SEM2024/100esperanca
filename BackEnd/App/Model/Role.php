@@ -1,6 +1,6 @@
 <?php
 
-namespace Pi\visgo\Model;
+namespace Pi\Visgo\Model;
 
 class Role {
 
@@ -12,16 +12,16 @@ class Role {
 
     }
 
-public function getId() {
-    return $this->id;
-}
+    public function getId() {
+        return $this->id;
+    }
 
-public function getName(){
-    return $this->name;
-}
+    public function getName(){
+        return $this->name;
+    }
 
-public function setName($name){
-    $this->name = $name;
-}
+    public function setName($name){
+        $this->name = $name;
+    }
 
 }
