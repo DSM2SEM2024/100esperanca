@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3"
+  },
+  "name": "100esperanca",
+  "version": "1.0.0",
+  "description": "A **Visgo de Jaca** é uma marca nascida das raízes culturais da capoeira e da música, com ênfase na percussão. Fundada por Jaca, um ex-enfermeiro e artista autodidata, a marca destaca-se pela produção de estampas autorais que incorporam símbolos significativos da cultura sul-americana e da luta anticolonial. Inspirado pelo estilo de Caribé, Jaca usa suas criações para refletir sua vivência e conexão com suas tradições.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DSM2SEM2024/100esperanca.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DSM2SEM2024/100esperanca/issues"
+  },
+  "homepage": "https://github.com/DSM2SEM2024/100esperanca#readme"
+}

@@ -1,0 +1,17 @@
+header{
+    background-color: #5ABC49;
+    
+    display: flex;
+    flex-direction:row;
+
+
+}header img{
+    border-radius: 10rem;
+}
+ul{
+    display: flex;
+    gap: 2rem;;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    text-wrap: pretty;
+}
