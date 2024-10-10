@@ -1,0 +1,43 @@
+body {
+  display: flex;
+}
+
+.sidebar {
+  background-color: #1cab4e;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 100px;
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.logo {
+  text-align: center;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+.content {
+  flex: 1;
+  margin-left: 250px;
+  padding: 20px;
+}
+
+.nav {
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  display: flex;
+}
+
+.nav-link {
+  color: azure;
+  text-align: center;
+  padding: 10px 0;
+}
+/*# sourceMappingURL=gerenciar_usuarios.9a9ab53e.css.map */
