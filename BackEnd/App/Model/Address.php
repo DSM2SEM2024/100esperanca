@@ -1,7 +1,7 @@
 <?php
 namespace Pi\Visgo\Model;
 
-class Address{
+class address{
     
     private $id;
     private $state;

@@ -1,27 +1,27 @@
 <?php 
 namespace Pi\Visgo\Repository;
 
-use Pi\Visgo\Model\Address;
+use Pi\Visgo\Model\address;
 use Pi\Visgo\Database\Connection;
 use PDO;
 
-class RepositoryAddress{
+class Repositoryaddress{
     
     private $connection;
-    private $table = "Address";
+    private $table = "address";
 
     public function __construct()
     {
         $this->connection = Connection::getInstance();
     }
 
-    public function createAddress(Address $Address) {
-        $state = $Address->getState();
-        $city = $Address->getCity();
-        $neighborhood = $Address->getNeighborhood();
-        $number = $Address->getNumber();
-        $street = $Address->getStreet();
-        $cep = $Address->getCep();
+    public function createaddress(address $address) {
+        $state = $address->getState();
+        $city = $address->getCity();
+        $neighborhood = $address->getNeighborhood();
+        $number = $address->getNumber();
+        $street = $address->getStreet();
+        $cep = $address->getCep();
 
         $query = "INSERT INTO $this->table (state, city, neighborhood, number, street, cep) VALUES (:id, :state, :city, :neighborhood, :number, :street, :cep)";
     
@@ -42,15 +42,15 @@ class RepositoryAddress{
         return $executionCompleted;
     }
 
-    public function updateAddress($id, Address $Address) {
-        $state = $Address->getState();
-        $city = $Address->getCity();
-        $neighborhood = $Address->getNeighborhood();
-        $number = $Address->getNumber();
-        $street = $Address->getStreet();
-        $cep = $Address->getCep();
+    public function updateaddress($id, address $address) {
+        $state = $address->getState();
+        $city = $address->getCity();
+        $neighborhood = $address->getNeighborhood();
+        $number = $address->getNumber();
+        $street = $address->getStreet();
+        $cep = $address->getCep();
 
-        $query = "UPDATE $this->table SET state = :state, city = :city, neighborhood = :neighborhood; number = :number, street = :street, cep = :cep WHERE Address.id = :id";
+        $query = "UPDATE $this->table SET state = :state, city = :city, neighborhood = :neighborhood; number = :number, street = :street, cep = :cep WHERE address.id = :id";
 
         $stmt = $this->connection->prepare($query);
 
@@ -64,12 +64,12 @@ class RepositoryAddress{
         $executionCompleted = $stmt->execute();
 
          //Talvez implementação de Log.
-        //Algo como: "Gerar um Log de Atualizaer o produto sempre que $executionCompleted"
+        //Algo como: "Gerar um Log de Atualizar o produto sempre que $executionCompleted"
 
         return $executionCompleted;
     }
 
-    public function searchByIdAddress ($id) {
+    public function searchByIdaddress ($id) {
         $query = "SELECT * FROM $this->table WHERE produto.id = :id";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
@@ -78,7 +78,7 @@ class RepositoryAddress{
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getAllAddress() {
+    public function getAlladdress() {
         $query = "SELECT * FROM $this->table";
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
@@ -87,11 +87,11 @@ class RepositoryAddress{
     }
 
     public function deleteByIdProduto($id) {
-        $arraySearch = $this->searchByIdAddress($id);
+        $arraySearch = $this->searchByIdaddress($id);
 
-        //Lembrete para mim próprio: dúvida neste Address que mudou de cor pra mim, no projeto modelo ele estava normal.
+        //Lembrete para mim próprio: dúvida neste address que mudou de cor pra mim, no projeto modelo ele estava normal.
         
-        $query = "DELETE FROM Address WHERE Address.id = :id";
+        $query = "DELETE FROM address WHERE address.id = :id";
         $stmt = $this->connection->prepare($query);
 
         $stmt->bindParam(":id", $id);
