@@ -2,7 +2,7 @@ let tela_login_html = `
   <main>
         
     
-        <section class="login-container container-sm bg-white p-4 rounded shadow-lg text-center w-25 ">
+        <section class="login-container container-sm --bs-success bg-white p-4 rounded shadow-lg text-center w-25">
             <h2 class="text-success mb-4">Login</h2>
     
             <div class="input-group mb-3">

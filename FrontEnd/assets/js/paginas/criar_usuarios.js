@@ -4,23 +4,23 @@ let criar_user_html = `
         
         <ul class="list-group ">
             <li class="list-group-item row">
-                <label for="nome">nome</label>
-            <input type="text" placeholder="nome">
+                <label for="nome">Nome</label>
+            <input type="text" placeholder="Nome">
         </li>
 
         <li class="list-group-item row row">
-                <label for="email">email</label>
-            <input type="email" name="email" id="email" placeholder="email">
+                <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Email">
         </li>
 
             <li class="list-group-item row">
-                <label for="senha">senha</label>
-                <input type="password" name="senha" id="senha" placeholder="senha">
+                <label for="senha">Senha</label>
+                <input type="password" name="senha" id="senha" placeholder="Senha">
             </li>
 
             <li class="list-group-item row">
-                <label for="confima_senha">comfirma senha</label>
-            <input type="password" name="confima_senha" id="confima_senha" placeholder="confirmar senha">
+                <label for="confima_senha">Confirmar Senha</label>
+            <input type="password" name="confima_senha" id="confima_senha" placeholder="Confirmar Senha">
             </li>
 
           </ul>
@@ -32,8 +32,8 @@ let criar_user_html = `
         <li class="list-group-item row "> 
             <div class="row justify-content-start  justify-content-center">
                 <div class="col row">
-                    <label for="cep">cep</label>
-                    <input type="text" id="cep" placeholder="cep" class="form=control">
+                    <label for="cep">CEP</label>
+                    <input type="text" id="cep" placeholder="CEP" class="form=control">
                 </div>
 
                 <div class="col-2 row">
@@ -47,27 +47,27 @@ let criar_user_html = `
 
             <div class="row justify-content-center ">
                 <div class="col row">
-                    <label for="cep">rua</label>
-                    <input type="text" id="rua" placeholder="rua">
+                    <label for="cep">Rua</label>
+                    <input type="text" id="rua" placeholder="Rua">
                 </div>
 
                 <div class="col-2 row">
-                    <label for="uf">uf</label>
+                    <label for="uf">UF</label>
                     <input type="number" name="uf" id="uf">
             </div>
         </li>
 
         <li class="list-group-item row "> 
-            <label for="cidade">cidade</label>
-            <input type="password" name="cidade" id="cidade" placeholder="cidade">
+            <label for="cidade">Cidade</label>
+            <input type="password" name="cidade" id="cidade" placeholder="Cidade">
         </li>
         <li class="list-group-item row"> 
-            <label for="complemento">complemento</label>
-            <input type="password" name="complemento" id="complemento" placeholder="complemento">
+            <label for="complemento">Complemento</label>
+            <input type="password" name="complemento" id="complemento" placeholder="Complemento">
         </li>
           
 
-         <button class="btn btn-success btn-lg btn-block">submit</button>
+         <button class="btn btn-success btn-lg btn-block">Enviar</button>
         </ul>
 
         </section>

@@ -2,7 +2,7 @@
 // cria a tamplate string
     const headerHtml = 
     `
-        <img src="assets/imgs/visgo.jpg" alt="logo">
+        <img src="assets/imgs/visgo.jpg" alt="logo"> 
     `;
 // cria o header no hmtl 
     const headerElement = document.createElement('header');
