@@ -14,4 +14,4 @@ const footerHtml = `
 const footerElement = document.createElement('footer');
 footerElement.innerHTML =footerHtml;
 
-document.body.insertAdjacentHTML('afterend',footerHtml);
+document.body.insertAdjacentHTML('beforeend',footerHtml);
