@@ -1,6 +1,28 @@
+/* main, html{
+    background-color: #a5d6a7;
+}
+*{
+    background-color: #fff;
+    border-radius: 15px;
+}
 #sect1{
+    background-color: #a5d6a7;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
     display: flex;
     justify-content: center;
-    background-color: green;
+    
+}
+#container{
+    border: solid;
+    border-radius: 15px;
+    width: 200px;
 
 }
+.links{
+    display: flexbox;
+    justify-content: space-between;
+    text-decoration: none;
+    
+} */
