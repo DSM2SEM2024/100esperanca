@@ -1,8 +1,6 @@
 let tela_login_html = `
-  <main>
-        
-    
-        <section class="login-container container-sm --bs-success bg-white p-4 rounded shadow-lg text-center w-25">
+  <main class="d-flex justify-content-center align-items-center vh-100 bg-light" style="padding-top: 100px;">
+        <section class="login-container container-sm bg-white p-4 rounded shadow-lg text-center w-25">
             <h2 class="text-success mb-4">Login</h2>
     
             <div class="input-group mb-3">
@@ -29,4 +27,5 @@ let tela_login_html = `
     </main>
 `
 let tela_login_element = document.createElement('main')
-document.body.insertAdjacentHTML('beforeend',tela_login_html);
+document.body.insertAdjacentHTML('beforeend', tela_login_html);
+

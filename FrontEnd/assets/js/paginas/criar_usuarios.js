@@ -1,6 +1,9 @@
 let criar_user_html = `
-      <div class="container-sm">
-
+       <div class="container-sm position-relative">
+        <a href="tela_login.html" class="btn custom-btn-hover position-absolute top-0 end-0 mt-2" 
+           style="margin-right: -5.5rem; z-index: 10; background-color: #198754; color: white;">
+            Voltar
+        </a>
         
         <ul class="list-group ">
             <li class="list-group-item row">
