@@ -1,33 +1,11 @@
 body{
     /* margin-top: 10px; */
-    background-color: #A5D6A7;
+    background-color: #A5D6A7 !important;
+}
+.text-hover-success {
+    transition: color 0.3s ease !important; /* Suaviza a transição de cor */
 }
 
-/* main, html{
-    background-color: #a5d6a7;
+.text-hover-success:hover {
+    color: #146c43 !important; /* Cor mais escura ao passar o mouse */
 }
-*{
-    background-color: #fff;
-    border-radius: 15px;
-}
-#sect1{
-    background-color: #a5d6a7;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    
-}
-#container{
-    border: solid;
-    border-radius: 15px;
-    width: 200px;
-
-}
-.links{
-    display: flexbox;
-    justify-content: space-between;
-    text-decoration: none;
-    
-} */

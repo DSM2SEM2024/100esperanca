@@ -1,3 +1,6 @@
+body {
+    padding-top: 95px;
+}
 .custom-btn-hover {
     background-color: #198754 !important;
     color: white !important;
@@ -6,4 +9,22 @@
 
 .custom-btn-hover:hover {
     background-color: #147045 !important; 
+}
+#voltar-btn {
+    position: fixed !important;
+    margin: 15px;
+    top: 15px;
+    right: 10px;
+    background-color: #198754; 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    margin-right: 13px;
+    cursor: pointer; /* Cursor de mão ao passar o mouse */
+    z-index: 1000; /* Para garantir que fique acima de outros elementos */
+}
+
+#voltar-btn:hover {
+    background-color: #147045 !important; 
+    transition: background-color 0.3s ease; 
 }
