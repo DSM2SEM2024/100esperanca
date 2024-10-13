@@ -29,3 +29,29 @@ header{
     display: flex;
     flex-direction:row;
 }
+.custom-btn-hover {
+    background-color: #198754 !important;
+    color: white !important;
+    transition: background-color 0.3s ease; 
+}
+
+.custom-btn-hover:hover {
+    background-color: #147045 !important; 
+}
+#voltar-btn {
+    position: fixed !important;
+    margin: 15px;
+    top: 15px;
+    right: 10px;
+    background-color: #198754; 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    margin-right: 13px;
+    cursor: pointer; 
+}
+
+#voltar-btn:hover {
+    background-color: #147045 !important; 
+    transition: background-color 0.3s ease; 
+}
