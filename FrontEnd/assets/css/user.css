@@ -1,7 +1,3 @@
-body {
-    display: flex;
-}
-
 .sidebar {
     min-width: 100px;
     background-color: #1cab4e;
@@ -39,4 +35,8 @@ body {
     color: azure;
     text-align: center; /* Centraliza o texto dos links */
     padding: 10px 0; /* Espaçamento em torno dos links */
+}
+
+@media screen ,(max-width:300px){
+    
 }

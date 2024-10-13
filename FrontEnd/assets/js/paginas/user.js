@@ -1,39 +1,58 @@
 document.addEventListener("DOMContentLoaded", function() {
 
     const templateNavbar = `
-        <div class="sidebar">
-        <div class="logo">
-            <img src="docs/visgo.jpg" alt="Logo" class="img-fluid">
-        </div>
-        
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">•Usuário</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">•Controle</a>
-            </li>
-            <li class="nav-item"> 
-                <a class="nav-link" href="#">•Imagens</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">•Admin</a>
-            </li>
-        </ul>
-        </div>
+<section class="d-flex flex-column ">   
+    <table class="table table-bordered">
+    <thead>
+        <tr>  
+        <th scope="col" class="table-success">nome</th>
+        </tr>
+        </thead>
+        <tbody>
+        <td>    
+        <ul>
+            <li>visgo jaca</li>
+            <li>luketa da padaduseta</li>
+            </ul>
+        </td>
+        </tbody>
+    </table>
+    <table class="table table-bordered">
+    <thead>
+        <tr>  
+        <th scope="col" class="table-success">email</th>
+        </tr>
+        </thead>
 
-        <div class="content">
-            <h1>Bem-vindo ao meu site!</h1>
-            <p>Este é o conteúdo principal da página.</p>
-        </div>
+        <tbody>
+        <td>    
+            <ul>
+            <li>visgo jaca</li>
+            <li>luketa da padaduseta</li>
+            </ul>
+        </td>
+        </tbody>
 
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="FrontEnd/assets/js/user.js"></script>
+    </table>
+    <table class="table table-bordered">
+    <thead>
+        <tr>  
+        <th scope="col" class="table-success">permisoes</th>
+        </tr>
+        </thead>
+        <tbody>
+        <td>    
+        <ul>
+            <li>visgo jaca</li>
+            <li>luketa da padaduseta</li>
+            </ul>
+        </td>
+        </tbody>
+    </table>
+</section>
     `
     let body = document.getElementsByTagName("body");
-    let navbar = document.createElement("navabar");
+    let navbar = document.createElement("main");
     navbar.innerHTML = templateNavbar;
 
     body[0].appendChild(navbar);    
