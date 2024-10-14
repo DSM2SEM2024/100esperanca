@@ -1,42 +1,71 @@
+
+
+body {
+    display: flex;
+    margin: 0; /* Remove margens padrão do body */
+}
+
 .sidebar {
-    min-width: 100px;
+    width: 200px; /* Largura inicial da sidebar */
     background-color: #1cab4e;
-    height: 100vh;
+    height: 100vh; /* Mantém a sidebar com altura total da tela */
     position: fixed;
     left: 0;
-    top: 0;
+    top: 0; /* Início da sidebar no topo */
     padding: 20px;
     display: flex;
-    flex-direction: column; /* Para que os itens fiquem em coluna */
-    justify-content: center; /* Para centralizar verticalmente */
+    flex-direction: column;
+    justify-content: flex-start; /* Alinha os itens no topo */
+    transition: width 0.3s; /* Transição suave para largura */
+}
+
+.sidebar.collapsed {
+    width: 120px; /* Largura quando ocultada */
 }
 
 .logo {
     text-align: center;
     margin-bottom: 20px; /* Um pouco mais de espaço abaixo do logo */
-    width: 150px;
-    height: 150px;
+    width: 100%; /* Para ocupar toda a largura da sidebar */
+    cursor: pointer; /* Mostra que é clicável */
 }
 
+
 .content {
-    margin-left: 250px; 
+    margin-left: 200px; 
+    margin-top: 60px; /* Espaçamento acima do conteúdo */
     padding: 20px;
     flex: 1;
+    transition: margin-left 0.3s; /* Transição suave para margens */
+}
+
+.content.collapsed {
+    margin-left: 120px; /* Atualiza a margem do conteúdo quando a sidebar é ocultada */
 }
 
 .nav {
     flex: 1; /* Faz a nav ocupar o espaço restante */
     display: flex;
     flex-direction: column; /* Coloca os links em coluna */
-    justify-content: center; /* Centraliza os links verticalmente */
+    justify-content: flex-start; /* Alinha os links no topo */
 }
 
 .nav-link {
     color: azure;
     text-align: center; /* Centraliza o texto dos links */
     padding: 10px 0; /* Espaçamento em torno dos links */
+    font-size: 0.9em; /* Tamanho de fonte padrão */
+    transition: font-size 0.3s; /* Transição suave para tamanho de fonte */
 }
 
-@media screen ,(max-width:300px){
-    
+.sidebar.collapsed .nav-link {
+    font-size: 0.7em; /* Reduz o tamanho da fonte ao ocultar a sidebar */
+}
+
+#tabela-container {
+    margin-top: 20px; /* Espaço acima da tabela */
+}
+
+.table {
+    margin: auto; /* Centraliza a tabela */
 }
