@@ -1,6 +1,6 @@
 <?php
+namespace Pi\Visgo\Repository;
 
-namespace Pi\Visgo\RoleRepository;
 use Pi\Visgo\Model\Role;
 use Pi\Visgo\Database\Connection;
 use PDO;
@@ -10,8 +10,8 @@ class RoleRepository{
     private $connection;
     private $table = "role";
 
-    public function __construct() {
-        $this->connection = Connection ::getInstance();
+    public function __construct($drive) {
+        $this->connection = Connection::getInstance($drive);
     }
 
     public function createRole(Role $role) {
@@ -32,7 +32,7 @@ class RoleRepository{
 
 
 
-        return $executeCompleted = $stmt->execute();
+        return $executionCompleted;
 
     }
 

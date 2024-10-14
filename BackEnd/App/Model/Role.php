@@ -1,5 +1,4 @@
 <?php
-
 namespace Pi\Visgo\Model;
 
 class Role {

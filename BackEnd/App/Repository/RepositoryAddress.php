@@ -10,9 +10,8 @@ class RepositoryAddress{
     private $connection;
     private $table = "address";
 
-    public function __construct()
-    {
-        $this->connection = Connection::getInstance();
+    public function __construct($drive) {
+        $this->connection = Connection::getInstance($drive);
     }
 
     public function createAddress(Address $Address) {
