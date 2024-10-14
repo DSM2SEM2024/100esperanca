@@ -1,36 +1,27 @@
 .sidebar {
-    min-width: 100px;
+    width: fit-content;
     background-color: #1cab4e;
     height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    padding: 20px;
+    position: relative;
+    padding:2rem;
     display: flex;
     flex-direction: column; /* Para que os itens fiquem em coluna */
     justify-content: center; /* Para centralizar verticalmente */
 }
 
-.logo {
-    text-align: center;
-    margin-bottom: 20px; /* Um pouco mais de espaço abaixo do logo */
+.logo{
+ /* Um pouco mais de espaço abaixo do logo */
     width: 150px;
     height: 150px;
 }
 
-.content {
-    margin-left: 250px; 
-    padding: 20px;
-    flex: 1;
-}
 
-.nav {
-    flex: 1; /* Faz a nav ocupar o espaço restante */
+
+.nav { /* Faz a nav ocupar o espaço restante */
     display: flex;
     flex-direction: column; /* Coloca os links em coluna */
     justify-content: center; /* Centraliza os links verticalmente */
 }
-
 .nav-link {
     color: azure;
     text-align: center; /* Centraliza o texto dos links */

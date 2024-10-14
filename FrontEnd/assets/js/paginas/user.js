@@ -1,55 +1,32 @@
 document.addEventListener("DOMContentLoaded", function() {
 
     const templateNavbar = `
-<section class="d-flex flex-column ">   
-    <table class="table table-bordered">
-    <thead>
-        <tr>  
-        <th scope="col" class="table-success">nome</th>
-        </tr>
-        </thead>
-        <tbody>
-        <td>    
-        <ul>
-            <li>visgo jaca</li>
-            <li>luketa da padaduseta</li>
-            </ul>
-        </td>
-        </tbody>
-    </table>
-    <table class="table table-bordered">
-    <thead>
-        <tr>  
-        <th scope="col" class="table-success">email</th>
-        </tr>
-        </thead>
 
-        <tbody>
-        <td>    
-            <ul>
-            <li>visgo jaca</li>
-            <li>luketa da padaduseta</li>
-            </ul>
-        </td>
-        </tbody>
+<aside>
+    <div class="sidebar" id="sidebar">
+    <div class="logo" id="logo-button"></div>
+       
+        <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link active" href="#" id="usuario-link">•Usuário</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">•Controle</a>
+        </li>
+        <li class="nav-item"> 
+            <a class="nav-link" href="#">•Imagens</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">•Admin</a>
+        </li>
+        </ul>
+    </div>
+</aside>
 
-    </table>
-    <table class="table table-bordered">
-    <thead>
-        <tr>  
-        <th scope="col" class="table-success">permisoes</th>
-        </tr>
-        </thead>
-        <tbody>
-        <td>    
-        <ul>
-            <li>visgo jaca</li>
-            <li>luketa da padaduseta</li>
-            </ul>
-        </td>
-        </tbody>
-    </table>
-</section>
+<section>
+
+
+<section>
     `
     let body = document.getElementsByTagName("body");
     let navbar = document.createElement("main");
