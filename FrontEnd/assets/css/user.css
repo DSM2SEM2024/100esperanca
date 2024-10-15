@@ -27,7 +27,9 @@
     text-align: center; /* Centraliza o texto dos links */
     padding: 10px 0; /* Espaçamento em torno dos links */
 }
-
+main{
+    display: flex;
+}
 @media screen ,(max-width:300px){
     
 }
