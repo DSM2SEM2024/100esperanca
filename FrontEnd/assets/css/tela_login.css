@@ -1,7 +1,4 @@
-body{
-    /* margin-top: 10px; */
-    background-color: #A5D6A7 !important;
-}
+
 .text-hover-success {
     transition: color 0.3s ease !important; /* Suaviza a transição de cor */
 }

@@ -1,6 +1,7 @@
 let tela_login_html = `
-  <main class="d-flex justify-content-center align-items-center vh-100 bg-light" style="padding-top: 100px;">
-        <section class="login-container container-sm bg-white p-4 rounded shadow-lg text-center w-25 ">
+  <main class="d-flex p-1  vh-100 align-center justify-content-center align-items-center">
+
+        <section class="container-sm login-container p-4 rounded shadow-lg ">
             <h2 class="text-success mb-4">Login</h2>
     
             <div class="input-group mb-3">
