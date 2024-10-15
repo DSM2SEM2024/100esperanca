@@ -38,7 +38,7 @@ header{
 .custom-btn-hover:hover {
     background-color: #147045 !important; 
 }
-#voltar-btn {
+/* #voltar-btn {
     position: fixed !important;
     margin: 15px;
     top: 15px;
@@ -54,4 +54,4 @@ header{
 #voltar-btn:hover {
     background-color: #147045 !important; 
     transition: background-color 0.3s ease; 
-}
+} */
