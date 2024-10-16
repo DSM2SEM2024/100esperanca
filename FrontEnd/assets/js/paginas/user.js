@@ -1,22 +1,23 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const templateNavbar = `
+    const templatemain = `
 <aside>
-<button id="hide_nav">sei la</button>
-    <div class="sidebar" id="sidebar">
+<button id="hide_btn">sei la</button>
+
+  <div class="sidebar d-flex " id="sidebar">
     <div class="logo" id="logo-button"></div>
        
         <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link active" href="#" id="usuario-link">•Usuário</a>
+            <a class="nav-link active text-white" href="#" id="usuario-link">•Usuário</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">•Controle</a>
+            <a class="nav-link text-white " href="#">•Controle</a>
         </li>
         <li class="nav-item"> 
-            <a class="nav-link" href="#">•Imagens</a>
+            <a class="nav-link text-white" href="#">•Imagens</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">•Admin</a>
+            <a class="nav-link text-white" href="#">•Admin</a>
         </li>
         </ul>
     </div>
@@ -84,18 +85,24 @@ document.addEventListener("DOMContentLoaded", function() {
     `;
   
     let body = document.getElementsByTagName("body");
-    let navbar = document.createElement("main");
-    let hide_nav = document.querySelector("hide_nav");
+    let main = document.createElement("main");
+    let navbar = document.getElementById("sidebar")
+    let hide_btn = document.getElementById("hide_btn");
+    main.innerHTML = templatemain;
+    hide_btn.addEventListener("click",function(){
+      console.log("teste");
+        // if(navbar.style.display === 'flex'){
+        //     navbar.style.display = 'none';
+        //     prompt("teste");
+        // } else {
+        //     navbar.style.display = 'flex';
+        // }
+    });
 
-    hide_nav.addEventListener('click',function(){
-        if(navbar.style.display === 'none'){
-            navbar.style.display = 'flex'
-        }
-    })
 
-
-    navbar.innerHTML = templateNavbar;
-
-    body[0].appendChild(navbar);  
+  
+    body[0].appendChild(main);  
+   
+     
 
 });

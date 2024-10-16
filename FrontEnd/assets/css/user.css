@@ -17,16 +17,6 @@
 
 
 
-.nav { /* Faz a nav ocupar o espaço restante */
-    display: flex;
-    flex-direction: column; /* Coloca os links em coluna */
-    justify-content: center; /* Centraliza os links verticalmente */
-}
-.nav-link {
-    color: azure;
-    text-align: center; /* Centraliza o texto dos links */
-    padding: 10px 0; /* Espaçamento em torno dos links */
-}
 main{
     display: flex;
 }
