@@ -1,11 +1,13 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const templatemain = `
-<aside>
-<button id="hide_btn">sei la</button>
 
-  <div class="sidebar d-flex " id="sidebar">
-    <div class="logo" id="logo-button"></div>
-       
+    const templatemain = `
+ 
+    <main>
+    
+<aside>
+
+ <button id="button" class="btn btn-sm btn-outline-dark">sei la</button>
+
+  <section class="sidebar d-flex " id="sidebar">
         <ul class="nav flex-column">
         <li class="nav-item">
             <a class="nav-link active text-white" href="#" id="usuario-link">•Usuário</a>
@@ -20,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <a class="nav-link text-white" href="#">•Admin</a>
         </li>
         </ul>
-    </div>
+  </section>
 </aside>
 
 <section class="container d-block p-2 align-middle justify-content-center">
@@ -79,30 +81,28 @@ document.addEventListener("DOMContentLoaded", function() {
           <td>usuario3@example.com</td>
         </tr>
       </tbody>
+
+     
   </table>
   </div>
 </section>
-    `;
+</main>
+    `; 
   
-    let body = document.getElementsByTagName("body");
-    let main = document.createElement("main");
-    let navbar = document.getElementById("sidebar")
-    let hide_btn = document.getElementById("hide_btn");
-    main.innerHTML = templatemain;
-    hide_btn.addEventListener("click",function(){
-      console.log("teste");
-        // if(navbar.style.display === 'flex'){
-        //     navbar.style.display = 'none';
-        //     prompt("teste");
-        // } else {
-        //     navbar.style.display = 'flex';
-        // }
-    });
-
-
   
-    body[0].appendChild(main);  
-   
-     
 
-});
+  //   function esconde_nav(){
+  //     navbar.style.display = none;
+  //     // if (navbar.style.display === 'flex') {
+  //     //     navbar.style.display = 'none';
+  //     //     prompt("teste");
+  //     // } else {
+  //     //     navbar.style.display = 'flex';
+  //     // }
+  // }
+  document.body.insertAdjacentHTML("beforeend",templatemain)  
+
+
+
+ 
+ 
