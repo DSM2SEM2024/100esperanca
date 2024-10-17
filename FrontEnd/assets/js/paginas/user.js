@@ -1,5 +1,4 @@
-
-    const templatemain = `
+ const templatemain = `
  
     <main>
     
@@ -90,16 +89,6 @@
     `; 
   
   
-
-  //   function esconde_nav(){
-  //     navbar.style.display = none;
-  //     // if (navbar.style.display === 'flex') {
-  //     //     navbar.style.display = 'none';
-  //     //     prompt("teste");
-  //     // } else {
-  //     //     navbar.style.display = 'flex';
-  //     // }
-  // }
   document.body.insertAdjacentHTML("beforeend",templatemain)  
 
 
