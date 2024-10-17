@@ -1,3 +1,10 @@
+
+
+body {
+    display: flex;
+    margin: 0; /* Remove margens padrão do body */
+}
+
 .sidebar {
     width: fit-content;
     background-color: #1cab4e;
@@ -5,8 +12,13 @@
     position: relative;
     padding:2rem;
     display: flex;
-    flex-direction: column; /* Para que os itens fiquem em coluna */
-    justify-content: center; /* Para centralizar verticalmente */
+    flex-direction: column;
+    justify-content: flex-start; /* Alinha os itens no topo */
+    transition: width 0.3s; /* Transição suave para largura */
+}
+
+.sidebar.collapsed {
+    width: 120px; /* Largura quando ocultada */
 }
 
 .logo{
@@ -17,9 +29,14 @@
 
 
 
+
 main{
     display: flex;
 }
 @media screen ,(max-width:300px){
     
+}
+
+.table {
+    margin: auto; /* Centraliza a tabela */
 }
