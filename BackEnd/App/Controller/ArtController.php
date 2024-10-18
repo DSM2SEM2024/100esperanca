@@ -16,7 +16,6 @@ class ArtController {
     }
 
     public function create($data) {
-        // Validação dos dados de entrada usando Validator
         $isValid = Validator::validationArt($data);
 
         if (!$isValid) {
