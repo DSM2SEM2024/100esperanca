@@ -14,7 +14,7 @@ class ArtRepository {
         $this->connection = Connection::getInstance($drive);
     }
 
-    public function createrArt(Art $art){
+    public function createArt(Art $art){
         $name = $art->getName();
         $description = $art->getDescription();
         $characteristic = $art->getCharacteristic();
@@ -24,9 +24,9 @@ class ArtRepository {
 
         $stmt = $this->connection->prepare($query);
         
-        $stmt->bindParam(":name, $name");
-        $stmt->bindParam(":description, $description");
-        $stmt->bindParam(":characteristic, $characteristic");
+        $stmt->bindParam(":name", $name);
+        $stmt->bindParam(":description", $description);
+        $stmt->bindParam(":characteristic", $characteristic);
 
         $executionCompleted = $stmt->execute();
 
@@ -44,10 +44,10 @@ class ArtRepository {
 
         $stmt = $this->connection->prepare($query);
 
-        $stmt->bindParam(":name, $name");
-        $stmt->bindParam(":description, $description");
-        $stmt->bindParam(":characteristic, $characteristic");
-        $stmt->bindParam(":art_id, $id");
+        $stmt->bindParam(":name", $name);
+        $stmt->bindParam(":description", $description);
+        $stmt->bindParam(":characteristic", $characteristic);
+        $stmt->bindParam(":art_id", $id);
 
         $executionCompleted = $stmt->execute();
 
