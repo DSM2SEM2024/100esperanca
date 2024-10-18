@@ -1,9 +1,10 @@
+<?php
 namespace Pi\Visgo\Controller;
 
 use Pi\Visgo\Common\ProblemAndFiledError;
 use Pi\Visgo\Common\ResponseAssemblerError;
 use Pi\Visgo\Common\ResponseAssemblerSuccess;
-use Pi\Visgo\Common\Validator;
+use Pi\Visgo\Common\ValidatorArt;
 use Pi\Visgo\Model\Art;
 use Pi\Visgo\Repository\ArtRepository;
 
@@ -16,7 +17,7 @@ class ArtController {
     }
 
     public function create($data) {
-        $isValid = Validator::validationArt($data);
+        $isValid = ValidatorArt::validationArt($data);
 
         if (!$isValid) {
             ResponseAssemblerError::response(400, ProblemAndFiledError::getFieldsError());
@@ -35,7 +36,7 @@ class ArtController {
     }
 
     public function update($id, $data) {
-        $isValid = Validator::validationArt($data);
+        $isValid = ValidatorArt::validationArt($data);
 
         if (!$isValid) {
             ResponseAssemblerError::response(400, ProblemAndFiledError::getFieldsError());
