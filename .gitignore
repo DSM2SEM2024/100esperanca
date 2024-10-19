@@ -2,6 +2,8 @@ composer.phar
 BackEnd/App/vendor
 .vscode
 /FrontEnd/node_modules
+/FrontEnd/.parcel-cache
+/FrontEnd/dev
 
 
 # Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
