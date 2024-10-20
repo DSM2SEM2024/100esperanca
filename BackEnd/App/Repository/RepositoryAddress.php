@@ -2,7 +2,6 @@
 namespace Pi\Visgo\Repository;
 
 use Pi\Visgo\Model\Address;
-use Pi\Visgo\Database\Connection;
 use PDO;
 
 class RepositoryAddress{
@@ -10,19 +9,19 @@ class RepositoryAddress{
     private $connection;
     private $table = "address";
 
-    public function __construct($drive) {
-        $this->connection = Connection::getInstance($drive);
+    public function __construct(PDO $connection) {
+        $this->connection = $connection;
     }
 
-    public function createAddress(Address $Address) {
-        $state = $Address->getState();
-        $city = $Address->getCity();
-        $neighborhood = $Address->getNeighborhood();
-        $number = $Address->getNumber();
-        $street = $Address->getStreet();
-        $cep = $Address->getCep();
+    public function createAddress(Address $address) {
+        $state = $address->getState();
+        $city = $address->getCity();
+        $neighborhood = $address->getNeighborhood();
+        $number = $address->getNumber();
+        $street = $address->getStreet();
+        $cep = $address->getCep();
 
-        $query = "INSERT INTO $this->table (state, city, neighborhood, number, street, cep) VALUES (:id, :state, :city, :neighborhood, :number, :street, :cep)";
+        $query = "INSERT INTO $this->table (state, city, neighborhood, number, street, cep) VALUES (:state, :city, :neighborhood, :number, :street, :cep)";
     
         $stmt = $this->connection->prepare($query);
 
@@ -41,13 +40,13 @@ class RepositoryAddress{
         return $executionCompleted;
     }
 
-    public function updateAddress($id, Address $Address) {
-        $state = $Address->getState();
-        $city = $Address->getCity();
-        $neighborhood = $Address->getNeighborhood();
-        $number = $Address->getNumber();
-        $street = $Address->getStreet();
-        $cep = $Address->getCep();
+    public function updateAddress($id, Address $address) {
+        $state = $address->getState();
+        $city = $address->getCity();
+        $neighborhood = $address->getNeighborhood();
+        $number = $address->getNumber();
+        $street = $address->getStreet();
+        $cep = $address->getCep();
 
         $query = "UPDATE $this->table SET state = :state, city = :city, neighborhood = :neighborhood; number = :number, street = :street, cep = :cep WHERE Address.id = :id";
 

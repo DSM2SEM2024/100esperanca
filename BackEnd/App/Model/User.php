@@ -1,5 +1,5 @@
 <?php
-namespace App\Model;
+namespace Pi\Visgo\Model;
 
 use Pi\Visgo\Model\Address;
 use Pi\Visgo\Model\Role;
@@ -10,7 +10,7 @@ class User {
     private $name;
     private $email;
     private $password;
-    private Role $role;
+    private $role;
     private Address $address;
 
 
@@ -97,19 +97,19 @@ class User {
     /**
      * Get the value of role
      *
-     * @return Role
+     * @return string
      */
-    public function getRole(): Role {
+    public function getRole(): string {
         return $this->role;
     }
 
     /**
      * Set the value of role
      *
-     * @param Role $role
+     * @param string $role
      * @return self
      */
-    public function setRole(Role $role): self {
+    public function setRole(string $role): self {
         $this->role = $role;
         return $this;
     }

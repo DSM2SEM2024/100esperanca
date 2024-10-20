@@ -11,16 +11,6 @@ class Address{
     private $street;
     private $cep;
 
-    public function __construct($id, $state, $city, $neighborhood, $number, $street, $cep){
-        $this->id = $id;
-        $this->state = $state;
-        $this->city = $city;
-        $this->neighborhood = $neighborhood;
-        $this->number = $number;
-        $this->street = $street;
-        $this->cep = $cep;
-    }
-
     public function getId() {
         return $this->id;
     }
