@@ -1,0 +1,25 @@
+{
+    "name": "pi/visgo",
+    "description": "Projeto Integrador de Web II, segundo semestre, FATEC - Itaquera.",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Pi\\Visgo\\": "App/"
+        }
+    },
+    "authors": [
+        {
+            "name": "1Felipedev",
+            "email": "01felipeestudos@gmail.com"
+        },
+        {
+            "name": "Lucas Ferreira Nogueira",
+            "email": "lucas.ferreiranogueira@outlook.com"
+        },
+        {
+            "name": "Ygor Lopes",
+            "email": "algumacoisa@ygor.com"
+        }
+    ],
+    "require": {}
+}
