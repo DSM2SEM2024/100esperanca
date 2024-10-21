@@ -5,7 +5,7 @@ use Pi\Visgo\Model\Address;
 use Pi\Visgo\Database\Connection;
 use PDO;
 
-class RepositoryAddress{
+class RepositoryAddressRepository{
     
     private $connection;
     private $table = "address";
@@ -69,7 +69,7 @@ class RepositoryAddress{
     }
 
     public function searchByIdAddress ($id) {
-        $query = "SELECT * FROM $this->table WHERE produto.id = :id";
+        $query = "SELECT * FROM $this->table WHERE Address.id = :id";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -90,7 +90,7 @@ class RepositoryAddress{
 
         //Lembrete para mim próprio: dúvida neste Address que mudou de cor pra mim, no projeto modelo ele estava normal.
         
-        $query = "DELETE FROM Address WHERE Address.id = :id";
+        $query = "DELETE FROM address WHERE Address.id = :id";
         $stmt = $this->connection->prepare($query);
 
         $stmt->bindParam(":id", $id);

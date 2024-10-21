@@ -56,7 +56,7 @@ class RoleRepository{
 
     }
 
-
+    
     public function searchByRoleId($id){
         $query = "SELECT * FROM $this->table WHERE role.id = :id";
         $stmt = $this->connection->prepare($query);
