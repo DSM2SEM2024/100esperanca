@@ -1,7 +1,7 @@
 <?php 
 namespace Pi\Visgo\Repository;
 
-use Pi\Visgo\Model\Address;
+use Pi\Visgo\Model\address;
 use PDO;
 
 class RepositoryAddress{
@@ -48,7 +48,7 @@ class RepositoryAddress{
         $street = $address->getStreet();
         $cep = $address->getCep();
 
-        $query = "UPDATE $this->table SET state = :state, city = :city, neighborhood = :neighborhood; number = :number, street = :street, cep = :cep WHERE Address.id = :id";
+        $query = "UPDATE $this->table SET state = :state, city = :city, neighborhood = :neighborhood; number = :number, street = :street, cep = :cep WHERE address.id = :id";
 
         $stmt = $this->connection->prepare($query);
 
@@ -67,13 +67,13 @@ class RepositoryAddress{
         return $executionCompleted;
     }
 
-    public function searchByIdAddress ($id) {
-        $query = "SELECT * FROM $this->table WHERE produto.id = :id";
+    public function getAddressById ($id) {
+        $query = "SELECT * FROM $this->table WHERE $this->table.id = :id";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
     public function getAllAddress() {
@@ -84,12 +84,10 @@ class RepositoryAddress{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function deleteByIdProduto($id) {
-        $arraySearch = $this->searchByIdAddress($id);
-
-        //Lembrete para mim próprio: dúvida neste Address que mudou de cor pra mim, no projeto modelo ele estava normal.
+    public function deleteByIdAddress($id) {
+        //Lembrete para mim próprio: dúvida neste address que mudou de cor pra mim, no projeto modelo ele estava normal.
         
-        $query = "DELETE FROM Address WHERE Address.id = :id";
+        $query = "DELETE FROM $this->table WHERE $this->table.id = :id";
         $stmt = $this->connection->prepare($query);
 
         $stmt->bindParam(":id", $id);

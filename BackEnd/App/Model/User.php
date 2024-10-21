@@ -1,10 +1,10 @@
 <?php
 namespace Pi\Visgo\Model;
 
+use JsonSerializable;
 use Pi\Visgo\Model\Address;
-use Pi\Visgo\Model\Role;
 
-class User {
+class User implements JsonSerializable {
 
     private $id;
     private $name;
@@ -90,7 +90,8 @@ class User {
      * @return self
      */
     public function setPassword(string $password): self {
-        $this->password = $password;
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        $this->password = $hashedPassword;
         return $this;
     }
 
@@ -132,6 +133,16 @@ class User {
     public function setAddress(Address $address): self {
         $this->address = $address;
         return $this;
+    }
+
+    public function jsonSerialize(): mixed {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'email' => $this->getEmail(),
+            'senha' => $this->getPassword(),
+            'address' => $this->getAddress()
+        ];
     }
 
 }
