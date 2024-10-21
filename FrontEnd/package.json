@@ -1,0 +1,33 @@
+{
+  "name": "pi-visgo",
+  "version": "1.0.0",
+  "description": "Aplicação frontend da loja visgo de jaca, projeto integrador FATEC 2º Semestre 2024",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel serve index.html --dist-dir dev --open --port 3000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DSM2SEM2024/100esperanca.git"
+  },
+  "keywords": [
+    "loja",
+    "vitrine",
+    "e-commerce",
+    "digital"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DSM2SEM2024/100esperanca/issues"
+  },
+  "homepage": "https://github.com/DSM2SEM2024/100esperanca#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3"
+  },
+  "devDependencies": {
+    "parcel": "^2.12.0"
+  }
+}
