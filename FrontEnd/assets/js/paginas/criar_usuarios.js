@@ -1,7 +1,9 @@
-let criar_user_html = `
+const criar_user_html = `
        <div class="container-sm position-relative">
         
-        <ul class="list-group ">
+        
+            </li>
+<ul class="list-group ">
             <li class="list-group-item row">
                 <label for="nome">Nome</label>
             <input type="text" placeholder="Nome">
@@ -15,8 +17,6 @@ let criar_user_html = `
             <li class="list-group-item row">
                 <label for="senha">Senha</label>
                 <input type="password" name="senha" id="senha" placeholder="Senha">
-            </li>
-
             <li class="list-group-item row">
                 <label for="confima_senha">Confirmar Senha</label>
             <input type="password" name="confima_senha" id="confima_senha" placeholder="Confirmar Senha">
@@ -79,4 +79,3 @@ let criar_user_html = `
 let criar_user_element = document.createElement("main");
 criar_user_element.innerHTML = criar_user_html;
 document.body.appendChild(criar_user_element)
-

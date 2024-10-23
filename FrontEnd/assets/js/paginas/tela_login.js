@@ -1,4 +1,4 @@
-let tela_login_html = `
+const tela_login_html = `
   <main class="d-flex p-1  vh-100 align-center justify-content-center align-items-center">
 
         <section class="container-sm login-container p-4 rounded shadow-lg ">
@@ -27,7 +27,7 @@ let tela_login_html = `
         </section>
     </main>
 `
-let tela_login_element = document.createElement('main')
+const tela_login_element = document.createElement('main')
 document.body.insertAdjacentHTML('beforeend', tela_login_html);
 
 const loginContainer = document.querySelector('.login-container');
