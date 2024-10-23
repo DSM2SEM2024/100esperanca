@@ -1,12 +1,11 @@
  const templatemain = `
- 
-    <main>
-    
-<aside>
+    <main class="d-flex h-100">
+<aside class="h-100">
 
- <button id="button" class="btn btn-sm btn-outline-dark">sei la</button>
+ <button id="button" class="btn btn-sm btn-outline-dark w-100">butao esconde sidebar</button>
 
-  <section class="sidebar d-flex " id="sidebar">
+  <section class="sidebar p-4 vh-100" id="sidebar">
+  
         <ul class="nav flex-column">
         <li class="nav-item">
             <a class="nav-link active text-white" href="#" id="usuario-link">•Usuário</a>
