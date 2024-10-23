@@ -4,7 +4,7 @@ namespace Pi\Visgo\Repository;
 use Pi\Visgo\Model\address;
 use PDO;
 
-class RepositoryAddress{
+class AddressRepository{
     
     private $connection;
     private $table = "address";

@@ -140,7 +140,6 @@ class User implements JsonSerializable {
             'id' => $this->getId(),
             'name' => $this->getName(),
             'email' => $this->getEmail(),
-            'senha' => $this->getPassword(),
             'address' => $this->getAddress()
         ];
     }

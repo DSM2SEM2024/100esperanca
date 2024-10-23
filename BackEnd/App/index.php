@@ -2,13 +2,15 @@
 namespace Pi\Visgo;
 require_once "../vendor/autoload.php";
 
-use Pi\Visgo\Model\Address;
 use Pi\Visgo\Model\User;
+use Pi\Visgo\Model\Address;
+use Pi\Visgo\Controller\UserController;
 use Pi\Visgo\Repository\UserRepository;
 
 header('Content-Type: application/json');
 
 $userRepository = new UserRepository('sqlite');
+$userController = new UserController($userRepository);
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
@@ -96,15 +98,14 @@ switch ($method) {
     case 'GET':
 
         if(preg_match('/\/user\/(\d+)/', $uri, $match)){
+
             $idUser = $match[1];
+            $userController->getUserById($idUser);
 
-            $user = $userRepository->getUserById($idUser);
-
-            echo json_encode($user);
         }else if($uri === '/user') {
-            $result = $userRepository->getAllUsers();
+            
+            $userController->getAll();
 
-            echo json_encode($result);
         }
     break;
 
@@ -112,7 +113,7 @@ switch ($method) {
 
         if(preg_match('/\/user\/(\d+)/', $uri, $match)){
             $idUser = $match[1];
-            $user = $userRepository->deleteUserById($idUser);
+            $user = $userController->deleteUser($idUser);
         }
     
     default:

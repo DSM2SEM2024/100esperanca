@@ -8,18 +8,18 @@ use Pi\Visgo\Model\User;
 use Pi\Visgo\Model\Address;
 use Pi\Visgo\Database\Connection;
 use Pi\Visgo\Repository\RoleRepository;
-use Pi\Visgo\Repository\RepositoryAddress;
+use Pi\Visgo\Repository\AddressRepository;
 
 class UserRepository {
     
     private $connection;
-    private $addressRepository;
-    private $roleRepository;
+    private AddressRepository $addressRepository;
+    private RoleRepository $roleRepository;
     private $table = "user";
 
     public function __construct($drive) {
         $this->connection = Connection::getInstance($drive);
-        $this->addressRepository = new RepositoryAddress($this->connection);
+        $this->addressRepository = new AddressRepository($this->connection);
         $this->roleRepository = new RoleRepository($this->connection);
     }
 
@@ -175,10 +175,25 @@ class UserRepository {
 
     public function deleteUserById($userId) {
         $this->connection->exec('PRAGMA foreign_keys = ON;');
-        $query = "DELETE FROM $this->table WHERE $this->table.id = :id";
-        $stmt = $this->connection->prepare($query);
-        $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
-        $result = $stmt->execute();
+
+        try {
+            $userToBeDeleted = $this->getUserById($userId);
+
+            $resultDeleteAddress = $this->addressRepository->deleteByIdAddress($userToBeDeleted->getAddress()->getId());
+
+            if (!$resultDeleteAddress) {
+                throw new Exception("Erro ao deletar Address");
+            }
+    
+            $query = "DELETE FROM $this->table WHERE $this->table.id = :id";
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
+            $result = $stmt->execute();
+
+        } catch (PDOException $e) {
+            $this->connection->rollBack();
+            throw new Exception($e->getMessage(), $e->getCode(), $e);
+        }
 
         return $result;
     }
@@ -199,11 +214,11 @@ class UserRepository {
         $userModel->setId($userData->id);
         $userModel->setName($userData->name);
         $userModel->setEmail($userData->email);
-        $userModel->setPassword($userData->password);
 
         $addressData = $this->addressRepository->getAddressById($userData->id_address);
 
         $addressModel = new Address();
+        $addressModel->setId($addressData->id);
         $addressModel->setState($addressData->state);
         $addressModel->setCity($addressData->city);
         $addressModel->setNeighborhood($addressData->neighborhood);
