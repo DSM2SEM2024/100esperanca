@@ -1,4 +1,4 @@
-const tela_login_html = `
+export const tela_login_html = `
   <main class="d-flex p-1  vh-100 align-center justify-content-center align-items-center">
 
         <section class="container-sm login-container p-4 rounded shadow-lg ">

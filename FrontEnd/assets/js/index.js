@@ -1,3 +1,2 @@
-import { footerHtml } from "./footer";
-import { headerHtml } from "./header";
-footerHtml
+import { headerHtml } from "./components/header";
+import { footerHtml } from "./components/footer";
