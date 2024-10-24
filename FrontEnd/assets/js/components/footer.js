@@ -1,5 +1,5 @@
 export const footerHtml = `
-
+<footer>
     <nav class="navbar">
         <div class="container-fluid">
           <span class="navbar-text">
@@ -7,9 +7,10 @@ export const footerHtml = `
           </span>
         </div>
       </nav>
-
+</footer>
 `;
 
 const footerElement = document.createElement('footer');
 footerElement.innerHTML = footerHtml;
-document.body.insertAdjacentHTML('beforeend',footerElement);
+document.body.insertAdjacentHTML('beforeend',footerHtml);
+
