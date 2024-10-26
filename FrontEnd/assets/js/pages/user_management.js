@@ -1,4 +1,4 @@
- const templatemain = `
+ export const telaGerenciamento = `
  
     <main>
     
@@ -89,7 +89,7 @@
     `; 
   
   
-  document.body.insertAdjacentHTML("beforeend",templatemain)  
+  document.body.insertAdjacentHTML("beforeend",telaGerenciamento)  
 
 
 
