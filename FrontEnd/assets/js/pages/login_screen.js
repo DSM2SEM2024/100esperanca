@@ -1,3 +1,6 @@
+import { getOrCreateMainElement } from "../components/main";
+
+
 export function telaLoginHtml() {
     const telaLogin = `
         <main id="main" class="d-flex p-1 vh-100 align-center justify-content-center align-items-center">
@@ -23,7 +26,9 @@ export function telaLoginHtml() {
             </section>
         </main>
     `;
-    document.body.insertAdjacentHTML('beforeend', telaLogin);
+    const main = getOrCreateMainElement();
+    main.innerHTML = telaLogin;
+    // document.body.insertAdjacentHTML('beforeend', telaLogin);
 }
 
 // const tela_login_element = document.createElement('main')

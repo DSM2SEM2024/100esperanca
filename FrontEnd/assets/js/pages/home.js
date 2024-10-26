@@ -11,7 +11,6 @@ export const homeHtml = `
     </nav>
 </div>
 `
-
 const loginElement = document.createElement('nav');
 loginElement.innerHTML = homeHtml;
 document.body.insertAdjacentElement('beforeend',loginElement);

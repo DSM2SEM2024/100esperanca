@@ -1,3 +1,5 @@
+import { getOrCreateMainElement } from "../components/main";
+
 export function criarUsuarioHtml (){
     const criarUsuario = `
 <div class="container-sm position-relative">
@@ -70,6 +72,8 @@ export function criarUsuarioHtml (){
 </section>
 </div>
 `;
-document.body.insertAdjacentHTML('beforebegin', criarUsuario);
+const main = getOrCreateMainElement();
+main.innerHTML = criarUsuario;
+// document.body.insertAdjacentHTML('beforebegin', criarUsuario);
 }
 

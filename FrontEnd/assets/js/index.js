@@ -11,6 +11,8 @@ function renderContentBasedOnHash() {
 if (location.hash === '#login') {
     clearBody();
     telaLoginHtml();
+ 
+    
 } else if(location.hash === '#criarUsuario') {
     clearBody();
     criarUsuarioHtml();
@@ -21,7 +23,8 @@ if (location.hash === '#login') {
 }else if(location.hash === '/'){
     clearBody();
 }
-}
+};
+
 
 renderContentBasedOnHash();
-window.addEventListener('hashchange', renderContentBasedOnHash);
+window.addEventListener('hashchange',renderContentBasedOnHash);

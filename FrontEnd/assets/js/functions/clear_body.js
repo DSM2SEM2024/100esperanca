@@ -1,7 +1,10 @@
+import { getOrCreateMainElement } from "../components/main";
+
+
 export const clearBody = () => {
     const elementToRemove = document.getElementById('main');
     
-    if (elementToRemove) {
-    elementToRemove.remove();
+    if (getOrCreateMainElement) {
+    elementToRemove.remove;
     }
 }

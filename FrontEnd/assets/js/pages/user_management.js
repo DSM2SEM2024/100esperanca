@@ -1,4 +1,6 @@
- export function gerenciarUsuarioHtml(){
+import { getOrCreateMainElement } from "../components/main";
+const main = getOrCreateMainElement()
+export function gerenciarUsuarioHtml(){
       const gerenciarUsuario = `
       <main>
       <aside>
@@ -81,5 +83,6 @@
         </section>
         </main>
 `; 
-  document.body.insertAdjacentHTML("afterbegin",gerenciarUsuario);
+  main.innerHTML = gerenciarUsuario
+  // document.body.insertAdjacentHTML("afterbegin",gerenciarUsuario);
  }
