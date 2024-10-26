@@ -2,8 +2,8 @@ import { headerHtml } from "./components/header";
 import { home } from "./pages/home";
 import { clearBody } from "./functions/clear_body";
 import { telaLoginHtml } from "./pages/login_screen";
-import { criarUsuario } from "./pages/create_user";
-import { telaGerenciamento } from "./pages/user_management";
+import { criarUsuarioHtml } from "./pages/create_user";
+import { gerenciarUsuarioHtml } from "./pages/user_management";
 import { footerHtml } from "./components/footer";
 
 
@@ -13,9 +13,11 @@ if (location.hash === '#login') {
     telaLoginHtml();
 } else if(location.hash === '#criarUsuario') {
     clearBody();
-    criarUsuario();
-}else if(location.hash === '#user_management'){
+    criarUsuarioHtml();
+}else if(location.hash === '#gerenciarUsuario'){
     clearBody();
+    gerenciarUsuarioHtml();
+
 }else if(location.hash === '/'){
     clearBody();
 }

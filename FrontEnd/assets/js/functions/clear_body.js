@@ -1,5 +1,5 @@
 export const clearBody = () => {
-    const elementToRemove = document.getElementById('body');
+    const elementToRemove = document.getElementById('main');
     
     if (elementToRemove) {
     elementToRemove.remove();

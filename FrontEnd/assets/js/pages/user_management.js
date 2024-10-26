@@ -1,96 +1,85 @@
- export const telaGerenciamento = `
- 
-    <main>
-    
-<aside>
-
-
-  <section class="sidebar d-flex " id="sidebar">
+ export function gerenciarUsuarioHtml(){
+      const gerenciarUsuario = `
+      <main>
+      <aside>
+  
+        <section class="sidebar d-flex " id="sidebar">
         <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link active text-white" href="#" id="usuario-link">•Usuário</a>
+        <a class="nav-link active text-white" href="#" id="usuario-link">•Usuário</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white " href="#">•Controle</a>
+        <a class="nav-link text-white " href="#">•Controle</a>
         </li>
         <li class="nav-item"> 
-            <a class="nav-link text-white" href="#">•Imagens</a>
+        <a class="nav-link text-white" href="#">•Imagens</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="#">•Admin</a>
+        <a class="nav-link text-white" href="#">•Admin</a>
         </li>
         </ul>
-  </section>
-</aside>
-
-<section class="container d-block p-2 align-middle justify-content-center">
-  <div id="tabela-container" class=" text-center">
-    <h2>Consulta de Usuários</h2>
-    <table class="table table-bordered table-responsive">
-      <thead>
+        </section>
+        </aside>
+        
+        <section class="container d-block p-2 align-middle justify-content-center">
+        <div id="tabela-container" class=" text-center">
+        <h2>Consulta de Usuários</h2>
+        <table class="table table-bordered table-responsive">
+        <thead>
         <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Email</th>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
         </tr>
-      </thead>
-      <tbody>
- 
+        </thead>
+        <tbody>
         <tr>
-          <td>1</td>
-          <td>Usuário 1</td>
-          <td>usuario1@example.com</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Usuário 2</td>
-          <td>usuario2@example.com</td>
+        <td>1</td>
+        <td>Usuário 1</td>
+        <td>usuario1@example.com</td>
         </tr>
         <tr>
-          <td>3</td>
-          <td>Usuário 3</td>
-          <td>usuario3@example.com</td>
-        </tr>
-      </tbody>
-  </table>
-<table class="table table-bordered table-responsive">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Email</th>
-        </tr>
-      </thead>
-      <tbody>
- 
-        <tr>
-          <td>1</td>
-          <td>Usuário 1</td>
-          <td>usuario1@example.com</td>
+        <td>2</td>
+        <td>Usuário 2</td>
+        <td>usuario2@example.com</td>
         </tr>
         <tr>
-          <td>2</td>
-          <td>Usuário 2</td>
-          <td>usuario2@example.com</td>
+        <td>3</td>
+        <td>Usuário 3</td>
+        <td>usuario3@example.com</td>
+        </tr>
+        </tbody>
+        </table>
+        <table class="table table-bordered table-responsive">
+        <thead>
+        <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>1</td>
+        <td>Usuário 1</td>
+        <td>usuario1@example.com</td>
         </tr>
         <tr>
-          <td>3</td>
-          <td>Usuário 3</td>
-          <td>usuario3@example.com</td>
+        <td>2</td>
+        <td>Usuário 2</td>
+        <td>usuario2@example.com</td>
         </tr>
-      </tbody>
-
-     
-  </table>
-  </div>
-</section>
-</main>
-    `; 
-  
-  
-  document.body.insertAdjacentHTML("beforeend",telaGerenciamento)  
-
-
-
- 
- 
+        <tr>
+        <td>3</td>
+        <td>Usuário 3</td>
+        <td>usuario3@example.com</td>
+        </tr>
+        </tbody>
+        
+        </table>
+        </div>
+        </section>
+        </main>
+`; 
+  document.body.insertAdjacentHTML("afterbegin",gerenciarUsuario);
+ }

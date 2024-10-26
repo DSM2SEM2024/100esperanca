@@ -7,8 +7,7 @@
     "start": "parcel serve index.html --dist-dir dev --open --port 3000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  
-    "repository": {
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/DSM2SEM2024/100esperanca.git"
   },

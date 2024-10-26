@@ -15,5 +15,4 @@ document.body.insertAdjacentElement('afterbegin', headerElement);
     voltarButton.addEventListener('click', () => {
          window.history.go(-1);
     });
-    // Adicionando o botão ao body ou a um contêiner específico
     document.body.appendChild(headerElement);
