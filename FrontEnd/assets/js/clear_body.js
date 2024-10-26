@@ -1,5 +1,5 @@
-export const cleanBody = () => {
-    const elementToRemove = document.getElementById('main');
+export const clearBody = () => {
+     const elementToRemove = document.getElementById('body');
 
     if (elementToRemove) {
         elementToRemove.remove();

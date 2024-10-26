@@ -1,27 +1,24 @@
 import { headerHtml } from "./components/header";
-import { tela_login_html } from "./pages/login_screen";
-import { create_user } from "./pages/create_user"
+import { home } from "./pages/home";
+import { clearBody } from "./clear_body";
+import { telaLoginHtml } from "./pages/login_screen";
 import { footerHtml } from "./components/footer";
+import { criar_user_html } from "./pages/create_user";
 
-console.log(location.hash);
+
 
 function renderContentBasedOnHash() {
-    if(location.hash != '#login'){
-        console.log("teste")
-    }else if(location.hash == "#login_screen"){
-        console.log("funciona");
-        
-    }
-    // if (location.hash === '#loginHtml') {
-    //     cleanBody();
-    //     loginHtml();
-
-    // } else if (location.hash === '#create_user') {
-        
-    //     rendercreate_user();
-    // }
+    if (location.hash === '#login') {
+        clearBody();
+        telaLoginHtml();
+     } else if(location.hash === '#criarUsuario') {
+        clearBody();
+        criar_user_html();
+     }else if(location.hash === '#user_management'){
+     }else if(location.hash === '/'){
+        clearBody();
+     }
 }
 
 renderContentBasedOnHash();
-
 window.addEventListener('hashchange', renderContentBasedOnHash);

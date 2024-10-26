@@ -1,3 +1,4 @@
+
 export const footerHtml = `
 <footer>
     <nav class="navbar">

@@ -1,4 +1,4 @@
-const criar_user_html = `
+export const criar_user_html = `
        <div class="container-sm position-relative">
         
         
@@ -76,6 +76,6 @@ const criar_user_html = `
 
 
 
-let criar_user_element = document.createElement("main");
+const criar_user_element = document.createElement("main");
 criar_user_element.innerHTML = criar_user_html;
 document.body.appendChild(criar_user_element)

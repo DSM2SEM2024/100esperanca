@@ -1,4 +1,4 @@
-export const loginHtml = `
+export const tela_login_html = `
   <main class="d-flex p-1  vh-100 align-center justify-content-center align-items-center">
 
         <section class="container-sm login-container p-4 rounded shadow-lg ">
@@ -28,11 +28,10 @@ export const loginHtml = `
     </main>
 `
 const tela_login_element = document.createElement('main')
-document.body.insertAdjacentHTML('beforeend', loginHtml);
+document.body.insertAdjacentHTML('beforeend', tela_login_html);
 
 const loginContainer = document.querySelector('.login-container');
 if (loginContainer) {
     loginContainer.style.setProperty('background-color', '#5ABC49', 'important');
-    loginContainer.style.setProperty('width', '450px');
 }
 

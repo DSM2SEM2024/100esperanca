@@ -1,3 +1,4 @@
+
 export const headerHtml = `
         <section  class=" w-100 p-2 text-center  d-flex justify-content-between">
             <img src="assets/imgs/visgo.jpg" alt="logo" class="img-fluid">
@@ -16,4 +17,3 @@ document.body.insertAdjacentElement('afterbegin', headerElement);
     });
     // Adicionando o botão ao body ou a um contêiner específico
     document.body.appendChild(headerElement);
-
