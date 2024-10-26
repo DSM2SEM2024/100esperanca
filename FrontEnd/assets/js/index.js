@@ -20,8 +20,6 @@ if (location.hash === '#login') {
     clearBody();
     gerenciarUsuarioHtml();
 
-}else if(location.hash === '/'){
-    clearBody();
 }
 };
 
