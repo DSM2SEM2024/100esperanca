@@ -29,4 +29,5 @@ document.body.insertAdjacentHTML('beforeend', telaLoginHtml);
 const loginContainer = document.querySelector('.login-container');
 if (loginContainer) {
 loginContainer.style.setProperty('background-color', '#5ABC49', 'important');
+loginContainer.style.setProperty('width', '350px', 'important');
 }

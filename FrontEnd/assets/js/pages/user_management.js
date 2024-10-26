@@ -4,7 +4,6 @@
     
 <aside>
 
- <button id="button" class="btn btn-sm btn-outline-dark">sei la</button>
 
   <section class="sidebar d-flex " id="sidebar">
         <ul class="nav flex-column">

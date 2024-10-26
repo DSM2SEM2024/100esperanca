@@ -1,8 +1,10 @@
-import { headerHtml } from "./components/header";import { home } from "./pages/home";
+import { headerHtml } from "./components/header";
+import { home } from "./pages/home";
 import { clearBody } from "./functions/clear_body";
 import { telaLoginHtml } from "./pages/login_screen";
-import { footerHtml } from "./components/footer";
 import { criarUsuario } from "./pages/create_user";
+import { telaGerenciamento } from "./pages/user_management";
+import { footerHtml } from "./components/footer";
 
 
 function renderContentBasedOnHash() {
