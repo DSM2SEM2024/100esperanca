@@ -8,16 +8,16 @@ export function gerenciarUsuarioHtml(){
         <section class="sidebar d-flex " id="sidebar">
         <ul class="nav flex-column">
         <li class="nav-item">
-        <a class="nav-link active text-white" href="#" id="usuario-link">•Usuário</a>
+        <a class="nav-link active text-black" href="#" id="usuario-link">•Usuário</a>
         </li>
         <li class="nav-item">
-        <a class="nav-link text-white " href="#">•Controle</a>
+        <a class="nav-link text-black" style="text-hover-success" " href="#">•Controle</a>
         </li>
         <li class="nav-item"> 
-        <a class="nav-link text-white" href="#">•Imagens</a>
+        <a class="nav-link text-black" style="text-hover-success"" href="#">•Imagens</a>
         </li>
         <li class="nav-item">
-        <a class="nav-link text-white" href="#">•Admin</a>
+        <a class="nav-link text-black" style="text-hover-success"" href="#">•Admin</a>
         </li>
         </ul>
         </section>
@@ -52,31 +52,6 @@ export function gerenciarUsuarioHtml(){
         </tr>
         </tbody>
         </table>
-        <table class="table table-bordered table-responsive">
-        <thead>
-        <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Email</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-        <td>1</td>
-        <td>Usuário 1</td>
-        <td>usuario1@example.com</td>
-        </tr>
-        <tr>
-        <td>2</td>
-        <td>Usuário 2</td>
-        <td>usuario2@example.com</td>
-        </tr>
-        <tr>
-        <td>3</td>
-        <td>Usuário 3</td>
-        <td>usuario3@example.com</td>
-        </tr>
-        </tbody>
         
         </table>
         </div>
@@ -84,5 +59,4 @@ export function gerenciarUsuarioHtml(){
         </main>
 `; 
   main.innerHTML = gerenciarUsuario
-  // document.body.insertAdjacentHTML("afterbegin",gerenciarUsuario);
  }

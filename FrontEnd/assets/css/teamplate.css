@@ -16,13 +16,12 @@ div#header ul{
     gap: 2rem;
     display: flex;
     gap: 2rem;;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
     text-wrap: pretty;
 }header img{
     width: 10rem;
     border-radius: 10rem;
-    /* TEM Q EDITAR A IMAGEN DA LOGO */
 }
 header{
     background-color: #5ABC49;

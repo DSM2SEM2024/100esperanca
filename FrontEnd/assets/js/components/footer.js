@@ -1,5 +1,5 @@
 export const footerHtml = `
-<footer>
+<footer style="border: solid 1px">
 <nav class="navbar">
 <div class="container-fluid">
 <span class="navbar-text">

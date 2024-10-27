@@ -1,16 +1,8 @@
-export const homeHtml = `
-<div class="container text-center">
-    <nav class="navbar bg-body-tertiary">
-        <div class="">
+import { getOrCreateMainElement } from "../components/main";
 
-            <a href="#login" class="text-decoration-underline text-success text-hover-success">Login</a>
-            <a href="#criarUsuario" class="text-decoration-underline text-success text-hover-success">Criar Usuário</a>      
-            <a href="#gerenciarUsuario" class="text-decoration-underline text-success text-hover-success">Gerenciar Usuário</a>
-            
-        </div>
-    </nav>
-</div>
+export const homeHtml = `
+
 `
-const loginElement = document.createElement('nav');
+const loginElement = document.createElement('body');
 loginElement.innerHTML = homeHtml;
 document.body.insertAdjacentElement('beforeend',loginElement);
