@@ -1,6 +1,6 @@
 import visgo from"../../imgs/visgo.jpg"
 export const headerHtml = `
-  <header class=" w-100 p-2 text-center  d-flex justify-content-between align-items-start" style="border:solid 1px">
+  <header class=" w-100 p-2 text-center  d-flex justify-content-between align-items-center" style="border:solid 1px">
     <img src="${visgo}" alt="LogoVisgo" class="img-fluid">
       <nav class="navbar w-50 mb-2 mb-lg-0 d-flex justify-content-evenly">
         <div class="">

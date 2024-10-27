@@ -1,5 +1,4 @@
 import { headerHtml } from "./components/header";
-
 import { clearBody } from "./functions/clear_body";
 import { telaLoginHtml } from "./pages/login_screen";
 import { criarUsuarioHtml } from "./pages/create_user";
