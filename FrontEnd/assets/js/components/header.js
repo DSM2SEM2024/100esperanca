@@ -1,7 +1,7 @@
-
+import visgo from"../../imgs/visgo.jpg"
 export const headerHtml = `
-  <header class=" w-100 p-2 text-center  d-flex justify-content-between" style="border:solid 1px">
-    <img src="assets/imgs/visgo.jpg" alt="LogoVisgo" class="img-fluid">
+  <header class=" w-100 p-2 text-center  d-flex justify-content-between align-items-start" style="border:solid 1px">
+    <img src="${visgo}" alt="LogoVisgo" class="img-fluid">
       <nav class="navbar w-50 mb-2 mb-lg-0 d-flex justify-content-evenly">
         <div class="">
           <button class="btn btn-outline-light" style="border: 0" style="text-decoration-none, important"><a href="#login" class="text-decoration-underline text-success text-hover-success">Login</a></button>
@@ -10,7 +10,7 @@ export const headerHtml = `
         
         </div>
       </nav>
-        <button id="voltar_btn" class="btn btn-success" style="">Voltar</button>
+        <button id="voltar_btn" class="btn btn-sm btn-success" style="">Voltar</button>
   </header>
         
 

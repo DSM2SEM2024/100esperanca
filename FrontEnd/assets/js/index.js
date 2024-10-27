@@ -1,5 +1,5 @@
 import { headerHtml } from "./components/header";
-import { home, homeHtml } from "./pages/home";
+
 import { clearBody } from "./functions/clear_body";
 import { telaLoginHtml } from "./pages/login_screen";
 import { criarUsuarioHtml } from "./pages/create_user";
@@ -19,7 +19,7 @@ if (location.hash === '#login') {
     gerenciarUsuarioHtml();
 }else if(location.hash === '#home'){
     clearBody();
-    homeHtml();
+   
 }
 };
 

@@ -73,6 +73,7 @@ export function criarUsuarioHtml (){
 </div>
 `;
 const main = getOrCreateMainElement();
+main.classList="d-flex p-1 h-100 justify-content-center align-items-center"
 main.innerHTML = criarUsuario;
 // document.body.insertAdjacentHTML('beforebegin', criarUsuario);
 }

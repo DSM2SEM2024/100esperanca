@@ -1,28 +1,30 @@
 import { getOrCreateMainElement } from "../components/main";
+let nome = " jubilieu";
 const main = getOrCreateMainElement()
+main.classList = 'vh-100'
 export function gerenciarUsuarioHtml(){
       const gerenciarUsuario = `
-      <main>
-      <aside>
-  
-        <section class="sidebar d-flex " id="sidebar">
-        <ul class="nav flex-column">
-        <li class="nav-item">
-        <a class="nav-link active text-black" href="#" id="usuario-link">•Usuário</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link text-black" style="text-hover-success" " href="#">•Controle</a>
-        </li>
-        <li class="nav-item"> 
-        <a class="nav-link text-black" style="text-hover-success"" href="#">•Imagens</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link text-black" style="text-hover-success"" href="#">•Admin</a>
-        </li>
-        </ul>
-        </section>
-        </aside>
-        
+ 
+        <nav class="navbar navbar-expand-lg bg-success navbar-light bg-light d-flex flex-column">
+
+        <div class="w-100 d-flex flex-column" id="navbarNav">
+       
+            
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            
+            
+              <a class="nav-link" href="#">Features</a>
+            
+            
+              <a class="nav-link" href="#">Pricing</a>
+            
+            
+              <a class="nav-link disabled" href="#">Disabled</a>
+            
+          
+        </div>
+      </nav>
+
         <section class="container d-block p-2 align-middle justify-content-center">
         <div id="tabela-container" class=" text-center">
         <h2>Consulta de Usuários</h2>
@@ -56,7 +58,7 @@ export function gerenciarUsuarioHtml(){
         </table>
         </div>
         </section>
-        </main>
 `; 
+
   main.innerHTML = gerenciarUsuario
  }

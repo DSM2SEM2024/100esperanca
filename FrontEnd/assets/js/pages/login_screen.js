@@ -2,8 +2,8 @@ import { getOrCreateMainElement } from "../components/main";
 
 export function telaLoginHtml() {
     const telaLogin = `
-        <main id="main" class="d-flex p-1 vh-100 align-center justify-content-center align-items-center" style="background-color: #cdd7be;">
-            <section class="container-sm login-container p-4 rounded shadow-lg" width="350px, important">
+        
+            <section class="container-sm login-container p-4 rounded shadow-lg align-self-center" width="350px, important">
                 <h2 class="text-success mb-4">Login</h2>
                 <div class="input-group mb-3">
                     <input type="email" class="form-control" placeholder="Email" required>
@@ -24,9 +24,9 @@ export function telaLoginHtml() {
                 </div>
                 <button class="login-btn btn btn-success w-100">Login</button>
             </section>
-        </main>
     `;
     const main = getOrCreateMainElement();
+    main.classList = "d-flex p-1 h-50 justify-content-center align-items-center"
     main.innerHTML = telaLogin;
 
 const loginContainer = document.querySelector('.login-container');

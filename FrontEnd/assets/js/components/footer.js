@@ -1,15 +1,20 @@
+import { getOrCreateMainElement } from "./main";
+
+const main = getOrCreateMainElement;
+getOrCreateMainElement
 export const footerHtml = `
-<footer style="border: solid 1px">
-<nav class="navbar">
+
+<nav class="navbar align-items-start">
 <div class="container-fluid">
 <span class="navbar-text">
 footer Lorem, ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus nihil culpa earum debitis deserunt iusto laborum optio architecto dolore ad dolores sunt nulla, quibusdam vero officia dolorem quos in velit.
 </span>
 </div>
 </nav>
-</footer>
+
 `;
 
 const footerElement = document.createElement('footer');
 footerElement.innerHTML = footerHtml;
-document.body.insertAdjacentHTML('beforeend',footerHtml);
+footerElement.classList="fixed-bottom"
+document.body.insertAdjacentElement('beforeend',footerElement)
