@@ -1,7 +1,6 @@
-.text-hover-success {
-    transition: color 0.3s ease !important; /* Suaviza a transição de cor */
+/* .text-hover-success {
+    transition: color 0.3s ease !important;
 }
-
 .text-hover-success:hover {
-    color: #146c43 !important; /* Cor mais escura ao passar o mouse */
-}
+    color: aqua !important;
+} */

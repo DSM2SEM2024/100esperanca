@@ -19,14 +19,14 @@ export function telaLoginHtml() {
                     </span>
                 </div>
                 <div class="d-flex justify-content-between mb-3">
-                    <a href="#criarUsuario" class="text-decoration-underline text-success">Cadastre-se</a>
-                    <a href="#" class="text-decoration-underline text-success">Esqueceu a senha?</a>
+                    <a href="#criarUsuario" class="custom-btn-hover text-decoration-none text-success">Cadastre-se</a>
+                    <a href="#" class="custom-btn-hover text-decoration-none text-success">Esqueceu a senha?</a>
                 </div>
                 <button class="login-btn btn btn-success w-100">Login</button>
             </section>
     `;
     const main = getOrCreateMainElement();
-    main.classList = "d-flex p-1 h-50 justify-content-center align-items-center"
+    main.classList = "d-flex p-1 h-75 justify-content-center align-items-center"
     main.innerHTML = telaLogin;
 
 const loginContainer = document.querySelector('.login-container');

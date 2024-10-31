@@ -3,13 +3,13 @@ import { getOrCreateMainElement } from "./main";
 const main = getOrCreateMainElement;
 getOrCreateMainElement
 export const footerHtml = `
-
 <nav class="navbar align-items-start">
-<div class="container-fluid">
-<span class="navbar-text">
-footer Lorem, ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus nihil culpa earum debitis deserunt iusto laborum optio architecto dolore ad dolores sunt nulla, quibusdam vero officia dolorem quos in velit.
-</span>
-</div>
+<div class="container d-flex justify-content-center">
+      <button type="button" class="btn btn-outline-success btn-lg btn-floating mx-2">
+      
+      <i class="bi bi-instagram"></i>
+      </button>
+    </div>
 </nav>
 
 `;

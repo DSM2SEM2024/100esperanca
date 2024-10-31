@@ -66,7 +66,7 @@ export function criarUsuarioHtml (){
 <input type="password" name="complemento" id="complemento" placeholder="Complemento">
 </li>
 
-<button class="btn btn-success btn-lg btn-block">Criar Usuário</button>
+<button class="btn btn-success btn-lg btn-block" style="margin-bottom: 40px;margin-top: 15px;">Criar Usuário</button>
 </ul>
 
 </section>
@@ -75,6 +75,5 @@ export function criarUsuarioHtml (){
 const main = getOrCreateMainElement();
 main.classList="d-flex p-1 h-100 justify-content-center align-items-center"
 main.innerHTML = criarUsuario;
-// document.body.insertAdjacentHTML('beforebegin', criarUsuario);
 }
 
