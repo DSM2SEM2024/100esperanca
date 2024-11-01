@@ -1,13 +1,13 @@
 import { getOrCreateMainElement } from "../components/main";
 let nome = " jubilieu";
 const main = getOrCreateMainElement()
-main.classList = 'vh-100'
+main.classList = 'vh-100 d-block'
 export function gerenciarUsuarioHtml(){
       const gerenciarUsuario = `
  
         <nav class="navbar navbar-expand-lg bg-success navbar-light bg-light d-flex flex-column">
 
-        <div class="w-100 d-flex flex-column" id="navbarNav">
+          <div class="w-100 d-block flex-column" id="navbarNav">
        
             
               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>

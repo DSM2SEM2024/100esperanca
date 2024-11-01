@@ -4,10 +4,9 @@ const main = getOrCreateMainElement;
 getOrCreateMainElement
 export const footerHtml = `
 <nav class="navbar align-items-start">
-<div class="container d-flex justify-content-center">
+    <div class="container d-flex justify-content-center">
       <button type="button" class="btn btn-outline-success btn-lg btn-floating mx-2">
-      
-      <i class="bi bi-instagram"></i>
+          <i class="bi bi-instagram"></i>
       </button>
     </div>
 </nav>

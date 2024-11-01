@@ -66,7 +66,7 @@ export function criarUsuarioHtml (){
 <input type="password" name="complemento" id="complemento" placeholder="Complemento">
 </li>
 
-<button class="btn btn-success btn-lg btn-block" style="margin-bottom: 40px;margin-top: 15px;">Criar Usuário</button>
+<button class="btn btn-success btn-lg btn-block">Criar Usuário</button>
 </ul>
 
 </section>
