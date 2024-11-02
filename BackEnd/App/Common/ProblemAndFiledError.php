@@ -1,4 +1,5 @@
 <?php
+
 namespace Pi\Visgo\Common;
 
 final class ProblemAndFiledError {
@@ -14,3 +15,5 @@ final class ProblemAndFiledError {
         return ProblemAndFiledError::$fieldsError;
     }
 }
+
+  

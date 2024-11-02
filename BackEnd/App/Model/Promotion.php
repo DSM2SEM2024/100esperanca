@@ -1,6 +1,8 @@
 <?php
 namespace Pi\Visgo\Model;
 
+use Pi\Visgo\Common\DateTimeZoneCustom;
+
 class Promotion {
 
     private $id;
@@ -8,11 +10,7 @@ class Promotion {
     private $end_date_promotion;
     private $cod_promotion;
 
-    public function __construct($start_date_promotion, $end_date_promotion, $cod_promotion) {
-        $this->start_date_promotion = $start_date_promotion;
-        $this->end_date_promotion = $end_date_promotion;
-        $this->cod_promotion = $cod_promotion;
-    }
+    public function __construct() {}
 
     public function getId() {
         return $this->id;
@@ -23,7 +21,13 @@ class Promotion {
     }
 
     public function setStartDatePromotion($start_date_promotion) {
+        $currentDateTime = DateTimeZoneCustom::getCurrentDateTime();
+        if(!$start_date_promotion > $currentDateTime){
+            throw new \Exception("A data de início não pode se antecedente a data atual.");
+        }
+        
         $this->start_date_promotion = $start_date_promotion;
+    
     }
 
     public function getEndDatePromotion() {
@@ -31,6 +35,11 @@ class Promotion {
     }
 
     public function setEndDatePromotion($end_date_promotion) {
+        $start_date_promotion_validation =
+        $this->getStartDatePromotion();
+        if(!$end_date_promotion > $start_date_promotion_validation){
+            throw new \Exception("A data de término não pode se antecedente a data de início.");
+        }
         $this->end_date_promotion = $end_date_promotion;
     }
 
