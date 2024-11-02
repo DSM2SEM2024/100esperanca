@@ -1,7 +1,7 @@
 import { getOrCreateMainElement } from "../components/main";
-let nome = " jubilieu";
+
 const main = getOrCreateMainElement()
-main.classList = 'vh-100 d-block'
+main.classList = 'vh-100 d-block';
 export function gerenciarUsuarioHtml(){
       const gerenciarUsuario = `
  
@@ -59,6 +59,6 @@ export function gerenciarUsuarioHtml(){
         </div>
         </section>
 `; 
-
+  main.classList = "d-flex p-1 h-75 justify-content-center align-items-center"
   main.innerHTML = gerenciarUsuario
  }
