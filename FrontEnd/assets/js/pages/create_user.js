@@ -2,7 +2,7 @@ import { getOrCreateMainElement } from "../components/main";
 
 export function criarUsuarioHtml() {
     const criarUsuario = `
-<form class="w-0">
+<form class="h-50">
     <div class="container">
         <div class="form-group col">
         <label for="nome">nome</label>
@@ -27,7 +27,7 @@ export function criarUsuarioHtml() {
 </form>
 
 
-<form>
+<form class="h-50">
 
    <div class="form-row d-flex">
         <div class="col">
@@ -71,7 +71,7 @@ export function criarUsuarioHtml() {
 -->
 `;
     const main = getOrCreateMainElement();
-    main.classList = "d-flex flex-wrap p-1 h-100 justify-content-center"
+    main.classList = "h-100 d-flex flex-wrap justify-content-center"
     main.innerHTML = criarUsuario;
 }
 
