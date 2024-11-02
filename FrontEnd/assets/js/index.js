@@ -3,9 +3,10 @@ import { clearBody } from "./functions/clear_body";
 import { telaLoginHtml } from "./pages/login_screen";
 import { criarUsuarioHtml } from "./pages/create_user";
 import { gerenciarUsuarioHtml } from "./pages/user_management";
+import { telaProdutosHtml } from "./pages/products";
 import { footerHtml } from "./components/footer";
 
-let isUserLoggedIn = true; // Altere para true quando o usuário estiver logado
+
 
 function renderContentBasedOnHash() {
     clearBody();
@@ -16,11 +17,9 @@ function renderContentBasedOnHash() {
         criarUsuarioHtml();
     } else if (location.hash === '#gerenciarUsuario') {
         gerenciarUsuarioHtml();
-    } else if (location.hash === '#home') {
-        // Chamaria a função home aqui, se existir
+    } else if (location.hash === '#produtos') {
+        telaProdutosHtml();
     }
-
-    updateNavbarLinks(isUserLoggedIn); // Atualiza os links do header conforme o estado de login
 }
 
 renderContentBasedOnHash();
