@@ -16,5 +16,4 @@ footer Lorem, ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus 
 
 const footerElement = document.createElement('footer');
 footerElement.innerHTML = footerHtml;
-footerElement.classList="fixed-bottom"
 document.body.insertAdjacentElement('beforeend',footerElement)
