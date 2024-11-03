@@ -1,73 +1,60 @@
 <?php
 namespace Pi\Visgo;
+
 require_once "../vendor/autoload.php";
 
-use Pi\Visgo\Model\Order;
 use Pi\Visgo\Repository\OrderRepository;
-
+use Pi\Visgo\Controller\OrderController;
+use Pi\Visgo\Database\Connection;
 
 header('Content-Type: application/json');
 
 $orderRepository = new OrderRepository('sqlite');
+$orderController = new OrderController($orderRepository);
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
 
-switch ($method) {
-    case 'POST':
+switch ($uri) {
+    case '/order':
+        switch ($method) {
+            case 'GET':
+                // Check if the request is to list all orders or get a specific order by ID
+                if (preg_match('/\/order\/(\d+)/', $uri, $match)) {
+                    $id = $match[1];
+                    $orderController->searchById($id);
+                } else {
+                    $orderController->getAll();
+                }
+                break;
 
-        if ($uri === '/order') {
-            $data = json_decode(file_get_contents('php://input'));
+            case 'POST':
+                $data = json_decode(file_get_contents('php://input'));
+                $orderController->create($data);
+                break;
 
-            $order = new Order();
-            $order->setDate_Time_Order($data->date_time_order);
-            $order->setDescription($data->description);
+            case 'PUT':
+                if (preg_match('/\/order\/(\d+)/', $uri, $match)) {
+                    $id = $match[1];
+                    $data = json_decode(file_get_contents('php://input'));
+                    $orderController->update($id, $data);
+                }
+                break;
 
-            $orderRepository->createOrder($order);
-            echo json_encode(['message' => 'Order created successfully']);
-        }
-        break;
+            case 'DELETE':
+                if (preg_match('/\/order\/(\d+)/', $uri, $match)) {
+                    $id = $match[1];
+                    $orderController->delete($id);
+                }
+                break;
 
-    case 'PUT':
-
-        if (preg_match('/\/order\/(\d+)$/', $uri, $match)) {
-            $orderId = $match[1];
-            $data = json_decode(file_get_contents('php://input'));
-
-            $order = new Order();
-            $order->setDate_Time_Order($data->date_time_order);
-            $order->setDescription($data->description);
-
-            $orderRepository->updateOrder($orderId, $order);
-            echo json_encode(['message' => 'Order updated successfully']);
-        }
-        break;
-
-    case 'GET':
-
-        if (preg_match('/\/order\/(\d+)$/', $uri, $match)) {
-            $orderId = $match[1];
-            $order = $orderRepository->getOrderById($orderId);
-            echo json_encode($order);
-        } 
-
-        elseif ($uri === '/order') {
-            $orders = $orderRepository->getAllOrder();
-            echo json_encode($orders);
-        }
-        break;
-
-    case 'DELETE':
-
-        if (preg_match('/\/order\/(\d+)$/', $uri, $match)) {
-            $orderId = $match[1];
-            $orderRepository->deleteOrderById($orderId);
-            echo json_encode(['message' => 'Order deleted successfully']);
+            default:
+                echo json_encode(['message' => 'Method not supported for this endpoint.']);
+                break;
         }
         break;
 
     default:
-        http_response_code(405);
-        echo json_encode(['error' => 'Method not allowed']);
+        echo json_encode(['message' => 'Endpoint not found.']);
         break;
 }
