@@ -17,3 +17,4 @@ const footerElement = document.createElement('footer');
 footerElement.innerHTML = footerHtml;
 footerElement.classList="fixed-bottom"
 document.body.insertAdjacentElement('beforeend',footerElement)
+

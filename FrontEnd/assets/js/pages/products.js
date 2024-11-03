@@ -1,5 +1,8 @@
 import { getOrCreateMainElement } from "../components/main";
 
+import camiseta from "/assets/imgs/camiseta.jpg";
+
+
 export function telaProdutosHtml () {
     const telaProdutos = `
     <nav class="navbar bg-body-tertiary bg-opacity-75" id="navFiltros">
@@ -33,10 +36,80 @@ export function telaProdutosHtml () {
                 <option value="2">Bolsas</option>
                 <option value="3">Cadernos</option>
             </select>
-        </section>
-        </div>    
+        </section> 
     </nav>    
     
+<div class="ms-5 pt-2">
+    <h2 class="text-success">Produtos</h2>
+</div>
+
+<section class="container">
+    <div class="row row-cols-1 row-cols-md-4 g-4  p-4 justify-content-evenly">
+        <div class="col">
+            <div class="card">
+                <img src="${camiseta}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">Estampa A</h5>
+                        <p class="card-text">Camiseta 1</p>
+                    </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="${camiseta}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">Estampa B</h5>
+                        <p class="card-text">Camiseta 2</p>
+                    </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="${camiseta}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">Estampa C</h5>
+                        <p class="card-text">Camiseta 3 </p>
+                    </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="${camiseta}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">Estampa D</h5>
+                        <p class="card-text">Camiseta 4</p>
+                    </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="${camiseta}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">Estampa E</h5>
+                        <p class="card-text">Camiseta 5</p>
+                    </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="${camiseta}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">Estampa F</h5>
+                        <p class="card-text">Camiseta 6</p>
+                    </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="${camiseta}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">Estampa F</h5>
+                        <p class="card-text">Camiseta 6</p>
+                    </div>
+            </div>
+        </div>
+    </div>
+</section>
 `;
 const main = getOrCreateMainElement();
 main.classList = "h-75"
@@ -47,4 +120,6 @@ navFiltros.style.setProperty('background-color', '#5ABC49', 'important');
 navFiltros.style.setProperty('opacity', '75%', 'important');
 navDrop.style.setProperty('margin-right', '5px', 'important');
 navDrop.style.setProperty('margin-top', '5px', 'important');
+
+
 }

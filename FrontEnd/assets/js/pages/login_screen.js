@@ -26,11 +26,11 @@ export function telaLoginHtml() {
             </section>
     `;
     const main = getOrCreateMainElement();
-    main.classList = "d-flex p-1 h-75 justify-content-center align-items-center"
+    main.classList = "d-flex pt-5 h-75 justify-content-center align-items-center"
     main.innerHTML = telaLogin;
 
 const loginContainer = document.querySelector('.login-container');
 if (loginContainer) {
-loginContainer.style.setProperty('background-color', '#5ABC49', 'important');
-loginContainer.style.setProperty('width', '350px', 'important');
+        loginContainer.style.setProperty('background-color', '#5ABC49', 'important');
+        loginContainer.style.setProperty('width', '350px', 'important');
 }}

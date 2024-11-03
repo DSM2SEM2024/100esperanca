@@ -5,11 +5,12 @@
     text-decoration: none;
 }
 html,body{
-    height: 100vh;
+    min-height: 100vh;
     
 }
 footer{
     background-color: #5ABC49;
+    
 }
 div#header ul{
     list-style: none;
