@@ -19,7 +19,7 @@ switch ($uri) {
     case '/order':
         switch ($method) {
             case 'GET':
-                // Check if the request is to list all orders or get a specific order by ID
+               
                 if (preg_match('/\/order\/(\d+)/', $uri, $match)) {
                     $id = $match[1];
                     $orderController->searchById($id);
