@@ -5,73 +5,65 @@ use Pi\Visgo\Common\ProblemAndFiledError;
 use Pi\Visgo\Common\ResponseAssemblerError;
 use Pi\Visgo\Common\ResponseAssemblerSuccess;
 use Pi\Visgo\Common\Validator;
-use Pi\Visgo\Model\Art;
-use Pi\Visgo\Repository\ArtRepository;
+use Pi\Visgo\Model\Order;
+use Pi\Visgo\Repository\OrderRepository;
 
-class ArtController {
+class OrderController {
 
-    private $artRepository;
+    private $orderRepository;
 
-    public function __construct(ArtRepository $artRepository) {
-        $this->artRepository = $artRepository;
+    public function __construct(OrderRepository $orderRepository) {
+        $this->orderRepository = $orderRepository;
     }
 
     public function create($data) {
-        $isValid = Validator::validationArt($data);
+        $isValid = Validator::validationOrder($data);
 
         if (!$isValid) {
             ResponseAssemblerError::response(400, ProblemAndFiledError::getFieldsError());
             return;
         }
 
-        $artModel = new Art(
-            $data->characteristic,
-            $data->description,
-            $data->name
+        $orderModel = new Order(
+            $data->date_time_order,
+            $data->description
         );
 
-        $result = $this->artRepository->createArt($artModel);
+        $result = $this->orderRepository->createOrder($orderModel);
 
         ResponseAssemblerSuccess::response(201, $result);
     }
 
     public function update($id, $data) {
-        $isValid = Validator::validationArt($data);
+        $isValid = Validator::validationOrder($data);
 
         if (!$isValid) {
             ResponseAssemblerError::response(400, ProblemAndFiledError::getFieldsError());
             return;
         }
 
-        $artModel = new Art(
-            $data->characteristic,
-            $data->description,
-            $data->name
+        $orderModel = new Order(
+            $data->date_time_order,
+            $data->description
         );
 
-        $result = $this->artRepository->updateArt($id, $artModel);
+        $result = $this->orderRepository->updateOrder($id, $orderModel);
 
         ResponseAssemblerSuccess::response(200, $result);
     }
 
     public function getAll() {
-        $result = $this->artRepository->getAllArt();
-
+        $result = $this->orderRepository->getAllOrder();
         ResponseAssemblerSuccess::response(200, $result);
     }
 
     public function searchById($id) {
-        $result = $this->artRepository->searchByIdArt($id);
-
-        if ($result) {
-            ResponseAssemblerSuccess::response(200, $result);
-        } else {
-            ResponseAssemblerError::response(404, 'Art not found');
-        }
+        $result = $this->orderRepository->getOrderById($id);
+        ResponseAssemblerSuccess::response(200, $result);
     }
 
     public function delete($id) {
-        if ($this->artRepository->deleteByIdArt($id)) {
+        if ($this->orderRepository->deleteOrderById($id)) {
             ResponseAssemblerSuccess::responseDelete(200);
         } else {
             ResponseAssemblerError::responseDelete(500);
