@@ -5,7 +5,7 @@ class Validator {
 
     private static $comprimentoNomeArt = 10;
     private static $comprimentoDescricaoArt = 20;
-    private static $comprimentoDescricaoOrder = 15;
+    private static $comprimentoDescricaoOrder = 5;
 
     public static function validationArt($data) {
         $validNome = self::artNameValidation($data->name);
@@ -75,7 +75,7 @@ class Validator {
                 "message" => "A data e hora do pedido são obrigatórias"
             ];
         }
-        
+
         return true;
     }
 

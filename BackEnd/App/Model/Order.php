@@ -10,7 +10,7 @@ class Order{
 
     public function __construct($date_time_order, $description) {
         $this->date_time_order = $date_time_order;   
-        $this->description = $$description;
+        $this->description = $description;
     
     }
 
