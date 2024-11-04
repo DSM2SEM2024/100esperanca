@@ -6,7 +6,7 @@ use Pi\Visgo\Model\Order;
 
 class OrderRepository{
     private $connection;
-    private $table = "order";
+    private $table = "`order`";
 
 
     public function __construct(PDO $connection) {
@@ -67,9 +67,9 @@ class OrderRepository{
     }
 
     public function deleteOrderById($id){
-        $query = "DELETE FROM order WHERE role.id = :id";
-        $stmt = $this->connection->prepare($query);
+        $query = "DELETE FROM $this->table WHERE id = :id";
 
+        $stmt = $this->connection->prepare($query);
         $stmt->bindParam(":id", $id);
 
         $executionCompleted = $stmt->execute();
