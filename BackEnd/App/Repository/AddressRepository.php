@@ -4,11 +4,7 @@ namespace Pi\Visgo\Repository;
 use Pi\Visgo\Model\address;
 use PDO;
 
-<<<<<<<< HEAD:BackEnd/App/Repository/AddressRepositoryphp
-class RepositoryAddressRepository{
-========
 class AddressRepository{
->>>>>>>> main:BackEnd/App/Repository/AddressRepository.php
     
     private $connection;
     private $table = "address";
@@ -71,13 +67,8 @@ class AddressRepository{
         return $executionCompleted;
     }
 
-<<<<<<<< HEAD:BackEnd/App/Repository/AddressRepositoryphp
-    public function searchByIdAddress ($id) {
-        $query = "SELECT * FROM $this->table WHERE Address.id = :id";
-========
     public function getAddressById ($id) {
         $query = "SELECT * FROM $this->table WHERE $this->table.id = :id";
->>>>>>>> main:BackEnd/App/Repository/AddressRepository.php
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -96,11 +87,7 @@ class AddressRepository{
     public function deleteByIdAddress($id) {
         //Lembrete para mim próprio: dúvida neste address que mudou de cor pra mim, no projeto modelo ele estava normal.
         
-<<<<<<<< HEAD:BackEnd/App/Repository/AddressRepositoryphp
-        $query = "DELETE FROM address WHERE Address.id = :id";
-========
         $query = "DELETE FROM $this->table WHERE $this->table.id = :id";
->>>>>>>> main:BackEnd/App/Repository/AddressRepository.php
         $stmt = $this->connection->prepare($query);
 
         $stmt->bindParam(":id", $id);
