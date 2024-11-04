@@ -2,6 +2,7 @@
 namespace Pi\Visgo\Model;
 
 use Pi\Visgo\Common\DateTimeZoneCustom;
+use Pi\Visgo\Common\ResponseAssemblerError;
 
 class Promotion {
 
@@ -21,10 +22,13 @@ class Promotion {
     }
 
     public function setStartDatePromotion($start_date_promotion) {
-        $currentDateTime = DateTimeZoneCustom::getCurrentDateTime();
-        if(!($start_date_promotion > $currentDateTime)){
-            throw new \Exception("A data de início não pode se antecedente a data atual.");
-        }
+       
+            $currentDateTime = DateTimeZoneCustom::getCurrentDateTime();
+            if(!($start_date_promotion > $currentDateTime)){
+               // throw new \Exception("A data de início não pode se antecedente a data atual.");
+               ResponseAssemblerError::responseDelete(404, "A data de início não pode se antecedente a data atual.");
+            }
+       
         
         $this->start_date_promotion = $start_date_promotion;
     
