@@ -9,7 +9,7 @@ use Pi\Visgo\Database\Connection;
 
 header('Content-Type: application/json');
 
-$roleRepository = new RoleRepository('sqlite');
+// $roleRepository = new RoleRepository('sqlite');
 $promotionRepository = new PromotionRepository('sqlite');
 $promotionController = new PromotionController($promotionRepository);
 
@@ -17,7 +17,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
 
 switch ($method) {
-    case 'POST':
+/*     case 'POST':
 
         $data = json_decode(file_get_contents('php://input'));
         
@@ -94,43 +94,39 @@ switch ($method) {
             $userRepository->updateUserPassword($userModel);
         }
 
-        break;
+        break; */
 
-    case '/promotion':
+    case 'GET':
+        if ($uri === '/promotion') {
+            $promotionController->getAllPromotion();
+        }
 
-        switch($method){
-            case 'GET':
-                if ($method === 'GET') {
-                    $promotionController->getAllPromotion();
-                }
-
-                if (preg_match('/\/promotion\/(\d+)/', $method, $match)){
-                    $id = $match[1];
-                    $data = json_decode(file_get_contents('php://input'));
-                    $promotionController->searchById($id);
-                    break;
-                }
-            break;
-
-            case 'POST':
-                    $data = json_decode(file_get_contents('php://input'));
-                    $promotionController->create($data);
-            break;
-
-            case 'PUT':
-                if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
-                    $id = $match[1];
-                    $data = json_decode(file_get_contents('php://input'));
-                    $promotionController->update($id, $data);
-                }
-            break;
-
-            case 'DELETE':
-                if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
-                $id = $match[1];
-                $promotionController->delete($id);
-            }
+        if (preg_match('/\/promotion\/(\d+)/', $method, $match)){
+            $id = $match[1];
+            $data = json_decode(file_get_contents('php://input'));
+            $promotionController->searchById($id);
             break;
         }
+    break;
+    
+    case 'POST':
+            $data = json_decode(file_get_contents('php://input'));
+            $promotionController->create($data);
+    break;
+
+    case 'PUT':
+        if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
+            $id = $match[1];
+            $data = json_decode(file_get_contents('php://input'));
+            $promotionController->update($id, $data);
+        }
+    break;
+
+    case 'DELETE':
+        if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
+        $id = $match[1];
+        $promotionController->delete($id);
+    }
+    break;
 
 }

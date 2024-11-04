@@ -27,11 +27,11 @@ class PromotionController
 
         $result = $this->promotionRepository->createPromotion($promotionModel);
 
-        if($result){
-            ResponseAssemblerSuccess::response(200, $result, "Promoção criada com sucesso");
+        if(!$result){
+            ResponseAssemblerError::responseDelete(404, "Erro ao criar Promoção");
         }
-
-        ResponseAssemblerError::responseDelete(404, "Erro ao criar Promoção");
+        
+        ResponseAssemblerSuccess::response(200, $result, "Promoção criada com sucesso");
     }
 
     public function update($id, $data)
@@ -41,19 +41,18 @@ class PromotionController
         $promotionModel->setEndDatePromotion($data->end_date_promotion);
         $promotionModel->setCodPromotion($data->cod_promotion);
 
-        $result = $this->promotionRepository->createPromotion($promotionModel);
+        $result = $this->promotionRepository->updatePromotion($id, $promotionModel);
 
-        if($result){
-            ResponseAssemblerSuccess::response(200, $result, "Promoção atualizada com sucesso");
+        if(!$result){
+            ResponseAssemblerError::responseDelete(404, "Erro ao atualizar a promoção");
         }
-
-        ResponseAssemblerError::responseDelete(404, "Erro ao atualizar a promoção");
+        
+        ResponseAssemblerSuccess::response(200, $result, "Promoção atualizada com sucesso");
     }
 
-    public function getAllPromotion()
-    {
+    public function getAllPromotion() {
         $result = $this->promotionRepository->getAllPromotion();
-        echo $result;
+        ResponseAssemblerSuccess::response(200, $result, 'Requisição bem sucedida!');
     }
 
     public function searchById($id)
@@ -65,11 +64,11 @@ class PromotionController
     {
         $result = $this->promotionRepository->deleteByIdPromotion($id);
 
-        if($result){
-            ResponseAssemblerSuccess::response(200, $result, "Promoção excluída com sucesso");
+        if(!$result){
+            ResponseAssemblerError::response(404, "Erro ao excluir promoção");
         }
-
-        ResponseAssemblerError::responseDelete(404, "Erro ao excluir promoção");
+        
+        ResponseAssemblerSuccess::response(200, $result, "Promoção excluída com sucesso");
     }
 
     public function addProductsInPromotion($data)
@@ -79,11 +78,11 @@ class PromotionController
 
         $result = $this->promotionRepository->insertProductInPromotion($promotion, $products);
         
-        if($result){
-            ResponseAssemblerSuccess::response(200, $result, "Produto adicionado a promoção com sucesso");
+        if(!$result){
+            ResponseAssemblerError::response(404, "Erro ao adicionar o produto a promoção");
         }
-
-        ResponseAssemblerError::responseDelete(404, "Erro ao adicionar o produto a promoção");
+        
+        ResponseAssemblerSuccess::response(200, $result, "Produto adicionado a promoção com sucesso");
     }
 
     public function updateProductsInPromotion($data)
@@ -93,11 +92,11 @@ class PromotionController
 
         $result = $this->promotionRepository->updateProductPromotion($promotion, $products);
 
-        if($result){
-            ResponseAssemblerSuccess::response(200, $result, "Produto da promoção atualizado com sucesso");
+        if(!$result){
+            ResponseAssemblerError::response(404, "Erro ao atualizar o produto da promoção");
         }
-
-        ResponseAssemblerError::responseDelete(404, "Erro ao atualizar o produto da promoção");
+        
+        ResponseAssemblerSuccess::response(200, $result, "Produto da promoção atualizado com sucesso");
 
     }
 
@@ -112,12 +111,11 @@ class PromotionController
         $products = $data->products;
         $result = $this->promotionRepository->deleteProductPromotion($products, $promotion);
 
-        if($result){
-           ResponseAssemblerSuccess::response(200, $result, "Produto da promoção deletado com sucesso");
-
+        if(!$result){
+            ResponseAssemblerError::response(404, "Erro ao deletar o produto de promoção");
         }
-
-        ResponseAssemblerError::responseDelete(404, "Erro ao deletar o produto de promoção");
+        
+        ResponseAssemblerSuccess::response(200, $result, "Produto da promoção deletado com sucesso");
 
     }
 

@@ -22,7 +22,7 @@ class Promotion {
 
     public function setStartDatePromotion($start_date_promotion) {
         $currentDateTime = DateTimeZoneCustom::getCurrentDateTime();
-        if(!$start_date_promotion > $currentDateTime){
+        if(!($start_date_promotion > $currentDateTime)){
             throw new \Exception("A data de início não pode se antecedente a data atual.");
         }
         
@@ -37,7 +37,7 @@ class Promotion {
     public function setEndDatePromotion($end_date_promotion) {
         $start_date_promotion_validation =
         $this->getStartDatePromotion();
-        if(!$end_date_promotion > $start_date_promotion_validation){
+        if(!($end_date_promotion > $start_date_promotion_validation)){
             throw new \Exception("A data de término não pode se antecedente a data de início.");
         }
         $this->end_date_promotion = $end_date_promotion;

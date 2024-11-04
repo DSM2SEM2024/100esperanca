@@ -8,8 +8,6 @@ final class ResponseAssemblerSuccess {
     
     public static function response($statusCode, $result, $message) {
 
-        $message = $message->
-
         http_response_code($statusCode);
 
         echo json_encode([
