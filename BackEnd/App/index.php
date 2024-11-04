@@ -9,7 +9,8 @@ use Pi\Visgo\Database\Connection;
 
 header('Content-Type: application/json');
 
-$orderRepository = new OrderRepository('sqlite');
+$connection = Connection::getInstance('sqlite');
+$orderRepository = new OrderRepository($connection);
 $orderController = new OrderController($orderRepository);
 
 $method = $_SERVER['REQUEST_METHOD'];
