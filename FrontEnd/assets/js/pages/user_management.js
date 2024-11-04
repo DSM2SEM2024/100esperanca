@@ -59,6 +59,6 @@ export function gerenciarUsuarioHtml(){
         </div>
         </section>
 `; 
-  main.classList = "d-flex p-1 h-75 justify-content-center align-items-center"
+  main.classList = "d-flex p-1 vh-100 justify-content-center align-items-center"
   main.innerHTML = gerenciarUsuario
  }

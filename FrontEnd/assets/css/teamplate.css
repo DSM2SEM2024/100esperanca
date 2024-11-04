@@ -4,9 +4,11 @@
     box-shadow: none;
     text-decoration: none;
 }
-html,body{
+body{
     min-height: 100vh;
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
 }
 footer{
     background-color: #5ABC49;

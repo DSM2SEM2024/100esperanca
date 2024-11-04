@@ -26,7 +26,7 @@ export function telaLoginHtml() {
             </section>
     `;
     const main = getOrCreateMainElement();
-    main.classList = "d-flex pt-5 h-75 justify-content-center align-items-center"
+    main.classList = "d-flex pt-5 vh-100 justify-content-center align-items-center"
     main.innerHTML = telaLogin;
 
 const loginContainer = document.querySelector('.login-container');
