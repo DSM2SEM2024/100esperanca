@@ -42,9 +42,8 @@ class PromotionRepository
         $start_date_promotion = $promotion->getStartDatePromotion();
         $end_date_promotion = $promotion->getEndDatePromotion();
         $cod_promotion = $promotion->getCodPromotion();
-        $is_closed = $promotion->getIsClosed();
 
-        $query = "UPDATE $this->table SET start_date_promotion = :start_date_promotion, end_date_promotion = :end_date_promotion, cod_promotion = :cod_promotion, is_closed = :is_closed WHERE $this->table.id = :id";
+        $query = "UPDATE $this->table SET start_date_promotion = :start_date_promotion, end_date_promotion = :end_date_promotion, cod_promotion = :cod_promotion WHERE $this->table.id = :id";
 
         $stmt = $this->connection->prepare($query);
 
@@ -52,11 +51,44 @@ class PromotionRepository
         $stmt->bindParam(":start_date_promotion", $start_date_promotion);
         $stmt->bindParam(":end_date_promotion", $end_date_promotion);
         $stmt->bindParam(":cod_promotion", $cod_promotion);
+
+        $executionCompleted = $stmt->execute();
+
+        return $executionCompleted;
+    }
+
+    public function ClosePromotionById($id){
+
+        $is_closed = 1;
+        
+        $query = "UPDATE $this->table SET is_closed = :is_closed WHERE $this->table.id = :id";
+
+        $stmt = $this->connection->prepare($query);
+
+        $stmt->bindParam(":id", $id);
         $stmt->bindParam(":is_closed", $is_closed);
 
         $executionCompleted = $stmt->execute();
 
         return $executionCompleted;
+
+    }
+
+    public function OpenPromotionById($id){
+
+        $is_closed = 0;
+        
+        $query = "UPDATE $this->table SET is_closed = :is_closed WHERE $this->table.id = :id";
+
+        $stmt = $this->connection->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":is_closed", $is_closed);
+
+        $executionCompleted = $stmt->execute();
+
+        return $executionCompleted;
+
     }
 
     public function searchByIdPromotion($id)
@@ -134,7 +166,7 @@ class PromotionRepository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /*public function deleteProductPromotion($promotion, $products)
+    public function deleteProductPromotion($promotion, $products)
     {
         $id_promotion = $promotion;
         $id_product = $products;
@@ -149,5 +181,5 @@ class PromotionRepository
         $executionCompleted = $stmt->execute();
 
         return $executionCompleted;
-    }*/
+    }
 }

@@ -6,6 +6,7 @@ use Pi\Visgo\Repository\PromotionRepository;
 use Pi\Visgo\Repository\RoleRepository;
 use Pi\Visgo\Controller\PromotionController;
 use Pi\Visgo\Database\Connection;
+use Pi\Visgo\Common\ResponseAssemblerSuccess;
 
 header('Content-Type: application/json');
 
@@ -122,14 +123,20 @@ switch ($method) {
     break;
 
     case 'PUT':
-        if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
+        /*if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
             $id = $match[1];
             $data = json_decode(file_get_contents('php://input'));
             $promotionController->update($id, $data);
 
-        } 
-        /*else if($uri === '/product_promotion'){
-            if(preg_match('/\/product_promotion\/(\d+)/', $uri, $match)){
+        }*/
+            
+            if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
+                $id = $match[1];
+                $promotionController->OpeningPromotion($id);
+            }
+
+            /*else if($uri === '/product_promotion'){
+            if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
                 $promotion = $match[1];
                 $data = json_decode(file_get_contents('php://input'));
                 $promotionController->deleteProductInPromotion($data, $promotion);
@@ -138,10 +145,12 @@ switch ($method) {
     break;
     
     case 'DELETE':
+        if($uri === '/product_promotion'){
             if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
                 $promotion = $match[1];
                 $data = json_decode(file_get_contents('php://input'));
                 $promotionController->deleteProductInPromotion($data, $promotion);
-            }*/
+            }
+        }*/
 
 }

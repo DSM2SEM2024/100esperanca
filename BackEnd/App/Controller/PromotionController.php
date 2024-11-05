@@ -42,7 +42,6 @@ class PromotionController
         $promotionModel->setStartDatePromotion($data->start_date_promotion);
         $promotionModel->setEndDatePromotion($data->end_date_promotion);
         $promotionModel->setCodPromotion($data->cod_promotion);
-        $promotionModel->setIsClosed($data->is_closed);
 
         $result = $this->promotionRepository->updatePromotion($id, $promotionModel);
 
@@ -52,6 +51,33 @@ class PromotionController
         
         ResponseAssemblerSuccess::response(200, $result, "Promoção atualizada com sucesso");
     }
+
+    public function ClosingPromotion($id){
+
+        //criar método de verificação do id
+
+        $result = $this->promotionRepository->ClosePromotionById($id);
+        
+        if(!$result){
+            ResponseAssemblerError::response(404, "Erro ao fechar promoção");
+        }
+
+        ResponseAssemblerSuccess::response(200, $result, "Promoção fechada com sucesso!");
+    }
+
+    public function OpeningPromotion($id){
+
+        //criar método de verificação do id
+
+        $result = $this->promotionRepository->OpenPromotionById($id);
+        
+        if(!$result){
+            ResponseAssemblerError::response(404, "Erro ao fechar promoção");
+        }
+
+        ResponseAssemblerSuccess::response(200, $result, "Promoção aberta com sucesso!");
+    }
+
 
     public function getAllPromotion() {
         $result = $this->promotionRepository->getAllPromotion();
@@ -99,17 +125,18 @@ class PromotionController
         ResponseAssemblerSuccess::response(200, $result, "Requisão do produto da promoção realizada com sucesso!");
     }
 
-    /*public function deleteProductInPromotion($data, $promotion)
+    public function deleteProductInPromotion($data)
     {   
+        $promotion = $data->promotion;
         $products = $data->products;
         $result = $this->promotionRepository->deleteProductPromotion($promotion, $products);
 
         if(!$result){
             ResponseAssemblerError::response(404, "Erro ao deletar o produto de promoção");
         }
-        
+        echo json_decode("dasdasda");
         ResponseAssemblerSuccess::response(200, $result, "Produto da promoção deletado com sucesso");
 
-    }*/
+    }
 
 }
