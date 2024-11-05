@@ -2,6 +2,7 @@
 
 namespace Pi\Visgo\Controller;
 
+use Exception;
 use Pi\Visgo\Common\ResponseAssemblerError;
 use Pi\Visgo\Common\ResponseAssemblerSuccess;
 use Pi\Visgo\Model\Promotion;
@@ -36,6 +37,7 @@ class PromotionController
 
     public function update($id, $data)
     {
+
         $promotionModel = new Promotion();
         $promotionModel->setStartDatePromotion($data->start_date_promotion);
         $promotionModel->setEndDatePromotion($data->end_date_promotion);
@@ -59,17 +61,7 @@ class PromotionController
     public function searchById($id)
     {
         $result = $this->promotionRepository->searchByIdPromotion($id);
-    }
-
-    public function ClosePromotion($id, $data)
-    {
-        $result = $this->promotionRepository->CloseByIdPromotion($id, $data);
-
-        if(!$result){
-            ResponseAssemblerError::response(404, "Erro ao excluir promoção");
-        }
-        
-        ResponseAssemblerSuccess::response(200, $result, "Promoção excluída com sucesso");
+        ResponseAssemblerSuccess::response(200, $result, 'Requisição bem sucedida!');
     }
 
     public function addProductsInPromotion($data)
@@ -86,7 +78,7 @@ class PromotionController
         ResponseAssemblerSuccess::response(200, $result, "Produto adicionado a promoção com sucesso");
     }
 
-    public function updateProductsInPromotion($data)
+    /*public function updateProductsInPromotion($data)
     {
         $promotion = $data->promotion;
         $products = $data->products;
@@ -99,18 +91,18 @@ class PromotionController
         
         ResponseAssemblerSuccess::response(200, $result, "Produto da promoção atualizado com sucesso");
 
-    }
+    }*/
 
     public function getAllProductsInPromotion()
     {
         $result = $this->promotionRepository->getAllProductPromotion();
+        ResponseAssemblerSuccess::response(200, $result, "Requisão do produto da promoção realizada com sucesso!");
     }
 
-    public function delteProductInPromotion($data, $result)
+    /*public function deleteProductInPromotion($data, $promotion)
     {   
-        $promotion = $data->promotion;
         $products = $data->products;
-        $result = $this->promotionRepository->deleteProductPromotion($products, $promotion);
+        $result = $this->promotionRepository->deleteProductPromotion($promotion, $products);
 
         if(!$result){
             ResponseAssemblerError::response(404, "Erro ao deletar o produto de promoção");
@@ -118,6 +110,6 @@ class PromotionController
         
         ResponseAssemblerSuccess::response(200, $result, "Produto da promoção deletado com sucesso");
 
-    }
+    }*/
 
 }

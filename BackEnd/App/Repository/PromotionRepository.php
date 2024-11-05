@@ -78,36 +78,15 @@ class PromotionRepository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function CloseByIdPromotion($id, Promotion $promotion)
-    {
-        $id_closed = $promotion->getIsClosed();
-        $arraySearch = $this->searchByIdPromotion($id);
-
-        $query = "UPDATE $this->table SET id_closed = :id_closed WHERE $this->table.id = :id";
-        $stmt = $this->connection->prepare($query);
-        
-
-        $stmt->bindParam(":id_closed", $id_closed);
-
-        $executionCompleted = $stmt->execute();
-
-        return $executionCompleted;
-    }
-
     public function insertProductInPromotion($promotion, $products)
     {
-        $id_promotion = $promotion->getId();
-
-        if (!is_array($products)) {
-            
-        }
-
         try {
             
             $this->connection->beginTransaction();
+            $id_promotion = $promotion;
 
             foreach ($products as $product) {
-                $id_product = $product->getId();
+                $id_product = $product;
 
                 $query = "INSERT INTO $this->tableassoc (id_promotion, id_product) VALUES (:id_promotion, :id_product)";
 
@@ -129,10 +108,10 @@ class PromotionRepository
         return $executionCompleted;
     }
 
-    public function updateProductPromotion($promotion, $product)
+    /*public function updateProductPromotion($promotion, $products)
     {
-        $id_promotion = $promotion->getId();
-        $id_product = $product->getId();
+        $id_promotion = $promotion;
+        $id_product = $products;
 
         $query = "UPDATE $this->tableassoc SET id_promotion = :id_promotion, id_product = :id_product";
 
@@ -144,7 +123,7 @@ class PromotionRepository
         $executionCompleted = $stmt->execute();
 
         return $executionCompleted;
-    }
+    }*/
 
     public function getAllProductPromotion()
     {
@@ -155,20 +134,20 @@ class PromotionRepository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function deleteProductPromotion($product, $promotion)
+    /*public function deleteProductPromotion($promotion, $products)
     {
-        $id_promotion = $promotion->getId();
-        $id_product = $product->getId();
+        $id_promotion = $promotion;
+        $id_product = $products;
 
         $query = "DELETE FROM $this->tableassoc WHERE id_promotion = :id_promotion AND id_product = :id_product";
 
         $stmt = $this->connection->prepare($query);
 
-        $stmt->bindParam("id_promotion", $id_promotion);
-        $stmt->bindParam("id_product", $id_product);
+        $stmt->bindParam(":id_promotion", $id_promotion);
+        $stmt->bindParam(":id_product", $id_product);
 
         $executionCompleted = $stmt->execute();
 
         return $executionCompleted;
-    }
+    }*/
 }

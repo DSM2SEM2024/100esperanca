@@ -99,26 +99,25 @@ switch ($method) {
     case 'GET':
         if ($uri === '/promotion') {
             $promotionController->getAllPromotion();
-        }
 
-        if (preg_match('/\/promotion\/(\d+)/', $method, $match)){
+        }else if (preg_match('/\/promotion\/(\d+)/', $uri, $match)){
             $id = $match[1];
             $data = json_decode(file_get_contents('php://input'));
             $promotionController->searchById($id);
             break;
+        }else if ($uri === '/product_promotion'){
+            $promotionController->getAllProductsInPromotion();
         }
     break;
     
     case 'POST':
+        if($uri === '/promotion'){
             $data = json_decode(file_get_contents('php://input'));
             $promotionController->create($data);
-    break;
-
-    case 'PUT':
-        if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
-            $id = $match[1];
+        }
+        if($uri === '/product_promotion'){
             $data = json_decode(file_get_contents('php://input'));
-            $promotionController->update($id, $data);
+            $promotionController->addProductsInPromotion($data);
         }
     break;
 
@@ -127,7 +126,22 @@ switch ($method) {
             $id = $match[1];
             $data = json_decode(file_get_contents('php://input'));
             $promotionController->update($id, $data);
+
+        } 
+        /*else if($uri === '/product_promotion'){
+            if(preg_match('/\/product_promotion\/(\d+)/', $uri, $match)){
+                $promotion = $match[1];
+                $data = json_decode(file_get_contents('php://input'));
+                $promotionController->deleteProductInPromotion($data, $promotion);
+            }
         }
     break;
+    
+    case 'DELETE':
+            if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
+                $promotion = $match[1];
+                $data = json_decode(file_get_contents('php://input'));
+                $promotionController->deleteProductInPromotion($data, $promotion);
+            }*/
 
 }
