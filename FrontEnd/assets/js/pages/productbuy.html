@@ -5,41 +5,161 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Produto foda - Loja Visgo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJ3Qb97BnaH2Q+26R9AHeWs+r+n98LdmjfDFFGZP5SYwpx+hXKHmPq8Wi/FZ" >
+    <title>Visgo do Jaca-Compras</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJ3Qb97BnaH2Q+26R9AHeWs+r+n98LdmjfDFFGZP5SYwpx+hXKHmPq8Wi/FZ" crossorigin="anonymous">
     
-    
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .navbar {
+            background-color: #2e8b57;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .product-image {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .product-description {
+            font-size: 1rem;
+            margin-top: 15px;
+            color: #555;
+        }
+
+        .btn-buy {
+            background-color: #28a745;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-top: 20px;
+            padding: 15px;
+            width: 100%;
+        }
+
+        .btn-buy:hover {
+            background-color: #218838;
+        }
+
+        .payment-icons img {
+            width: 40px;
+            margin: 0 10px;
+        }
+
+        .footer {
+            background-color: #2e8b57;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-details {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control, .form-label {
+            font-size: 1rem;
+        }
+
+        .product-gallery img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+       
+        .product-images {
+            display: flex;
+            gap: 15px;
+            justify-content: space-between;
+        }
+
+        .main-image {
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 10px;
+            flex: 0 0 60%; 
+        }
+
+        .small-image {
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            flex: 0 0 38%; 
+        }
+
+        .row.product-layout {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .md-6.product-images {
+            max-width: 40%;
+        }
+
+        .md-6.product-details {
+            max-width: 55%;
+        }
+    </style>
+</head>
 
 <body>
 
-    <nav class="navbar superior">
+    <!-- Navbar IMPROVISADA -->
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Visgo do Jaca</a>
+            <a class="navbar-brand" href="#">Visgo do Jaca
+            </a>
         </div>
     </nav>
 
-    <div class="container aquele">
-        <div class="part produtos">
-            <div class="imagens principal">
-                <img src="https://img.ltwebstatic.com/images3_pi/2022/06/10/1654855943177e06ce8f508f612cae973cb0b3c7e7_thumbnail_750x999.webp" alt="Produto Principal" class="main-image">
+    <!--Parte de comprar produto -->
+    <div class="container mt-5">
+        <div class="row product-layout">
+          
+            <div class="md-6 product-images">
+                <div class="main-image">
+                    <img src="https://via.placeholder.com/500x500/28a745/fff?text=Produto+Principal" alt="Produto Principal">
+                </div>
                 <div>
-                    <img src="https://img.ltwebstatic.com/images3_pi/2022/06/10/1654855943177e06ce8f508f612cae973cb0b3c7e7_thumbnail_750x999.webp" alt="Imagem 1" class="small-image">
-                    <img src="https://img.ltwebstatic.com/images3_pi/2022/06/10/1654855943177e06ce8f508f612cae973cb0b3c7e7_thumbnail_750x999.webp" alt="Imagem 2" class="small-image">
+                    <img src="https://via.placeholder.com/200x200/28a745/fff?text=Imagem+1" alt="Imagem 1" class="small-image">
+                    <img src="https://via.placeholder.com/200x200/28a745/fff?text=Imagem+2" alt="Imagem 2" class="small-image">
                 </div>
             </div>
 
-            <div class="col6">
-                <h2>Produto Incrível</h2>
-                <p class="preço-produto">R$ 199,00 <small><del>R$ 299,00</del></small></p>
-                <p class="descrição-produto">Este produto é perfeito para quem busca qualidade e estilo. Confeccionado com materiais de primeira linha, oferece o máximo de conforto e durabilidade. Ideal para o seu dia a dia, seja no trabalho ou lazer.</p>
+            <!-- Detalhes do Produto -->
+            <div class="md-6 product-details">
+                <h2>Camisa  Bala </h2>
+                <p class="product-price">R$ 79,00 <small><del>R$ 129,00</del></small></p>
+                <p class="product-description">Essa camisa de maloqueiro original é muito boa, produto de qualidade so nn conhece quem ta sem internet.</p>
 
-                <div class="quantidade item">
+                <!-- Quantidade e Adicionar ao Carrinho -->
+                <div class="mb-3">
                     <label for="quantity" class="form-label">Quantidade:</label>
                     <input type="number" class="form-control" id="quantity" value="1" min="1">
                 </div>
 
-                <button class="btn btn-buy">Adicionar ao Carrinho</button>
+                <button class="btn btn-buy" onclick="addToCart()">Adicionar ao Carrinho</button>
 
+                <!-- Formas de Pagamento -->
                 <hr>
                 <h5>Formas de Pagamento</h5>
                 <div class="payment-icons">
@@ -49,23 +169,47 @@
                     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_Boleto_banc%C3%A1rio.png" alt="Boleto">
                 </div>
 
+                <!-- Simulação de Frete -->
                 <hr>
                 <h5>Simule o Frete</h5>
                 <form>
-                    <div class="ve frete">
+                    <div class="mb-3">
                         <label for="cep" class="form-label">Digite seu CEP:</label>
                         <input type="text" class="form-control" id="cep" placeholder="Ex: 12345-678">
                     </div>
-                    <button type="button" class="btn btn-outline-success">Calcular Frete</button>
+                    <button type="button" class="btn btn-outline-success" onclick="calculateFrete()">Calcular Frete</button>
                 </form>
 
-                <div id="resultado frete" class="ve frete"></div>
+                <div id="freteResult" class="mt-3"></div>
             </div>
         </div>
     </div>
 
+    <!-- Footer improvisado pra teste -->
     <footer class="footer">
-        <p>© 2024 Visgo do Jaca. Todos os direitos reservados.</p>
+        <p>Visgo de Jaca – Orgulhosamente enraizada na cultura baiana.</p>
     </footer>
 
-  
+    <!-- Bootstrap e JS aqui jogado kkk -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        // essa função adiciona as coisa no carrinho:
+        function addToCart() {
+            alert("Produto adicionado ao carrinho!");
+        }
+        // essa bomba calcula o frete:
+        function calculateFrete() {
+            var cep = document.getElementById("cep").value;
+            var cepRegex = /^\d{5}-\d{3}$/;  
+            if (cepRegex.test(cep)) {
+                document.getElementById("freteResult").innerHTML = "<strong>Frete calculado:</strong> R$ 30,00 (Entrega em 3 dias úteis)";
+            } else {
+                document.getElementById("freteResult").innerHTML = "<strong>Por favor, insira um CEP válido no formato XXXXX-XXX.</strong>";
+            }
+        }
+    </script>
+</body>
+
+</html>
