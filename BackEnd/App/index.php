@@ -122,11 +122,12 @@ switch ($method) {
         }
     break;
 
-    case 'DELETE':
+    case 'PUT':
         if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
-        $id = $match[1];
-        $promotionController->delete($id);
-    }
+            $id = $match[1];
+            $data = json_decode(file_get_contents('php://input'));
+            $promotionController->update($id, $data);
+        }
     break;
 
 }

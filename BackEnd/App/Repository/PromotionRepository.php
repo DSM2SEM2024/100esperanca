@@ -42,8 +42,9 @@ class PromotionRepository
         $start_date_promotion = $promotion->getStartDatePromotion();
         $end_date_promotion = $promotion->getEndDatePromotion();
         $cod_promotion = $promotion->getCodPromotion();
+        $is_closed = $promotion->getIsClosed();
 
-        $query = "UPDATE $this->table SET start_date_promotion = :start_date_promotion, end_date_promotion = :end_date_promotion, cod_promotion = :cod_promotion WHERE $this->table.id = :id";
+        $query = "UPDATE $this->table SET start_date_promotion = :start_date_promotion, end_date_promotion = :end_date_promotion, cod_promotion = :cod_promotion, is_closed = :is_closed WHERE $this->table.id = :id";
 
         $stmt = $this->connection->prepare($query);
 
@@ -51,6 +52,7 @@ class PromotionRepository
         $stmt->bindParam(":start_date_promotion", $start_date_promotion);
         $stmt->bindParam(":end_date_promotion", $end_date_promotion);
         $stmt->bindParam(":cod_promotion", $cod_promotion);
+        $stmt->bindParam(":is_closed", $is_closed);
 
         $executionCompleted = $stmt->execute();
 
@@ -76,14 +78,16 @@ class PromotionRepository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function deleteByIdPromotion($id)
+    public function CloseByIdPromotion($id, Promotion $promotion)
     {
+        $id_closed = $promotion->getIsClosed();
         $arraySearch = $this->searchByIdPromotion($id);
 
-        $query = "DELETE FROM $this->table WHERE $this->table.id = :id";
+        $query = "UPDATE $this->table SET id_closed = :id_closed WHERE $this->table.id = :id";
         $stmt = $this->connection->prepare($query);
+        
 
-        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":id_closed", $id_closed);
 
         $executionCompleted = $stmt->execute();
 

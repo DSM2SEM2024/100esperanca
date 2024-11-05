@@ -28,7 +28,7 @@ class PromotionController
         $result = $this->promotionRepository->createPromotion($promotionModel);
 
         if(!$result){
-            ResponseAssemblerError::responseDelete(404, "Erro ao criar Promoção");
+            ResponseAssemblerError::response(404, "Erro ao criar Promoção");
         }
         
         ResponseAssemblerSuccess::response(200, $result, "Promoção criada com sucesso");
@@ -40,11 +40,12 @@ class PromotionController
         $promotionModel->setStartDatePromotion($data->start_date_promotion);
         $promotionModel->setEndDatePromotion($data->end_date_promotion);
         $promotionModel->setCodPromotion($data->cod_promotion);
+        $promotionModel->setIsClosed($data->is_closed);
 
         $result = $this->promotionRepository->updatePromotion($id, $promotionModel);
 
         if(!$result){
-            ResponseAssemblerError::responseDelete(404, "Erro ao atualizar a promoção");
+            ResponseAssemblerError::response(404, "Erro ao atualizar a promoção");
         }
         
         ResponseAssemblerSuccess::response(200, $result, "Promoção atualizada com sucesso");
@@ -60,9 +61,9 @@ class PromotionController
         $result = $this->promotionRepository->searchByIdPromotion($id);
     }
 
-    public function delete($id)
+    public function ClosePromotion($id, $data)
     {
-        $result = $this->promotionRepository->deleteByIdPromotion($id);
+        $result = $this->promotionRepository->CloseByIdPromotion($id, $data);
 
         if(!$result){
             ResponseAssemblerError::response(404, "Erro ao excluir promoção");
