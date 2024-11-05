@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Produto foda - Loja Visgo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJ3Qb97BnaH2Q+26R9AHeWs+r+n98LdmjfDFFGZP5SYwpx+hXKHmPq8Wi/FZ" >
+    
+    
+
+<body>
+
+    <nav class="navbar superior">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Visgo do Jaca</a>
+        </div>
+    </nav>
+
+    <div class="container aquele">
+        <div class="part produtos">
+            <div class="imagens principal">
+                <img src="https://img.ltwebstatic.com/images3_pi/2022/06/10/1654855943177e06ce8f508f612cae973cb0b3c7e7_thumbnail_750x999.webp" alt="Produto Principal" class="main-image">
+                <div>
+                    <img src="https://img.ltwebstatic.com/images3_pi/2022/06/10/1654855943177e06ce8f508f612cae973cb0b3c7e7_thumbnail_750x999.webp" alt="Imagem 1" class="small-image">
+                    <img src="https://img.ltwebstatic.com/images3_pi/2022/06/10/1654855943177e06ce8f508f612cae973cb0b3c7e7_thumbnail_750x999.webp" alt="Imagem 2" class="small-image">
+                </div>
+            </div>
+
+            <div class="col6">
+                <h2>Produto Incrível</h2>
+                <p class="preço-produto">R$ 199,00 <small><del>R$ 299,00</del></small></p>
+                <p class="descrição-produto">Este produto é perfeito para quem busca qualidade e estilo. Confeccionado com materiais de primeira linha, oferece o máximo de conforto e durabilidade. Ideal para o seu dia a dia, seja no trabalho ou lazer.</p>
+
+                <div class="quantidade item">
+                    <label for="quantity" class="form-label">Quantidade:</label>
+                    <input type="number" class="form-control" id="quantity" value="1" min="1">
+                </div>
+
+                <button class="btn btn-buy">Adicionar ao Carrinho</button>
+
+                <hr>
+                <h5>Formas de Pagamento</h5>
+                <div class="payment-icons">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/PayPal_logo_2014.png" alt="Paypal">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Logo_Mastercard_2019.png" alt="MasterCard">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Visa_Logo_2014.png" alt="Visa">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_Boleto_banc%C3%A1rio.png" alt="Boleto">
+                </div>
+
+                <hr>
+                <h5>Simule o Frete</h5>
+                <form>
+                    <div class="ve frete">
+                        <label for="cep" class="form-label">Digite seu CEP:</label>
+                        <input type="text" class="form-control" id="cep" placeholder="Ex: 12345-678">
+                    </div>
+                    <button type="button" class="btn btn-outline-success">Calcular Frete</button>
+                </form>
+
+                <div id="resultado frete" class="ve frete"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© 2024 Visgo do Jaca. Todos os direitos reservados.</p>
+    </footer>
+
+  
