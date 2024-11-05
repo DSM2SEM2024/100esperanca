@@ -1,11 +1,53 @@
-import { getOrCreateMainElement } from "../components/main";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Option 1: Include in HTML -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/FrontEnd/assets/css/teamplate.css">
+</head>
 
-import camiseta from "/assets/imgs/camiseta.jpg";
 
+</head>
+<body>
+    
+    <header class="w-100 p-2 text-center d-flex justify-content-between align-items-center">
+        <img src="assets/imgs/visgo.jpg" alt="LogoVisgo" class="img-fluid">
+          <nav class="navbar d-flex justify-content-evenly">
+            
+        <div class="container justify-content-center">
+            <button class="btn navbar-brand navbar-toggler btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- <button class="btn btn-success ms-2">
+              <i class="bi bi-cart-fill"></i>
+            </button> -->
 
-export function telaProdutosHtml () {
-    const telaProdutos = `
-    <nav class="navbar navbar-expand-lg d-flex bg-body-tertiary bg-opacity-75" id="navFiltros">
+          <div class="collapse pt-2 navbar-collapse" id="navbar">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+            
+                <button class="btn btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-people-fill"></i>
+                    <span class="visually"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu">
+                    <li><a class="dropdown-item border-bottom" href="#">Meus Dados</a></li>
+                    <li><a class="dropdown-item border-bottom" href="#">Meus Pedidos</a></li>
+                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                </ul>
+            
+        </li>
+    
+              
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <!-- <nav class="navbar navbar-expand-lg d-flex bg-body-tertiary bg-opacity-75" id="navFiltros">
         <section class="container-fluid d-flex justify-content-evenly">
             <form class="d-flex" role="search">
                 <div class="input-group">
@@ -102,18 +144,11 @@ export function telaProdutosHtml () {
         </div>
         
     </div>
-</section>
-`;
-const main = getOrCreateMainElement();
-main.classList = "h-75"
-main.innerHTML = telaProdutos;
+</section> -->
 
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </body>
+  
 
-navFiltros.style.setProperty('background-color', '#5ABC49', 'important');
-navFiltros.style.setProperty('opacity', '75%', 'important');
-navFiltros.style.setProperty('justify-content', 'between')
-navDrop.style.setProperty('margin-right', '5px', 'important');
-navDrop.style.setProperty('margin-top', '5px', 'important');
-
-
-}
+</body>
+</html>
