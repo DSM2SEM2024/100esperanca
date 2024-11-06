@@ -135,7 +135,7 @@ export function criaHomeHTML(){
 
 
 
-        <section class="about d-flex align-items-center px-5 bg-success w-100">
+        <section class="about d-flex align-items-center px-5 bg-success w-100 p-5">
 
             <figure class="">
                 <img src="${img}" alt="visgo de jaca" class="rounded-circle">

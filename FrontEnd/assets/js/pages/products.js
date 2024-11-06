@@ -105,9 +105,8 @@ export function telaProdutosHtml () {
 </section>
 `;
 const main = getOrCreateMainElement();
-main.classList = "h-75"
 main.innerHTML = telaProdutos;
-
+main.classList = null;
 
 navFiltros.style.setProperty('background-color', '#5ABC49', 'important');
 navFiltros.style.setProperty('opacity', '75%', 'important');

@@ -23,6 +23,6 @@ function renderContentBasedOnHash() {
     clearBody();  
     criaHomeHTML();
 }
-
+}
 renderContentBasedOnHash();
 window.addEventListener('hashchange', renderContentBasedOnHash);
