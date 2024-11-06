@@ -1,4 +1,4 @@
-import { getOrCreateMainElement } from "../components/main";
+import { getOrCreateMainElement } from "../../components/main";
 
 const main = getOrCreateMainElement()
 main.classList = 'vh-100 d-block';

@@ -1,4 +1,4 @@
-import { getOrCreateMainElement } from "../components/main";
+import { getOrCreateMainElement } from "../../components/main";
 
 import camiseta from "/assets/imgs/camiseta.jpg";
 
@@ -105,7 +105,7 @@ export function telaProdutosHtml () {
 </section>
 `;
 const main = getOrCreateMainElement();
-main.classList = "h-75"
+main.classList = null;
 main.innerHTML = telaProdutos;
 
 

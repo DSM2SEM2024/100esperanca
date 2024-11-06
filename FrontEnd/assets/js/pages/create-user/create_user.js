@@ -1,4 +1,4 @@
-import { getOrCreateMainElement } from "../components/main";
+import { getOrCreateMainElement } from "../../components/main";
 
 export function criarUsuarioHtml() {
     const criarUsuario = `

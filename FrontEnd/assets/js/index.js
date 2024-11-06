@@ -1,11 +1,11 @@
-import { headerHtml, updateNavbarLinks } from "./components/header";
-import { clearBody } from "./functions/clear_body";
-import { criaHomeHTML } from "./pages/home/home";
-import { telaLoginHtml } from "./pages/login_screen";
-import { criarUsuarioHtml } from "./pages/create_user";
-import { gerenciarUsuarioHtml } from "./pages/user_management";
-import { telaProdutosHtml } from "./pages/products";
-import { footerHtml } from "./components/footer";
+import { headerHtml, updateNavbarLinks } from "./components/header.js";
+import { clearBody } from "./functions/clear_body.js";
+import { criaHomeHTML } from "./pages/home/home.js";
+import { telaLoginHtml } from "./pages/login/login_screen.js";
+import { criarUsuarioHtml } from "./pages/create-user/create_user.js";
+import { gerenciarUsuarioHtml } from "./pages/user/user_management.js";
+import { telaProdutosHtml } from "./pages/products/products.js";
+import { footerHtml } from "./components/footer.js";
 
 
 
@@ -20,9 +20,9 @@ function renderContentBasedOnHash() {
     } else if (location.hash === '#produtos') {
         telaProdutosHtml();
     }else if(!location.hash || location.hash === '#home'){
-    clearBody();  
-    criaHomeHTML();
+        clearBody();  
+        criaHomeHTML();
+    }
 }
-
 renderContentBasedOnHash();
 window.addEventListener('hashchange', renderContentBasedOnHash);
