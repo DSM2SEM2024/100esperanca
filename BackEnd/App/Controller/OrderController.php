@@ -1,4 +1,4 @@
-<?php
+<?php 
 namespace Pi\Visgo\Controller;
 
 use Pi\Visgo\Common\ProblemAndFiledError;
@@ -18,20 +18,21 @@ class OrderController {
 
     public function create($data) {
         $isValid = Validator::validationOrder($data);
+        $id_user = isset($data->id_user) ? $data->id_user : 1; 
 
         if (!$isValid) {
             ResponseAssemblerError::response(400, ProblemAndFiledError::getFieldsError());
             return;
         }
 
-        $orderModel = new Order(
-            $data->date_time_order,
-            $data->description
-        );
-
+        $orderModel = new Order($data->date_time_order, $data->description, $data->is_finished, $id_user);
         $result = $this->orderRepository->createOrder($orderModel);
 
-        ResponseAssemblerSuccess::response(201, $result);
+        if ($result) {
+            ResponseAssemblerSuccess::response(201, $result);
+        } else {
+            ResponseAssemblerError::response(500, "Erro ao criar o pedido.");
+        }
     }
 
     public function update($id, $data) {
@@ -44,12 +45,18 @@ class OrderController {
 
         $orderModel = new Order(
             $data->date_time_order,
-            $data->description
+            $data->description,
+            $data->is_finished,
+            $data->id_user
         );
 
         $result = $this->orderRepository->updateOrder($id, $orderModel);
 
-        ResponseAssemblerSuccess::response(200, $result);
+        if ($result) {
+            ResponseAssemblerSuccess::response(200, $result);
+        } else {
+            ResponseAssemblerError::response(500, "Erro ao atualizar o pedido.");
+        }
     }
 
     public function getAll() {
@@ -59,14 +66,62 @@ class OrderController {
 
     public function searchById($id) {
         $result = $this->orderRepository->getOrderById($id);
+        
+        if (!$result) {
+            ResponseAssemblerError::response(404, "Pedido não encontrado.");
+            return;
+        }
+
         ResponseAssemblerSuccess::response(200, $result);
     }
 
     public function delete($id) {
-        if ($this->orderRepository->deleteOrderById($id)) {
+        $result = $this->orderRepository->deleteOrderById($id);
+
+        if ($result) {
             ResponseAssemblerSuccess::responseDelete(200);
         } else {
             ResponseAssemblerError::responseDelete(500);
+        }
+    }
+
+    public function finishOrder($id) {
+        $result = $this->orderRepository->finishOrderById($id);
+
+        if ($result) {
+            ResponseAssemblerSuccess::response(200, "Pedido finalizado com sucesso.");
+        } else {
+            ResponseAssemblerError::response(500, "Erro ao finalizar o pedido.");
+        }
+    }
+
+    public function reopenOrder($id) {
+        $result = $this->orderRepository->openOrderById($id);
+
+        if ($result) {
+            ResponseAssemblerSuccess::response(200, "Pedido reaberto com sucesso.");
+        } else {
+            ResponseAssemblerError::response(500, "Erro ao reabrir o pedido.");
+        }
+    }
+
+    public function addArtToOrder($orderId, $arts) {
+        $result = $this->orderRepository->insertArtInOrder($orderId, $arts);
+
+        if ($result) {
+            ResponseAssemblerSuccess::response(200, "Arte(s) adicionada(s) ao pedido.");
+        } else {
+            ResponseAssemblerError::response(500, "Erro ao adicionar arte ao pedido.");
+        }
+    }
+
+    public function removeArtFromOrder($orderId, $artId) {
+        $result = $this->orderRepository->deleteArtFromOrder($orderId, $artId);
+
+        if ($result) {
+            ResponseAssemblerSuccess::response(200, "Arte removida do pedido.");
+        } else {
+            ResponseAssemblerError::response(500, "Erro ao remover arte do pedido.");
         }
     }
 }

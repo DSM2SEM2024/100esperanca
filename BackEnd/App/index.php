@@ -16,46 +16,34 @@ $orderController = new OrderController($orderRepository);
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
 
-switch ($uri) {
-    case '/order':
-        switch ($method) {
-            case 'GET':
-               
-                if (preg_match('/\/order\/(\d+)/', $uri, $match)) {
-                    $id = $match[1];
-                    $orderController->searchById($id);
-                } else {
-                    $orderController->getAll();
-                }
-                break;
+switch ($method) {
+    case 'GET':
+        if ($id) {
+            $orderController->searchById($id); 
+        } else {
+            $orderController->getAll();
+        }
+        break;
 
-            case 'POST':
-                $data = json_decode(file_get_contents('php://input'));
-                $orderController->create($data);
-                break;
+    case 'POST':
+        $data = json_decode(file_get_contents('php://input'));
+        $orderController->create($data);
+        break;
 
-            case 'PUT':
-                if (preg_match('/\/order\/(\d+)/', $uri, $match)) {
-                    $id = $match[1];
-                    $data = json_decode(file_get_contents('php://input'));
-                    $orderController->update($id, $data);
-                }
-                break;
+    case 'PUT':
+        if ($id) {
+            $data = json_decode(file_get_contents('php://input'));
+            $orderController->update($id, $data);
+        }
+        break;
 
-            case 'DELETE':
-                if (preg_match('/\/order\/(\d+)/', $uri, $match)) {
-                    $id = $match[1];
-                    $orderController->delete($id);
-                }
-                break;
-
-            default:
-                echo json_encode(['message' => 'Method not supported for this endpoint.']);
-                break;
+    case 'DELETE':
+        if ($id) {
+            $orderController->delete($id);
         }
         break;
 
     default:
-        echo json_encode(['message' => 'Endpoint not found.']);
+        echo json_encode(['message' => 'Method not supported for this endpoint.']);
         break;
 }
