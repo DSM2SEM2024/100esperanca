@@ -70,6 +70,13 @@ class PromotionRepository
         $end_date_promotion = $promotion->getEndDatePromotion();
         $cod_promotion = $promotion->getCodPromotion();
 
+        $validCodPromotion = $this->validatorCodPromotion($cod_promotion);
+
+        if($validCodPromotion){
+            ResponseAssemblerError::response(404, "Código de promoção já existente!");
+            throw new Exception("Código de promoção já existente!");
+        }
+
         $query = "UPDATE $this->table SET start_date_promotion = :start_date_promotion, end_date_promotion = :end_date_promotion, cod_promotion = :cod_promotion WHERE $this->table.id = :id";
 
         $stmt = $this->connection->prepare($query);
