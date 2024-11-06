@@ -35,4 +35,46 @@ class ProductRepository {
 
         return $result;
     }
+
+    public function getAllProducts() {
+        $query = "SELECT * FROM $this->table";
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getProductById($productId) {
+        $query = "SELECT * FROM $this->table WHERE $this->table.id = :idProduct";
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindValue(":idProduct", $productId, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function updateProduct(Product $product) {
+        $query = "UPDATE $this->table SET name = :name, type_product = :type_product, cod_product = :cod_product, price = :price, id_art = :id_art WHERE id = :product_id";
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindValue(":name", $product->getName(), PDO::PARAM_STR);
+        $stmt->bindValue(":type_product", $product->getTypeProduct(), PDO::PARAM_STR);
+        $stmt->bindValue(":price", $product->getPrice());
+        $stmt->bindValue(":cod_product", $product->getCodProduct(), PDO::PARAM_STR);
+        $stmt->bindValue(":id_art", $product->getArt()->getId(), PDO::PARAM_INT);
+        $stmt->bindValue(":product_id", $product->getId(), PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    public function discontinueProduct($productId) {
+        $query = "UPDATE $this->table SET is_discontinued = 1 WHERE id = :product_id";
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindValue(":product_id", $productId, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
 }
