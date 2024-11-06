@@ -2,11 +2,13 @@
 
 namespace Pi\Visgo\Repository;
 
+use Exception;
 use Pi\Visgo\Model\Promotion;
 use Pi\Visgo\Database\Connection;
 use PDO;
 use PDOException;
 use PDORow;
+use Pi\Visgo\Common\ResponseAssemblerError;
 
 class PromotionRepository
 {
@@ -24,6 +26,13 @@ class PromotionRepository
         $end_date_promotion = $promotion->getEndDatePromotion();
         $cod_promotion = $promotion->getCodPromotion();
 
+        $validCodPromotion = $this->validatorCodPromotion($cod_promotion);
+
+        if($validCodPromotion){
+            ResponseAssemblerError::response(404, "Código de promoção já existente!");
+            throw new Exception("Código de promoção já existente!");
+        }
+
         $query = "INSERT INTO $this->table (start_date_promotion, end_date_promotion, cod_promotion) VALUES (:start_date_promotion, :end_date_promotion, :cod_promotion)";
 
         $stmt = $this->connection->prepare($query);
@@ -35,6 +44,24 @@ class PromotionRepository
         $executionCompleted = $stmt->execute();
 
         return $executionCompleted;
+    }
+
+    public function validatorCodPromotion($cod_promotion){
+
+        try{
+        
+        $query = "SELECT COUNT(*) FROM $this->table WHERE cod_promotion = :cod_promotion";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindParam(':cod_promotion', $cod_promotion);
+        $stmt->execute();
+        
+        return $stmt->fetchColumn() > 0;
+
+        }catch(PDOException $e) {
+            echo "Erro: " . $e->getMessage();
+            return false;
+        }
+
     }
 
     public function updatePromotion($id, Promotion $promotion)

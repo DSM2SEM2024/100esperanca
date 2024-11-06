@@ -38,6 +38,17 @@ class PromotionController
     public function update($id, $data)
     {
 
+        $validator = new ValidatorId('sqlite');
+
+        $table = 'promotion';
+
+        $validation = $validator->ValidatorById($table, $id);
+
+        if(!$validation){
+            ResponseAssemblerError::response(404, "Promoção não encontrada.");
+            throw new Exception("Id de promoção não encontrado.");
+        }
+
         $promotionModel = new Promotion();
         $promotionModel->setStartDatePromotion($data->start_date_promotion);
         $promotionModel->setEndDatePromotion($data->end_date_promotion);
@@ -76,7 +87,6 @@ class PromotionController
 
     public function OpeningPromotion($id){
 
-        //criar método de verificação do id
         $validator = new ValidatorId('sqlite');
 
         $table = 'promotion';
@@ -105,12 +115,37 @@ class PromotionController
 
     public function searchById($id)
     {
+        $validator = new ValidatorId('sqlite');
+
+        $table = 'promotion';
+
+        $validation = $validator->ValidatorById($table, $id);
+
+        if(!$validation){
+            ResponseAssemblerError::response(404, "Promoção não encontrada.");
+            throw new Exception("Id de promoção não encontrado.");
+        }
+
         $result = $this->promotionRepository->searchByIdPromotion($id);
         ResponseAssemblerSuccess::response(200, $result, 'Requisição bem sucedida!');
     }
 
     public function addProductsInPromotion($data)
     {
+
+        $validator = new ValidatorId('sqlite');
+
+        $table = 'promotion';
+
+        $id = $data->promotion;
+
+        $validation = $validator->ValidatorById($table, $id);
+
+        if(!$validation){
+            ResponseAssemblerError::response(404, "Promoção não encontrada.");
+            throw new Exception("Id de promoção não encontrado.");
+        }
+
         $promotion = $data->promotion;
         $products = $data->products;
 
@@ -131,6 +166,20 @@ class PromotionController
 
     public function deleteProductInPromotion($data)
     {   
+
+        $validator = new ValidatorId('sqlite');
+
+        $table = 'promotion';
+
+        $id = $data->promotion;
+
+        $validation = $validator->ValidatorById($table, $id);
+
+        if(!$validation){
+            ResponseAssemblerError::response(404, "Promoção não encontrada.");
+            throw new Exception("Id de promoção não encontrado.");
+        }
+
         $promotion = $data->promotion;
         $products = $data->products;
         $result = $this->promotionRepository->deleteProductPromotion($promotion, $products);
