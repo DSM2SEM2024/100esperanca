@@ -140,23 +140,6 @@ class PromotionRepository
         return $executionCompleted;
     }
 
-    /*public function updateProductPromotion($promotion, $products)
-    {
-        $id_promotion = $promotion;
-        $id_product = $products;
-
-        $query = "UPDATE $this->tableassoc SET id_promotion = :id_promotion, id_product = :id_product";
-
-        $stmt = $this->connection->prepare($query);
-
-        $stmt->bindParam("id_promotion", $id_promotion);
-        $stmt->bindParam("id_product", $id_product);
-
-        $executionCompleted = $stmt->execute();
-
-        return $executionCompleted;
-    }*/
-
     public function getAllProductPromotion()
     {
         $query = "SELECT * FROM $this->tableassoc";

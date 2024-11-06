@@ -2,6 +2,7 @@
 namespace Pi\Visgo;
 require_once "../vendor/autoload.php";
 
+use Pi\Visgo\Common\ResponseAssemblerError;
 use Pi\Visgo\Repository\PromotionRepository;
 use Pi\Visgo\Repository\RoleRepository;
 use Pi\Visgo\Controller\PromotionController;
@@ -141,16 +142,14 @@ switch ($method) {
                 $data = json_decode(file_get_contents('php://input'));
                 $promotionController->deleteProductInPromotion($data, $promotion);
             }
-        }
+        }*/
     break;
     
     case 'DELETE':
-        if($uri === '/product_promotion'){
-            if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
-                $promotion = $match[1];
+
                 $data = json_decode(file_get_contents('php://input'));
                 $promotionController->deleteProductInPromotion($data, $promotion);
-            }
-        }*/
+
+    break;
 
 }

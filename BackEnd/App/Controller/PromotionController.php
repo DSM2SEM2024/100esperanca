@@ -7,7 +7,7 @@ use Pi\Visgo\Common\ResponseAssemblerError;
 use Pi\Visgo\Common\ResponseAssemblerSuccess;
 use Pi\Visgo\Model\Promotion;
 use Pi\Visgo\Repository\PromotionRepository;
-
+use Pi\Visgo\Common\ValidatorId;
 
 class PromotionController
 {
@@ -54,7 +54,16 @@ class PromotionController
 
     public function ClosingPromotion($id){
 
-        //criar método de verificação do id
+        $validator = new ValidatorId('sqlite');
+
+        $table = 'promotion';
+
+        $validation = $validator->ValidatorById($table, $id);
+
+        if(!$validation){
+            ResponseAssemblerError::response(404, "Promoção não encontrada.");
+            throw new Exception("Id de promoção não encontrado.");
+        }
 
         $result = $this->promotionRepository->ClosePromotionById($id);
         
@@ -68,6 +77,16 @@ class PromotionController
     public function OpeningPromotion($id){
 
         //criar método de verificação do id
+        $validator = new ValidatorId('sqlite');
+
+        $table = 'promotion';
+
+        $validation = $validator->ValidatorById($table, $id);
+
+        if(!$validation){
+            ResponseAssemblerError::response(404, "Promoção não encontrada.");
+            throw new Exception("Id de promoção não encontrado.");
+        }
 
         $result = $this->promotionRepository->OpenPromotionById($id);
         
@@ -104,21 +123,6 @@ class PromotionController
         ResponseAssemblerSuccess::response(200, $result, "Produto adicionado a promoção com sucesso");
     }
 
-    /*public function updateProductsInPromotion($data)
-    {
-        $promotion = $data->promotion;
-        $products = $data->products;
-
-        $result = $this->promotionRepository->updateProductPromotion($promotion, $products);
-
-        if(!$result){
-            ResponseAssemblerError::response(404, "Erro ao atualizar o produto da promoção");
-        }
-        
-        ResponseAssemblerSuccess::response(200, $result, "Produto da promoção atualizado com sucesso");
-
-    }*/
-
     public function getAllProductsInPromotion()
     {
         $result = $this->promotionRepository->getAllProductPromotion();
@@ -134,7 +138,6 @@ class PromotionController
         if(!$result){
             ResponseAssemblerError::response(404, "Erro ao deletar o produto de promoção");
         }
-        echo json_decode("dasdasda");
         ResponseAssemblerSuccess::response(200, $result, "Produto da promoção deletado com sucesso");
 
     }
