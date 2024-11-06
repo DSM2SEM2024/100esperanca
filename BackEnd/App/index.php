@@ -15,6 +15,7 @@ $orderController = new OrderController($orderRepository);
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
+$id = isset($_GET['id']) ? $_GET['id'] : null;  // Pega o ID da URL, se existir
 
 switch ($method) {
     case 'GET':
@@ -32,8 +33,15 @@ switch ($method) {
 
     case 'PUT':
         if ($id) {
-            $data = json_decode(file_get_contents('php://input'));
-            $orderController->update($id, $data);
+            // Caso de finalizar ou reabrir o pedido
+            if (strpos($uri, '/finish') !== false) {
+                $orderController->finishOrder($id);
+            } elseif (strpos($uri, '/open') !== false) {
+                $orderController->reopenOrder($id);
+            } else {
+                $data = json_decode(file_get_contents('php://input'));
+                $orderController->update($id, $data);
+            }
         }
         break;
 

@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Pi\Visgo\Controller;
 
 use Pi\Visgo\Common\ProblemAndFiledError;
@@ -18,7 +18,7 @@ class OrderController {
 
     public function create($data) {
         $isValid = Validator::validationOrder($data);
-        $id_user = isset($data->id_user) ? $data->id_user : 1; 
+        $id_user = isset($data->id_user) ? $data->id_user : 1;
 
         if (!$isValid) {
             ResponseAssemblerError::response(400, ProblemAndFiledError::getFieldsError());
@@ -66,7 +66,7 @@ class OrderController {
 
     public function searchById($id) {
         $result = $this->orderRepository->getOrderById($id);
-        
+
         if (!$result) {
             ResponseAssemblerError::response(404, "Pedido não encontrado.");
             return;
@@ -86,6 +86,7 @@ class OrderController {
     }
 
     public function finishOrder($id) {
+
         $result = $this->orderRepository->finishOrderById($id);
 
         if ($result) {
