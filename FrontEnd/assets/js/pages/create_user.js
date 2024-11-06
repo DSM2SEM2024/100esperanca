@@ -70,8 +70,8 @@ export function criarUsuarioHtml() {
 <button type="submit" class="btn btn-primary">Sign in</button>
 -->
 `;
-    const main = getOrCreateMainElement();
-    main.classList = "h-100 d-flex flex-wrap justify-content-center"
-    main.innerHTML = criarUsuario;
+const main = getOrCreateMainElement();
+main.classList="d-flex p-1 h-100 justify-content-center align-items-center"
+main.innerHTML = criarUsuario;
 }
 

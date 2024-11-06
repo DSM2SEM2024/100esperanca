@@ -5,13 +5,14 @@
     text-decoration: none;
 }
 body{
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    justify-content: stretch;
 }
 footer{
     background-color: #5ABC49;
+    
 }
 div#header ul{
     list-style: none;
@@ -23,7 +24,7 @@ div#header ul{
     flex-wrap: wrap;
     text-wrap: pretty;
 }header img{
-    width: 10rem;
+    width: 4rem;
     border-radius: 10rem;
 }
 header{
@@ -33,11 +34,11 @@ header{
 }
 
 .custom-btn-hover {
-    background-color: #198754 !important;
+   
     color: white !important;
-    transition: background-color 0.3s ease; 
+    transition: background-color 0.3s ease;
 }
 
 .custom-btn-hover:hover {
-    background-color: #147045 !important; 
+    color: white !important; 
 }
