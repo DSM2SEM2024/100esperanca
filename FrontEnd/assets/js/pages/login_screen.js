@@ -29,7 +29,7 @@ export function telaLoginHtml() {
     main.classList = "d-flex pt-5 vh-100 justify-content-center align-items-center"
     main.innerHTML = telaLogin;
 
-const loginContainer = document.querySelector('.login-container');
+    const loginContainer = document.querySelector('.login-container');
 if (loginContainer) {
         loginContainer.style.setProperty('background-color', '#5ABC49', 'important');
         loginContainer.style.setProperty('width', '350px', 'important');

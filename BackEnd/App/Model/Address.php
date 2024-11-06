@@ -1,7 +1,9 @@
 <?php
 namespace Pi\Visgo\Model;
 
-class Address{
+use JsonSerializable;
+
+class Address implements JsonSerializable {
     
     private $id;
     private $state;
@@ -10,16 +12,6 @@ class Address{
     private $number;
     private $street;
     private $cep;
-
-    public function __construct($id, $state, $city, $neighborhood, $number, $street, $cep){
-        $this->id = $id;
-        $this->state = $state;
-        $this->city = $city;
-        $this->neighborhood = $neighborhood;
-        $this->number = $number;
-        $this->street = $street;
-        $this->cep = $cep;
-    }
 
     public function getId() {
         return $this->id;
@@ -75,5 +67,16 @@ class Address{
 
     public function setCep($cep) {
         $this->cep = $cep;
+    }
+
+    public function jsonSerialize(): mixed {
+        return [
+            'state' => $this->getState(),
+            'city' => $this->getCity(),
+            'neighborhood' => $this->getNeighborhood(),
+            'number' => $this->getNumber(),
+            'street' => $this->getStreet(),
+            'cep' => $this->getCep()
+        ];
     }
 }

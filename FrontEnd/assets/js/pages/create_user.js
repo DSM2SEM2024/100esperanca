@@ -1,76 +1,74 @@
 import { getOrCreateMainElement } from "../components/main";
 
-export function criarUsuarioHtml (){
+export function criarUsuarioHtml() {
     const criarUsuario = `
-<div class="container-sm position-relative">
-<ul class="list-group ">
-<li class="list-group-item row">
-<label for="nome">Nome</label>
-<input type="text" placeholder="Nome">
-</li>
+<form class="h-50">
+    <div class="container">
+        <div class="form-group col">
+        <label for="nome">nome</label>
+        <input type="text" class="form-control" id="nome" placeholder="nome">
+        </div>
 
-<li class="list-group-item row row">
-<label for="email">Email</label>
-<input type="email" name="email" id="email" placeholder="Email">
-</li>
+        <div class="form-group col">
+        <label for="inputEmail4">Email</label>
+        <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+        </div>
 
-<li class="list-group-item row">
-<label for="senha">Senha</label>
-<input type="password" name="senha" id="senha" placeholder="Senha">
-</li>
+        <div class="form-group col">
+        <label for="inputPassword4">Senha</label>
+        <input type="password" class="form-control" id="inputPassword4" >
+        </div>
 
-<li class="list-group-item row">
-<label for="confima_senha">Confirmar Senha</label>
-<input type="password" name="confima_senha" id="confima_senha" placeholder="Confirmar Senha">
-</li>
+        <div class="form-group col">
+        <label for="inputPassword4">Confirmar Senha</label>
+        <input type="password" class="form-control" id="inputPassword4" >
+        </div>
+    </div>
+</form>
 
-</ul>
-<br>
-<section class="localizacao">
-<ul class="list-group ">
 
-<li class="list-group-item row "> 
-<div class="row justify-content-start justify-content-center">
-<div class="col row">
-<label for="cep">CEP</label>
-<input type="text" id="cep" placeholder="CEP" class="form=control">
-</div>
+<form class="h-50">
 
-<div class="col-2 row">
-<label for="numero_casa">N°</label>
-<input type="number" name="numero_casa" id="numero_casa">
-</div>
-</div>
-</li>
+   <div class="form-row d-flex">
+        <div class="col">
+            <label for="inputCep">Cep</label>
+            <input type="text" class="form-control" id="inputCep">
+        </div>
 
-<li class="list-group-item row"> 
+        <div class="col-2">
+            <label for="inputUf">Uf</label>
+            <input type="text" class="form-control" id="inputUf">
+        </div>
 
-<div class="row justify-content-center ">
-<div class="col row">
-<label for="cep">Rua</label>
-<input type="text" id="rua" placeholder="Rua">
-</div>
+    </div>
+    
+     <div class="form-row d-flex">
+        
+        <div class="form-group col">
+            <label for="inputRua">Rua</label>
+            <input type="text" class="form-control" id="inputRua">
+        </div>
+       
+        <div class="form-group col-2">
+            <label for="inputN">N°</label>
+            <input type="text" class="form-control" id="inputN">
+        </div>
+        
+    </div>
+        <div class="form-group col">
+            <label for="inputCidade">Cidade</label>
+            <input type="text" class="form-control" id="inputCidade">
+        </div>
 
-<div class="col-2 row">
-<label for="uf">UF</label>
-<input type="number" name="uf" id="uf">
-</div>
-</li>
+        <div class="form-group col">
+            <label for="inputComplemento">Complemento</label>
+            <input type="text" class="form-control" id="inputComplemento">
+        </div>  
 
-<li class="list-group-item row "> 
-<label for="cidade">Cidade</label>
-<input type="password" name="cidade" id="cidade" placeholder="Cidade">
-</li>
-<li class="list-group-item row"> 
-<label for="complemento">Complemento</label>
-<input type="password" name="complemento" id="complemento" placeholder="Complemento">
-</li>
-
-<button class="btn btn-success btn-lg btn-block">Criar Usuário</button>
-</ul>
-
-</section>
-</div>
+</form>
+<!--
+<button type="submit" class="btn btn-primary">Sign in</button>
+-->
 `;
 const main = getOrCreateMainElement();
 main.classList="d-flex p-1 h-100 justify-content-center align-items-center"
