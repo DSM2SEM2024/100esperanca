@@ -150,7 +150,7 @@ switch ($method) {
     case 'DELETE':
 
                 $data = json_decode(file_get_contents('php://input'));
-                $promotionController->deleteProductInPromotion($data, $promotion);
+                $promotionController->deleteProductInPromotion($data);
 
     break;
 

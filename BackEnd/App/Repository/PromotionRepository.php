@@ -175,8 +175,6 @@ class PromotionRepository
             $this->connection->rollBack();
             throw new PDOException($e);
         }
-
-        return $executionCompleted;
     }
 
     public function getAllProductPromotion()

@@ -135,24 +135,29 @@ class PromotionController
         ResponseAssemblerSuccess::response(200, $result, 'Requisição bem sucedida!');
     }
 
-    public function addProductsInPromotion($data)
-    {
+    public function addProductsInPromotion($data){
 
         $validator = new ValidatorId('sqlite');
 
-        $table = 'promotion';
+        $table = 'product_promotion';
 
-        $id = $data->promotion;
+        $id = $data->products;
+        $products = $data->products;
 
         $validation = $validator->ValidatorById($table, $id);
+        $validationArray = $validator->ValidatorValuesArray($products);
 
-        if(!$validation){
+        if($validationArray){
+            ResponseAssemblerError::response(404, "Um produto não pode ser adicionado na mesma promoção duas vezes");
+            throw new Exception("Produto de Id repetido na criação");
+        }
+
+        if($validation){
             ResponseAssemblerError::response(404, "Promoção não encontrada.");
             throw new Exception("Id de promoção não encontrado.");
         }
 
         $promotion = $data->promotion;
-        $products = $data->products;
 
         $result = $this->promotionRepository->insertProductInPromotion($promotion, $products);
         

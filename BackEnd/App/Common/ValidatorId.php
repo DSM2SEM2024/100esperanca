@@ -14,14 +14,39 @@ class ValidatorId {
 
     public function ValidatorById($table, $dataId){
 
-        $id = $dataId;
+            foreach($dataId as $id_product){
     
-        $query = "SELECT * FROM $table WHERE id = :id";
-        $stmt = $this->connection->prepare($query);
-        $stmt->bindParam(":id", $id);
-        $stmt->execute();
+                $query = "SELECT * FROM $table WHERE id_product = :id_product";
+                $stmt = $this->connection->prepare($query);
+                $stmt->bindParam(":id_product", $id_product);
+                $stmt->execute();
 
-        return ($stmt->fetch() > 0);
+                
+
+                var_dump ($stmt->fetch() > 0);
+
+                if(($stmt->fetch() > 0)){
+
+                return false;
+            }
+
+            }
+
+    }
+
+    public function ValidatorValuesArray($data){
+
+        $count = array_count_values($data);
+
+        foreach($count as $values=> $quantify){
+
+            if($quantify > 1){
+                return true;
+            }
+
+            return false;
+
+        }
 
     }
 
