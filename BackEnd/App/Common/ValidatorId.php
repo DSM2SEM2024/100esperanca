@@ -16,12 +16,12 @@ class ValidatorId {
 
         $id = $dataId;
     
-        $query = "SELECT COUNT(*) FROM $table WHERE id = :id";
+        $query = "SELECT * FROM $table WHERE id = :id";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(":id", $id);
         $stmt->execute();
 
-        return $stmt->fetchColumn() > 0;
+        return ($stmt->fetch() > 0);
 
     }
 

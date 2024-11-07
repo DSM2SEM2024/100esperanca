@@ -108,15 +108,20 @@ class PromotionRepository
 
     }
 
-    public function OpenPromotionById($id){
+    public function OpenPromotionById($id, Promotion  $promotion){
 
         $is_closed = 0;
         
-        $query = "UPDATE $this->table SET is_closed = :is_closed WHERE $this->table.id = :id";
+        $start_date_promotion = $promotion->getStartDatePromotion();
+        $end_date_promotion = $promotion->getEndDatePromotion();
+
+        $query = "UPDATE $this->table SET start_date_promotion = :start_date_promotion, end_date_promotion = :end_date_promotion, is_closed = :is_closed WHERE $this->table.id = :id";
 
         $stmt = $this->connection->prepare($query);
 
         $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":start_date_promotion", $start_date_promotion);
+        $stmt->bindParam(":end_date_promotion", $end_date_promotion);
         $stmt->bindParam(":is_closed", $is_closed);
 
         $executionCompleted = $stmt->execute();

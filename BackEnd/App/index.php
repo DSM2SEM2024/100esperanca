@@ -124,17 +124,19 @@ switch ($method) {
     break;
 
     case 'PUT':
-        if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
+        /*if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
             $id = $match[1];
             $data = json_decode(file_get_contents('php://input'));
             $promotionController->update($id, $data);
 
-        }
+        }*/
             
-            /*if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
+            if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
                 $id = $match[1];
-                $promotionController->OpeningPromotion($id);
-            }*/
+                // $promotionController->ClosingPromotion($id);
+                $data = json_decode(file_get_contents('php://input'));
+                $promotionController->OpeningPromotion($id, $data);
+            }
 
             /*else if($uri === '/product_promotion'){
             if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){

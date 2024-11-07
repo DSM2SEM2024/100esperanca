@@ -43,6 +43,7 @@ class PromotionController
         $table = 'promotion';
 
         $validation = $validator->ValidatorById($table, $id);
+        var_dump($validation); 
 
         if(!$validation){
             ResponseAssemblerError::response(404, "Promoção não encontrada.");
@@ -85,7 +86,7 @@ class PromotionController
         ResponseAssemblerSuccess::response(200, $result, "Promoção fechada com sucesso!");
     }
 
-    public function OpeningPromotion($id){
+    public function OpeningPromotion($id, $data){
 
         $validator = new ValidatorId('sqlite');
 
@@ -98,7 +99,11 @@ class PromotionController
             throw new Exception("Id de promoção não encontrado.");
         }
 
-        $result = $this->promotionRepository->OpenPromotionById($id);
+        $promotionModel = new Promotion();
+        $promotionModel->setStartDatePromotion($data->start_date_promotion);
+        $promotionModel->setEndDatePromotion($data->end_date_promotion);
+
+        $result = $this->promotionRepository->OpenPromotionById($id, $promotionModel);
         
         if(!$result){
             ResponseAssemblerError::response(404, "Erro ao fechar promoção");
