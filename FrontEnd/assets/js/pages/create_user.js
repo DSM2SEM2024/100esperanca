@@ -5,6 +5,9 @@ import { getOrCreateMainElement } from "../components/main";
 
 export function criarUsuarioHtml() {
     const criarUsuario = `
+
+
+    
     <h1 class="">cadastre-se</h1>
 <section class="d-flex flex-wrap justify-content-center align-items-center ">
 
@@ -65,8 +68,6 @@ export function criarUsuarioHtml() {
     </form>
 </section>
 `;
-
-
     const main = getOrCreateMainElement();
     main.classList = "d-flex flex-column align-items-center h-100 "
     main.innerHTML = criarUsuario;

@@ -4,7 +4,19 @@ img = visgoImgPLACEHOLDER;
 
 export function criaHomeHTML(){
     const homeHTML= `
-    
+
+    <section class="container d-flex justify-content-center gap-3 w-75 flex-wrap">
+        <img src="${img}" class="mask w-100 img-dynamic" alt="...">
+
+        <img src="${img}" class="w-100 img-dynamic" alt="...">
+
+        <img src="${img}" class="w-100 img-dynamic" alt="...">
+
+    </section>
+
+
+
+
         <section id="products-row" class="d-block px-5 m-5 w-75">
             <section id="products-title">
                 <h2 class="h2 display-5">
@@ -128,11 +140,6 @@ export function criaHomeHTML(){
 
             </section>
         </section>
-
-    
-
-
-
 
 
         <section class="about d-flex align-items-center px-5 bg-success w-100 p-5">

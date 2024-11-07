@@ -19,7 +19,7 @@ function renderContentBasedOnHash() {
         gerenciarUsuarioHtml();
     } else if (location.hash === '#produtos') {
         telaProdutosHtml();
-    } else if (!location.hash || location.hash === '#home') {
+    } else if (!location.hash || location.hash === '') {
         clearBody();
         criaHomeHTML();
     }

@@ -1,7 +1,7 @@
 import visgo from "../../imgs/visgo.jpg";
 
 export const headerHtml = `
-  <header class="w-100 p-2 text-center d-flex justify-content-between align-items-center">
+
     <img src="${visgo}" alt="LogoVisgo" class="img-fluid">
       <nav class="navbar w-50 mb-lg-0 d-flex justify-content-evenly">
         <div>
@@ -20,12 +20,14 @@ export const headerHtml = `
         </div>
       </nav>
       <button id="voltar_btn" class="btn btn-sm btn-success">Voltar</button>
-  </header>
+
 `;
 
 const headerElement = document.createElement('header');
+
 headerElement.innerHTML = headerHtml;
 document.body.insertAdjacentElement('afterbegin', headerElement);
+headerElement.classList="w-100 p-2 text-center d-flex justify-content-between align-items-center"
 
 let voltarButton = document.querySelector("#voltar_btn");
 voltarButton.addEventListener('click', () => {
