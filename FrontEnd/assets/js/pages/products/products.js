@@ -38,7 +38,7 @@ export function telaProdutosHtml () {
                 <option value="3">Cadernos</option>
             </select>
         </section> 
-    </nav>    
+    </nav>
     
     <div class="ms-5 pt-2">
         <h2 class="text-success">Produtos</h2>

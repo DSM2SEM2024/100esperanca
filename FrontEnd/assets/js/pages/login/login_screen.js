@@ -10,19 +10,22 @@ export function telaLoginHtml() {
                     <span class="input-group-text">
                         <i class="bi bi-person-fill" alt="user" width="20"></i> 
                     </span>
-                    
                 </div>
+
                 <div class="input-group mb-3">
                     <input type="password" class="form-control" placeholder="Senha" required>
                     <span class="input-group-text">
                         <i class="bi bi-lock-fill" alt="senha" width="20"></i>
                     </span>
                 </div>
+
                 <div class="d-flex justify-content-between mb-3">
                     <a href="#criarUsuario" class="custom-btn-hover text-decoration-none text-success">Cadastre-se</a>
                     <a href="#" class="custom-btn-hover text-decoration-none text-success">Esqueceu a senha?</a>
                 </div>
+
                 <button class="login-btn btn btn-success w-100">Login</button>
+                
             </section>
     `;
     const main = getOrCreateMainElement();
