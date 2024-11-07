@@ -5,18 +5,27 @@ export const headerHtml = `
     <img src="${visgo}" alt="LogoVisgo" class="img-fluid">
       <nav class="navbar w-50 mb-lg-0 d-flex justify-content-evenly">
         <div>
+
+          <a id="home-Link" href="#home" class="text-decoration-none text-success" role="button">
+            <button class="btn btn-outline-success border-0">Home</button>
+          </a>
+
           <a id="login-Link" href="#login" class="text-decoration-none text-success" role="button">
             <button class="btn btn-outline-success border-0">Login</button>
           </a>
+
           <a id="createUser-Link" href="#criarUsuario" class="text-decoration-none text-success" role="button">
             <button class="btn btn-outline-success border-0">Criar Usuário</button>
           </a>
+
           <a id="manageUser-Link" href="#gerenciarUsuario" class="text-decoration-none text-success" role="button">
             <button class="btn btn-outline-success border-0">Gerenciar Usuário</button>
           </a>
+
           <a id="produtos-Link" href="#produtos" class="text-decoration-none text-success" role="button">
             <button class="btn btn-outline-success border-0">Produtos</button>
           </a>
+          
         </div>
       </nav>
       <button id="voltar_btn" class="btn btn-sm btn-success">Voltar</button>
@@ -37,11 +46,13 @@ export function updateNavbarLinks() {
   const createUserLink = document.getElementById('createUser-Link');
   const manageUserLink = document.getElementById('manageUser-Link');
   const productsLink = document.getElementById('produtos-Link');
+  const homeLink = document.getElementById('home-Link');
 
   loginLink.style.display = location.hash === '#login' ? 'none' : 'inline';
   createUserLink.style.display = location.hash === '#criarUsuario' ? 'none' : 'inline';
   manageUserLink.style.display = location.hash === '#gerenciarUsuario' ? 'none' : 'inline';
   productsLink.style.display = location.hash === '#produtos' ? 'none' : 'inline';
+  homeLink.style.display = location.hash === '#home' ? 'none' : 'inline';
 }
 window.addEventListener('hashchange', updateNavbarLinks);
 updateNavbarLinks();

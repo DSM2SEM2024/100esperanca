@@ -64,7 +64,7 @@ switch ($method) {
             $userModel->setAddress($addressModel);
             
             $userRepository->updateUserAddress($userModel);
-        } else if(preg_match('/\/user\/(\d+)\/name$/', $uri, $match)){
+        } else if(preg_match(pattern: '/\/user\/(\d+)\/name$/', $uri, $match)){
             $idUser = $match[1];
             $data = json_decode(file_get_contents('php://input'));
             
