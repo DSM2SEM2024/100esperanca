@@ -86,11 +86,14 @@ class OrderRepository{
     }
 
     public function finishOrderById($id) {
-        $query = "UPDATE $this->table SET is_finished = 1 WHERE id = :id";
+        $is_finished = 1;
+
+        $query = "UPDATE $this->table SET is_finished = :is_finished WHERE $this->table.id = :id";
 
         $stmt = $this->connection->prepare($query);
 
         $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":is_finished", $is_finished);
 
         $executionCompleted = $stmt->execute();
 
@@ -98,11 +101,13 @@ class OrderRepository{
     }
 
     public function openOrderById($id) {
-        $query = "UPDATE $this->table SET is_finished = 0 WHERE id = :id";
+        $is_finished = 0;
 
+        $query = "UPDATE $this->table SET is_finished = :is_finished WHERE $this->table.id = :id";
         $stmt = $this->connection->prepare($query);
 
         $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":is_finished", $is_finished);
 
         $executionCompleted = $stmt->execute();
 

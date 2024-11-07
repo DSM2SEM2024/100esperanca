@@ -15,43 +15,46 @@ $orderController = new OrderController($orderRepository);
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
-$id = isset($_GET['id']) ? $_GET['id'] : null;  // Pega o ID da URL, se existir
 
 switch ($method) {
     case 'GET':
-        if ($id) {
-            $orderController->searchById($id); 
-        } else {
-            $orderController->getAll();
+        $orderController->getAll();
+        if(preg_match('/\/order\/(\d+)/', $uri, $match)){
+            $id = $match[1];
+            $data = json_decode(file_get_contents('php://input'));
+            $orderController->searchById($id);
         }
-        break;
+        
+    break;
 
     case 'POST':
-        $data = json_decode(file_get_contents('php://input'));
-        $orderController->create($data);
-        break;
+        if($uri === '/order_art'){
+            $data = json_decode(file_get_contents('php://input'));
+            $orderController->addArtToOrder($orderId,$arts);
+        }
+
+    break;
 
     case 'PUT':
-        if ($id) {
-            // Caso de finalizar ou reabrir o pedido
-            if (strpos($uri, '/finish') !== false) {
-                $orderController->finishOrder($id);
-            } elseif (strpos($uri, '/open') !== false) {
-                $orderController->reopenOrder($id);
-            } else {
-                $data = json_decode(file_get_contents('php://input'));
-                $orderController->update($id, $data);
-            }
+        // if(preg_match('/\/order\/(\d+)/', $uri, $match)){
+        //     $id = $match[1];
+        //     $data = json_decode(file_get_contents('php://input'));
+        //     $orderController->finishOrder($id);
+        // }
+        
+        if(preg_match('/\/order\/(\d+)/', $uri, $match)){
+            $id = $match[1];
+            $data = json_decode(file_get_contents('php://input'));
+            $orderController->reopenOrder($id);
         }
-        break;
+
+        
+        
+    break;
 
     case 'DELETE':
-        if ($id) {
-            $orderController->delete($id);
-        }
-        break;
-
-    default:
-        echo json_encode(['message' => 'Method not supported for this endpoint.']);
+       
+        
         break;
 }
+

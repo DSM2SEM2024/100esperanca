@@ -27,7 +27,8 @@ class ArtController {
         $artModel = new Art(
             $data->characteristic,
             $data->description,
-            $data->name
+            $data->name, $data->is_deleted,
+
         );
 
         $result = $this->artRepository->createArt($artModel);
@@ -46,7 +47,8 @@ class ArtController {
         $artModel = new Art(
             $data->characteristic,
             $data->description,
-            $data->name
+            $data->name,
+            $data->is_deleted,
         );
 
         $result = $this->artRepository->updateArt($id, $artModel);
