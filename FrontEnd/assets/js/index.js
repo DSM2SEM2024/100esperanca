@@ -19,10 +19,10 @@ function renderContentBasedOnHash() {
         gerenciarUsuarioHtml();
     } else if (location.hash === '#produtos') {
         telaProdutosHtml();
-    }else if(!location.hash || location.hash === '#home'){
-    clearBody();  
-    criaHomeHTML();
-}
+    } else if (!location.hash || location.hash === '#home') {
+        clearBody();
+        criaHomeHTML();
+    }
 }
 renderContentBasedOnHash();
 window.addEventListener('hashchange', renderContentBasedOnHash);
