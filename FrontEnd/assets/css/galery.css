@@ -1,9 +1,0 @@
-.img-dynamic:hover{
-    opacity: 100%;
-    transform: scale(1.1);
-
-}
-.img-dynamic{
-    background-color: hsla(144, 100%, 36%, 0.78);
-    transition: 1s;
-}

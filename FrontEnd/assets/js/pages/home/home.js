@@ -1,47 +1,29 @@
 import { getOrCreateMainElement } from "../../components/main"
 import visgoImgPLACEHOLDER from "/assets/imgs/visgo.jpg"
+import dowloadPLAC from "./imgs/download.jpg"
+
+import {carrosel} from "bootstrap/js/dist/carousel"
+
 img = visgoImgPLACEHOLDER;
+ota_img = dowloadPLAC;
+
 
 export function criaHomeHTML(){
     const homeHTML= `
-    <section id="products-row" class="d-block ">
-            <section id="products-content data-mdb-block-y-axis">
-                <ul class="d-flex   flex-row overflow-auto position-relative">
-
-                    <li class="card shadow flex-shrink-0 ">
-                        <img src="${img}" class="card-img-top" alt="...">
-
-                    </li>
-
-                    <li class="card shadow flex-shrink-0">
-                        <img src="${img}" class="card-img-top" alt="...">
-
-                    </li>
-
-
-                    <li class="card  shadow flex-shrink-0">
-                        <img src="${img}" class="card-img-top" alt="...">
-
-                    </li>
-
-                    <li class="card shadow flex-shrink-0">
-                        <img src="${img}" class="card-img-top" alt="...">
-
-                    </li>
-
-                    <li class="card shadow flex-shrink-0">
-                        <img src="${img}" class="card-img-top" alt="...">
-
-                    </li>
-
-                    <li class="card shadow flex-shrink-0">
-                        <img src="${img}" class="card-img-top" alt="...">
-                    </li>
-
-                </ul>
-            </section>
-        </section>
-
+  
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+        <img class="d-block w-100" src="${img}" alt="First slide">
+        </div>
+        <div class="carousel-item">
+        <img class="d-block w-100" src="${ota_img}" alt="Second slide">
+        </div>
+        <div class="carousel-item">
+        <img class="d-block w-100" src="${img}" alt="Third slide">
+        </div>
+    </div>
+    </div>
 
 
 
