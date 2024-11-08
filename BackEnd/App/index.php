@@ -18,11 +18,13 @@ $uri = $_SERVER['REQUEST_URI'];
 
 switch ($method) {
     case 'GET':
-        $orderController->getAll();
         if(preg_match('/\/order\/(\d+)/', $uri, $match)){
             $id = $match[1];
             $data = json_decode(file_get_contents('php://input'));
-            $orderController->searchById($id);
+             $orderController->searchById($id);
+        }
+            if ($uri === '/order_art'){
+                $orderController->getAllOrderArt();
         }
         
     break;
@@ -53,6 +55,10 @@ switch ($method) {
     break;
 
     case 'DELETE':
+
+        $data = json_decode(file_get_contents('php://input'));
+    $orderController->removeArtFromOrder($orderId, $artId);
+
        
         
         break;

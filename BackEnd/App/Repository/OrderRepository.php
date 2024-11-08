@@ -34,9 +34,13 @@ class OrderRepository{
 
         $executionCompleted = $stmt->execute();
 
-        return $executionCompleted;
-
+        if ($executionCompleted) {
+            return $this->connection->lastInsertId();
+        }
+    
+        return false;
     }
+
 
     public function updateOrder($id, Order $order) {
         

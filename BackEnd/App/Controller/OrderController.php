@@ -27,9 +27,17 @@ class OrderController {
 
         $orderModel = new Order($data->date_time_order, $data->description, $data->is_finished, $id_user);
         $result = $this->orderRepository->createOrder($orderModel);
+        $orderId = $this->orderRepository->createOrder($orderModel);
 
-        if ($result) {
-            ResponseAssemblerSuccess::response(201, $result);
+        if ($orderId) {
+
+            if (isset($data->art_ids) && is_array($data->art_ids)) {
+                foreach ($data->art_ids as $artId) {
+                    $this->orderRepository->insertArtinOrder($orderId, $artId);
+                }
+            }
+            ResponseAssemblerSuccess::response(201, "Pedido criado com sucesso.");
+
         } else {
             ResponseAssemblerError::response(500, "Erro ao criar o pedido.");
         }
@@ -105,6 +113,18 @@ class OrderController {
             ResponseAssemblerError::response(500, "Erro ao reabrir o pedido.");
         }
     }
+
+    public function getAllOrderArt() {
+        $result = $this->orderRepository->getAllOrderArts();
+    
+        if (!$result) {
+            ResponseAssemblerError::response(404, "Nenhuma associação de arte encontrada.");
+            return;
+        }
+    
+        ResponseAssemblerSuccess::response(200, $result);
+    }
+    
 
     public function addArtToOrder($orderId, $arts) {
         $result = $this->orderRepository->insertArtInOrder($orderId, $arts);
