@@ -35,16 +35,16 @@ class PromotionController
         ResponseAssemblerSuccess::response(200, $result, "Promoção criada com sucesso");
     }
 
-    public function update($id, $data)
-    {
+    public function update($id, $data){
 
         $validator = new ValidatorId('sqlite');
 
         $table = 'promotion';
 
         $validation = $validator->ValidatorById($table, $id);
+        var_dump($validation);
 
-        if(!$validation){
+        if($validation){
             ResponseAssemblerError::response(404, "Promoção não encontrada.");
             throw new Exception("Id de promoção não encontrado.");
         }
@@ -70,6 +70,7 @@ class PromotionController
         $table = 'promotion';
 
         $validation = $validator->ValidatorById($table, $id);
+        echo ($validation);
 
         if(!$validation){
             ResponseAssemblerError::response(404, "Promoção não encontrada.");
@@ -85,26 +86,32 @@ class PromotionController
         ResponseAssemblerSuccess::response(200, $result, "Promoção fechada com sucesso!");
     }
 
-    public function OpeningPromotion($id){
+    public function OpeningPromotion($id, $data){
 
         $validator = new ValidatorId('sqlite');
 
         $table = 'promotion';
 
-        $validation = $validator->ValidatorById($table, $id);
+        $ids = [$id];
+
+        $validation = $validator->ValidatorById($table, $ids);
 
         if(!$validation){
             ResponseAssemblerError::response(404, "Promoção não encontrada.");
             throw new Exception("Id de promoção não encontrado.");
         }
 
-        $result = $this->promotionRepository->OpenPromotionById($id);
+        $promotionModel = new Promotion();
+        $promotionModel->setStartDatePromotion($data->start_date_promotion);
+        $promotionModel->setEndDatePromotion($data->end_date_promotion);
+
+        $result = $this->promotionRepository->OpenPromotionById($id, $promotionModel);
         
         if(!$result){
             ResponseAssemblerError::response(404, "Erro ao fechar promoção");
         }
 
-        ResponseAssemblerSuccess::response(200, $result, "Promoção aberta com sucesso!");
+        ResponseAssemblerSuccess::response(200, $result, "Promoção reaberta com sucesso!");
     }
 
 
@@ -115,11 +122,14 @@ class PromotionController
 
     public function searchById($id)
     {
+
+        $ids = [$id];
+
         $validator = new ValidatorId('sqlite');
 
         $table = 'promotion';
 
-        $validation = $validator->ValidatorById($table, $id);
+        $validation = $validator->ValidatorById($table, $ids);
 
         if(!$validation){
             ResponseAssemblerError::response(404, "Promoção não encontrada.");
@@ -130,24 +140,30 @@ class PromotionController
         ResponseAssemblerSuccess::response(200, $result, 'Requisição bem sucedida!');
     }
 
-    public function addProductsInPromotion($data)
-    {
+    public function addProductsInPromotion($data){
 
         $validator = new ValidatorId('sqlite');
 
-        $table = 'promotion';
+        $table =  'product_promotion';
 
         $id = $data->promotion;
+        $products = $data->products;
 
-        $validation = $validator->ValidatorById($table, $id);
+        $validation = $validator->ValidatorById($table, $products);
+        $validationArray = $validator->ValidatorValuesArray($products);
 
-        if(!$validation){
-            ResponseAssemblerError::response(404, "Promoção não encontrada.");
+
+        if($validationArray){
+            ResponseAssemblerError::response(404, "Um produto não pode ser adicionado duas vezes na mesma promoção");
+            throw new Exception("Produto de Id repetido na criação");
+        }
+
+        if($validation){
+            ResponseAssemblerError::response(404, "Id repetido");
             throw new Exception("Id de promoção não encontrado.");
         }
 
         $promotion = $data->promotion;
-        $products = $data->products;
 
         $result = $this->promotionRepository->insertProductInPromotion($promotion, $products);
         

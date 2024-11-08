@@ -8,12 +8,16 @@ use Pi\Visgo\Repository\RoleRepository;
 use Pi\Visgo\Controller\PromotionController;
 use Pi\Visgo\Database\Connection;
 use Pi\Visgo\Common\ResponseAssemblerSuccess;
+use Pi\Visgo\Controller\CartController;
+use Pi\Visgo\Repository\CartRepository;
 
 header('Content-Type: application/json');
 
 // $roleRepository = new RoleRepository('sqlite');
 $promotionRepository = new PromotionRepository('sqlite');
 $promotionController = new PromotionController($promotionRepository);
+$cartRepository = new CartRepository('sqlite');
+$cartController = new CartController($cartRepository);
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
@@ -110,31 +114,64 @@ switch ($method) {
         }else if ($uri === '/product_promotion'){
             $promotionController->getAllProductsInPromotion();
         }
+        if ($uri === '/cart'){
+            $cartController->getAll();
+        } else if  (preg_match('/\/cart\/(\d+)/', $uri, $match)){
+            $id = $match[1];
+            $data = json_decode(file_get_contents('php://input'));
+            $cartController->searchById($id);
+            break;
+        } 
+       if($uri === '/cart_product'){
+        $cartController->getAllCarts();
+
+       }
+        else if(preg_match('/\/cart\/(\d+)/', $uri, $match)){
+            $id = $match[1];
+            $data = json_decode(file_get_contents('php://input'));
+            $cartController->serachByIdProductInCart($id);
+        }
+
     break;
     
     case 'POST':
-        if($uri === '/promotion'){
+        /* if($uri === '/promotion'){
             $data = json_decode(file_get_contents('php://input'));
             $promotionController->create($data);
         }
         if($uri === '/product_promotion'){
             $data = json_decode(file_get_contents('php://input'));
             $promotionController->addProductsInPromotion($data);
+        } */
+        if($uri === '/cart'){
+            $data = json_decode(file_get_contents('php://input'));
+            $cartController->create($data);
+        }
+        if($uri === '/cart_product'){
+            $data = json_decode(file_get_contents('php://input'));
+            $cartController->InsertProductInCart($data);
         }
     break;
 
     case 'PUT':
-        if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
+        /* if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
             $id = $match[1];
             $data = json_decode(file_get_contents('php://input'));
             $promotionController->update($id, $data);
 
-        }
+        } */
             
-            /*if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
+            /* if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
                 $id = $match[1];
-                $promotionController->OpeningPromotion($id);
-            }*/
+                $data = json_decode(file_get_contents('php://input'));
+                $promotionController->OpeningPromotion($id, $data);
+                // $promotionController->ClosingPromotion($id)
+            } */
+
+            if(preg_match('/\/cart\/(\d+)/', $uri, $match)){
+                $id = $match[1];
+                $cartController->Close($id);
+            }
 
             /*else if($uri === '/product_promotion'){
             if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
@@ -147,8 +184,10 @@ switch ($method) {
     
     case 'DELETE':
 
+               /*  $data = json_decode(file_get_contents('php://input'));
+                $promotionController->deleteProductInPromotion($data, $promotion); */
                 $data = json_decode(file_get_contents('php://input'));
-                $promotionController->deleteProductInPromotion($data, $promotion);
+                $cartController->Delete($data);
 
     break;
 

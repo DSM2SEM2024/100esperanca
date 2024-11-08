@@ -47,20 +47,13 @@ class PromotionRepository
     }
 
     public function validatorCodPromotion($cod_promotion){
-
-        try{
         
-        $query = "SELECT COUNT(*) FROM $this->table WHERE cod_promotion = :cod_promotion";
+        $query = "SELECT * FROM $this->table WHERE cod_promotion = :cod_promotion";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(':cod_promotion', $cod_promotion);
         $stmt->execute();
         
-        return $stmt->fetchColumn() > 0;
-
-        }catch(PDOException $e) {
-            echo "Erro: " . $e->getMessage();
-            return false;
-        }
+        return $stmt->fetch() !== false;
 
     }
 
@@ -108,15 +101,20 @@ class PromotionRepository
 
     }
 
-    public function OpenPromotionById($id){
+    public function OpenPromotionById($id, Promotion  $promotion){
 
         $is_closed = 0;
         
-        $query = "UPDATE $this->table SET is_closed = :is_closed WHERE $this->table.id = :id";
+        $start_date_promotion = $promotion->getStartDatePromotion();
+        $end_date_promotion = $promotion->getEndDatePromotion();
+
+        $query = "UPDATE $this->table SET start_date_promotion = :start_date_promotion, end_date_promotion = :end_date_promotion, is_closed = :is_closed WHERE $this->table.id = :id";
 
         $stmt = $this->connection->prepare($query);
 
         $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":start_date_promotion", $start_date_promotion);
+        $stmt->bindParam(":end_date_promotion", $end_date_promotion);
         $stmt->bindParam(":is_closed", $is_closed);
 
         $executionCompleted = $stmt->execute();
