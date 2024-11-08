@@ -4,15 +4,43 @@ img = visgoImgPLACEHOLDER;
 
 export function criaHomeHTML(){
     const homeHTML= `
+    <section id="products-row" class="d-block ">
+            <section id="products-content data-mdb-block-y-axis">
+                <ul class="d-flex   flex-row overflow-auto position-relative">
 
-    <section class="container d-flex justify-content-center gap-3 w-75 flex-wrap">
-        <img src="${img}" class="mask w-100 img-dynamic" alt="...">
+                    <li class="card shadow flex-shrink-0 ">
+                        <img src="${img}" class="card-img-top" alt="...">
 
-        <img src="${img}" class="w-100 img-dynamic" alt="...">
+                    </li>
 
-        <img src="${img}" class="w-100 img-dynamic" alt="...">
+                    <li class="card shadow flex-shrink-0">
+                        <img src="${img}" class="card-img-top" alt="...">
 
-    </section>
+                    </li>
+
+
+                    <li class="card  shadow flex-shrink-0">
+                        <img src="${img}" class="card-img-top" alt="...">
+
+                    </li>
+
+                    <li class="card shadow flex-shrink-0">
+                        <img src="${img}" class="card-img-top" alt="...">
+
+                    </li>
+
+                    <li class="card shadow flex-shrink-0">
+                        <img src="${img}" class="card-img-top" alt="...">
+
+                    </li>
+
+                    <li class="card shadow flex-shrink-0">
+                        <img src="${img}" class="card-img-top" alt="...">
+                    </li>
+
+                </ul>
+            </section>
+        </section>
 
 
 
