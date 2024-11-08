@@ -1,35 +1,83 @@
 import visgo from "../../imgs/visgo.jpg";
 
 export const headerHtml = `
-  <header class="w-100 p-2 text-center d-flex justify-content-between align-items-center">
+<header class="w-100 p-2 text-center d-flex justify-content-between align-items-center">
+  <section>
     <img src="${visgo}" alt="LogoVisgo" class="img-fluid">
-      <nav class="navbar w-50 mb-lg-0 d-flex justify-content-evenly">
-        <div>
+    <button id="voltar_btn" class="btn ms-3 btn-sm btn-success">
+      Voltar
+    </button>
+  </section>
 
-          <a id="home-Link" href="#home" class="text-decoration-none text-success" role="button">
-            <button class="btn btn-outline-success border-0">Home</button>
-          </a>
+  <nav class="navbar mb-lg-0 d-flex justify-content-evenly">
+    
 
-          <a id="login-Link" href="#login" class="text-decoration-none text-success" role="button">
-            <button class="btn btn-outline-success border-0">Login</button>
-          </a>
+    <div>
+      <a id="home-Link" href="#home" class="text-decoration-none text-success" role="button">
+        <button class="btn btn-outline-success border-0">Home</button>
+      </a>
 
-          <a id="createUser-Link" href="#criarUsuario" class="text-decoration-none text-success" role="button">
-            <button class="btn btn-outline-success border-0">Criar Usuário</button>
-          </a>
+      <a id="login-Link" href="#login" class="text-decoration-none text-success" role="button">
+        <button class="btn btn-outline-success border-0">Login</button>
+      </a>
 
-          <a id="manageUser-Link" href="#gerenciarUsuario" class="text-decoration-none text-success" role="button">
-            <button class="btn btn-outline-success border-0">Gerenciar Usuário</button>
-          </a>
+      <a id="createUser-Link" href="#criarUsuario" class="text-decoration-none text-success" role="button">
+        <button class="btn btn-outline-success border-0">Criar Usuário</button>
+      </a>
 
-          <a id="produtos-Link" href="#produtos" class="text-decoration-none text-success" role="button">
-            <button class="btn btn-outline-success border-0">Produtos</button>
-          </a>
+      <a id="manageUser-Link" href="#gerenciarUsuario" class="text-decoration-none text-success" role="button">
+        <button class="btn btn-outline-success border-0">Gerenciar Usuário</button>
+      </a>
+
+      <a id="produtos-Link" href="#produtos" class="text-decoration-none text-success" role="button">
+        <button class="btn btn-outline-success border-0">Produtos</button>
+      </a>
+
+      <a id="produtos-Link" href="#produtos2" class="text-decoration-none text-success" role="button">
+        <button class="btn btn-outline-success border-0">Produtos2</button>
+      </a>
           
-        </div>
-      </nav>
-      <button id="voltar_btn" class="btn btn-sm btn-success">Voltar</button>
-  </header>
+    </div>
+  </nav>
+
+      
+  <nav class="navbar px-3 d-flex justify-content-evenly">
+      <ul class="navbar-nav">
+        <li class="nav-item dropstart">
+          <button class="btn btn-success btn-sm dropdown-toggle dropdown-toggle-split rounded-3" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-people-fill "></i>
+          </button>
+
+        <ul class="dropdown-menu dropdown-menu position-absolute">
+          <li>
+            <a class="dropdown-item link-outline-success dropdown-item-text text-success border-bottom" href="#">
+              Meus Dados
+            </a>
+          </li>
+
+          <li>
+            <a class="dropdown-item dropdown-item-text text-success border-bottom" href="#">
+              Meus Pedidos
+            </a>
+          </li>
+
+          <li>
+            <a class="dropdown-item dropdown-item-text text-danger" href="#">
+              Logout
+            </a>
+          </li>
+        </ul>
+
+        <button type="button" class="btn btn-success btn-sm rounded-3">   
+          <i class="bi bi-cart-fill"></i>
+        </button>
+
+        </li>
+      </ul>
+  </nav>
+
+
+  
 `;
 
 const headerElement = document.createElement('header');
