@@ -36,7 +36,7 @@ class ArtController {
         ResponseAssemblerSuccess::response(201, $result);
     }
 
-    public function update($id, $data) {
+    public function update($id, $data): void {
         $isValid = Validator::validationArt($data);
 
         if (!$isValid) {
@@ -63,7 +63,7 @@ class ArtController {
     }
 
     public function searchById($id) {
-        $result = $this->artRepository->searchByIdArt($id);
+        $result = $this->artRepository->getByIdArt($id);
 
         if ($result) {
             ResponseAssemblerSuccess::response(200, $result);
@@ -77,6 +77,27 @@ class ArtController {
             ResponseAssemblerSuccess::responseDelete(200);
         } else {
             ResponseAssemblerError::responseDelete(500);
+        }
+    }
+
+    public function isDeleteArt($id) {
+
+        $result = $this->artRepository->isDeletedArt($id);
+
+        if ($result) {
+            ResponseAssemblerSuccess::response(200, "arte suspensa com sucesso.");
+        } else {
+            ResponseAssemblerError::response(500, "Erro ao suspender pedido.");
+        }
+    }
+
+    public function isNotDelete($id) {
+        $result = $this->artRepository->IsNotDeletedArt($id);
+
+        if ($result) {
+            ResponseAssemblerSuccess::response(200, "Arte reaberta co sucesso");
+        } else {
+            ResponseAssemblerError::response(500, "Erro ao reabrir arte.");
         }
     }
 }

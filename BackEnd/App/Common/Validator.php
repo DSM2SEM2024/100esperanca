@@ -3,9 +3,9 @@ namespace Pi\Visgo\Common;
 
 class Validator {
 
-    private static $comprimentoNomeArt = 10;
-    private static $comprimentoDescricaoArt = 20;
-    private static $comprimentoDescricaoOrder = 5;
+    private static $comprimentoNomeArt = 3;
+    private static $comprimentoDescricaoArt = 3;
+    private static $comprimentoDescricaoOrder = 2;
 
     public static function validationArt($data) {
         $validNome = self::artNameValidation($data->name);
