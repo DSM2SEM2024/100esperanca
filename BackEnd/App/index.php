@@ -18,6 +18,24 @@ $uri = $_SERVER['REQUEST_URI'];
 
 
 switch ($method) {
+    case 'GET':
+ 
+    break;
+
+    case 'POST':
 
 
+    break;
+
+    case 'PUT':
+        
+    break;
+
+    case 'DELETE':
+
+    break;
+       
+        
+        
 }
+
