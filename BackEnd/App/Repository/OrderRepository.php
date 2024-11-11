@@ -70,9 +70,8 @@ class OrderRepository{
             throw new \Exception("Erro ao atualizar o pedido: " . $e->getMessage());
         }
     }
-    
 
-    public function getOrderById($id){
+    public function getOrderById($id): mixed{
         $query = "SELECT * FROM $this->table WHERE id = :id";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
@@ -82,7 +81,7 @@ class OrderRepository{
     }
 
     public function getAllOrder(){
-        $query = "SELECT * FROM $this->table";
+        $query = "SELECT * FROM $this->tableAssoc";
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
 
@@ -139,30 +138,36 @@ class OrderRepository{
         return $executionCompleted;
     }
 
-    public function insertArtInOrder($orderId, $arts)
+    public function insertArtInOrder($order, $arts)
     {
         try {
             $this->connection->beginTransaction();
             
+            $id_order = $order;
+    
             $query = "INSERT INTO $this->tableAssoc (id_order, id_art) VALUES (:id_order, :id_art)";
             $stmt = $this->connection->prepare($query);
     
-            foreach ($arts as $artId) {
-                $stmt->bindParam(":id_order", $orderId);
-                $stmt->bindParam(":id_art", $artId);
-                if (!$stmt->execute()) {
-                    throw new \Exception("Erro ao inserir arte no pedido");
+            if (!empty($arts) && is_array($arts)) {
+                foreach ($arts as $id_art) {
+                    $stmt->bindParam(":id_order", $id_order);
+                    $stmt->bindParam(":id_art", $id_art);
+                    
+                    if (!$stmt->execute()) {
+                        throw new \PDOException("Erro ao inserir arte no pedido.");
+                    }
                 }
             }
     
             $this->connection->commit();
             return true;
-    
-        } catch (\Exception $e) {
+        } catch (\PDOException $e) {
             $this->connection->rollBack();
-            return false;
+            throw new \PDOException($e->getMessage());
         }
     }
+    
+
     
     public function deleteOrderById($id){
         $query = "DELETE FROM $this->table WHERE id = :id";

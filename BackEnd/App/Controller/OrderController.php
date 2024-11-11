@@ -114,7 +114,7 @@ class OrderController {
         }
     }
 
-    public function getAllOrderArt() {
+    public function getAllOrderFromArt() {
         $result = $this->orderRepository->getAllOrderArts();
     
         if (!$result) {
@@ -126,15 +126,17 @@ class OrderController {
     }
     
 
-    public function addArtToOrder($orderId, $arts) {
-        $result = $this->orderRepository->insertArtInOrder($orderId, $arts);
-
+    public function addArtToOrder($order, $arts) {
+        $result = $this->orderRepository->insertArtInOrder($order, $arts);
+    
         if ($result) {
             ResponseAssemblerSuccess::response(200, "Arte(s) adicionada(s) ao pedido.");
         } else {
-            ResponseAssemblerError::response(500, "Erro ao adicionar arte ao pedido.");
+            ResponseAssemblerError::response(500, "Erro ao adicionar arte(s) ao pedido.");
         }
     }
+    
+    
 
     public function removeArtFromOrder($orderId, $artId) {
         $result = $this->orderRepository->deleteArtFromOrder($orderId, $artId);
