@@ -7,7 +7,8 @@ export const headerHtml = `
           <button class="btn btn-outline-light" style="border: 0" style="text-decoration-none, important"><a href="#login" class="text-decoration-underline text-success text-hover-success">Login</a></button>
           <button class="btn btn-outline-light" style="border: 0"><a href="#criarUsuario" class="text-decoration-underline text-success text-hover-success">Criar Usuário</a></button>      
           <button class="btn btn-outline-light" style="border: 0"><a href="#gerenciarUsuario" class="text-decoration-underline text-success text-hover-success">Gerenciar Usuário</a></button>
-        
+          <button class="btn btn-outline-light" style="border: 0"><a href="#compraproduto" class="text-decoration-underline text-success text-hover-success">Comprar Camisa</a></button>
+
         </div>
       </nav>
         <button id="voltar_btn" class="btn btn-sm btn-success" style="">Voltar</button>

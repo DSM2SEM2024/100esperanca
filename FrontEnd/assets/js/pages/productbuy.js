@@ -1,20 +1,7 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visgo do Jaca-Compras</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-
-<body class="bg-light">
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="#">Visgo do Jaca</a>
-        </div>
-    </nav>
+import { getOrCreateMainElement } from "../components/main";
+export function produtoscompra() {
+    const produtoshtml=
+`<body class="bg-light">
 
     <!-- Parte de comprar produto -->
     <div class="container my-5">
@@ -62,30 +49,8 @@
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="bg-success text-white text-center py-3">
-        <p>Visgo de Jaca – Orgulhosamente enraizada na cultura baiana.</p>
-    </footer>
-
-    <!-- Bootstrap e JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script>
-        // Função para adicionar ao carrinho
-        function addToCart() {
-            alert("Produto adicionado ao carrinho!");
-        }
-        // Função para calcular o frete
-        function calculateFrete() {
-            var cep = document.getElementById("cep").value;
-            var cepRegex = /^\d{5}-\d{3}$/;
-            if (cepRegex.test(cep)) {
-                document.getElementById("freteResult").innerHTML = "<strong>Frete calculado:</strong> R$ 30,00 (Entrega em 3 dias úteis)";
-            } else {
-                document.getElementById("freteResult").innerHTML = "<strong>Por favor, insira um CEP válido no formato XXXXX-XXX.</strong>";
-            }
-        }
-    </script>
-</body>
-</html>
+`
+}
+const main = produtoscompra();
+    main.classList = "d-flex flex-column align-items-center h-100 "
+    main.innerHTML = criarUsuario
