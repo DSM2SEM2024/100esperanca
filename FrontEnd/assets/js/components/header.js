@@ -9,7 +9,7 @@ export const headerHtml = `
     </button>
   </section>
 
-  <nav class="navbar mb-lg-0 d-flex justify-content-evenly">
+  <nav class="navbar mb-lg-0 d-none d-lg-flex d-flex justify-content-evenly">
     
 
     <div>

@@ -4,15 +4,22 @@
     box-shadow: none;
     text-decoration: none;
 }
+main {
+    flex-grow: 1; /* Ocupa o espaço disponível */
+    
+}
+
 body{
+    min-height: 100vh;
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: stretch;
+    
 }
 footer{
     background-color: #5ABC49;
-    
+    margin-top: auto;
 }
 div#header ul{
     list-style: none;
@@ -49,3 +56,33 @@ header{
     transition: all 0.3s ease;
     cursor: pointer;
 }
+.card-img-custom {
+    width: 100%; /* Largura do card, ajusta automaticamente */
+    max-height: 350px; /* Definir um limite para a altura da imagem */
+    object-fit: cover; /* Garantir que a imagem ocupe o espaço sem distorção */
+}
+
+/* Tornar o card responsivo e manter o layout de forma consistente */
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Garantir que o conteúdo ocupe o espaço de forma uniforme */
+    height: 100%; /* A altura será ajustada conforme a necessidade */
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .card-img-custom {
+        max-height: 350px; /* Ajustar a altura para telas menores */
+    }
+}
+
+/* Ajustar o card-body para garantir que o conteúdo se adapte */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem; /* Ajustar o espaçamento conforme necessário */
+}
+
+

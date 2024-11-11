@@ -8,7 +8,8 @@ const camisetas = [
     { nome: " Estampa Camisa A", descricao: "Camiseta 1", img: camisetaImg, preco:" 45,00 R$" },
     { nome: " Estampa Camisa B", descricao: "Camiseta 2", img: camisetaImg, preco:" 45,00 R$" },
     { nome: " Estampa Camisa C", descricao: "Camiseta 3", img: camisetaImg, preco:" 45,00 R$" },
-    { nome: " Estampa Camisa D", descricao: "Camiseta 4", img: camisetaImg, preco:" 45,00 R$" }
+    { nome: " Estampa Camisa D", descricao: "Camiseta 4", img: camisetaImg, preco:" 45,00 R$" },
+    { nome: " Estampa Camisa E", descricao: "Camiseta 5", img: camisetaImg, preco:" 45,00 R$" }
 ];
 
 const bolsas = [
@@ -24,8 +25,8 @@ export function telaProdutosHtml2() {
     const telaProdutos2 = `
     <nav class="navbar navbar-expand-lg d-flex bg-body-tertiary bg-opacity-75" id="navFiltros">
         <section class="container-fluid d-flex justify-content-evenly">
-            <div class="ms-5 pt-2">
-                <h2 class="text-success">Produtos</h2>
+            <div class="">
+                <h2 class="text-success fs-1">Produtos</h2>
             </div>
             <div class="row gap-3" id="navDrop">
                 <select class="form-select form-select-sm col selectWidth" id="filterSelect">
@@ -75,7 +76,7 @@ function renderProducts(products) {
     return products.map(product => `
         <div class="col">
             <div class="card shadow-sm hover-card border-0">
-                <img src="${product.img}" class="card-img-top" alt="${product.nome}">
+                <img src="${product.img}" class="card-img-top card-img-custom" alt="${product.nome}">
                 <div class="card-body border rounded-bottom border-success">
                     <h5 class="card-title text-success">${product.nome}</h5>
                     <div class="d-flex justify-content-between align-items-center">
