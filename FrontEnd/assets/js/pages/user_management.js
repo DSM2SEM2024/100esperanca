@@ -4,11 +4,13 @@ const main = getOrCreateMainElement()
 main.classList = 'vh-100 d-block';
 export function gerenciarUsuarioHtml() {
   const gerenciarUsuario = `
-      <section class="side-navbar">
+      <section class="side-navbar d-flex w-100 justify-content-end">
 
 
            
-    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Enable body scrolling</button>
+    <button class="btn btn-primary bg-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+      <i class="bi bi-list"></i>
+    </button>
     
     <div class="offcanvas offcanvas-start hide" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" aria-modal="true" role="dialog">
       <div class="offcanvas-header m-4">
