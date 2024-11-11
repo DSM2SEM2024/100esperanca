@@ -74,9 +74,9 @@ export function telaProdutosHtml2() {
 function renderProducts(products) {
     return products.map(product => `
         <div class="col">
-            <div class="card shadow-sm hover-card">
+            <div class="card shadow-sm hover-card border-0">
                 <img src="${product.img}" class="card-img-top" alt="${product.nome}">
-                <div class="card-body border-top">
+                <div class="card-body border rounded-bottom border-success">
                     <h5 class="card-title text-success">${product.nome}</h5>
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="card-text fs-5 mb-0">${product.descricao}</p>
