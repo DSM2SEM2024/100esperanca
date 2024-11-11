@@ -125,17 +125,24 @@ class OrderRepository{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function deleteArtFromOrder($orderId, $artId) {
-        $query = "DELETE FROM $this->tableAssoc WHERE id_order = :id_order AND id_art = :id_art";
-
-        $stmt = $this->connection->prepare($query);
-
-        $stmt->bindParam(":id_order", $orderId);
-        $stmt->bindParam(":id_art", $artId);
-
-        $executionCompleted = $stmt->execute();
-
-        return $executionCompleted;
+    public function deleteArtFromOrder($order, $arts) {
+        try {
+            $query = "DELETE FROM $this->tableAssoc WHERE id_order = :id_order AND id_art = :id_art";
+            $stmt = $this->connection->prepare($query);
+    
+            $stmt->bindParam(":id_order", $order);
+            $stmt->bindParam(":id_art", $arts);
+    
+            $stmt->execute();
+    
+            if ($stmt->rowCount() > 0) {
+                return true;
+            }
+    
+            return false;
+        } catch (\PDOException $e) {
+            throw new \PDOException("Erro ao remover arte: " . $e->getMessage());
+        }
     }
 
     public function insertArtInOrder($order, $arts)

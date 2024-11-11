@@ -138,8 +138,8 @@ class OrderController {
     
     
 
-    public function removeArtFromOrder($orderId, $artId) {
-        $result = $this->orderRepository->deleteArtFromOrder($orderId, $artId);
+    public function removeArtFromOrder($order, $art) {
+        $result = $this->orderRepository->deleteArtFromOrder($order, $art);
 
         if ($result) {
             ResponseAssemblerSuccess::response(200, "Arte removida do pedido.");

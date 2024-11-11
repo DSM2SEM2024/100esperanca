@@ -80,16 +80,19 @@ case 'PUT':
 
     case "DELETE":
 
-        if(preg_match('/\/order\/(\d+)/', $uri, $match)){
-            $id = $match[1];
-            $data = json_decode(file_get_contents('php://input'));
-            $orderController->delete($id);
-        }
 
-        break;
+            if (preg_match('/\/order\/(\d+)\/art\/(\d+)/', $uri, $matches)) {
+                $orderId = (int)$matches[1];
+                $artId = (int)$matches[2];
+    
+                $orderController->removeArtFromOrder($orderId, $artId);
+            } 
+            break;
+    
+
+
 
 default:
-    // Método não permitido
     http_response_code(405);
     echo json_encode(["error" => "Método não permitido"]);
     break;
