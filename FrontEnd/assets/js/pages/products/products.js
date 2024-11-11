@@ -69,14 +69,19 @@ export function telaProdutosHtml2() {
         }
 
         document.querySelector("#productContainer .row").innerHTML = renderProducts(filteredProducts);
+        const card = document.getElementById("card");
+    card.addEventListener("click", (event) => {
+        console.log(event.target)
+    })
     });
+    
 }
 
 function renderProducts(products) {
     return products.map(product => `
         <div class="col">
             <div class="card shadow-sm hover-card border-0">
-                <img src="${product.img}" class="card-img-top card-img-custom" alt="${product.nome}">
+                <img src="${product.img}" class="card-img-top card-img-custom" alt="${product.nome}" id='card'>
                 <div class="card-body border rounded-bottom border-success">
                     <h5 class="card-title text-success">${product.nome}</h5>
                     <div class="d-flex justify-content-between align-items-center">
@@ -87,4 +92,6 @@ function renderProducts(products) {
             </div>
         </div>
     `).join('');
+
+
 }

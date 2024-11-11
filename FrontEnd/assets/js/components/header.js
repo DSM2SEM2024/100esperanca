@@ -63,9 +63,12 @@ export const headerHtml = `
           </li>
         </ul>
 
-        <button type="button" class="btn btn-success btn-sm rounded-3">   
-          <i class="bi bi-cart-fill"></i>
-        </button>
+        <a class="icon-link" href="#cart">
+          <button type="button" class="btn btn-success btn-sm rounded-3">
+            <i class="bi bi-cart-fill text-decoration-none">
+            </i>
+          </button>
+        </a>
 
         </li>
       </ul>
