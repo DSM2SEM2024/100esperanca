@@ -14,7 +14,7 @@ export function criaHomeHTML(){
         <figure class="d-flex justify-content-center w-100 m-5">
             <img src="${img}" alt="galery-img" class="mx-5 img-fluid">
 
-            <img src="${img}" alt="galery-img" class="xm-5 img-fluid">
+            <img src="${img}" alt="galery-img" class="mx-5 img-fluid">
 
             <img src="${img}" alt="galery-img" class="mx-5 img-fluid">
         </figure>
