@@ -1,8 +1,7 @@
-import { getOrCreateMainElement } from "../components/main";
-export function produtoscompra() {
-    const produtoshtml=
-`<body class="bg-light">
-
+import { getOrCreateMainElement } from "../../components/main";
+import sla from "./imgs/boleto.jpg"
+export function render_produtos() {
+    const produtoshtml=`
     <!-- Parte de comprar produto -->
     <div class="container my-5">
         <div class="row justify-content-between align-items-center">
@@ -10,7 +9,7 @@ export function produtoscompra() {
             <div class="col-md-6">
                 <img src="../../imgs/camisachave.jpg" alt="Produto Principal" class="img-fluid rounded mb-3 shadow">
                 <div class="d-flex gap-3">
-                    <img src="https://via.placeholder.com/200x200/28a745/fff?text=Imagem+1" alt="Imagem 1" class="img-fluid rounded">
+                    <img src="${sla}" alt="Imagem 1" class="img-fluid rounded">
                     <img src="https://via.placeholder.com/200x200/28a745/fff?text=Imagem+2" alt="Imagem 2" class="img-fluid rounded">
                 </div>
             </div>
@@ -49,8 +48,7 @@ export function produtoscompra() {
             </div>
         </div>
     </div>
-`
+`;
+const main = getOrCreateMainElement();
+main.innerHTML = produtoshtml;
 }
-const main = produtoscompra();
-    main.classList = "d-flex flex-column align-items-center h-100 "
-    main.innerHTML = criarUsuario
