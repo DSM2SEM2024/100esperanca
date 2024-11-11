@@ -42,3 +42,10 @@ header{
 .custom-btn-hover:hover {
     color: white !important; 
 }
+
+.hover-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}

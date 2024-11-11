@@ -4,8 +4,7 @@ import { criaHomeHTML } from "./pages/home/home";
 import { telaLoginHtml } from "./pages/login/login_screen";
 import { criarUsuarioHtml } from "./pages/create-user/create_user";
 import { gerenciarUsuarioHtml } from "./pages/user/user_management";
-import { telaProdutosHtml } from "./pages/products/products";
-import { telaProdutosHtml2 } from "./pages/teste/testRenderProdutos";
+import { telaProdutosHtml2 } from "./pages/products/products";
 import { footerHtml } from "./components/footer";
 
 
@@ -19,12 +18,10 @@ function renderContentBasedOnHash() {
     } else if (location.hash === '#gerenciarUsuario') {
         gerenciarUsuarioHtml();
     } else if (location.hash === '#produtos') {
-        telaProdutosHtml();
+        telaProdutosHtml2();
     }else if(!location.hash || location.hash === '#home'){
         clearBody();  
         criaHomeHTML();
-    }else if(location.hash === '#produtos2'){
-        telaProdutosHtml2();
     }
 }
 renderContentBasedOnHash();

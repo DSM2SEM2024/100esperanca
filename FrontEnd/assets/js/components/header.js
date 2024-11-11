@@ -32,11 +32,6 @@ export const headerHtml = `
       <a id="produtos-Link" href="#produtos" class="text-decoration-none text-success" role="button">
         <button class="btn btn-outline-success border-0">Produtos</button>
       </a>
-
-      <a id="produtos-Link" href="#produtos2" class="text-decoration-none text-success" role="button">
-        <button class="btn btn-outline-success border-0">Produtos2</button>
-      </a>
-          
     </div>
   </nav>
 

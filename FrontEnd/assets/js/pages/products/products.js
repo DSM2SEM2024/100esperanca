@@ -1,116 +1,89 @@
 import { getOrCreateMainElement } from "../../components/main";
 
-import camiseta from "/assets/imgs/camiseta.jpg";
+import camisetaImg from "./imgs/camiseta.jpg";
+import bolsaImg from "./imgs/bolsa.jpg";
 
-const camiseta = [
-    {id: 1, nome:"camiseta 1", descrição:"Camiseta Verde do google (y)", imagem:"/assets/imgs/camiseta.jpg"},
-    {id: 2, nome: "Estampa B", descricao: "Camiseta 2", img: "/assets/imgs/camiseta.jpg" },
-    {id: 3, nome: "Estampa C", descricao: "Camiseta 3", img: "/assets/imgs/camiseta.jpg" },
-    {id: 4, nome: "Estampa D", descricao: "Camiseta 4", img: "/assets/imgs/camiseta.jpg" },
-    {id: 5, nome: "Estampa E", descricao: "Camiseta 5", img: "/assets/imgs/camiseta.jpg" },
-    {id: 6, nome: "Estampa F", descricao: "Camiseta 6", img: "/assets/imgs/camiseta.jpg" }
+
+const camisetas = [
+    { nome: " Estampa Camisa A", descricao: "Camiseta 1", img: camisetaImg, preco:" 45,00 R$" },
+    { nome: " Estampa Camisa B", descricao: "Camiseta 2", img: camisetaImg, preco:" 45,00 R$" },
+    { nome: " Estampa Camisa C", descricao: "Camiseta 3", img: camisetaImg, preco:" 45,00 R$" },
+    { nome: " Estampa Camisa D", descricao: "Camiseta 4", img: camisetaImg, preco:" 45,00 R$" }
 ];
 
+const bolsas = [
+    { nome: "Estampa Bolsa A", descricao: "Bolsa 1", img: bolsaImg, preco:" 75,00 R$" },
+    { nome: "Estampa Bolsa B", descricao: "Bolsa 2", img: bolsaImg, preco:" 75,00 R$" },
+    { nome: "Estampa Bolsa C", descricao: "Bolsa 3", img: bolsaImg, preco:" 75,00 R$" },
+    { nome: "Estampa Bolsa D", descricao: "Bolsa 4", img: bolsaImg, preco:" 75,00 R$" }
+];
 
-export function telaProdutosHtml () {
-    const telaProdutos = `
+const todosProdutos = [...camisetas, ...bolsas];
+
+export function telaProdutosHtml2() {
+    const telaProdutos2 = `
     <nav class="navbar navbar-expand-lg d-flex bg-body-tertiary bg-opacity-75" id="navFiltros">
-            <section class="container-fluid d-flex justify-content-evenly">
-        <div class="ms-5 pt-2">
-            <h2 class="text-success">Produtos</h2>
-        </div>
-        <div class="row gap-3" id="navDrop">
-            <select class="form-select form-select-sm col selectWidth">
-                <option selected>Filtros</option>
-                <option value="1">Camisetas</option>
-                <option value="2">Bolsas</option>
-                <option value="3">Cadernos</option>
-            </select>
-            <select class="form-select form-select-sm col h-50 t-3 selectWidth">
-                <option selected>Artes</option>
-                <option value="1">Camisetas</option>
-                <option value="2">Bolsas</option>
-                <option value="3">Cadernos</option>
-            </select>
-            <select class="form-select form-select-sm col h-50 selectWidth">
-                <option selected>Tamanho</option>
-                <option value="1">Camisetas</option>
-                <option value="2">Bolsas</option>
-                <option value="3">Cadernos</option>
-            </select>
-        </div>
+        <section class="container-fluid d-flex justify-content-evenly">
+            <div class="ms-5 pt-2">
+                <h2 class="text-success">Produtos</h2>
+            </div>
+            <div class="row gap-3" id="navDrop">
+                <select class="form-select form-select-sm col selectWidth" id="filterSelect">
+                    <option selected value="all">Todos</option>
+                    <option value="Camisetas">Camisetas</option>
+                    <option value="Bolsas">Bolsas</option>
+                </select>
+            </div>
         </section> 
     </nav>
-        <section class="container">
-            <div class="row row-cols-1 row-cols-md-3 g-4  p-4 justify-content-evenly">
-                <div class="col">
-                    <div class="card">
-                        <img src="${camiseta}" class="card-img-top" alt="">
-                            <div class="card-body border-top">
-                                <h5 class="card-title text-success">Estampa A</h5>
-                                <p class="card-text">Camiseta 1</p>
-                            </div>
+    <section class="container" id="productContainer">
+        <div class="row row-cols-1 row-cols-md-3 g-4 p-4 justify-content-evenly">
+            ${renderProducts(todosProdutos)}
+        </div>
+    </section>`;
+
+    const main = getOrCreateMainElement();
+    main.classList = null;
+    main.innerHTML = telaProdutos2;
+
+    navFiltros.style.setProperty('background-color', '#5ABC49', 'important');
+    navFiltros.style.setProperty('opacity', '75%', 'important');
+    navFiltros.style.setProperty('justify-content', 'between');
+    navDrop.style.setProperty('margin-right', '5px', 'important');
+    navDrop.style.setProperty('margin-top', '5px', 'important');
+
+    
+    const filterSelect = document.getElementById("filterSelect");
+    filterSelect.addEventListener("change", (event) => {
+        let filteredProducts;
+        const selectedCategory = event.target.value;
+
+        // Define qual produto vai aparecer quando selecionar o filtro;
+        if (selectedCategory === "Camisetas") {
+            filteredProducts = camisetas;
+        } else if (selectedCategory === "Bolsas") {
+            filteredProducts = bolsas;
+        } else {
+            filteredProducts = todosProdutos;
+        }
+
+        document.querySelector("#productContainer .row").innerHTML = renderProducts(filteredProducts);
+    });
+}
+
+function renderProducts(products) {
+    return products.map(product => `
+        <div class="col">
+            <div class="card shadow-sm hover-card">
+                <img src="${product.img}" class="card-img-top" alt="${product.nome}">
+                <div class="card-body border-top">
+                    <h5 class="card-title text-success">${product.nome}</h5>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="card-text fs-5 mb-0">${product.descricao}</p>
+                        <span class="fw-bold text-end">${product.preco}</span>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card">
-                        <img src="${camiseta}" class="card-img-top" alt="">
-                            <div class="card-body border-top">
-                                <h5 class="card-title text-success">Estampa B</h5>
-                                <p class="card-text">Camiseta 2</p>
-                            </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <img src="${camiseta}" class="card-img-top" alt="">
-                            <div class="card-body border-top">
-                                <h5 class="card-title text-success">Estampa C</h5>
-                                <p class="card-text">Camiseta 3 </p>
-                            </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <img src="${camiseta}" class="card-img-top" alt="">
-                            <div class="card-body border-top">
-                                <h5 class="card-title text-success">Estampa D</h5>
-                                <p class="card-text">Camiseta 4</p>
-                            </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <img src="${camiseta}" class="card-img-top" alt="">
-                            <div class="card-body border-top">
-                                <h5 class="card-title text-success">Estampa E</h5>
-                                <p class="card-text">Camiseta 5</p>
-                            </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <img src="${camiseta}" class="card-img-top" alt="">
-                            <div class="card-body border-top">
-                                <h5 class="card-title text-success">Estampa F</h5>
-                                <p class="card-text">Camiseta 6</p>
-                            </div>
-                    </div>
-                </div>
-                
             </div>
-        </section>
-`;
-const main = getOrCreateMainElement();
-main.classList = null;
-main.innerHTML = telaProdutos;
-
-
-navFiltros.style.setProperty('background-color', '#5ABC49', 'important');
-navFiltros.style.setProperty('opacity', '75%', 'important');
-navFiltros.style.setProperty('justify-content', 'between')
-navDrop.style.setProperty('margin-right', '5px', 'important');
-navDrop.style.setProperty('margin-top', '5px', 'important');
-
-
+        </div>
+    `).join('');
 }
