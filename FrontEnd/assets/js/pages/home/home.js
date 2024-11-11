@@ -11,19 +11,13 @@ ota_img = dowloadPLAC;
 export function criaHomeHTML(){
     const homeHTML= `
   
-                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-        <img class="d-block w-100" src="${img}" alt="First slide">
-        </div>
-        <div class="carousel-item">
-        <img class="d-block w-100" src="${ota_img}" alt="Second slide">
-        </div>
-        <div class="carousel-item">
-        <img class="d-block w-100" src="${img}" alt="Third slide">
-        </div>
-    </div>
-    </div>
+        <figure class="d-flex justify-content-center w-100 m-5">
+            <img src="${img}" alt="galery-img" class="mx-5 img-fluid">
+
+            <img src="${img}" alt="galery-img" class="xm-5 img-fluid">
+
+            <img src="${img}" alt="galery-img" class="mx-5 img-fluid">
+        </figure>
 
 
 
