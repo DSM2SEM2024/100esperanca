@@ -26,18 +26,15 @@ const bolsas = [
 
 const todosProdutos = [...camisetas, ...bolsas, ...cadernos];
 
-// Função para obter os itens do carrinho no localStorage
 function getCarrinho() {
     const carrinho = localStorage.getItem("carrinho");
     return carrinho ? JSON.parse(carrinho) : [];
 }
 
-// Função para salvar os itens no carrinho no localStorage
 function setCarrinho(carrinho) {
     localStorage.setItem("carrinho", JSON.stringify(carrinho));
 }
 
-// Função para adicionar um produto ao carrinho e salvá-lo no localStorage
 function adicionarAoCarrinho(product) {
     const carrinho = getCarrinho();
     carrinho.push(product);
@@ -68,16 +65,16 @@ export function telaProdutosHtml2() {
         </div>
     </section>`;
 
-    const main = getOrCreateMainElement();
-    main.classList = null;
-    main.innerHTML = telaProdutos2;
+const main = getOrCreateMainElement();
+main.classList = null;
+main.innerHTML = telaProdutos2;
 
-    // Configurações de estilo do nav
-    navFiltros.style.setProperty('background-color', '#5ABC49', 'important');
-    navFiltros.style.setProperty('opacity', '75%', 'important');
-    navFiltros.style.setProperty('justify-content', 'between');
+navFiltros.style.setProperty('background-color', '#5ABC49', 'important');
+navFiltros.style.setProperty('opacity', '75%', 'important');
+navFiltros.style.setProperty('justify-content', 'between');
 
     const filterSelect = document.getElementById("filterSelect");
+
     filterSelect.addEventListener("change", (event) => {
         let filteredProducts;
         const selectedCategory = event.target.value;
@@ -118,5 +115,4 @@ function renderProducts(products) {
     `).join('');
 }
 
-// Torne a função `adicionarAoCarrinho` global
 window.adicionarAoCarrinho = adicionarAoCarrinho;

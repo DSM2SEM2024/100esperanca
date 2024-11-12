@@ -40,7 +40,6 @@ function atualizarCarrinho() {
     freteElem.textContent = `R$ ${frete.toFixed(2)}`;
     totalElem.textContent = `R$ ${(subtotal + frete).toFixed(2)}`;
 
-    // Event listeners para remoção de itens
     document.querySelectorAll('.remove-item-btn').forEach((button) => {
         button.addEventListener('click', () => {
             const index = button.getAttribute('data-index');
@@ -48,8 +47,10 @@ function atualizarCarrinho() {
             carrinho.splice(index, 1);
             setCarrinho(carrinho);
             atualizarCarrinho();
-        });
-    });
+                }
+            );
+        }
+    );
 }
 
 function setCarrinho(carrinho) {
@@ -115,11 +116,11 @@ export function cartHtml() {
         </section>
     `;
 
-    const main = getOrCreateMainElement();
-    main.classList = null;
-    main.innerHTML = cart;
+const main = getOrCreateMainElement();
+main.classList = null;
+main.innerHTML = cart;
 
-    atualizarCarrinho();
+atualizarCarrinho();
 
-    window.concluirCompra = concluirCompra;
+window.concluirCompra = concluirCompra;
 }
