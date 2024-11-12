@@ -4,17 +4,17 @@ import bolsaImg from "./imgs/bolsa.jpg";
 import cadernoImg from "./imgs/caderno.jpg";
 
 const cadernos = [
-    { nome: " Caderno 1", descricao: "Caderno com a arte X", img: cadernoImg, preco: "50,00 R$" },
-    { nome: " Caderno 2", descricao: "Caderno com a arte Y", img: cadernoImg, preco: "50,00 R$" },
-    { nome: " Caderno 3", descricao: "Caderno com a arte Z", img: cadernoImg, preco: "50,00 R$" }
+    { nome: "Caderno 1", descricao: "Caderno com a arte X", img: cadernoImg, preco: "50,00 R$" },
+    { nome: "Caderno 2", descricao: "Caderno com a arte Y", img: cadernoImg, preco: "50,00 R$" },
+    { nome: "Caderno 3", descricao: "Caderno com a arte Z", img: cadernoImg, preco: "50,00 R$" }
 ];
 
 const camisetas = [
-    { nome: " Estampa Camisa A", descricao: "Camiseta 1", img: camisetaImg, preco: "45,00 R$" },
-    { nome: " Estampa Camisa B", descricao: "Camiseta 2", img: camisetaImg, preco: "45,00 R$" },
-    { nome: " Estampa Camisa C", descricao: "Camiseta 3", img: camisetaImg, preco: "45,00 R$" },
-    { nome: " Estampa Camisa D", descricao: "Camiseta 4", img: camisetaImg, preco: "45,00 R$" },
-    { nome: " Estampa Camisa E", descricao: "Camiseta 5", img: camisetaImg, preco: "45,00 R$" }
+    { nome: "Estampa Camisa A", descricao: "Camiseta 1", img: camisetaImg, preco: "45,00 R$" },
+    { nome: "Estampa Camisa B", descricao: "Camiseta 2", img: camisetaImg, preco: "45,00 R$" },
+    { nome: "Estampa Camisa C", descricao: "Camiseta 3", img: camisetaImg, preco: "45,00 R$" },
+    { nome: "Estampa Camisa D", descricao: "Camiseta 4", img: camisetaImg, preco: "45,00 R$" },
+    { nome: "Estampa Camisa E", descricao: "Camiseta 5", img: camisetaImg, preco: "45,00 R$" }
 ];
 
 const bolsas = [
@@ -38,11 +38,11 @@ function setCarrinho(carrinho) {
 }
 
 // Função para adicionar um produto ao carrinho e salvá-lo no localStorage
-function adicionarAoCarrinho(produto) {
+function adicionarAoCarrinho(product) {
     const carrinho = getCarrinho();
-    carrinho.push(produto);
+    carrinho.push(product);
     setCarrinho(carrinho);
-    // alert(`${produto.nome} foi adicionado ao carrinho!`);
+    alert("Produto adicionado ao carrinho!");
 }
 
 export function telaProdutosHtml2() {
@@ -108,7 +108,7 @@ function renderProducts(products) {
                         <span class="fw-bold text-end">${product.preco}</span>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-success w-75 mt-2" onclick='${adicionarAoCarrinho()}'>
+                        <button class="btn btn-success w-75 mt-2" onclick='adicionarAoCarrinho(${JSON.stringify(product)})'>
                             Adicionar ao Carrinho
                         </button>
                     </div>
@@ -117,3 +117,6 @@ function renderProducts(products) {
         </div>
     `).join('');
 }
+
+// Torne a função `adicionarAoCarrinho` global
+window.adicionarAoCarrinho = adicionarAoCarrinho;
