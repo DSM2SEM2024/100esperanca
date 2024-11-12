@@ -35,7 +35,7 @@ export function cartHtml () {
                     <ul class="list-group mb-3">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Subtotal
-                            <span id="subtotal" class="badge bg-secondary">R$ 0,00</span>
+                            <span id="subtotal" class="badge bg-success">R$ 0,00</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Frete

@@ -1,10 +1,62 @@
 import { getOrCreateMainElement } from "../../components/main";
 
-export function cartHtml () {
+// Função para obter itens do carrinho do localStorage
+function getCarrinho() {
+    const carrinho = localStorage.getItem("carrinho");
+    return carrinho ? JSON.parse(carrinho) : [];
+}
+
+// Função para atualizar o carrinho com os itens do localStorage
+function atualizarCarrinho() {
+    const cartItems = document.getElementById('cartItems');
+    const subtotalElem = document.getElementById('subtotal');
+    const freteElem = document.getElementById('frete');
+    const totalElem = document.getElementById('total');
+
+    cartItems.innerHTML = '';
+    let subtotal = 0;
+    const frete = 20;
+
+    const carrinho = getCarrinho();
+
+    carrinho.forEach((item, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><img src="${item.img}" alt="${item.nome}" class="cart-item-img"></td>
+            <td>${item.nome}</td>
+            <td>${item.preco}</td>
+            <td><button class="btn btn-danger btn-sm remove-item-btn">Remover</button></td>
+        `;
+        cartItems.appendChild(row);
+        subtotal += parseFloat(item.preco.replace(",", "."));
+    });
+
+    subtotalElem.textContent = `R$ ${subtotal.toFixed(2)}`;
+    freteElem.textContent = `R$ ${frete.toFixed(2)}`;
+    totalElem.textContent = `R$ ${(subtotal + frete).toFixed(2)}`;
+
+    // Event listeners para remoção de itens
+    document.querySelectorAll('.remove-item-btn').forEach((button, index) => {
+        button.addEventListener('click', () => {
+            carrinho.splice(index, 1);
+            setCarrinho(carrinho);
+            atualizarCarrinho();
+        });
+    });
+}
+
+function setCarrinho(carrinho) {
+    localStorage.setItem("carrinho", JSON.stringify(carrinho));
+}
+
+function concluirCompra() {
+    alert("Compra concluída com sucesso! Você será redirecionado para o pagamento.");
+}
+
+export function cartHtml() {
     const cart = `
         <div class="container my-5">
             <h1 class="text-center text-success mb-4">Carrinho de Compras</h1>
-
             <div class="row">
                 <div class="col-lg-8">
                     <div class="card shadow-sm">
@@ -13,37 +65,35 @@ export function cartHtml () {
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Arte</th>
+                                        <th scope="col">Imagem</th>
                                         <th scope="col">Produto</th>
                                         <th scope="col">Preço</th>
-                                        <th scope="col">Ações</th>
+                                        <th scope="col">Ação</th>
                                     </tr>
                                 </thead>
-                                <tbody id="cartItems"></tbody>
+                                <tbody id="cartItems">
+                                    <!-- Itens serão carregados aqui -->
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-4">
                     <div class="card shadow-sm">
                         <div class="card-body">
-                            <h5 class="card-title">Resumo do Carrinho</h5>
+                            <h5 class="card-title">Resumo</h5>
                             <ul class="list-group mb-3">
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Subtotal
-                                    <span id="subtotal" class="badge bg-secondary">R$ 0,00</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Frete
-                                    <span id="frete" class="badge bg-secondary">R$ 0,00</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Total
-                                    <span id="total" class="badge bg-success">R$ 0,00</span>
-                                </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Subtotal: </strong><span id="subtotal" class="badge bg-success">R$ 0,00</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Frete: </strong><span id="frete">R$ 20,00</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Total: </strong><span id="total" class="badge bg-success">R$ 20,00</span>
+                            </li>
                             </ul>
-                            <button id="concluirCompraBtn" class="btn btn-success w-100">Concluir Compra</button>
+                            <button class="btn btn-success w-100 mt-3" onclick="concluirCompra()">Finalizar Compra</button>
                         </div>
                     </div>
                 </div>
@@ -51,59 +101,9 @@ export function cartHtml () {
         </div>
     `;
 
-    let carrinho = [
-        { nome: 'Produto 1', preco: 50, imagem: 'https://via.placeholder.com/100' },
-        { nome: 'Produto 2', preco: 100, imagem: 'https://via.placeholder.com/100' },
-        { nome: 'Produto 3', preco: 75, imagem: 'https://via.placeholder.com/100' }
-    ];
-    
-    let frete = 20;
-    
-    function atualizarCarrinho() {
-        const cartItems = document.getElementById('cartItems');
-        const subtotalElem = document.getElementById('subtotal');
-        const freteElem = document.getElementById('frete');
-        const totalElem = document.getElementById('total');
-        
-        cartItems.innerHTML = '';
-        let subtotal = 0;
-        
-        carrinho.forEach((item, index) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td><img src="${item.imagem}" alt="${item.nome}" class="cart-item-img"></td>
-                <td>${item.nome}</td>
-                <td>R$ ${item.preco.toFixed(2)}</td>
-                <td><button class="btn btn-danger btn-sm remove-item-btn">Remover</button></td>
-            `;
-            cartItems.appendChild(row);
-            subtotal += item.preco;
-        });
-
-        subtotalElem.textContent = `R$ ${subtotal.toFixed(2)}`;
-        freteElem.textContent = `R$ ${frete.toFixed(2)}`;
-        totalElem.textContent = `R$ ${(subtotal + frete).toFixed(2)}`;
-
-        document.querySelectorAll('.remove-item-btn').forEach((button, index) => {
-            button.addEventListener('click', () => {
-                removerItem(index);
-            });
-        });
-    }
-
-    function removerItem(index) {
-        carrinho.splice(index, 1);
-        atualizarCarrinho();
-    }
-
-    function concluirCompra() {
-        alert("Compra concluída com sucesso! Você será redirecionado para o pagamento.");
-    }
-
     const main = getOrCreateMainElement();
+    main.classList = null;
     main.innerHTML = cart;
-
-    document.getElementById('concluirCompraBtn').addEventListener('click', concluirCompra);
 
     atualizarCarrinho();
 }

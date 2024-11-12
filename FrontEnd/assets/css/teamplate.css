@@ -77,14 +77,9 @@ header{
 .card-body {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 1rem; 
 }
-
-.btn-verde:hover {
-    background-color: #218838;
-}
-
 .cart-item-img {
     width: 100px;
     height: 100px;
