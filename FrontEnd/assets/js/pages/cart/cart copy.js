@@ -69,7 +69,7 @@ export function cartHtml () {
         const freteElem = document.getElementById('frete');
         const totalElem = document.getElementById('total');
     
-     cartItems.innerHTML = ''; // Limpa os itens anteriores
+    cartItems.innerHTML = ''; // Limpa os itens anteriores
     
     let subtotal = 0;
         

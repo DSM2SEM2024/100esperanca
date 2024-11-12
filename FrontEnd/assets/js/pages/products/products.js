@@ -2,7 +2,13 @@ import { getOrCreateMainElement } from "../../components/main";
 
 import camisetaImg from "./imgs/camiseta.jpg";
 import bolsaImg from "./imgs/bolsa.jpg";
+import cadernoImg from "./imgs/caderno.jpg";
 
+const cadernos = [
+    { nome: " Caderno 1", descricao: "Caderno com a arte X", img: cadernoImg, preco:" 50,00 R$"},
+    { nome: " Caderno 2", descricao: "Caderno com a arte Y", img: cadernoImg, preco:" 50,00 R$"},
+    { nome: " Caderno 3", descricao: "Caderno com a arte Z", img: cadernoImg, preco:" 50,00 R$"},
+]
 
 const camisetas = [
     { nome: " Estampa Camisa A", descricao: "Camiseta 1", img: camisetaImg, preco:" 45,00 R$" },
@@ -19,7 +25,7 @@ const bolsas = [
     { nome: "Estampa Bolsa D", descricao: "Bolsa 4", img: bolsaImg, preco:" 75,00 R$" }
 ];
 
-const todosProdutos = [...camisetas, ...bolsas];
+const todosProdutos = [...camisetas, ...bolsas, ...cadernos];
 
 export function telaProdutosHtml2() {
     const telaProdutos2 = `
@@ -33,6 +39,7 @@ export function telaProdutosHtml2() {
                     <option selected value="all">Todos</option>
                     <option value="Camisetas">Camisetas</option>
                     <option value="Bolsas">Bolsas</option>
+                    <option value="Cadernos">Cadernos</option>
                 </select>
             </div>
         </section> 
@@ -64,7 +71,10 @@ export function telaProdutosHtml2() {
             filteredProducts = camisetas;
         } else if (selectedCategory === "Bolsas") {
             filteredProducts = bolsas;
-        } else {
+        }  else if(selectedCategory === "Cadernos"){
+            filteredProducts = cadernos;
+        }
+            else {
             filteredProducts = todosProdutos;
         }
 

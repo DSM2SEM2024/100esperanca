@@ -11,7 +11,6 @@ import { cartHtml } from "./pages/cart/cart";
 
 
 function renderContentBasedOnHash() {
-    console.log("teste");
     
     clearBody();
     if (location.hash === '#login') {

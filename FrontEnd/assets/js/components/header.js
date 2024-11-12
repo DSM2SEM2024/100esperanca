@@ -17,10 +17,6 @@ export const headerHtml = `
         <button class="btn btn-outline-success border-0">Home</button>
       </a>
 
-      <a id="login-Link" href="#login" class="text-decoration-none text-success" role="button">
-        <button class="btn btn-outline-success border-0">Login</button>
-      </a>
-
       <a id="createUser-Link" href="#criarUsuario" class="text-decoration-none text-success" role="button">
         <button class="btn btn-outline-success border-0">Criar Usuário</button>
       </a>
@@ -45,14 +41,8 @@ export const headerHtml = `
 
         <ul class="dropdown-menu dropdown-menu position-absolute">
           <li>
-            <a class="dropdown-item link-outline-success dropdown-item-text text-success border-bottom" href="#">
-              Meus Dados
-            </a>
-          </li>
-
-          <li>
-            <a class="dropdown-item dropdown-item-text text-success border-bottom" href="#">
-              Meus Pedidos
+            <a class="dropdown-item link-outline-success dropdown-item-text text-success border-bottom" href="#login">
+              Login
             </a>
           </li>
 
@@ -88,13 +78,11 @@ voltarButton.addEventListener('click', () => {
 });
 
 export function updateNavbarLinks() {
-  const loginLink = document.getElementById('login-Link');
   const createUserLink = document.getElementById('createUser-Link');
   const manageUserLink = document.getElementById('manageUser-Link');
   const productsLink = document.getElementById('produtos-Link');
   const homeLink = document.getElementById('home-Link');
 
-  loginLink.style.display = location.hash === '#login' ? 'none' : 'inline';
   createUserLink.style.display = location.hash === '#criarUsuario' ? 'none' : 'inline';
   manageUserLink.style.display = location.hash === '#gerenciarUsuario' ? 'none' : 'inline';
   productsLink.style.display = location.hash === '#produtos' ? 'none' : 'inline';
