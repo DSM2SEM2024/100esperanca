@@ -42,7 +42,7 @@ function adicionarAoCarrinho(produto) {
     const carrinho = getCarrinho();
     carrinho.push(produto);
     setCarrinho(carrinho);
-    alert(`${produto.nome} foi adicionado ao carrinho!`);
+    // alert(`${produto.nome} foi adicionado ao carrinho!`);
 }
 
 export function telaProdutosHtml2() {
@@ -108,7 +108,7 @@ function renderProducts(products) {
                         <span class="fw-bold text-end">${product.preco}</span>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-success w-75 mt-2" onclick='adicionarAoCarrinho(${JSON.stringify(product)})'>
+                        <button class="btn btn-success w-75 mt-2" onclick='${adicionarAoCarrinho()}'>
                             Adicionar ao Carrinho
                         </button>
                     </div>
