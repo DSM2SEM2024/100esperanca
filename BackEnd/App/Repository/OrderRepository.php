@@ -81,7 +81,7 @@ class OrderRepository{
     }
 
     public function getAllOrder(){
-        $query = "SELECT * FROM $this->tableAssoc";
+        $query = "SELECT * FROM $this->table";
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
 

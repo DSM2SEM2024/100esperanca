@@ -42,16 +42,11 @@ switch ($method) {
 
 
 case 'GET':
-
-    if(preg_match('/\/order\/(\d+)/', $uri, $match)){
+     if(preg_match('/\/order\/(\d+)/', $uri, $match)){
         $id = $match[1];
         $data = json_decode(file_get_contents('php://input'));
         $orderController->searchById($id);
-
-    } elseif (preg_match('/\/order\/art/', $uri)) {
-        $orderController->getAllOrderFromArt();
-    } 
-    
+    }
     break;
 
 case 'PUT':
@@ -63,11 +58,11 @@ case 'PUT':
 
         } */
             
-        /*  if(preg_match('/\/order\/(\d+)/', $uri, $match)){
+         if(preg_match('/\/order\/(\d+)/', $uri, $match)){
             $id = $match[1];
             $data = json_decode(file_get_contents('php://input'));
             $orderController->reOpenOrder($id);
-        } */
+        }
 
         
         /*  if(preg_match('/\/order\/(\d+)/', $uri, $match)){
@@ -80,6 +75,10 @@ case 'PUT':
 
     case "DELETE":
 
+            if(preg_match('/\/order\/(\d+)/', $uri, $match)){
+            $id = $match[1];
+            $data = json_decode(file_get_contents('php://input'));
+            $orderController->delete($id);
 
             if (preg_match('/\/order\/(\d+)\/art\/(\d+)/', $uri, $matches)) {
                 $orderId = (int)$matches[1];
@@ -89,7 +88,7 @@ case 'PUT':
             } 
             break;
     
-
+        }
 
 
 default:
