@@ -11,25 +11,26 @@ ota_img = dowloadPLAC;
 export function criaHomeHTML(){
     const homeHTML= `
   
-        <figure class="d-flex justify-content-center w-100 m-5">
-            <img src="${img}" alt="galery-img" class="mx-5 img-fluid">
+        <figure class="d-flex flex-wrap justify-content-center">
+            <img src="${img}" alt="galery-img" class="img-fluid mt-3">
 
-            <img src="${img}" alt="galery-img" class="mx-5 img-fluid">
+            <img src="${img}" alt="galery-img" class="img-fluid mt-3">
 
-            <img src="${img}" alt="galery-img" class="mx-5 img-fluid">
+            <img src="${img}" alt="galery-img" class="img-fluid mt-3">
         </figure>
 
 
 
-        <section id="products-row" class="d-block px-5 m-5 w-75">
+        <section id="products-row" class="d-block">
+
             <section id="products-title">
-                <h2 class="h2 display-5">
+                <h2 class="text-center h2 display-5">
                     NOVIDADES!!!
                 </h2>
             </section>
 
             <section id="products-content">
-                <ul class="d-flex   flex-row gap-3 overflow-auto position-relative">
+                <ul class="d-flex flex-row overflow-auto position-relative p-0">
 
                     <li class="card shadow flex-shrink-0">
                         <img src="${img}" class="card-img-top" alt="...">
@@ -84,76 +85,14 @@ export function criaHomeHTML(){
         </section>
 
 
-        <section id="products-row" class="d-block px-5 w-75">
+        <section class="about d-flex flex-column">
 
-            <section id="products-title">
-                <h2 class="h2 display-5">NOVIDADES!!!</h2>
-            </section>
-
-            <section id="products-content">
-                <ul class="d-flex   flex-row gap-3 overflow-auto position-relative">
-                    <li class="card shadow flex-shrink-0">
-                        <img src="${img}" class="card-img-top" alt="...">
-
-                        <div class="card-body">
-                            <p class="card-text">99.9</p>
-                        </div>
-                    </li>
-
-                    <li class="card shadow flex-shrink-0">
-                        <img src="${img}" class="card-img-top" alt="...">
-
-                        <div class="card-body">
-                            <p class="card-text">99.9</p>
-                        </div>
-                    </li>
-
-
-                    <li class="card shadow flex-shrink-0">
-                        <img src="${img}" class="card-img-top" alt="...">
-
-                        <div class="card-body">
-                            <p class="card-text">99.9</p>
-                        </div>
-                    </li>
-
-                    <li class="card shadow flex-shrink-0">
-                        <img src="${img}" class="card-img-top" alt="...">
-
-                        <div class="card-body">
-                            <p class="card-text">99.9</p>
-                        </div>
-                    </li>
-
-                    <li class="card shadow flex-shrink-0">
-                        <img src="${img}" class="card-img-top" alt="...">
-
-                        <div class="card-body">
-                            <p class="card-text">99.9</p>
-                        </div>
-                    </li>
-
-                    <li class="card shadow flex-shrink-0">
-                        <img src="${img}" class="card-img-top" alt="...">
-
-                        <div class="card-body">
-                            <p class="card-text">99.9</p>
-                        </div>
-                    </li>
-                </ul>
-
-            </section>
-        </section>
-
-
-        <section class="about d-flex align-items-center px-5 bg-success w-100 p-5">
-
-            <figure class="">
+            <figure>
                 <img src="${img}" alt="visgo de jaca" class="rounded-circle">
             </figure>
 
             <section class="about-body h-100">
-                <p class="ps-4 text-center text-wrap h2">
+                <p class="text-center text-wrap h2">
                     visco de jaca piriri pororo pipi popo papum pirulito bao doce, é isso aq q ele faz e pá, essa é a
                     loja dele e nao sei q lá
                 </p>
