@@ -7,7 +7,7 @@ use Pi\Visgo\Common\ResponseAssemblerError;
 use Pi\Visgo\Common\ResponseAssemblerSuccess;
 use Pi\Visgo\Model\Promotion;
 use Pi\Visgo\Repository\PromotionRepository;
-use Pi\Visgo\Common\ValidatorId;
+use Pi\Visgo\Common\Validator;
 
 class PromotionController
 {
@@ -37,7 +37,7 @@ class PromotionController
 
     public function update($id, $data){
 
-        $validator = new ValidatorId('sqlite');
+/*         $validator = new ValidatorId('sqlite');
 
         $table = 'promotion';
 
@@ -47,7 +47,7 @@ class PromotionController
         if($validation){
             ResponseAssemblerError::response(404, "Promoção não encontrada.");
             throw new Exception("Id de promoção não encontrado.");
-        }
+        } */
 
         $promotionModel = new Promotion();
         $promotionModel->setStartDatePromotion($data->start_date_promotion);
@@ -64,8 +64,8 @@ class PromotionController
     }
 
     public function ClosingPromotion($id){
-
-        $validator = new ValidatorId('sqlite');
+/* 
+        $validator = new Validator('sqlite');
 
         $table = 'promotion';
 
@@ -75,7 +75,7 @@ class PromotionController
         if(!$validation){
             ResponseAssemblerError::response(404, "Promoção não encontrada.");
             throw new Exception("Id de promoção não encontrado.");
-        }
+        } */
 
         $result = $this->promotionRepository->ClosePromotionById($id);
         
@@ -88,7 +88,7 @@ class PromotionController
 
     public function OpeningPromotion($id, $data){
 
-        $validator = new ValidatorId('sqlite');
+/*         $validator = new ValidatorId('sqlite');
 
         $table = 'promotion';
 
@@ -100,7 +100,7 @@ class PromotionController
             ResponseAssemblerError::response(404, "Promoção não encontrada.");
             throw new Exception("Id de promoção não encontrado.");
         }
-
+ */
         $promotionModel = new Promotion();
         $promotionModel->setStartDatePromotion($data->start_date_promotion);
         $promotionModel->setEndDatePromotion($data->end_date_promotion);
@@ -122,7 +122,7 @@ class PromotionController
 
     public function searchById($id)
     {
-
+/* 
         $ids = [$id];
 
         $validator = new ValidatorId('sqlite');
@@ -134,7 +134,7 @@ class PromotionController
         if(!$validation){
             ResponseAssemblerError::response(404, "Promoção não encontrada.");
             throw new Exception("Id de promoção não encontrado.");
-        }
+        } */
 
         $result = $this->promotionRepository->searchByIdPromotion($id);
         ResponseAssemblerSuccess::response(200, $result, 'Requisição bem sucedida!');
@@ -142,25 +142,16 @@ class PromotionController
 
     public function addProductsInPromotion($data){
 
-        $validator = new ValidatorId('sqlite');
+        $validator = new Validator('sqlite');
 
-        $table =  'product_promotion';
-
-        $id = $data->promotion;
         $products = $data->products;
 
-        $validation = $validator->ValidatorById($table, $products);
-        $validationArray = $validator->ValidatorValuesArray($products);
+        $validationArray = $validator->ValidatorRepetedValuesInArray($products);
 
 
         if($validationArray){
             ResponseAssemblerError::response(404, "Um produto não pode ser adicionado duas vezes na mesma promoção");
             throw new Exception("Produto de Id repetido na criação");
-        }
-
-        if($validation){
-            ResponseAssemblerError::response(404, "Id repetido");
-            throw new Exception("Id de promoção não encontrado.");
         }
 
         $promotion = $data->promotion;
@@ -183,7 +174,7 @@ class PromotionController
     public function deleteProductInPromotion($data)
     {   
 
-        $validator = new ValidatorId('sqlite');
+/*         $validator = new ValidatorId('sqlite');
 
         $table = 'promotion';
 
@@ -194,7 +185,7 @@ class PromotionController
         if(!$validation){
             ResponseAssemblerError::response(404, "Promoção não encontrada.");
             throw new Exception("Id de promoção não encontrado.");
-        }
+        } */
 
         $promotion = $data->promotion;
         $products = $data->products;

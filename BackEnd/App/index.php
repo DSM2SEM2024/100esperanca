@@ -111,10 +111,10 @@ switch ($method) {
             $data = json_decode(file_get_contents('php://input'));
             $promotionController->searchById($id);
             break;
-        }else if ($uri === '/product_promotion'){
+        } else if ($uri === '/product_promotion'){
             $promotionController->getAllProductsInPromotion();
         }
-        if ($uri === '/cart'){
+        /*if ($uri === '/cart'){
             $cartController->getAll();
         } else if  (preg_match('/\/cart\/(\d+)/', $uri, $match)){
             $id = $match[1];
@@ -130,27 +130,27 @@ switch ($method) {
             $id = $match[1];
             $data = json_decode(file_get_contents('php://input'));
             $cartController->serachByIdProductInCart($id);
-        }
+        } */
 
     break;
     
     case 'POST':
-        /* if($uri === '/promotion'){
+        if($uri === '/promotion'){
             $data = json_decode(file_get_contents('php://input'));
             $promotionController->create($data);
         }
         if($uri === '/product_promotion'){
             $data = json_decode(file_get_contents('php://input'));
             $promotionController->addProductsInPromotion($data);
-        } */
-        if($uri === '/cart'){
+        }
+        /* if($uri === '/cart'){
             $data = json_decode(file_get_contents('php://input'));
             $cartController->create($data);
         }
         if($uri === '/cart_product'){
             $data = json_decode(file_get_contents('php://input'));
             $cartController->InsertProductInCart($data);
-        }
+        } */
     break;
 
     case 'PUT':
@@ -161,17 +161,17 @@ switch ($method) {
 
         } */
             
-            /* if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
+            if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){
                 $id = $match[1];
-                $data = json_decode(file_get_contents('php://input'));
-                $promotionController->OpeningPromotion($id, $data);
-                // $promotionController->ClosingPromotion($id)
-            } */
+                // $data = json_decode(file_get_contents('php://input'));
+                // $promotionController->OpeningPromotion($id, $data);
+                $promotionController->ClosingPromotion($id);
+            }
 
-            if(preg_match('/\/cart\/(\d+)/', $uri, $match)){
+            /* if(preg_match('/\/cart\/(\d+)/', $uri, $match)){
                 $id = $match[1];
                 $cartController->Close($id);
-            }
+            } */
 
             /*else if($uri === '/product_promotion'){
             if(preg_match('/\/promotion\/(\d+)/', $uri, $match)){

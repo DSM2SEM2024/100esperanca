@@ -7,7 +7,7 @@ use Pi\Visgo\Common\ResponseAssemblerError;
 use Pi\Visgo\Common\ResponseAssemblerSuccess;
 use Pi\Visgo\Model\Cart;
 use Pi\Visgo\Repository\CartRepository;
-use Pi\Visgo\Common\ValidatorId;
+use Pi\Visgo\Common\Validator;
 
 class CartController {
 
@@ -87,5 +87,6 @@ class CartController {
         $result = $this->CartRepository->DeleteProductInCart($id_cart, $id_product);
         ResponseAssemblerSuccess::response(200, $result, "Requisição realizada com sucesso!");
     }
+
 
 }
