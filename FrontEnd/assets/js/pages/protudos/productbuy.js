@@ -1,16 +1,18 @@
 import { getOrCreateMainElement } from "../../components/main";
-import sla from "./imgs/boleto.jpg"
+import sla from "./imgs/camisachave.jpg";
+
+
 export function render_produtos() {
-    const produtoshtml=`
+    const produtoshtml = `
     <!-- Parte de comprar produto -->
     <div class="container my-5">
         <div class="row justify-content-between align-items-center">
             <!-- Imagens do Produto -->
             <div class="col-md-6">
-                <img src="../../imgs/camisachave.jpg" alt="Produto Principal" class="img-fluid rounded mb-3 shadow">
+                <img src="${sla}" alt="Produto Principal" class="img-fluid rounded mb-3 shadow">
                 <div class="d-flex gap-3">
-                    <img src="${sla}" alt="Imagem 1" class="img-fluid rounded">
-                    <img src="https://via.placeholder.com/200x200/28a745/fff?text=Imagem+2" alt="Imagem 2" class="img-fluid rounded">
+                    <img src="" alt="Imagem 1" class="img-fluid rounded">
+                    <img src="" alt="Imagem 2" class="img-fluid rounded">
                 </div>
             </div>
 
@@ -45,10 +47,20 @@ export function render_produtos() {
                 </div>
                 <button class="btn btn-outline-success w-100" onclick="calculateFrete()">Calcular Frete</button>
                 <div id="freteResult" class="mt-3"></div>
+
+                <!--Cupom de Desconto -->
+                <h5 class="mt-4">Cupom de Desconto</h5>
+                <div class="mb-3">
+                    <label for="coupon" class="form-label">Digite o código do cupom:</label>
+                    <input type="text" class="form-control" id="coupon" placeholder="Ex: DESCONTO10">
+                </div>
+                <button class="btn btn-outline-primary w-100" onclick="applyCoupon()">Aplicar Cupom</button>
+                <div id="couponResult" class="mt-3"></div>
             </div>
         </div>
     </div>
-`;
-const main = getOrCreateMainElement();
-main.innerHTML = produtoshtml;
+    `;
+
+    const main = getOrCreateMainElement();
+    main.innerHTML = produtoshtml;
 }
