@@ -21,7 +21,7 @@ function renderContentBasedOnHash() {
         gerenciarUsuarioHtml();
     } else if (location.hash === '#produtos') {
         telaProdutosHtml2();
-    }else if(!location.hash || location.hash === '#home'){
+    }else if(location.hash === '#home'){
         clearBody();  
         criaHomeHTML();
     }else if (location.hash === '#cart'){
