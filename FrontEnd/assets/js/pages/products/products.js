@@ -3,7 +3,6 @@ import camisetaImg from "./imgs/camiseta.jpg";
 import bolsaImg from "./imgs/bolsa.jpg";
 import cadernoImg from "./imgs/caderno.jpg";
 
-// Definir os produtos
 const cadernos = [
     { nome: "Caderno 1", descricao: "Caderno com a arte X", img: cadernoImg, preco: "50,00 R$" },
     { nome: "Caderno 2", descricao: "Caderno com a arte Y", img: cadernoImg, preco: "50,00 R$" },
@@ -124,7 +123,6 @@ function atualizarPaginacao() {
     }
 }
 
-// Função de navegação entre as páginas
 window.irParaPagina = function (numeroPagina) {
     if (numeroPagina < 0 || numeroPagina >= totalDePaginas) return;
 
@@ -132,7 +130,14 @@ window.irParaPagina = function (numeroPagina) {
     const produtosDaPagina = paginas[paginaAtual];
     renderizarPagina(produtosDaPagina);
     atualizarPaginacao();
-}
+
+    // Rolando a tela para o início dos produtos
+    const productContainer = document.querySelector("h2.text-success");
+    if (productContainer) {
+        productContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+};
+
 
 export function telaProdutosHtml2() {
     const telaProdutos2 = `
