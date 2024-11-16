@@ -4,7 +4,7 @@ namespace Pi\Visgo\Controller;
 use Pi\Visgo\Common\ProblemAndFiledError;
 use Pi\Visgo\Common\ResponseAssemblerError;
 use Pi\Visgo\Common\ResponseAssemblerSuccess;
-use Pi\Visgo\Common\ValidatorArt;
+use Pi\Visgo\Common\Validator;
 use Pi\Visgo\Model\Art;
 use Pi\Visgo\Repository\ArtRepository;
 
@@ -17,7 +17,7 @@ class ArtController {
     }
 
     public function create($data) {
-        $isValid = ValidatorArt::validationArt($data);
+        $isValid = Validator::validationArt($data);
 
         if (!$isValid) {
             ResponseAssemblerError::response(400, ProblemAndFiledError::getFieldsError());
@@ -27,7 +27,8 @@ class ArtController {
         $artModel = new Art(
             $data->characteristic,
             $data->description,
-            $data->name
+            $data->name, $data->is_deleted,
+
         );
 
         $result = $this->artRepository->createArt($artModel);
@@ -35,8 +36,8 @@ class ArtController {
         ResponseAssemblerSuccess::response(201, $result);
     }
 
-    public function update($id, $data) {
-        $isValid = ValidatorArt::validationArt($data);
+    public function update($id, $data): void {
+        $isValid = Validator::validationArt($data);
 
         if (!$isValid) {
             ResponseAssemblerError::response(400, ProblemAndFiledError::getFieldsError());
@@ -46,7 +47,8 @@ class ArtController {
         $artModel = new Art(
             $data->characteristic,
             $data->description,
-            $data->name
+            $data->name,
+            $data->is_deleted,
         );
 
         $result = $this->artRepository->updateArt($id, $artModel);
@@ -61,7 +63,7 @@ class ArtController {
     }
 
     public function searchById($id) {
-        $result = $this->artRepository->searchByIdArt($id);
+        $result = $this->artRepository->getByIdArt($id);
 
         if ($result) {
             ResponseAssemblerSuccess::response(200, $result);
@@ -75,6 +77,27 @@ class ArtController {
             ResponseAssemblerSuccess::responseDelete(200);
         } else {
             ResponseAssemblerError::responseDelete(500);
+        }
+    }
+
+    public function isDeleteArt($id) {
+
+        $result = $this->artRepository->isDeletedArt($id);
+
+        if ($result) {
+            ResponseAssemblerSuccess::response(200, "arte suspensa com sucesso.");
+        } else {
+            ResponseAssemblerError::response(500, "Erro ao suspender pedido.");
+        }
+    }
+
+    public function isNotDelete($id) {
+        $result = $this->artRepository->IsNotDeletedArt($id);
+
+        if ($result) {
+            ResponseAssemblerSuccess::response(200, "Arte reaberta co sucesso");
+        } else {
+            ResponseAssemblerError::response(500, "Erro ao reabrir arte.");
         }
     }
 }
