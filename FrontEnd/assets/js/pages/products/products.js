@@ -27,14 +27,14 @@ const bolsas = [
 
 const todosProdutos = [...camisetas, ...bolsas, ...cadernos];
 
-const PRODUTOS_POR_PAGINA = 6; // Define quantos produtos por página
+const PRODUTOS_POR_PAGINA = 6;
 
-// Variáveis globais para o controle da navegação
+
 let paginas = []; 
 let totalDePaginas = 0;
 let paginaAtual = 0;
 
-// Função para dividir os produtos em páginas
+
 function dividirProdutosEmPaginas(produtos) {
     const paginas = [];
     for (let i = 0; i < produtos.length; i += PRODUTOS_POR_PAGINA) {
@@ -43,7 +43,6 @@ function dividirProdutosEmPaginas(produtos) {
     return paginas;
 }
 
-// Função para renderizar os produtos em HTML
 function renderProducts(products) {
     return products.map(product => `
         <div class="col">
@@ -66,7 +65,6 @@ function renderProducts(products) {
     `).join('');
 }
 
-// Função para atualizar o carrinho no localStorage
 function getCarrinho() {
     const carrinho = localStorage.getItem("carrinho");
     return carrinho ? JSON.parse(carrinho) : [];
@@ -83,7 +81,6 @@ function adicionarAoCarrinho(product) {
     alert("Produto adicionado ao carrinho!");
 }
 
-// Função para renderizar a página de produtos
 function renderizarPagina(produtosDaPagina) {
     const productContainer = document.querySelector("#productContainer .row");
     if (productContainer) {
@@ -98,30 +95,28 @@ function atualizarPaginacao() {
     const paginationContainer = document.querySelector(".pagination");
     let paginasHtml = '';
 
-    // Adiciona o botão "Previous"
     paginasHtml += `
         <li class="page-item ${paginaAtual === 0 ? 'disabled' : ''}">
-            <a class="page-link text-success" href="#" onclick="irParaPagina(${paginaAtual - 1})">Previous</a>
+            <a class="page-link text-success" href="#produtos" onclick="irParaPagina(${paginaAtual - 1})">Previous</a>
         </li>
     `;
 
-    // Adiciona os links das páginas
+    
     for (let i = 0; i < totalDePaginas; i++) {
         paginasHtml += `
             <li class="page-item ${i === paginaAtual ? 'active' : ''}">
-                <a class="page-link text-success" href="#" onclick="irParaPagina(${i})">${i + 1}</a>
+                <a class="page-link text-success" href="#produtos" onclick="irParaPagina(${i})">${i + 1}</a>
             </li>
         `;
     }
 
-    // Adiciona o botão "Next"
+    
     paginasHtml += `
         <li class="page-item ${paginaAtual === totalDePaginas - 1 ? 'disabled' : ''}">
-            <a class="page-link text-success" href="#" onclick="irParaPagina(${paginaAtual + 1})">Next</a>
+            <a class="page-link text-success" href="#produtos" onclick="irParaPagina(${paginaAtual + 1})">Next</a>
         </li>
     `;
 
-    // Atualiza a navegação
     if (paginationContainer) {
         paginationContainer.innerHTML = paginasHtml;
     } else {
@@ -139,9 +134,7 @@ window.irParaPagina = function (numeroPagina) {
     atualizarPaginacao();
 }
 
-// Função principal da tela de produtos
 export function telaProdutosHtml2() {
-    // Monta a estrutura HTML
     const telaProdutos2 = `
         <nav class="navbar navbar-expand-lg d-flex bg-body-tertiary bg-opacity-75" id="navFiltros">
             <section class="container-fluid d-flex justify-content-evenly">
@@ -164,7 +157,7 @@ export function telaProdutosHtml2() {
             </div>
         </section>
         <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-end">
+            <ul class="pagination pe-3 justify-content-end">
                 <!-- A navegação será renderizada aqui -->
             </ul>
         </nav>
@@ -183,7 +176,6 @@ export function telaProdutosHtml2() {
     renderizarPagina(paginas[paginaAtual]);
     atualizarPaginacao();
 
-    // Adiciona o filtro de categorias
     const filterSelect = document.getElementById("filterSelect");
     filterSelect.addEventListener("change", (event) => {
         let filteredProducts;

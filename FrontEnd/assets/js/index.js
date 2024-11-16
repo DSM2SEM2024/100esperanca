@@ -26,6 +26,8 @@ function renderContentBasedOnHash() {
         criaHomeHTML();
     }else if (location.hash === '#cart'){
         cartHtml();
+    } else if (location.hash === ''){
+        criaHomeHTML();
     }
 }
 renderContentBasedOnHash();
