@@ -97,7 +97,7 @@ function atualizarPaginacao() {
 
     paginasHtml += `
         <li class="page-item ${paginaAtual === 0 ? 'disabled' : ''}">
-            <a class="page-link text-success" href="#produtos" onclick="irParaPagina(${paginaAtual - 1})">Previous</a>
+            <a class="page-link text-success" href="#produtos" onclick="irParaPagina(${paginaAtual - 1})">Anterior</a>
         </li>
     `;
 
@@ -113,7 +113,7 @@ function atualizarPaginacao() {
     
     paginasHtml += `
         <li class="page-item ${paginaAtual === totalDePaginas - 1 ? 'disabled' : ''}">
-            <a class="page-link text-success" href="#produtos" onclick="irParaPagina(${paginaAtual + 1})">Next</a>
+            <a class="page-link text-success" href="#produtos" onclick="irParaPagina(${paginaAtual + 1})">Próxima</a>
         </li>
     `;
 
@@ -157,7 +157,7 @@ export function telaProdutosHtml2() {
             </div>
         </section>
         <nav aria-label="Page navigation example">
-            <ul class="pagination pe-3 justify-content-end">
+            <ul class="pagination pe-3 justify-content-center">
                 <!-- A navegação será renderizada aqui -->
             </ul>
         </nav>
