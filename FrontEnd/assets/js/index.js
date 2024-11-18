@@ -7,7 +7,7 @@ import { gerenciarUsuarioHtml } from "./pages/user/user_management";
 import { telaProdutosHtml2 } from "./pages/products/products";
 import { footerHtml } from "./components/footer";
 import { cartHtml } from "./pages/cart/cart";
-import { render_produtos } from "./pages/protudos/productbuy";
+import { render_produtos } from "./pages/productbuy/productbuy";
 
 
 function renderContentBasedOnHash() {
