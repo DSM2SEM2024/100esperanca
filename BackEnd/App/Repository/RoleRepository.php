@@ -4,6 +4,7 @@ namespace Pi\Visgo\Repository;
 use Pi\Visgo\Model\Role;
 use PDO;
 
+
 class RoleRepository{
 
     private $connection;

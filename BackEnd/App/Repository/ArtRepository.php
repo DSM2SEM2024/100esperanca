@@ -18,15 +18,17 @@ class ArtRepository {
         $name = $art->getName();
         $description = $art->getDescription();
         $characteristic = $art->getCharacteristic();
+        $is_deleted = $art->getIsDeleted();
 
 
-        $query = "INSERT INTO $this->table (name, description, characteristic) VALUES (:name, :description, :characteristic)";
+        $query = "INSERT INTO $this->table (name, description, characteristic, is_deleted) VALUES (:name, :description, :characteristic, :is_deleted)";
 
         $stmt = $this->connection->prepare($query);
         
         $stmt->bindParam(":name", $name);
         $stmt->bindParam(":description", $description);
         $stmt->bindParam(":characteristic", $characteristic);
+        $stmt->bindParam(":is_deleted", $is_deleted);
 
         $executionCompleted = $stmt->execute();
 
@@ -38,9 +40,10 @@ class ArtRepository {
         $name = $art->getName();
         $description = $art->getDescription();
         $characteristic = $art->getCharacteristic();
+        $is_deleted = $art->getIsDeleted();
         
         
-        $query = "UPDATE $this->table SET name = :name, description = :description, characteristic = :characteristic WHERE art.id = :art_id";
+        $query = "UPDATE $this->table SET name = :name, description = :description, characteristic = :characteristic, is_deleted = :is_deleted WHERE art.id = :art_id";
 
         $stmt = $this->connection->prepare($query);
 
@@ -48,6 +51,7 @@ class ArtRepository {
         $stmt->bindParam(":description", $description);
         $stmt->bindParam(":characteristic", $characteristic);
         $stmt->bindParam(":art_id", $id);
+        $stmt->bindParam(":is_deleted", $is_deleted);
 
         $executionCompleted = $stmt->execute();
 
@@ -55,13 +59,13 @@ class ArtRepository {
 
 }
 
-    public function searchByIdArt($id){
+    public function getByIdArt($id){
         $query = "SELECT * FROM $this->table WHERE art.id = :id";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fecth(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function getAllArt(){
@@ -73,7 +77,7 @@ class ArtRepository {
     }
 
     public function deleteByIdArt($id){
-        $arraySearch = $this->searchByIdArt($id);
+        $arraySearch = $this->getByIdArt($id);
         $query = "DELETE FROM ART WHERE art.id = :id";
         $stmt = $this->connection->prepare($query);
 
@@ -84,5 +88,35 @@ class ArtRepository {
         return $executionCompleted;
         
     }
+
+    public function isDeletedArt($id) {
+        $is_deleted = 1;
+
+        $query = "UPDATE $this->table SET is_deleted = :is_deleted WHERE $this->table.id = :id";
+
+        $stmt = $this->connection->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":is_deleted", $is_deleted);
+
+        $executionCompleted = $stmt->execute();
+
+        return $executionCompleted;
+    }
+
+    public function IsNotDeletedArt($id) {
+        $is_deleted = 0;
+
+        $query = "UPDATE $this->table SET is_deleted = :is_deleted WHERE $this->table.id = :id";
+        $stmt = $this->connection->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":is_deleted", $is_deleted);
+
+        $executionCompleted = $stmt->execute();
+
+        return $executionCompleted;
+    }
+
 
 }
