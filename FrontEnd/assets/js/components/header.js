@@ -69,8 +69,10 @@ export const headerHtml = `
 `;
 
 const headerElement = document.createElement('header');
+
 headerElement.innerHTML = headerHtml;
 document.body.insertAdjacentElement('afterbegin', headerElement);
+headerElement.classList="w-100 p-2 text-center d-flex justify-content-between align-items-center"
 
 let voltarButton = document.querySelector("#voltar_btn");
 voltarButton.addEventListener('click', () => {

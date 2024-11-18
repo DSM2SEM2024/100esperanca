@@ -7,11 +7,11 @@ import { gerenciarUsuarioHtml } from "./pages/user/user_management";
 import { telaProdutosHtml2 } from "./pages/products/products";
 import { footerHtml } from "./components/footer";
 import { cartHtml } from "./pages/cart/cart";
-
+import { render_produtos } from "./pages/protudos/productbuy";
 
 
 function renderContentBasedOnHash() {
-    
+
     clearBody();
     if (location.hash === '#login') {
         telaLoginHtml();
@@ -21,14 +21,15 @@ function renderContentBasedOnHash() {
         gerenciarUsuarioHtml();
     } else if (location.hash === '#produtos') {
         telaProdutosHtml2();
-    }else if(location.hash === '#home'){
-        clearBody();  
-        criaHomeHTML();
-    }else if (location.hash === '#cart'){
+    } else if (location.hash === '#compraproduto') {
+        render_produtos();
+    } else if (location.hash === '#cart') {
         cartHtml();
-    } else if (location.hash === ''){
+    } else if (location.hash === '' || !location.hash || location.hash === '#home') {
+        clearBody();
         criaHomeHTML();
     }
 }
+
 renderContentBasedOnHash();
 window.addEventListener('hashchange', renderContentBasedOnHash);
