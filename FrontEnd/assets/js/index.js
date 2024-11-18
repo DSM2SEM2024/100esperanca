@@ -6,7 +6,7 @@ import { criarUsuarioHtml } from "./pages/create_user";
 import { gerenciarUsuarioHtml } from "./pages/user_management";
 import { telaProdutosHtml } from "./pages/products";
 import { footerHtml } from "./components/footer";
-
+import { render_produtos } from "./pages/protudos/productbuy";
 
 
 function renderContentBasedOnHash() {
@@ -19,10 +19,13 @@ function renderContentBasedOnHash() {
         gerenciarUsuarioHtml();
     } else if (location.hash === '#produtos') {
         telaProdutosHtml();
-    } else if (!location.hash || location.hash === '') {
+    } else if(location.hash ==='#compraproduto'){
+        render_produtos();
+    }  else if (!location.hash || location.hash === '') {
         clearBody();
         criaHomeHTML();
     }
 }
+
 renderContentBasedOnHash();
 window.addEventListener('hashchange', renderContentBasedOnHash);
