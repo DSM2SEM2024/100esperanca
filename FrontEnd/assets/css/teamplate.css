@@ -85,4 +85,7 @@ header{
     height: 100px;
     object-fit: cover;
 }
-
+.pagination > li.active > a{
+    background-color: #5abc49;
+    border: none;
+}
