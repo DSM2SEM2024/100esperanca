@@ -1,15 +1,17 @@
 import { headerHtml, updateNavbarLinks } from "./components/header";
 import { clearBody } from "./functions/clear_body";
 import { criaHomeHTML } from "./pages/home/home";
-import { telaLoginHtml } from "./pages/login_screen";
-import { criarUsuarioHtml } from "./pages/create_user";
-import { gerenciarUsuarioHtml } from "./pages/user_management";
-import { telaProdutosHtml } from "./pages/products";
+import { telaLoginHtml } from "./pages/login/login_screen";
+import { criarUsuarioHtml } from "./pages/create-user/create_user";
+import { gerenciarUsuarioHtml } from "./pages/user/user_management";
+import { telaProdutosHtml2 } from "./pages/products/products";
 import { footerHtml } from "./components/footer";
+import { cartHtml } from "./pages/cart/cart";
 import { render_produtos } from "./pages/protudos/productbuy";
 
 
 function renderContentBasedOnHash() {
+
     clearBody();
     if (location.hash === '#login') {
         telaLoginHtml();
@@ -18,10 +20,12 @@ function renderContentBasedOnHash() {
     } else if (location.hash === '#gerenciarUsuario') {
         gerenciarUsuarioHtml();
     } else if (location.hash === '#produtos') {
-        telaProdutosHtml();
-    } else if(location.hash ==='#compraproduto'){
+        telaProdutosHtml2();
+    } else if (location.hash === '#compraproduto') {
         render_produtos();
-    }  else if (!location.hash || location.hash === '') {
+    } else if (location.hash === '#cart') {
+        cartHtml();
+    } else if (location.hash === '' || !location.hash || location.hash === '#home') {
         clearBody();
         criaHomeHTML();
     }
