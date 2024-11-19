@@ -1,9 +1,10 @@
 import { getOrCreateMainElement } from "../../components/main";
+
 import sla from "./imgs/camisachave.jpg";
 
 
 export function render_produtos() {
-    const produtoshtml = `
+    const comprasHtml = `
     <!-- Parte de comprar produto -->
     <div class="container my-5">
         <div class="row justify-content-between align-items-center">
@@ -54,7 +55,7 @@ export function render_produtos() {
                     <label for="coupon" class="form-label">Digite o código do cupom:</label>
                     <input type="text" class="form-control" id="coupon" placeholder="Ex: DESCONTO10">
                 </div>
-                <button class="btn btn-outline-primary w-100" onclick="applyCoupon()">Aplicar Cupom</button>
+                <button class="btn btn-outline-success w-100" onclick="applyCoupon()">Aplicar Cupom</button>
                 <div id="couponResult" class="mt-3"></div>
             </div>
         </div>
@@ -62,5 +63,5 @@ export function render_produtos() {
     `;
 
     const main = getOrCreateMainElement();
-    main.innerHTML = produtoshtml;
+    main.innerHTML = comprasHtml;
 }

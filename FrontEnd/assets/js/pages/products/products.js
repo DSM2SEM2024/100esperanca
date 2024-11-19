@@ -45,7 +45,7 @@ function dividirProdutosEmPaginas(produtos) {
 function renderProducts(products) {
     return products.map(product => `
         <div class="col">
-            <div class="card shadow-sm hover-card border-0">
+            <div class="card product-card shadow-sm hover-card border-0">
                 <img src="${product.img}" class="card-img-top card-img-custom" alt="${product.nome}">
                 <div class="card-body border rounded-bottom border-success">
                     <h5 class="card-title text-success">${product.nome}</h5>
@@ -77,8 +77,19 @@ function adicionarAoCarrinho(product) {
     const carrinho = getCarrinho();
     carrinho.push(product);
     setCarrinho(carrinho);
-    alert("Produto adicionado ao carrinho!");
+
+    const modal = new bootstrap.Modal(document.getElementById('modalCarrinho'));
+    modal.show();
+
+
+    const goToCartButton = document.querySelector(".modal-footer .btn-success");
+    goToCartButton.onclick = function() {
+        modal.hide();
+
+        window.location.href = '/#cart';
+    };
 }
+
 
 function renderizarPagina(produtosDaPagina) {
     const productContainer = document.querySelector("#productContainer .row");
@@ -89,7 +100,6 @@ function renderizarPagina(produtosDaPagina) {
     }
 }
 
-// Função para atualizar a navegação
 function atualizarPaginacao() {
     const paginationContainer = document.querySelector(".pagination");
     let paginasHtml = '';
@@ -100,7 +110,6 @@ function atualizarPaginacao() {
         </li>
     `;
 
-    
     for (let i = 0; i < totalDePaginas; i++) {
         paginasHtml += `
             <li class="page-item ${i === paginaAtual ? 'active' : ''}">
@@ -109,7 +118,6 @@ function atualizarPaginacao() {
         `;
     }
 
-    
     paginasHtml += `
         <li class="page-item ${paginaAtual === totalDePaginas - 1 ? 'disabled' : ''}">
             <a class="page-link text-success" href="#produtos" onclick="irParaPagina(${paginaAtual + 1})">Próxima</a>
@@ -143,29 +151,83 @@ export function telaProdutosHtml2() {
     const telaProdutos2 = `
         <nav class="navbar navbar-expand-lg d-flex bg-body-tertiary bg-opacity-75" id="navFiltros">
             <section class="container-fluid d-flex justify-content-evenly">
+
                 <div class="">
-                    <h2 class="text-success fs-1">Produtos</h2>
+                    <h2 class="text-success fs-1">
+                        Produtos
+                    </h2>
                 </div>
+
                 <div class="row gap-3" id="navDrop">
+                
                     <select class="form-select form-select-sm col selectWidth" id="filterSelect">
-                        <option selected value="all">Todos</option>
-                        <option value="Camisetas">Camisetas</option>
-                        <option value="Bolsas">Bolsas</option>
-                        <option value="Cadernos">Cadernos</option>
+
+                        <option selected value="all">
+                            Todos
+                        </option>
+
+                        <option value="Camisetas">
+                            Camisetas
+                        </option>
+
+                        <option value="Bolsas">
+                            Bolsas
+                        </option>
+
+                        <option value="Cadernos">
+                            Cadernos
+                        </option>
+
                     </select>
                 </div>
             </section> 
         </nav>
+
         <section class="container" id="productContainer">
             <div class="row row-cols-1 row-cols-md-3 g-4 p-4 justify-content-evenly">
                 <!-- Produtos serão renderizados aqui -->
             </div>
         </section>
+
         <nav aria-label="Page navigation example">
             <ul class="pagination pe-3 justify-content-center">
                 <!-- A navegação será renderizada aqui -->
             </ul>
         </nav>
+
+        <div class="modal fade" id="modalCarrinho" tabindex="-1" aria-labelledby="modalCarrinhoLabel" aria-hidden="true">
+
+            <div class="modal-dialog modal-dialog-centered">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title text-success" id="modalCarrinhoLabel">
+                            Produto Adicionado ao Carrinho
+                        </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        O produto foi adicionado ao seu carrinho.
+                        <br>
+                        Deseja ir para o carrinho ou continuar comprando?
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Continuar Comprando
+                        </button>
+                        <button type="button" class="btn btn-success" onclick="window.location.href = '/#cart';">
+                            Ir para o Carrinho
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
     `;
 
     const main = getOrCreateMainElement();

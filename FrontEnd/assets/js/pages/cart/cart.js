@@ -1,12 +1,11 @@
 import { getOrCreateMainElement } from "../../components/main";
 
-// Função para obter itens do carrinho do localStorage
 function getCarrinho() {
     const carrinho = localStorage.getItem("carrinho");
     return carrinho ? JSON.parse(carrinho) : [];
 }
 
-// Função para atualizar o carrinho com os itens do localStorage
+
 function atualizarCarrinho() {
     const cartItems = document.getElementById('cartItems');
     const subtotalElem = document.getElementById('subtotal');

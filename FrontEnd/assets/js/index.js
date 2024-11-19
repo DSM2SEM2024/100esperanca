@@ -7,7 +7,7 @@ import { gerenciarUsuarioHtml } from "./pages/user/user_management";
 import { telaProdutosHtml2 } from "./pages/products/products";
 import { footerHtml } from "./components/footer";
 import { cartHtml } from "./pages/cart/cart";
-import { render_produtos } from "./pages/productbuy/productbuy";
+import {render_produtos} from "./pages/productbuy/productbuy"
 
 
 function renderContentBasedOnHash() {
@@ -21,7 +21,7 @@ function renderContentBasedOnHash() {
         gerenciarUsuarioHtml();
     } else if (location.hash === '#produtos') {
         telaProdutosHtml2();
-    } else if (location.hash === '#compraproduto') {
+    } else if (location.hash === '#comprarProduto') {
         render_produtos();
     } else if (location.hash === '#cart') {
         cartHtml();
