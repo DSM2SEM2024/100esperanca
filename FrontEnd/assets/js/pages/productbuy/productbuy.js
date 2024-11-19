@@ -60,8 +60,9 @@ export function render_produtos() {
             </div>
         </div>
     </div>
-    `;
-
+    `
+    ;
+    
     const main = getOrCreateMainElement();
     main.innerHTML = comprasHtml;
 }
