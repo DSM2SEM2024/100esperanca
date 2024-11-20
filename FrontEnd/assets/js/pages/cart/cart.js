@@ -58,36 +58,30 @@ export function cartHtml() {
         <div class="modal fade" id="modalConfirmacaoCompra" tabindex="-1" aria-labelledby="modalConfirmacaoCompraLabel" aria-hidden="true">
 
             <div class="modal-dialog modal-dialog-centered">
-
                 <div class="modal-content">
-
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalConfirmacaoCompraLabel">
                             Compra Concluída
                         </h5>
-
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
-
                     <div class="modal-body">
                         Sua compra foi encaminhada com sucesso! Você será redirecionado para a página de pagamento.
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" id="okButton">Ok</button>
                     </div>
-
                 </div>
             </div>
         </div>
     `;
 
-const main = getOrCreateMainElement();
-main.classList = null;
-main.innerHTML = cart;
+    const main = getOrCreateMainElement();
+    main.classList = null;
+    main.innerHTML = cart;
 
-atualizarCarrinho();
+    atualizarCarrinho();
 
-window.concluirCompra = concluirCompra;
+    window.concluirCompra = concluirCompra;
 }
