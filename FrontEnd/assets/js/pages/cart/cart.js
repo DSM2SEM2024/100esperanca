@@ -1,68 +1,5 @@
 import { getOrCreateMainElement } from "../../components/main";
-
-function getCarrinho() {
-    const carrinho = localStorage.getItem("carrinho");
-    return carrinho ? JSON.parse(carrinho) : [];
-}
-
-function atualizarCarrinho() {
-    const cartItems = document.getElementById('cartItems');
-    const subtotalElem = document.getElementById('subtotal');
-    const freteElem = document.getElementById('frete');
-    const totalElem = document.getElementById('total');
-
-    cartItems.innerHTML = '';
-    let subtotal = 0;
-    const frete = 20;
-
-    const carrinho = getCarrinho();
-
-    carrinho.forEach((item, index) => {
-        if (!item) {
-            return;
-        }
-
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td><img src="${item.img}" alt="${item.nome}" class="cart-item-img"></td>
-            <td>${item.nome}</td>
-            <td>${item.preco}</td>
-            <td><button class="btn btn-danger btn-sm remove-item-btn" data-index="${index}">Remover</button></td>
-        `;
-        cartItems.appendChild(row);
-        subtotal += parseFloat(item.preco.replace(",", "."));
-    });
-
-    subtotalElem.textContent = `R$ ${subtotal.toFixed(2)}`;
-    freteElem.textContent = `R$ ${frete.toFixed(2)}`;
-    totalElem.textContent = `R$ ${(subtotal + frete).toFixed(2)}`;
-
-    document.querySelectorAll('.remove-item-btn').forEach((button) => {
-        button.addEventListener('click', () => {
-            const index = button.getAttribute('data-index');
-            const carrinho = getCarrinho();
-            carrinho.splice(index, 1);
-            setCarrinho(carrinho);
-            atualizarCarrinho();
-        });
-    });
-}
-
-function setCarrinho(carrinho) {
-    localStorage.setItem("carrinho", JSON.stringify(carrinho));
-}
-
-function concluirCompra() {
-    const modal = new bootstrap.Modal(document.getElementById('modalConfirmacaoCompra'));
-    modal.show();
-
-    document.getElementById('okButton').onclick = function() {
-        localStorage.removeItem('carrinho');
-        modal.hide();
-        // Redireciona para a página de conclusão de pagamento
-        window.location.href = '/#pagamento';
-    };
-}
+import { addToCarrinho, atualizarCarrinho, concluirCompra, getCarrinho, setCarrinho } from "../../functions/cartManagement";
 
 export function cartHtml() {
     const cart = `
@@ -146,11 +83,11 @@ export function cartHtml() {
         </div>
     `;
 
-    const main = getOrCreateMainElement();
-    main.classList = null;
-    main.innerHTML = cart;
+const main = getOrCreateMainElement();
+main.classList = null;
+main.innerHTML = cart;
 
-    atualizarCarrinho();
+atualizarCarrinho();
 
-    window.concluirCompra = concluirCompra;
+window.concluirCompra = concluirCompra;
 }

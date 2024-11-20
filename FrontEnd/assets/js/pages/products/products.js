@@ -1,43 +1,19 @@
 import { getOrCreateMainElement } from "../../components/main";
-import camisetaImg from "./imgs/camiseta.jpg";
-import bolsaImg from "./imgs/bolsa.jpg";
-import cadernoImg from "./imgs/caderno.jpg";
+import { getCarrinho, setCarrinho, addToCarrinho } from "../../functions/cartManagement";
 
-const cadernos = [
-    { id: 1, nome: "Caderno 1", descricao: "Caderno com a arte X", img: cadernoImg, preco: "50,00 R$" },
-    { id: 2, nome: "Caderno 2", descricao: "Caderno com a arte Y", img: cadernoImg, preco: "50,00 R$" },
-    { id: 3, nome: "Caderno 3", descricao: "Caderno com a arte Z", img: cadernoImg, preco: "50,00 R$" }
-];
+import { cadernos, camisetas, bolsas, todosProdutos } from "./components/constsProdutos";
 
-const camisetas = [
-    { id: 11, nome: "Estampa Camisa A", descricao: "Camiseta 1", img: camisetaImg, preco: "45,00 R$" },
-    { id: 12, nome: "Estampa Camisa B", descricao: "Camiseta 2", img: camisetaImg, preco: "45,00 R$" },
-    { id: 13, nome: "Estampa Camisa C", descricao: "Camiseta 3", img: camisetaImg, preco: "45,00 R$" },
-    { id: 14, nome: "Estampa Camisa D", descricao: "Camiseta 4", img: camisetaImg, preco: "45,00 R$" },
-    { id: 15, nome: "Estampa Camisa E", descricao: "Camiseta 5", img: camisetaImg, preco: "45,00 R$" }
-];
 
-const bolsas = [
-    { id: 21, nome: "Estampa Bolsa A", descricao: "Bolsa 1", img: bolsaImg, preco: "75,00 R$" },
-    { id: 22, nome: "Estampa Bolsa B", descricao: "Bolsa 2", img: bolsaImg, preco: "75,00 R$" },
-    { id: 23, nome: "Estampa Bolsa C", descricao: "Bolsa 3", img: bolsaImg, preco: "75,00 R$" },
-    { id: 24, nome: "Estampa Bolsa D", descricao: "Bolsa 4", img: bolsaImg, preco: "75,00 R$" }
-];
-
-const todosProdutos = [...camisetas, ...bolsas, ...cadernos];
-
-const PRODUTOS_POR_PAGINA = 6;
-
+const produtosPorPagina = 6;
 
 let paginas = []; 
 let totalDePaginas = 0;
 let paginaAtual = 0;
 
-
 function dividirProdutosEmPaginas(produtos) {
     const paginas = [];
-    for (let i = 0; i < produtos.length; i += PRODUTOS_POR_PAGINA) {
-        paginas.push(produtos.slice(i, i + PRODUTOS_POR_PAGINA));
+    for (let i = 0; i < produtos.length; i += produtosPorPagina) {
+        paginas.push(produtos.slice(i, i + produtosPorPagina));
     }
     return paginas;
 }
@@ -54,7 +30,7 @@ function renderProducts(products) {
                         <span class="fw-bold text-end">${product.preco}</span>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-success w-75 mt-2" onclick='adicionarAoCarrinho(${JSON.stringify(product)})'>
+                        <button class="btn btn-success w-75 mt-2" onclick='addToCarrinho(${JSON.stringify(product)})'>
                             Adicionar ao Carrinho
                         </button>
                     </div>
@@ -64,31 +40,6 @@ function renderProducts(products) {
     `).join('');
 }
 
-function getCarrinho() {
-    const carrinho = localStorage.getItem("carrinho");
-    return carrinho ? JSON.parse(carrinho) : [];
-}
-
-function setCarrinho(carrinho) {
-    localStorage.setItem("carrinho", JSON.stringify(carrinho));
-}
-
-function adicionarAoCarrinho(product) {
-    const carrinho = getCarrinho();
-    carrinho.push(product);
-    setCarrinho(carrinho);
-
-    const modal = new bootstrap.Modal(document.getElementById('modalCarrinho'));
-    modal.show();
-
-
-    const goToCartButton = document.querySelector(".modal-footer .btn-success");
-    goToCartButton.onclick = function() {
-        modal.hide();
-
-        window.location.href = '/#cart';
-    };
-}
 
 
 function renderizarPagina(produtosDaPagina) {
@@ -139,7 +90,6 @@ window.irParaPagina = function (numeroPagina) {
     renderizarPagina(produtosDaPagina);
     atualizarPaginacao();
 
-    // Rolando a tela para o início dos produtos
     const productContainer = document.querySelector("h2.text-success");
     if (productContainer) {
         productContainer.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -268,4 +218,4 @@ export function telaProdutosHtml2() {
     });
 }
 
-window.adicionarAoCarrinho = adicionarAoCarrinho;
+window.addToCarrinho = addToCarrinho;

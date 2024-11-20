@@ -7,7 +7,9 @@ import { gerenciarUsuarioHtml } from "./pages/user/user_management";
 import { telaProdutosHtml2 } from "./pages/products/products";
 import { footerHtml } from "./components/footer";
 import { cartHtml } from "./pages/cart/cart";
-import { telaProdutoCompra } from "./pages/productbuy/productbuy"
+import { telaDetalhesProduto } from "./pages/productbuy/productbuy";
+import { renderProductDetails } from "./pages/testeCompra/productDetails";
+
 
 
 function renderContentBasedOnHash() {
@@ -22,14 +24,22 @@ function renderContentBasedOnHash() {
     } else if (location.hash === '#produtos') {
         telaProdutosHtml2();
     } else if (location.hash === '#comprarProduto') {
-        render_produtos();
+        telaDetalhesProduto();
     } else if (location.hash === '#cart') {
         cartHtml();
     } else if (location.hash === '' || !location.hash || location.hash === '#home') {
         clearBody();
         criaHomeHTML();
     }
+//     } else if (location.hash.startsWith("#productDetails")) {
+//         const id = hash.split("/")[1]; // Pega o ID no url após o hash para exibir a tela de detalhes do produto selecionado
+//         if (id) {
+//             renderProductDetails(id);
+//         } else {
+//             console.error("ID do produto não especificado.");
+//         }
+// }
 }
-
 renderContentBasedOnHash();
 window.addEventListener('hashchange', renderContentBasedOnHash);
+window.addEventListener("load", renderContentBasedOnHash);

@@ -3,7 +3,7 @@ import { getOrCreateMainElement } from "../../components/main";
 import sla from "./imgs/camisachave.jpg";
 
 
-export function render_produtos() {
+export function telaDetalhesProduto() {
     const comprasHtml = `
     <!-- Parte de comprar produto -->
     <div class="container my-5">
