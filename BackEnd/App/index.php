@@ -111,9 +111,9 @@ switch ($method) {
             $data = json_decode(file_get_contents('php://input'));
             $promotionController->searchById($id);
             break;
-        } else if ($uri === '/product_promotion'){
+        } /* else if ($uri === '/product_promotion'){
             $promotionController->getAllProductsInPromotion();
-        }
+        } */
         /*if ($uri === '/cart'){
             $cartController->getAll();
         } else if  (preg_match('/\/cart\/(\d+)/', $uri, $match)){
