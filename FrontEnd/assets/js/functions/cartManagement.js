@@ -11,13 +11,14 @@ export function setCarrinho(carrinho) {
 }
 
 export function addToCarrinho(produto) {
+    console.log(produto);
+    
     const carrinho = getCarrinho();
     carrinho.push(produto);
     setCarrinho(carrinho);
 
     const modal = new bootstrap.Modal(document.getElementById('modalCarrinho'));
     modal.show();
-
 
     const goToCartButton = document.querySelector(".modal-footer .btn-success");
     goToCartButton.onclick = function() {
@@ -37,7 +38,7 @@ export function atualizarCarrinho() {
     const frete = 20;
 
     const carrinho = getCarrinho();
-
+    
     carrinho.forEach((produto, index) => {
         if (!produto) {
             return;

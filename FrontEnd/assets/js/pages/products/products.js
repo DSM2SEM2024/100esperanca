@@ -93,7 +93,7 @@ window.irParaPagina = function (numeroPagina) {
     }
 };
 
-export function telaProdutosHtml2() {
+export function telaProdutosHtml() {
     const telaProdutos2 = `
         <nav class="navbar navbar-expand-lg d-flex bg-body-tertiary bg-opacity-75" id="navFiltros">
             <section class="container-fluid d-flex justify-content-evenly">
