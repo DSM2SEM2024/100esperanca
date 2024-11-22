@@ -1,5 +1,6 @@
 import { getOrCreateMainElement } from "../../components/main";
-import { cadernos, camisetas, bolsas } from "../products/components/constsProdutos";
+import { addToCarrinho, atualizarCarrinho, concluirCompra, getCarrinho, setCarrinho } from "../../functions/cartManagement";
+import { cadernos, camisetas, bolsas, todosProdutos } from "../products/components/constsProdutos";
 
 export function renderProductDetails(id) {
     const produto = [...camisetas, ...cadernos, ...bolsas].find((item) => item.id === parseInt(id));
@@ -18,10 +19,6 @@ export function renderProductDetails(id) {
                 <!-- Imagens do Produto -->
                 <div class="col-md-6">
                     <img src="${produto.img}" alt="${produto.nome}" class="img-fluid rounded mb-3 shadow">
-                    <div class="d-flex gap-3">
-                        <img src="${produto.img}" alt="Imagem 1" class="img-fluid rounded">
-                        <img src="${produto.img}" alt="Imagem 2" class="img-fluid rounded">
-                    </div>
                 </div>
 
                 <!-- Detalhes do Produto -->
@@ -30,22 +27,7 @@ export function renderProductDetails(id) {
                     <p class="text-success fs-3 fw-bold">${produto.preco} <small class="text-muted text-decoration-line-through"></small></p>
                     <p class="text-secondary">${produto.descricao}</p>
 
-                    <!-- Quantidade e Adicionar ao Carrinho -->
-                    <div class="mb-3">
-                        <label for="quantity" class="form-label">Quantidade:</label>
-                        <input type="number" class="form-control" id="quantity" value="1" min="1">
-                    </div>
-
-                    <button class="btn btn-success w-100 fw-bold mb-4" onclick="addToCart()">Adicionar ao Carrinho</button>
-
-                    <!-- Formas de Pagamento -->
-                    <h5>Formas de Pagamento</h5>
-                    <div class="d-flex gap-2 mb-3">
-                        <img src="../../imgs/Paypal.jpg" alt="Paypal" class="img-fluid" style="width: 40px;">
-                        <img src="../../imgs/mastercard-og-image.png" alt="MasterCard" class="img-fluid" style="width: 40px;">
-                        <img src="../../imgs/visa.png" alt="Visa" class="img-fluid" style="width: 40px;">
-                        <img src="../../imgs/boleto.jpg" alt="Boleto" class="img-fluid" style="width: 40px;">
-                    </div>
+                    <button class="btn btn-success w-100 fw-bold mb-4" addToCarrinho(${JSON.stringify(produto)})">Adicionar ao Carrinho</button>
 
                     <!-- Simulação de Frete -->
                     <h5>Simule o Frete</h5>
@@ -70,12 +52,9 @@ export function renderProductDetails(id) {
     `;
 }
 
-window.addToCart = function() {
+window.addToCarrinho = function() {
     const produto = JSON.parse(localStorage.getItem('produtoSelecionado'));
-    const quantidade = document.getElementById('quantity').value;
-    const produtoCarrinho = { ...produto, quantidade: Number(quantidade) };
-    addToCarrinho(produtoCarrinho);
-    alert("Produto adicionado ao carrinho!");
+    addToCarrinho(produto);
 };
 
 export function render_produtos() {

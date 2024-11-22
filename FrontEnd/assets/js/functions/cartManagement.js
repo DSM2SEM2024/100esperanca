@@ -1,3 +1,6 @@
+import { bolsas, cadernos, camisetas, todosProdutos } from "../pages/products/components/constsProdutos";
+
+
 export function getCarrinho() {
     const carrinho = localStorage.getItem("carrinho");
     return carrinho ? JSON.parse(carrinho) : [];
@@ -7,9 +10,9 @@ export function setCarrinho(carrinho) {
     localStorage.setItem("carrinho", JSON.stringify(carrinho));
 }
 
-export function addToCarrinho(product) {
+export function addToCarrinho(produto) {
     const carrinho = getCarrinho();
-    carrinho.push(product);
+    carrinho.push(produto);
     setCarrinho(carrinho);
 
     const modal = new bootstrap.Modal(document.getElementById('modalCarrinho'));
@@ -35,20 +38,20 @@ export function atualizarCarrinho() {
 
     const carrinho = getCarrinho();
 
-    carrinho.forEach((item, index) => {
-        if (!item) {
+    carrinho.forEach((produto, index) => {
+        if (!produto) {
             return;
         }
 
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td><img src="${item.img}" alt="${item.nome}" class="cart-item-img"></td>
-            <td>${item.nome}</td>
-            <td>${item.preco}</td>
+            <td><img src="${produto.img}" alt="${produto.nome}" class="cart-item-img"></td>
+            <td>${produto.nome}</td>
+            <td>${produto.preco}</td>
             <td><button class="btn btn-danger btn-sm remove-item-btn" data-index="${index}">Remover</button></td>
         `;
         cartItems.appendChild(row);
-        subtotal += parseFloat(item.preco.replace(",", "."));
+        subtotal += parseFloat(produto.preco);
     });
 
     subtotalElem.textContent = `R$ ${subtotal.toFixed(2)}`;

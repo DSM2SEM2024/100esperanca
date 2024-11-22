@@ -7,8 +7,7 @@ import { gerenciarUsuarioHtml } from "./pages/user/user_management";
 import { telaProdutosHtml2 } from "./pages/products/products";
 import { footerHtml } from "./components/footer";
 import { cartHtml } from "./pages/cart/cart";
-import { telaDetalhesProduto } from "./pages/productbuy/productbuy";
-import { renderProductDetails } from "./pages/testeCompra/productDetails";
+import { renderProductDetails } from "./pages/productDetails/productDetails";
 
 function renderContentBasedOnHash() {
     clearBody();
