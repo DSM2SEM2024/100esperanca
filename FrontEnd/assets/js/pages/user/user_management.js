@@ -1,72 +1,81 @@
 import { getOrCreateMainElement } from "../../components/main";
 
-const main = getOrCreateMainElement()
-main.classList = 'vh-100 d-block';
+const main = getOrCreateMainElement();
+main.classList = "vh-100 d-block";
+
 export function gerenciarUsuarioHtml() {
   const gerenciarUsuario = `
-      <section class="side-navbar d-flex w-100 justify-content-end">
+    <div class="d-flex">
+      <!-- Botão para abrir o offcanvas (visível apenas no mobile) -->
+      <button 
+        class="btn btn-primary bg-success d-lg-none m-3" 
+        type="button" 
+        data-bs-toggle="offcanvas" 
+        data-bs-target="#offcanvasScrolling" 
+        aria-controls="offcanvasScrolling">
+        <i class="bi bi-list"></i>
+      </button>
+      
+      <!-- Sidebar fixa no desktop e offcanvas no mobile -->
+      <nav 
+        class="offcanvas-lg offcanvas-start bg-success text-white d-lg-flex flex-column vh-100 p-3" 
+        tabindex="-1" 
+        id="offcanvasScrolling" 
+        aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas-header d-lg-none">
+          <h5 class="offcanvas-title text-white" id="offcanvasScrollingLabel">Menu</h5>
+          <button 
+            type="button" 
+            class="btn-close btn-close-white" 
+            data-bs-dismiss="offcanvas" 
+            aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <nav>
+            <ul class="list-unstyled">
+              <li><a href="#item1" class="text-decoration-none text-white">Consultar Usuário</a></li>
+              <li><a href="#item2" class="text-decoration-none text-white">Link qualquer 2</a></li>
+              <li><a href="#item3" class="text-decoration-none text-white">Link qualquer 3</a></li>
+            </ul>
+          </nav>
+        </div>
+      </nav>
 
-
-           
-    <button class="btn btn-primary bg-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
-      <i class="bi bi-list"></i>
-    </button>
-    
-    <div class="offcanvas offcanvas-start hide" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" aria-modal="true" role="dialog">
-      <div class="offcanvas-header m-4">
-        <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Offcanvas with body scrolling</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body p-5">
-      <p>Try scrolling the rest of the page to see this option in action.</p>
-      <p>Try scrolling the rest of the page to see this option in action.</p>
-      <p>Try scrolling the rest of the page to see this option in action.</p>
-      <p>Try scrolling the rest of the page to see this option in action.</p>
-      </div>
-    </div>
-    
-
-
-
-
+      <!-- Conteúdo principal -->
+      <section class="container-fluid d-block p-4">
+        <div id="tabela-container" class="text-center">
+          <h2>Consulta de Usuários</h2>
+          <table class="table table-bordered table-responsive">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Usuário 1</td>
+                <td>usuario1@example.com</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Usuário 2</td>
+                <td>usuario2@example.com</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Usuário 3</td>
+                <td>usuario3@example.com</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
+    </div>
+  `;
 
-
-        <section class="container d-block p-2 align-middle justify-content-center">
-          <div id="tabela-container" class=" text-center">
-            <h2>Consulta de Usuários</h2>
-            <table class="table table-bordered table-responsive">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Nome</th>
-                  <th>Email</th>
-                </tr>
-              </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Usuário 1</td>
-                    <td>usuario1@example.com</td>
-                  </tr>
-
-                  <tr>
-                    <td>2</td>
-                    <td>Usuário 2</td>
-                    <td>usuario2@example.com</td>
-                  </tr>
-
-                  <tr>
-                    <td>3</td>
-                    <td>Usuário 3</td>
-                    <td>usuario3@example.com</td>
-                  </tr>
-
-                </tbody>
-              </table>
-          </div>
-        </section>
-`;
-  main.classList = " p-1 vh-100 justify-content-center align-items-center"
-  main.innerHTML = gerenciarUsuario
+  main.classList = "p-1 vh-100 justify-content-center align-items-center";
+  main.innerHTML = gerenciarUsuario;
 }
