@@ -1,6 +1,6 @@
 import { getOrCreateMainElement } from "../../components/main";
-import { addToCarrinho, atualizarCarrinho, concluirCompra, getCarrinho, setCarrinho } from "../../functions/cartManagement";
-import { cadernos, camisetas, bolsas, todosProdutos } from "../products/components/constsProdutos";
+import { addToCarrinho, getCarrinho, setCarrinho } from "../../functions/cartManagement";
+import { cadernos, camisetas, bolsas } from "../products/components/constsProdutos";
 
 export function renderProductDetails(id) {
     const produto = [...camisetas, ...cadernos, ...bolsas].find((item) => item.id === parseInt(id));
@@ -27,7 +27,7 @@ export function renderProductDetails(id) {
                     <p class="text-success fs-3 fw-bold">${produto.preco} <small class="text-muted text-decoration-line-through"></small></p>
                     <p class="text-secondary">${produto.descricao}</p>
 
-                    <button class="btn btn-success w-100 fw-bold mb-4" addToCarrinho(${JSON.stringify(produto)})">Adicionar ao Carrinho</button>
+                    <button class="btn btn-success w-100 fw-bold mb-4" onclick="addToCarrinho(${JSON.stringify(produto)})">Adicionar ao Carrinho</button>
 
                     <!-- Simulação de Frete -->
                     <h5>Simule o Frete</h5>
@@ -52,13 +52,11 @@ export function renderProductDetails(id) {
     `;
 }
 
-window.addToCarrinho = function() {
-    const produto = JSON.parse(localStorage.getItem('produtoSelecionado'));
-    addToCarrinho(produto);
-};
+window.addToCarrinho = addToCarrinho;
 
 export function render_produtos() {
-    renderProductDetails();
+    const id = localStorage.getItem("produtoId");
+    renderProductDetails(id);
 }
 
 window.renderProductDetails = renderProductDetails;

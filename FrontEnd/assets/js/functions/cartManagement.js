@@ -1,5 +1,4 @@
-import { bolsas, cadernos, camisetas, todosProdutos } from "../pages/products/components/constsProdutos";
-
+import { bolsas, cadernos, camisetas } from "../pages/products/components/constsProdutos";
 
 export function getCarrinho() {
     const carrinho = localStorage.getItem("carrinho");
@@ -23,10 +22,10 @@ export function addToCarrinho(produto) {
     const goToCartButton = document.querySelector(".modal-footer .btn-success");
     goToCartButton.onclick = function() {
         modal.hide();
-
         window.location.href = '/#cart';
     };
 }
+
 export function atualizarCarrinho() {
     const cartItems = document.getElementById('cartItems');
     const subtotalElem = document.getElementById('subtotal');
@@ -37,10 +36,11 @@ export function atualizarCarrinho() {
     let subtotal = 0;
     const frete = 20;
 
-    const carrinho = getCarrinho();
-    
+    const carrinho = getCarrinho().filter(item => item);  // Filtra itens indefinidos
+
     carrinho.forEach((produto, index) => {
         if (!produto) {
+            console.error(`Item at index ${index} is null or undefined`);
             return;
         }
 
@@ -69,6 +69,7 @@ export function atualizarCarrinho() {
         });
     });
 }
+
 export function concluirCompra() {
     const modal = new bootstrap.Modal(document.getElementById('modalConfirmacaoCompra'));
     modal.show();
@@ -76,7 +77,8 @@ export function concluirCompra() {
     document.getElementById('okButton').onclick = function() {
         localStorage.removeItem('carrinho');
         modal.hide();
-        // Redireciona para a página de conclusão de pagamento
         window.location.href = '/#pagamento';
     };
 }
+
+window.addToCarrinho = addToCarrinho;

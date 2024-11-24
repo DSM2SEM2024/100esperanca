@@ -1,5 +1,5 @@
 import { getOrCreateMainElement } from "../../components/main";
-import { getCarrinho, setCarrinho, addToCarrinho, atualizarCarrinho } from "../../functions/cartManagement";
+import { getCarrinho, setCarrinho, addToCarrinho } from "../../functions/cartManagement";
 
 import { cadernos, camisetas, bolsas, todosProdutos } from "./components/constsProdutos";
 
@@ -140,66 +140,66 @@ export function telaProdutosHtml() {
                         <h5 class="modal-title text-success" id="modalCarrinhoLabel">
                             Produto Adicionado ao Carrinho
                         </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        O produto foi adicionado ao seu carrinho.
-                        <br>
-                        Deseja ir para o carrinho ou continuar comprando?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            Continuar Comprando
-                        </button>
-                        <button type="button" class="btn btn-success" onclick="window.location.href = '/#cart';">
-                            Ir para o Carrinho
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        O produto foi adicionado ao seu carrinho.
+        <br>
+        Deseja ir para o carrinho ou continuar comprando?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Continuar Comprando
+        </button>
+        <button type="button" class="btn btn-success" onclick="window.location.href = '/#cart';">
+            Ir para o Carrinho
+        </button>
+    </div>
+</div>
+</div>
+</div>
+`;
 
-    const main = getOrCreateMainElement();
-    main.classList = null;
-    main.innerHTML = telaProdutos2;
+const main = getOrCreateMainElement();
+main.classList = null;
+main.innerHTML = telaProdutos2;
 
-    // Inicializa e divide os produtos em páginas
-    paginas = dividirProdutosEmPaginas(todosProdutos);  // Inicializa as páginas com todos os produtos
+// Inicializa e divide os produtos em páginas
+paginas = dividirProdutosEmPaginas(todosProdutos);  // Inicializa as páginas com todos os produtos
+totalDePaginas = paginas.length;
+paginaAtual = 0;
+
+// Renderiza a primeira página de produtos e a navegação
+renderizarPagina(paginas[paginaAtual]);
+atualizarPaginacao();
+
+const filterSelect = document.getElementById("filterSelect");
+filterSelect.addEventListener("change", (event) => {
+    let filteredProducts;
+    const selectedCategory = event.target.value;
+
+    if (selectedCategory === "Camisetas") {
+        filteredProducts = camisetas;
+    } else if (selectedCategory === "Bolsas") {
+        filteredProducts = bolsas;
+    } else if (selectedCategory === "Cadernos") {
+        filteredProducts = cadernos;
+    } else {
+        filteredProducts = todosProdutos;
+    }
+
+    // Atualiza os produtos e a navegação
+    paginas = dividirProdutosEmPaginas(filteredProducts);
     totalDePaginas = paginas.length;
-    paginaAtual = 0;
-
-    // Renderiza a primeira página de produtos e a navegação
+    paginaAtual = 0; // Resetar para a primeira página após o filtro
     renderizarPagina(paginas[paginaAtual]);
     atualizarPaginacao();
-
-    const filterSelect = document.getElementById("filterSelect");
-    filterSelect.addEventListener("change", (event) => {
-        let filteredProducts;
-        const selectedCategory = event.target.value;
-
-        if (selectedCategory === "Camisetas") {
-            filteredProducts = camisetas;
-        } else if (selectedCategory === "Bolsas") {
-            filteredProducts = bolsas;
-        } else if (selectedCategory === "Cadernos") {
-            filteredProducts = cadernos;
-        } else {
-            filteredProducts = todosProdutos;
-        }
-
-        // Atualiza os produtos e a navegação
-        paginas = dividirProdutosEmPaginas(filteredProducts);
-        totalDePaginas = paginas.length;
-        paginaAtual = 0; // Resetar para a primeira página após o filtro
-        renderizarPagina(paginas[paginaAtual]);
-        atualizarPaginacao();
-    });
+});
 }
 
 function navegarParaDetalhes(id) {
-    localStorage.setItem("produtoId", id);
-    window.location.hash = `#productDetails/${id}`;
+localStorage.setItem("produtoId", id);
+window.location.hash = `#productDetails/${id}`;
 }
 
 window.addToCarrinho = addToCarrinho;
