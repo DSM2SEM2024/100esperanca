@@ -1,5 +1,5 @@
 import { getOrCreateMainElement } from "../../components/main";
-import { addToCarrinho, getCarrinho, setCarrinho } from "../../functions/cartManagement";
+import { addToCarrinho } from "../../functions/cartManagement";
 import { cadernos, camisetas, bolsas } from "../products/components/constsProdutos";
 
 export function renderProductDetails(id) {
@@ -27,7 +27,9 @@ export function renderProductDetails(id) {
                     <p class="text-success fs-3 fw-bold">${produto.preco} <small class="text-muted text-decoration-line-through"></small></p>
                     <p class="text-secondary">${produto.descricao}</p>
 
-                    <button class="btn btn-success w-100 fw-bold mb-4" onclick="addToCarrinho(${JSON.stringify(produto)})">Adicionar ao Carrinho</button>
+                    <button class="btn btn-success w-100 fw-bold mb-4" onclick='addToCarrinho(${JSON.stringify(produto)})'>
+                        Adicionar ao Carrinho
+                    </button>
 
                     <!-- Simulação de Frete -->
                     <h5>Simule o Frete</h5>
@@ -46,6 +48,27 @@ export function renderProductDetails(id) {
                     </div>
                     <button class="btn btn-outline-success w-100" onclick="applyCoupon()">Aplicar Cupom</button>
                     <div id="couponResult" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalCarrinho" tabindex="-1" aria-labelledby="modalCarrinhoLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-success" id="modalCarrinhoLabel">Produto Adicionado ao Carrinho</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        O produto foi adicionado ao seu carrinho.
+                        <br>
+                        Deseja ir para o carrinho ou continuar comprando?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continuar Comprando</button>
+                        <button type="button" class="btn btn-success" onclick="window.location.href = '/#cart';">Ir para o Carrinho</button>
+                    </div>
                 </div>
             </div>
         </div>

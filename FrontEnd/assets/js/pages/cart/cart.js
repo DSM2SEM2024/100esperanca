@@ -1,7 +1,6 @@
 import { getOrCreateMainElement } from "../../components/main";
 import { addToCarrinho, atualizarCarrinho, concluirCompra, getCarrinho, setCarrinho } from "../../functions/cartManagement";
 
-
 export function cartHtml() {
     const cart = `
         <section class="container my-5">

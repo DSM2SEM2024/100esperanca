@@ -140,24 +140,24 @@ export function telaProdutosHtml() {
                         <h5 class="modal-title text-success" id="modalCarrinhoLabel">
                             Produto Adicionado ao Carrinho
                         </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-        O produto foi adicionado ao seu carrinho.
-        <br>
-        Deseja ir para o carrinho ou continuar comprando?
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Continuar Comprando
-        </button>
-        <button type="button" class="btn btn-success" onclick="window.location.href = '/#cart';">
-            Ir para o Carrinho
-        </button>
-    </div>
-</div>
-</div>
-</div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        O produto foi adicionado ao seu carrinho.
+                        <br>
+                        Deseja ir para o carrinho ou continuar comprando?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Voltar a Navegação
+                        </button>
+                        <button type="button" class="btn btn-success" onclick="window.location.href = '/#cart';">
+                            Ir para o Carrinho
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 `;
 
 const main = getOrCreateMainElement();
