@@ -1,8 +1,8 @@
 <?php
 namespace Pi\Visgo\Controller;
 
-use Pi\Visgo\Common\ResponseAssemblerError;
-use Pi\Visgo\Common\ResponseAssemblerSuccess;
+use Pi\Visgo\Common\Responses\ResponseAssemblerError;
+use Pi\Visgo\Common\Responses\ResponseAssemblerSuccess;
 use Pi\Visgo\Repository\UserRepository;
 
 class UserController {
@@ -18,12 +18,12 @@ class UserController {
         ResponseAssemblerSuccess::response(200, $users);
     }
 
-    public function getUserById($idUser) {
+    public function getById($idUser) {
         $user = $this->userRepository->getUserById($idUser);
         ResponseAssemblerSuccess::response(200, $user);
     }
 
-    public function deleteUser($idUser) { 
+    public function delete($idUser) { 
         $result = $this->userRepository->deleteUserById($idUser);
 
         if (!$result) {

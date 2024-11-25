@@ -1,5 +1,5 @@
 <?php
-namespace Pi\Visgo\Common;
+namespace Pi\Visgo\Common\Responses;
 
 use Pi\Visgo\Controller\PromotionController;
 use Pi\Visgo\Controller\ArtController;
@@ -14,7 +14,7 @@ final class ResponseAssemblerSuccess {
             "status" => true,
             "message" => $message,
             "data" => $result
-        ]) . "\n"; 
+        ]) . "\n";
     }
 
     public static function responseDelete($statusCode, $message) {
