@@ -2,8 +2,7 @@
 namespace Pi\Visgo\Controller;
 
 use Pi\Visgo\Common\Exceptions\ResourceNotFoundException;
-use Pi\Visgo\Common\Responses\ResponseAssemblerError;
-use Pi\Visgo\Common\Responses\ResponseAssemblerSuccess;
+use Pi\Visgo\Common\Responses\Response;
 use Pi\Visgo\Model\Art;
 use Pi\Visgo\Model\Product;
 use Pi\Visgo\Repository\ProductRepository;
@@ -24,17 +23,17 @@ class ProductController
         $result = $this->productRepository->createProduct($product);
 
         if (!$result) {
-            ResponseAssemblerError::response(400, "");
+            Response::error($result, "Erro ao cadastrar o Produto. Verifique seus dados de entrada", 400);
         }
 
-        ResponseAssemblerSuccess::response(201, $result, "Produto cadastrados com sucesso");
+        Response::success($result, "Produto cadastrados com sucesso", 201);
     }
 
     public function getAll()
     {
         $result = $this->productRepository->getAllProducts();
 
-        ResponseAssemblerSuccess::response(200, $result, "Requisição realizada com sucesso");
+        Response::success($result, "Requisição realizada com sucesso", 200);
     }
 
     public function getById(int $idProduct)
@@ -43,11 +42,11 @@ class ProductController
 
             $result = $this->productRepository->getProductById($idProduct);
             
-            ResponseAssemblerSuccess::response(200, $result, "Requisição realizada com sucesso");
+            Response::success( $result, "Requisição realizada com sucesso", 200);
             
         } catch (ResourceNotFoundException $e) {
             
-            ResponseAssemblerError::response(404, $e->getMessage());
+            Response::error($e,  $e->getMessage(), 404);
             
         }
         
@@ -61,10 +60,10 @@ class ProductController
         $result = $this->productRepository->updateProduct($product);
 
         if (!$result) {
-            ResponseAssemblerError::response(404, "");
+            Response::error($result , "Erro ao atualizar o Produto. Verifique seus dados de entrada", 400);
         }
 
-        ResponseAssemblerSuccess::response(200, $result, "Produto atualiado com sucesso");
+        Response::success($result, "Produto atualiado com sucesso", 200);
     }
 
     public function discontinue(int $idProduct)
@@ -72,10 +71,10 @@ class ProductController
         $result = $this->productRepository->discontinueProduct($idProduct);
 
         if (!$result) {
-            ResponseAssemblerError::response(404, "");
+            Response::error($result, "Erro ao descontinuar o Produto", 500);
         }
 
-        ResponseAssemblerSuccess::response(204, $result, "Produto descontinuado com sucesso");
+        Response::success($result, "Produto descontinuado com sucesso", 200);
     }
 
     private function assamblerProduct(object $data): Product

@@ -7,6 +7,7 @@ use Pi\Visgo\Common\Validator;
 use Pi\Visgo\Controller\ProductController;
 use Pi\Visgo\Repository\ProductRepository;
 
+header("Access-Control-Allow-Origin: *");
 header('Content-Type: application/json');
 
 $productRepository = new ProductRepository('sqlite');
@@ -42,10 +43,14 @@ switch ($method) {
 
     case 'GET':
 
-        $data = json_decode(file_get_contents('php://input'));
+        if (preg_match('/\/products\/(\d+)$/', $uri, $match)) {
+            $idProduct = $match[1];
 
-        Validator::validatorObjectInput($data);
-        exit;
+            $productController->getById($idProduct);
+
+        }
+
+        $productController->getAll();
 
         break;
 

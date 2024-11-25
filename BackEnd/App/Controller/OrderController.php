@@ -19,7 +19,6 @@ class OrderController
     public function create($data)
     {
         $isValid = Validator::validatorObjectInput($data);
-        $id_user = isset($data->id_user) ? $data->id_user : 1;
 
         if (!$isValid) {
             Response::error($isValid, "Erro ao cadastras encomenda. Verifique seus dados de entrada", 400);

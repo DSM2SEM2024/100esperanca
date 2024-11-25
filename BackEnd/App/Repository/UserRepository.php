@@ -4,42 +4,46 @@ namespace Pi\Visgo\Repository;
 use PDO;
 use Exception;
 use PDOException;
+use Pi\Visgo\Model\Role;
 use Pi\Visgo\Model\User;
 use Pi\Visgo\Model\Address;
 use Pi\Visgo\Database\Connection;
 use Pi\Visgo\Repository\RoleRepository;
 use Pi\Visgo\Repository\AddressRepository;
 
-class UserRepository {
-    
+class UserRepository
+{
+
     private $connection;
     private AddressRepository $addressRepository;
     private RoleRepository $roleRepository;
     private $table = "user";
 
-    public function __construct($drive) {
+    public function __construct($drive)
+    {
         $this->connection = Connection::getInstance($drive);
         $this->addressRepository = new AddressRepository($this->connection);
         $this->roleRepository = new RoleRepository($this->connection);
     }
 
-    public function createUser(User $user) {
+    public function createUser(User $user)
+    {
         try {
             $this->connection->beginTransaction();
-            
+
             $resultAddress = $this->addressRepository->createAddress($user->getAddress());
 
             if (!$resultAddress) {
-                throw new Exception("Erro ao criar addressa.");
+                throw new Exception("Erro ao criar address.");
             }
 
             $addressId = $this->connection->lastInsertId();
             $name = $user->getName();
             $email = $user->getEmail();
             $password = $user->getPassword();
-            
+
             $query = "INSERT INTO $this->table(password,email,name,id_address) VALUES (:password,:email,:name,:address)";
-            
+
             $stmt = $this->connection->prepare($query);
             $stmt->bindParam(':password', $password, PDO::PARAM_STR);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
@@ -66,10 +70,11 @@ class UserRepository {
             $this->connection->rollBack();
             return false;
         }
-        
+
     }
-    
-    public function updateUserAddress(User $user) {
+
+    public function updateUserAddress(User $user)
+    {
         try {
             $this->connection->beginTransaction();
             $oldUser = $this->getUserById($user->getId());
@@ -101,13 +106,14 @@ class UserRepository {
             throw new Exception($e->getMessage(), $e->getCode(), $e);
         }
     }
-    
+
     /* 
         Implementação junto com a lógica de login e segmentação de recursos por tipo de usuário
     */
-    public function updateUserRole(User $user) {
+    public function updateUserRole(User $user)
+    {
         try {
-            
+
 
 
         } catch (PDOException $e) {
@@ -116,7 +122,8 @@ class UserRepository {
         }
     }
 
-    public function updateUserName(User $user) {
+    public function updateUserName(User $user)
+    {
         $query = "UPDATE $this->table SET name = :name WHERE id = :id";
         $stmt = $this->connection->prepare($query);
         $name = $user->getName();
@@ -126,7 +133,8 @@ class UserRepository {
         return $stmt->execute();
     }
 
-    public function updateUserEmail(User $user) {
+    public function updateUserEmail(User $user)
+    {
         $query = "UPDATE $this->table SET email = :email WHERE id = :id";
         $stmt = $this->connection->prepare($query);
         $email = $user->getEmail();
@@ -135,8 +143,9 @@ class UserRepository {
         $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
         return $stmt->execute();
     }
-    
-    public function updateUserPassword(User $user) {
+
+    public function updateUserPassword(User $user)
+    {
         $query = "UPDATE $this->table SET password = :password WHERE id = :id";
         $stmt = $this->connection->prepare($query);
         $password = $user->getPassword();
@@ -144,27 +153,29 @@ class UserRepository {
         $stmt->bindParam(':password', $password, PDO::PARAM_STR);
         $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
         return $stmt->execute();
-    }    
-    
-    
-    public function getUserById($id) {
+    }
+
+
+    public function getUserById($id)
+    {
         $query = "SELECT * FROM $this->table WHERE $this->table.id = :id";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $userData = $stmt->fetch(PDO::FETCH_OBJ);
         $userModel = $this->assemblerUserWithAddress($userData);
-        
+
         return $userModel;
     }
 
-    public function getAllUsers() {
+    public function getAllUsers()
+    {
         $usersWithAddress = [];
         $query = "SELECT * FROM $this->table";
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
         $usersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         foreach ($usersData as $userData) {
             $userModel = $this->assemblerUserWithAddress(json_decode(json_encode($userData)));
             array_push($usersWithAddress, $userModel);
@@ -173,7 +184,8 @@ class UserRepository {
         return $usersWithAddress;
     }
 
-    public function deleteUserById($userId) {
+    public function deleteUserById($userId)
+    {
         $this->connection->exec('PRAGMA foreign_keys = ON;');
 
         try {
@@ -184,7 +196,7 @@ class UserRepository {
             if (!$resultDeleteAddress) {
                 throw new Exception("Erro ao deletar Address");
             }
-    
+
             $query = "DELETE FROM $this->table WHERE $this->table.id = :id";
             $stmt = $this->connection->prepare($query);
             $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
@@ -198,8 +210,9 @@ class UserRepository {
         return $result;
     }
 
-    private function assignRoleToUser($role, $userId) {
-        $roleEntity = $this->roleRepository->getRoleByName($role);
+    private function assignRoleToUser(Role $role, int $userId)
+    {
+        $roleEntity = $this->roleRepository->getRoleById($role->getId());
         $query = 'INSERT INTO user_role(id_role, id_user) VALUES(:id_role, :id_user)';
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(':id_role', $roleEntity->id, PDO::PARAM_INT);
@@ -208,8 +221,9 @@ class UserRepository {
 
         return $result;
     }
-    
-    private function assemblerUserWithAddress($userData) {
+
+    private function assemblerUserWithAddress($userData)
+    {
         $userModel = new User();
         $userModel->setId($userData->id);
         $userModel->setName($userData->name);
