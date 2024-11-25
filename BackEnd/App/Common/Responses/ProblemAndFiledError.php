@@ -1,6 +1,6 @@
 <?php
 
-namespace Pi\Visgo\Common;
+namespace Pi\Visgo\Common\Responses;
 
 final class ProblemAndFiledError {
     

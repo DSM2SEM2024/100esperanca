@@ -1,5 +1,5 @@
 <?php
-namespace Pi\Visgo\Common;
+namespace Pi\Visgo\Common\Responses;
 
 final class ResponseAssemblerSuccess {
     
@@ -11,7 +11,7 @@ final class ResponseAssemblerSuccess {
             "status" => true,
             "message" => "Requisição realizada e concluída com sucesso",
             "data" => $result
-        ]) . "\n"; 
+        ]) . "\n";
     }
 
     public static function responseDelete($statusCode) {
