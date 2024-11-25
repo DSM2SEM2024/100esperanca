@@ -1,65 +1,5 @@
 import { getOrCreateMainElement } from "../../components/main";
-
-// Função para obter itens do carrinho do localStorage
-function getCarrinho() {
-    const carrinho = localStorage.getItem("carrinho");
-    return carrinho ? JSON.parse(carrinho) : [];
-}
-
-// Função para atualizar o carrinho com os itens do localStorage
-function atualizarCarrinho() {
-    const cartItems = document.getElementById('cartItems');
-    const subtotalElem = document.getElementById('subtotal');
-    const freteElem = document.getElementById('frete');
-    const totalElem = document.getElementById('total');
-
-    cartItems.innerHTML = '';
-    let subtotal = 0;
-    const frete = 20;
-
-    const carrinho = getCarrinho();
-
-    carrinho.forEach((item, index) => {
-        if (!item) {
-            
-            return;
-        }
-
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td><img src="${item.img}" alt="${item.nome}" class="cart-item-img"></td>
-            <td>${item.nome}</td>
-            <td>${item.preco}</td>
-            <td><button class="btn btn-danger btn-sm remove-item-btn" data-index="${index}">Remover</button></td>
-        `;
-        cartItems.appendChild(row);
-        subtotal += parseFloat(item.preco.replace(",", "."));
-    });
-
-    subtotalElem.textContent = `R$ ${subtotal.toFixed(2)}`;
-    freteElem.textContent = `R$ ${frete.toFixed(2)}`;
-    totalElem.textContent = `R$ ${(subtotal + frete).toFixed(2)}`;
-
-    document.querySelectorAll('.remove-item-btn').forEach((button) => {
-        button.addEventListener('click', () => {
-            const index = button.getAttribute('data-index');
-            const carrinho = getCarrinho();
-            carrinho.splice(index, 1);
-            setCarrinho(carrinho);
-            atualizarCarrinho();
-                }
-            );
-        }
-    );
-}
-
-function setCarrinho(carrinho) {
-    localStorage.setItem("carrinho", JSON.stringify(carrinho));
-}
-
-function concluirCompra() {
-    alert("Compra encaminhada com sucesso! Você será redirecionado para o pagamento.");
-}
+import { addToCarrinho, atualizarCarrinho, concluirCompra, getCarrinho, setCarrinho } from "../../functions/cartManagement";
 
 export function cartHtml() {
     const cart = `
@@ -114,13 +54,34 @@ export function cartHtml() {
                 </div>
             </div>
         </section>
+
+        <div class="modal fade" id="modalConfirmacaoCompra" tabindex="-1" aria-labelledby="modalConfirmacaoCompraLabel" aria-hidden="true">
+
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalConfirmacaoCompraLabel">
+                            Compra Concluída
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Sua compra foi encaminhada com sucesso! Você será redirecionado para a página de pagamento.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="okButton">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     `;
 
-const main = getOrCreateMainElement();
-main.classList = null;
-main.innerHTML = cart;
+    const main = getOrCreateMainElement();
+    main.classList = null;
+    main.innerHTML = cart;
 
-atualizarCarrinho();
+    atualizarCarrinho();
 
-window.concluirCompra = concluirCompra;
+    window.concluirCompra = concluirCompra;
 }

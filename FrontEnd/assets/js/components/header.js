@@ -88,7 +88,8 @@ export function updateNavbarLinks() {
   createUserLink.style.display = location.hash === '#criarUsuario' ? 'none' : 'inline';
   manageUserLink.style.display = location.hash === '#gerenciarUsuario' ? 'none' : 'inline';
   productsLink.style.display = location.hash === '#produtos' ? 'none' : 'inline';
-  homeLink.style.display = location.hash === '#home' ? 'none' : 'inline';
+  homeLink.style.display = location.hash === '#home' || location.hash === '' ? 'none' : 'inline';
+  
 }
 window.addEventListener('hashchange', updateNavbarLinks);
 updateNavbarLinks();
