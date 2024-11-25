@@ -1,27 +1,35 @@
-import { headerHtml } from "./components/header";
+import { headerHtml, updateNavbarLinks } from "./components/header";
 import { clearBody } from "./functions/clear_body";
-import { telaLoginHtml } from "./pages/login_screen";
-import { criarUsuarioHtml } from "./pages/create_user";
-import { gerenciarUsuarioHtml } from "./pages/user_management";
+import { criaHomeHTML } from "./pages/home/home";
+import { telaLoginHtml } from "./pages/login/login_screen";
+import { criarUsuarioHtml } from "./pages/create-user/create_user";
+import { gerenciarUsuarioHtml } from "./pages/user/user_management";
+import { telaProdutosHtml2 } from "./pages/products/products";
 import { footerHtml } from "./components/footer";
+import { cartHtml } from "./pages/cart/cart";
+import { render_produtos } from "./pages/productbuy/productbuy";
 
 
 function renderContentBasedOnHash() {
-if (location.hash === '#login') {
-    clearBody();
-    telaLoginHtml(); 
-} else if(location.hash === '#criarUsuario') {
-    clearBody();
-    criarUsuarioHtml();
-}else if(location.hash === '#gerenciarUsuario'){
-    clearBody();
-    gerenciarUsuarioHtml();
-}else if(location.hash === '#home'){
-    clearBody();
-   
-}
-};
 
+    clearBody();
+    if (location.hash === '#login') {
+        telaLoginHtml();
+    } else if (location.hash === '#criarUsuario') {
+        criarUsuarioHtml();
+    } else if (location.hash === '#gerenciarUsuario') {
+        gerenciarUsuarioHtml();
+    } else if (location.hash === '#produtos') {
+        telaProdutosHtml2();
+    } else if (location.hash === '#compraproduto') {
+        render_produtos();
+    } else if (location.hash === '#cart') {
+        cartHtml();
+    } else if (location.hash === '' || !location.hash || location.hash === '#home') {
+        clearBody();
+        criaHomeHTML();
+    }
+}
 
 renderContentBasedOnHash();
-window.addEventListener('hashchange',renderContentBasedOnHash);
+window.addEventListener('hashchange', renderContentBasedOnHash);

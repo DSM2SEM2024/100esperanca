@@ -8,12 +8,15 @@ Class Art{
     private $name;
     private $id;
 
+    private $is_deleted;
 
-    public function __construct($characteristic, $description, $name) {
+
+    public function __construct($characteristic, $description, $name, $is_deleted) {
 
         $this->characteristic = $characteristic;
         $this->description = $description;
         $this->name = $name;
+        $this->is_deleted = $is_deleted;
 
     }
 
@@ -43,6 +46,14 @@ Class Art{
 
     public function setName($name){
         return $this->name = $name;
+    }
+
+    public function getIsDeleted(){
+        return $this->is_deleted;
+    }
+
+    public function setIsDeleted($is_deleted){
+        return $this->is_deleted = $is_deleted;
     }
 
     
