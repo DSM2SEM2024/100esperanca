@@ -8,6 +8,7 @@ class Art
     private $name;
     private $description;
     private $characteristic;
+    private $is_deleted;
 
 
     public function setId($id): self
@@ -51,6 +52,12 @@ class Art
         return $this->name = $name;
     }
 
+    public function getIsDeleted(){
+        return $this->is_deleted;
+    }
 
+    public function setIsDeleted($is_deleted){
+        return $this->is_deleted = $is_deleted;
+    }
 
 }

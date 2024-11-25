@@ -31,7 +31,7 @@ class ArtController
 
         $result = $this->artRepository->createArt($artModel);
 
-        ResponseAssemblerSuccess::response(201, $result);
+        ResponseAssemblerSuccess::response(200, $result, "Arte adicionada com sucesso!");
     }
 
     public function update($id, $data)
@@ -48,14 +48,14 @@ class ArtController
 
         $result = $this->artRepository->updateArt($id, $artModel);
 
-        ResponseAssemblerSuccess::response(200, $result);
+        ResponseAssemblerSuccess::response(200, $result, "Arte atualizada com sucesso!");
     }
 
     public function getAll()
     {
         $result = $this->artRepository->getAllArt();
 
-        ResponseAssemblerSuccess::response(200, $result);
+        ResponseAssemblerSuccess::response(200, $result, "");
     }
 
     public function searchById($id)
@@ -63,7 +63,7 @@ class ArtController
         $result = $this->artRepository->searchByIdArt($id);
 
         if ($result) {
-            ResponseAssemblerSuccess::response(200, $result);
+            ResponseAssemblerSuccess::response(200, $result, "");
         } else {
             ResponseAssemblerError::response(404, 'Art not found');
         }
@@ -72,10 +72,40 @@ class ArtController
     public function delete($id)
     {
         if ($this->artRepository->deleteByIdArt($id)) {
-            ResponseAssemblerSuccess::responseDelete(200);
+            ResponseAssemblerSuccess::responseDelete(200, "Arte excluída com sucesso!");
         } else {
-            ResponseAssemblerError::responseDelete(500);
+            ResponseAssemblerError::responseDelete(500, "Erro ao excluir a Arte.");
         }
+    }
+
+    public function isDeleteArt($id) {
+
+        $result = $this->artRepository->isDeletedArt($id);
+
+        if ($result) {
+            ResponseAssemblerSuccess::response(200, "arte suspensa com sucesso.");
+        } else {
+            ResponseAssemblerError::response(500, "Erro ao suspender pedido.");
+        }
+    }
+
+    public function isNotDelete($id) {
+        $result = $this->artRepository->IsNotDeletedArt($id);
+
+        if ($result) {
+            ResponseAssemblerSuccess::response(200, "Arte reaberta co sucesso");
+        } else {
+            ResponseAssemblerError::response(500, "Erro ao reabrir arte.");
+        }
+    }
+
+    private function assemblerArt(object $data): Art
+    {
+        $art = new Art();
+
+        return $art->setName($data->name)
+            ->setDescription($data->description)
+            ->setCharacteristic($data->characteristic);
     }
 
     private function assemblerArt(object $data): Art

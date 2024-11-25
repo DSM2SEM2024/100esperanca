@@ -4,11 +4,19 @@
     box-shadow: none;
     text-decoration: none;
 }
-html,body{
+main {
+    flex-grow: 1; /* Ocupa o espaço disponível */
+}
+
+body{
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch
 }
 footer{
     background-color: #5ABC49;
+    margin-top: auto;
 }
 div#header ul{
     list-style: none;
@@ -20,7 +28,7 @@ div#header ul{
     flex-wrap: wrap;
     text-wrap: pretty;
 }header img{
-    width: 10rem;
+    width: 4rem;
     border-radius: 10rem;
 }
 header{
@@ -30,11 +38,58 @@ header{
 }
 
 .custom-btn-hover {
-    background-color: #198754 !important;
+   
     color: white !important;
-    transition: background-color 0.3s ease; 
+    transition: background-color 0.3s ease;
 }
 
 .custom-btn-hover:hover {
-    background-color: #147045 !important; 
+    color: white !important; 
+}
+
+.hover-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.card-img-custom {
+    width: 100%; 
+    max-height: 500px; 
+    object-fit: cover; 
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    height: 100%; 
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 1rem; 
+}
+.cart-item-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+.pagination > li.active > a{
+    background-color: #5abc49;
+    border: none;
+}
+
+@media (max-width: 768px) {
+    .card-img-custom {
+        max-height: 350px; 
+    }
+}
+@media (max-width:375px) {
+    section#footer-rows{
+        display: flex;
+        flex-direction: column;
+    }
 }

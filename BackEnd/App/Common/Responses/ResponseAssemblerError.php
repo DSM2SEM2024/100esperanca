@@ -4,14 +4,13 @@ namespace Pi\Visgo\Common\Responses;
 final class ResponseAssemblerError {
     
 
-    public static function response($statusCode, $fields) {
+    public static function response($statusCode, $message) {
 
         http_response_code($statusCode);
 
         echo json_encode([
             "status" => false,
-            "message" => "Error ao realizar a requisição corrija os dados enviados",
-            "campos" => $fields
+            "message" => $message,
         ]) . "\n"; 
     }
     

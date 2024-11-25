@@ -1,5 +1,6 @@
 <?php
 namespace Pi\Visgo;
+
 require_once "../vendor/autoload.php";
 
 use Pi\Visgo\Controller\ProductController;
@@ -16,6 +17,7 @@ $productController = new ProductController($productRepository);
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
+
 
 switch ($method) {
     case 'POST':
@@ -43,17 +45,17 @@ switch ($method) {
 
     case 'GET':
 
-        if (preg_match('/\/products\/(\d+)/', $uri, $match)) {
+        if(preg_match('/\/user\/(\d+)/', $uri, $match)){
 
-            $idProduct = $match[1];
-            $productController->getById($idProduct);
+            $idUser = $match[1];
+            $userController->getUserById($idUser);
 
-        } else if ($uri === '/products') {
-
-            $productController->getAll();
+        }else if($uri === '/user') {
+            
+            $userController->getAll();
 
         }
-        break;
+    break;
 
     case 'DELETE':
 
