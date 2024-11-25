@@ -3,6 +3,7 @@ import { getCarrinho, setCarrinho, addToCarrinho } from "../../functions/cartMan
 
 import { cadernos, camisetas, bolsas, todosProdutos } from "./components/constsProdutos";
 
+
 const produtosPorPagina = 6;
 
 let paginas = []; 
@@ -19,7 +20,7 @@ function dividirProdutosEmPaginas(produtos) {
 
 function renderProducts(products) {
     return products.map(product => `
-        <div class="col" onclick='navegarParaDetalhes(${product.id})'>
+        <div class="col">
             <div class="card product-card shadow-sm hover-card border-0">
                 <img src="${product.img}" class="card-img-top card-img-custom" alt="${product.nome}">
                 <div class="card-body border rounded-bottom border-success">
@@ -29,7 +30,7 @@ function renderProducts(products) {
                         <span class="fw-bold text-end">${product.preco}</span>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-success w-75 mt-2" onclick='event.stopPropagation(); addToCarrinho(${JSON.stringify(product)})'>
+                        <button class="btn btn-success w-75 mt-2" onclick='addToCarrinho(${JSON.stringify(product)})'>
                             Adicionar ao Carrinho
                         </button>
                     </div>
@@ -38,6 +39,7 @@ function renderProducts(products) {
         </div>
     `).join('');
 }
+
 
 function renderizarPagina(produtosDaPagina) {
     const productContainer = document.querySelector("#productContainer .row");
@@ -93,32 +95,42 @@ window.irParaPagina = function (numeroPagina) {
     }
 };
 
+
 export function telaProdutosHtml2() {
     const telaProdutos2 = `
         <nav class="navbar navbar-expand-lg d-flex bg-body-tertiary bg-opacity-75" id="navFiltros">
             <section class="container-fluid d-flex justify-content-evenly">
+
                 <div class="">
                     <h2 class="text-success fs-1">
                         Produtos
                     </h2>
                 </div>
+
                 <div class="row gap-3" id="navDrop">
+
                     <select class="form-select form-select-sm col selectWidth" id="filterSelect">
                         <option selected value="all">
                             Todos
                         </option>
+
                         <option value="Camisetas">
                             Camisetas
                         </option>
+
                         <option value="Bolsas">
                             Bolsas
                         </option>
+
                         <option value="Cadernos">
                             Cadernos
                         </option>
                     </select>
+
                 </div>
+
             </section> 
+
         </nav>
 
         <section class="container" id="productContainer">
@@ -134,19 +146,24 @@ export function telaProdutosHtml2() {
         </nav>
 
         <div class="modal fade" id="modalCarrinho" tabindex="-1" aria-labelledby="modalCarrinhoLabel" aria-hidden="true">
+
             <div class="modal-dialog modal-dialog-centered">
+
                 <div class="modal-content">
+
                     <div class="modal-header">
                         <h5 class="modal-title text-success" id="modalCarrinhoLabel">
                             Produto Adicionado ao Carrinho
                         </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+
                     <div class="modal-body">
                         O produto foi adicionado ao seu carrinho.
                         <br>
                         Deseja ir para o carrinho ou continuar comprando?
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Continuar Comprando
@@ -155,8 +172,11 @@ export function telaProdutosHtml2() {
                             Ir para o Carrinho
                         </button>
                     </div>
+
                 </div>
+
             </div>
+
         </div>
     `;
 
@@ -197,10 +217,4 @@ export function telaProdutosHtml2() {
     });
 }
 
-function navegarParaDetalhes(id) {
-    localStorage.setItem("produtoId", id);
-    window.location.hash = `#productDetails/${id}`;
-}
-
 window.addToCarrinho = addToCarrinho;
-window.navegarParaDetalhes = navegarParaDetalhes;
