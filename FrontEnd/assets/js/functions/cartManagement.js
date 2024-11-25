@@ -1,3 +1,5 @@
+import { bolsas, cadernos, camisetas } from "../pages/products/components/constsProdutos";
+
 export function getCarrinho() {
     const carrinho = localStorage.getItem("carrinho");
     return carrinho ? JSON.parse(carrinho) : [];
@@ -7,22 +9,23 @@ export function setCarrinho(carrinho) {
     localStorage.setItem("carrinho", JSON.stringify(carrinho));
 }
 
-export function addToCarrinho(product) {
+export function addToCarrinho(produto) {
+    console.log(produto);
+    
     const carrinho = getCarrinho();
-    carrinho.push(product);
+    carrinho.push(produto);
     setCarrinho(carrinho);
 
     const modal = new bootstrap.Modal(document.getElementById('modalCarrinho'));
     modal.show();
 
-
     const goToCartButton = document.querySelector(".modal-footer .btn-success");
     goToCartButton.onclick = function() {
         modal.hide();
-
         window.location.href = '/#cart';
     };
 }
+
 export function atualizarCarrinho() {
     const cartItems = document.getElementById('cartItems');
     const subtotalElem = document.getElementById('subtotal');
@@ -33,22 +36,23 @@ export function atualizarCarrinho() {
     let subtotal = 0;
     const frete = 20;
 
-    const carrinho = getCarrinho();
+    const carrinho = getCarrinho().filter(item => item);  // Filtra itens indefinidos
 
-    carrinho.forEach((item, index) => {
-        if (!item) {
+    carrinho.forEach((produto, index) => {
+        if (!produto) {
+            console.error(`Item at index ${index} is null or undefined`);
             return;
         }
 
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td><img src="${item.img}" alt="${item.nome}" class="cart-item-img"></td>
-            <td>${item.nome}</td>
-            <td>${item.preco}</td>
+            <td><img src="${produto.img}" alt="${produto.nome}" class="cart-item-img"></td>
+            <td>${produto.nome}</td>
+            <td>${produto.preco}</td>
             <td><button class="btn btn-danger btn-sm remove-item-btn" data-index="${index}">Remover</button></td>
         `;
         cartItems.appendChild(row);
-        subtotal += parseFloat(item.preco.replace(",", "."));
+        subtotal += parseFloat(produto.preco);
     });
 
     subtotalElem.textContent = `R$ ${subtotal.toFixed(2)}`;
@@ -65,6 +69,7 @@ export function atualizarCarrinho() {
         });
     });
 }
+
 export function concluirCompra() {
     const modal = new bootstrap.Modal(document.getElementById('modalConfirmacaoCompra'));
     modal.show();
@@ -72,7 +77,8 @@ export function concluirCompra() {
     document.getElementById('okButton').onclick = function() {
         localStorage.removeItem('carrinho');
         modal.hide();
-        // Redireciona para a página de conclusão de pagamento
         window.location.href = '/#pagamento';
     };
 }
+
+window.addToCarrinho = addToCarrinho;

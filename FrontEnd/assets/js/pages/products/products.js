@@ -17,19 +17,19 @@ function dividirProdutosEmPaginas(produtos) {
     return paginas;
 }
 
-function renderProducts(products) {
-    return products.map(product => `
-        <div class="col" onclick='navegarParaDetalhes(${product.id})'>
+function renderProducts(produto) {
+    return produto.map(produto => `
+        <div class="col" onclick='navegarParaDetalhes(${produto.id})'>
             <div class="card product-card shadow-sm hover-card border-0">
-                <img src="${product.img}" class="card-img-top card-img-custom" alt="${product.nome}">
+                <img src="${produto.img}" class="card-img-top card-img-custom" alt="${produto.nome}">
                 <div class="card-body border rounded-bottom border-success">
-                    <h5 class="card-title text-success">${product.nome}</h5>
+                    <h5 class="card-title text-success">${produto.nome}</h5>
                     <div class="d-flex justify-content-between align-items-center">
-                        <p class="card-text fs-5 mb-0">${product.descricao}</p>
-                        <span class="fw-bold text-end">${product.preco}</span>
+                        <p class="card-text fs-5 mb-0">${produto.descricao}</p>
+                        <span class="fw-bold text-end">${produto.preco}</span>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-success w-75 mt-2" onclick='event.stopPropagation(); addToCarrinho(${JSON.stringify(product)})'>
+                        <button class="btn btn-success w-75 mt-2" onclick='event.stopPropagation(); addToCarrinho(${JSON.stringify(produto)})'>
                             Adicionar ao Carrinho
                         </button>
                     </div>
@@ -93,7 +93,7 @@ window.irParaPagina = function (numeroPagina) {
     }
 };
 
-export function telaProdutosHtml2() {
+export function telaProdutosHtml() {
     const telaProdutos2 = `
         <nav class="navbar navbar-expand-lg d-flex bg-body-tertiary bg-opacity-75" id="navFiltros">
             <section class="container-fluid d-flex justify-content-evenly">
@@ -140,7 +140,7 @@ export function telaProdutosHtml2() {
                         <h5 class="modal-title text-success" id="modalCarrinhoLabel">
                             Produto Adicionado ao Carrinho
                         </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         O produto foi adicionado ao seu carrinho.
@@ -149,7 +149,7 @@ export function telaProdutosHtml2() {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            Continuar Comprando
+                            Voltar a Navegação
                         </button>
                         <button type="button" class="btn btn-success" onclick="window.location.href = '/#cart';">
                             Ir para o Carrinho
@@ -158,48 +158,48 @@ export function telaProdutosHtml2() {
                 </div>
             </div>
         </div>
-    `;
+`;
 
-    const main = getOrCreateMainElement();
-    main.classList = null;
-    main.innerHTML = telaProdutos2;
+const main = getOrCreateMainElement();
+main.classList = null;
+main.innerHTML = telaProdutos2;
 
-    // Inicializa e divide os produtos em páginas
-    paginas = dividirProdutosEmPaginas(todosProdutos);  // Inicializa as páginas com todos os produtos
+// Inicializa e divide os produtos em páginas
+paginas = dividirProdutosEmPaginas(todosProdutos);  // Inicializa as páginas com todos os produtos
+totalDePaginas = paginas.length;
+paginaAtual = 0;
+
+// Renderiza a primeira página de produtos e a navegação
+renderizarPagina(paginas[paginaAtual]);
+atualizarPaginacao();
+
+const filterSelect = document.getElementById("filterSelect");
+filterSelect.addEventListener("change", (event) => {
+    let filteredProducts;
+    const selectedCategory = event.target.value;
+
+    if (selectedCategory === "Camisetas") {
+        filteredProducts = camisetas;
+    } else if (selectedCategory === "Bolsas") {
+        filteredProducts = bolsas;
+    } else if (selectedCategory === "Cadernos") {
+        filteredProducts = cadernos;
+    } else {
+        filteredProducts = todosProdutos;
+    }
+
+    // Atualiza os produtos e a navegação
+    paginas = dividirProdutosEmPaginas(filteredProducts);
     totalDePaginas = paginas.length;
-    paginaAtual = 0;
-
-    // Renderiza a primeira página de produtos e a navegação
+    paginaAtual = 0; // Resetar para a primeira página após o filtro
     renderizarPagina(paginas[paginaAtual]);
     atualizarPaginacao();
-
-    const filterSelect = document.getElementById("filterSelect");
-    filterSelect.addEventListener("change", (event) => {
-        let filteredProducts;
-        const selectedCategory = event.target.value;
-
-        if (selectedCategory === "Camisetas") {
-            filteredProducts = camisetas;
-        } else if (selectedCategory === "Bolsas") {
-            filteredProducts = bolsas;
-        } else if (selectedCategory === "Cadernos") {
-            filteredProducts = cadernos;
-        } else {
-            filteredProducts = todosProdutos;
-        }
-
-        // Atualiza os produtos e a navegação
-        paginas = dividirProdutosEmPaginas(filteredProducts);
-        totalDePaginas = paginas.length;
-        paginaAtual = 0; // Resetar para a primeira página após o filtro
-        renderizarPagina(paginas[paginaAtual]);
-        atualizarPaginacao();
-    });
+});
 }
 
 function navegarParaDetalhes(id) {
-    localStorage.setItem("produtoId", id);
-    window.location.hash = `#productDetails/${id}`;
+localStorage.setItem("produtoId", id);
+window.location.hash = `#productDetails/${id}`;
 }
 
 window.addToCarrinho = addToCarrinho;
