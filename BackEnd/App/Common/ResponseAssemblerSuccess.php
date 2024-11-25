@@ -1,26 +1,29 @@
 <?php
 namespace Pi\Visgo\Common;
 
+use Pi\Visgo\Controller\PromotionController;
+use Pi\Visgo\Controller\ArtController;
+
 final class ResponseAssemblerSuccess {
     
-    public static function response($statusCode, $result) {
+    public static function response($statusCode, $result, $message) {
 
         http_response_code($statusCode);
 
         echo json_encode([
             "status" => true,
-            "message" => "Requisição realizada e concluída com sucesso",
+            "message" => $message,
             "data" => $result
         ]) . "\n"; 
     }
 
-    public static function responseDelete($statusCode) {
+    public static function responseDelete($statusCode, $message) {
 
         http_response_code($statusCode);
 
         echo json_encode([
             "status" => true,
-            "message" => "Registro excluído com sucesso!"
+            "message" => $message,
         ]) . "\n"; 
     }
 

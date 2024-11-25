@@ -1,91 +1,71 @@
 <?php
 namespace Pi\Visgo\Common;
 
+
+use Exception;
+use Pi\Visgo\Database\Connection;
+use Pi\Visgo\Common\ResponseAssemblerError;
+use Pi\Visgo\Common\DateTimeZoneCustom;
+
 class Validator {
 
-    private static $comprimentoNomeArt = 3;
-    private static $comprimentoDescricaoArt = 3;
-    private static $comprimentoDescricaoOrder = 2;
+    private $connection;
 
-    public static function validationArt($data) {
-        $validNome = self::artNameValidation($data->name);
-        $validDescricao = self::artDescriptionValidation($data->description);
-        $validCaracteristica = self::artCharacteristicValidation($data->characteristic);
+    public function __construct($drive) {
+        $this->connection = Connection::getInstance($drive);
+    }
 
-        $validations = [$validNome, $validDescricao, $validCaracteristica];
+    public function ValidatorCurrentDate($date) {
 
-        foreach ($validations as $result) {
-            if (is_array($result)) {
-                ProblemAndFiledError::addFieldsWithError($result);
+        $currentDateTime = DateTimeZoneCustom::getCurrentDateTime();
+
+        if(!($date > $currentDateTime)){
+            ResponseAssemblerError::response(404, "A data não pode ser antecedente a data atual");
+            throw new Exception("Data não pode ser antecedente a data atual");
+        }
+
+    }
+
+    public function ValidatorRepetedValuesInArray($data){
+
+        $count = array_count_values($data);
+
+        foreach($count as $values=> $quantify){
+
+            if($quantify > 1){
+                return true;
             }
+
         }
 
-        return empty(ProblemAndFiledError::getFieldsError());
+        return false;
+
     }
 
-    public static function validationOrder($data) {
-        $validDateTime = self::orderDateTimeValidation($data->date_time_order);
-        $validDescricao = self::orderDescriptionValidation($data->description);
+/*     public function ValidatorById($table, $dataId){
 
-        $validations = [$validDateTime, $validDescricao];
 
-        foreach ($validations as $result) {
-            if (is_array($result)) {
-                ProblemAndFiledError::addFieldsWithError($result);
+        foreach($dataId as $id){
+    
+            $query = "SELECT * FROM $table WHERE id = :id";
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindParam(":id", $id);
+            $stmt->execute();
+            
+            $result = ($stmt->fetch() !== false);
+
+            var_dump($result);
+            
+
+            if(!$result){
+                ResponseAssemblerError::response(404, "Produto já presente na promoção!");
+                throw new Exception("Erro ao inserir id no banco!");
             }
+
+            return true;
         }
 
-        return empty(ProblemAndFiledError::getFieldsError());
-    }
+} */
 
-    private static function artNameValidation($name) {
-        if (strlen(trim($name)) < self::$comprimentoNomeArt) {
-            return [
-                "field" => "Nome",
-                "message" => "Nome da arte deve ter no mínimo " . self::$comprimentoNomeArt . " caracteres"
-            ];
-        }
-        return true;
-    }
 
-    private static function artDescriptionValidation($description) {
-        if (strlen(trim($description)) < self::$comprimentoDescricaoArt) {
-            return [
-                "field" => "Descrição",
-                "message" => "Descrição da arte deve ter no mínimo " . self::$comprimentoDescricaoArt . " caracteres"
-            ];
-        }
-        return true;
-    }
-
-    private static function artCharacteristicValidation($characteristic) {
-        if (empty(trim($characteristic))) {
-            return [
-                "field" => "Característica",
-                "message" => "A característica da arte é obrigatória"
-            ];
-        }
-        return true;
-    }
-
-    private static function orderDateTimeValidation($dateTime) {
-        if (empty(trim($dateTime))) {
-            return [
-                "field" => "Data e Hora do Pedido",
-                "message" => "A data e hora do pedido são obrigatórias"
-            ];
-        }
-
-        return true;
-    }
-
-    private static function orderDescriptionValidation($description) {
-        if (strlen(trim($description)) < self::$comprimentoDescricaoOrder) {
-            return [
-                "field" => "Descrição",
-                "message" => "Descrição do pedido deve ter no mínimo " . self::$comprimentoDescricaoOrder . " caracteres"
-            ];
-        }
-        return true;
-    }
 }
