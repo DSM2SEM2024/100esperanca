@@ -15,12 +15,12 @@ class UserController {
 
     public function getAll() { 
         $users = $this->userRepository->getAllUsers();
-        ResponseAssemblerSuccess::response(200, $users);
+        ResponseAssemblerSuccess::response(200, $users, "Requisição realizada com sucesso");
     }
 
     public function getById($idUser) {
         $user = $this->userRepository->getUserById($idUser);
-        ResponseAssemblerSuccess::response(200, $user);
+        ResponseAssemblerSuccess::response(200, $user,  "Requisição realizada com sucesso");
     }
 
     public function delete($idUser) { 
@@ -30,6 +30,6 @@ class UserController {
             ResponseAssemblerError::response(400,"");
         }
 
-        ResponseAssemblerSuccess::response(200, $result);
+        ResponseAssemblerSuccess::response(200, $result, "Requisição realizada com sucesso");
     }
 }

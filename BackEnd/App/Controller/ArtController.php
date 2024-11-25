@@ -1,10 +1,10 @@
 <?php
 namespace Pi\Visgo\Controller;
 
-use Pi\Visgo\Common\Responses\ProblemAndFiledError;
-use Pi\Visgo\Common\Responses\ResponseAssemblerError;
-use Pi\Visgo\Common\Responses\ResponseAssemblerSuccess;
-use Pi\Visgo\Common\ValidatorArt;
+use Pi\Visgo\Common\Exceptions\ResourceNotFoundException;
+use Pi\Visgo\Common\Responses\ProblemAndFieldError;
+use Pi\Visgo\Common\Responses\Response;
+use Pi\Visgo\Common\Validator;
 use Pi\Visgo\Model\Art;
 use Pi\Visgo\Repository\ArtRepository;
 
@@ -20,27 +20,25 @@ class ArtController
 
     public function create($data)
     {
-        $isValid = ValidatorArt::validationArt($data);
+        $isValid = Validator::validatorObjectInput($data);
 
         if (!$isValid) {
-            ResponseAssemblerError::response(400, ProblemAndFiledError::getFieldsError());
-            return;
+            Response::error(ProblemAndFieldError::getFieldsError(), "Verifique seus dados de entrada", 400);
         }
 
         $artModel = $this->assemblerArt($data);
 
         $result = $this->artRepository->createArt($artModel);
 
-        ResponseAssemblerSuccess::response(200, $result, "Arte adicionada com sucesso!");
+        Response::success($result , "Art cadastrada com sucesso", 201);
     }
 
     public function update($id, $data)
     {
-        $isValid = ValidatorArt::validationArt($data);
+        $isValid = Validator::validatorObjectInput($data);
 
         if (!$isValid) {
-            ResponseAssemblerError::response(400, ProblemAndFiledError::getFieldsError());
-            return;
+            Response::error(ProblemAndFieldError::getFieldsError(), "Verifique seus dados de entrada", 400);
         }
 
         $artModel = $this->assemblerArt($data);
@@ -48,64 +46,48 @@ class ArtController
 
         $result = $this->artRepository->updateArt($id, $artModel);
 
-        ResponseAssemblerSuccess::response(200, $result, "Arte atualizada com sucesso!");
+        Response::success($result, "Art atualizada com sucesso", 200);
     }
 
     public function getAll()
     {
         $result = $this->artRepository->getAllArt();
 
-        ResponseAssemblerSuccess::response(200, $result, "");
+        Response::success($result, "Requisição realizada com sucesso", 200);
     }
 
-    public function searchById($id)
+    public function getById($id)
     {
-        $result = $this->artRepository->searchByIdArt($id);
-
-        if ($result) {
-            ResponseAssemblerSuccess::response(200, $result, "");
-        } else {
-            ResponseAssemblerError::response(404, 'Art not found');
+        try {
+            $result = $this->artRepository->getArtById($id);
+        } catch (ResourceNotFoundException $e) {
+            Response::error($e->getMessage(), 404);
         }
+
+        Response::success($result,  "Requisição realizada com sucesso", 200);
     }
 
-    public function delete($id)
+    public function isDeleteArt($id)
     {
-        if ($this->artRepository->deleteByIdArt($id)) {
-            ResponseAssemblerSuccess::responseDelete(200, "Arte excluída com sucesso!");
-        } else {
-            ResponseAssemblerError::responseDelete(500, "Erro ao excluir a Arte.");
-        }
-    }
-
-    public function isDeleteArt($id) {
 
         $result = $this->artRepository->isDeletedArt($id);
 
-        if ($result) {
-            ResponseAssemblerSuccess::response(200, "arte suspensa com sucesso.");
-        } else {
-            ResponseAssemblerError::response(500, "Erro ao suspender pedido.");
+        if (!$result) {
+            Response::error("Erro ao deletar Art", 400);
         }
+
+        Response::noContent();
     }
 
-    public function isNotDelete($id) {
+    public function isNotDelete($id)
+    {
         $result = $this->artRepository->IsNotDeletedArt($id);
 
-        if ($result) {
-            ResponseAssemblerSuccess::response(200, "Arte reaberta co sucesso");
-        } else {
-            ResponseAssemblerError::response(500, "Erro ao reabrir arte.");
+        if (!$result) {
+            Response::error("Erro ao reativar Art", 400);
         }
-    }
 
-    private function assemblerArt(object $data): Art
-    {
-        $art = new Art();
-
-        return $art->setName($data->name)
-            ->setDescription($data->description)
-            ->setCharacteristic($data->characteristic);
+        Response::noContent();
     }
 
     private function assemblerArt(object $data): Art

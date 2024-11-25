@@ -1,26 +1,26 @@
-<?php 
+<?php
 
 namespace Pi\Visgo\Repository;
 
-use Exception;
 use Pi\Visgo\Model\Cart;
 use Pi\Visgo\Database\Connection;
 use PDO;
 use PDOException;
-use PDORow;
-use Pi\Visgo\Common\ResponseAssemblerError;
 
-class CartRepository{
+class CartRepository
+{
 
     private $connection;
     private $table = "cart";
     private $tableassoc = "cart_product";
 
-    public function __construct($drive) {
+    public function __construct($drive)
+    {
         $this->connection = Connection::getInstance($drive);
     }
 
-    public function createCart( Cart $cart){
+    public function createCart(Cart $cart): bool
+    {
 
         $id_user = $cart->getIdUser();
 
@@ -36,7 +36,8 @@ class CartRepository{
 
     }
 
-    public function DeleteCart($id){
+    public function deleteCart($id): bool
+    {
 
         $is_deleted = 1;
 
@@ -53,13 +54,14 @@ class CartRepository{
 
     }
 
-    public function addProductinCart($id_cart, $id_products){
+    public function addProductinCart($id_cart, $id_products): bool
+    {
 
-        try{
+        try {
 
             $this->connection->beginTransaction();
 
-            foreach($id_products as $ids ){
+            foreach ($id_products as $ids) {
 
                 $id_product = $ids;
                 echo ($ids);
@@ -76,16 +78,16 @@ class CartRepository{
             }
 
             $this->connection->commit();
+
             return true;
 
-        }catch(PDOException $e){
-                $this->connection->rollBack();
-                throw new PDOException($e);
-            }
-                return $executionCompleted;
+        } catch (PDOException $e) {
+            $this->connection->rollBack();
+            return false;
+        }
     }
 
-    public function getAllCarts()
+    public function getAllCarts(): array
     {
         $query = "SELECT * FROM $this->table";
         $stmt = $this->connection->prepare($query);
@@ -94,7 +96,7 @@ class CartRepository{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getAllCartsAssoc()
+    public function getAllCartsAssoc(): array
     {
         $query = "SELECT * FROM $this->tableassoc";
         $stmt = $this->connection->prepare($query);
@@ -103,42 +105,34 @@ class CartRepository{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function searchByIdCart($id)
+    public function getCartById($id): object
     {
         $query = "SELECT * FROM $this->table WHERE $this->table.id = :id";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam("id", $id, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    public function getProductInCarts($id_product){
-
-        echo($id_product);
-
+    public function getProductInCarts($id_product): array
+    {
         $query = "SELECT * FROM $this->tableassoc WHERE id_product = :id_product";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(":id_product", $id_product);
         $stmt->execute();
 
-        $result = $stmt->fetch() !== 0;
-
-        echo($result);
-
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function DeleteProductInCart($id_cart, $id_product){
-
+    public function deleteProductInCart($id_cart, $id_product): bool
+    {
         $query = "DELETE FROM $this->tableassoc WHERE id_product = :id_product AND id_cart = :id_cart";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(":id_product", $id_product);
         $stmt->bindParam(":id", $id_cart);
 
-        $stmt->execute();
-
+        return $stmt->execute();
     }
 
 

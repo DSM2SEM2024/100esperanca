@@ -2,14 +2,12 @@
 
 namespace Pi\Visgo\Controller;
 
-use Exception;
-use Pi\Visgo\Common\ResponseAssemblerError;
-use Pi\Visgo\Common\ResponseAssemblerSuccess;
+use Pi\Visgo\Common\Responses\Response;
 use Pi\Visgo\Model\Cart;
 use Pi\Visgo\Repository\CartRepository;
-use Pi\Visgo\Common\Validator;
 
-class CartController {
+class CartController
+{
 
     private $CartRepository;
 
@@ -18,74 +16,87 @@ class CartController {
         $this->CartRepository = $CartRepository;
     }
 
-    public function create($data){
+    public function create($data)
+    {
 
         $cartModel = new Cart();
         $cartModel->setIdUser($data->id_user);
 
         $result = $this->CartRepository->createCart($cartModel);
 
-        if(!$result){
-            ResponseAssemblerError::response(404, "Erro ao criar Promoção");
+        if (!$result) {
+            Response::error($result, "Erro ao criar Promoção", 400);
         }
-        
-        ResponseAssemblerSuccess::response(200, $result, "Promoção criada com sucesso");
+
+        Response::success($result, "Promoção criada com sucesso", 201);
 
     }
 
-    public function Close($id){
+    public function delete($id)
+    {
 
-        $result = $this->CartRepository->DeleteCart($id);
-        ResponseAssemblerSuccess::response(200, $result, "Requisição realizada com sucesso!");
+        $result = $this->CartRepository->deleteCart($id);
+        Response::success($result, "Requisição realizada com sucesso!", 200);
 
     }
 
-    public function InsertProductInCart($data){
+    public function InsertProductInCart($data)
+    {
 
         $id_cart = $data->id_cart;
         $id_products = $data->id_products;
 
 
         $result = $this->CartRepository->addProductinCart($id_cart, $id_products);
-        ResponseAssemblerSuccess::response(200, $result, "Requisição realizada com sucesso!");
+        Response::success($result, "Requisição realizada com sucesso!", 200);
 
     }
 
-    public function getAll(){
+    public function getAll()
+    {
 
         $result = $this->CartRepository->getAllCarts();
-        ResponseAssemblerSuccess::response(200, $result, "Requisição realizada com sucesso!");
+        Response::success($result, "Requisição realizada com sucesso!", 200);
 
     }
 
-    public function getAllCarts(){
+    public function getAllCartsAssoc()
+    {
 
         $result = $this->CartRepository->getAllCartsAssoc();
-        ResponseAssemblerSuccess::response(200, $result, "Requisição bem sucedida");
+        Response::success(200, $result, "Requisição bem sucedida");
 
     }
 
-    public function searchById($id){
+    public function getById($id)
+    {
 
-        $result = $this->CartRepository->searchByIdCart($id);
-        ResponseAssemblerSuccess::response(200, $result, "Requisição realizada com sucesso!");
+        $result = $this->CartRepository->getCartById($id);
+        Response::success($result, "Requisição realizada com sucesso!", 200);
     }
 
-    public function serachByIdProductInCart($id){
-
+    public function getProductInCartById($id)
+    {
         $id_product = $id;
 
         $result = $this->CartRepository->getProductInCarts($id_product);
-        ResponseAssemblerSuccess::response(200, $result, "Requisição realizada com sucesso!");
+
+        Response::success($result, "Requisição realizada com sucesso!", 200);
     }
 
-    public function Delete($data){
+    public function deleteProductFromACart($data)
+    {
 
         $id_cart = $data->id_cart;
         $id_product = $data->id_product;
 
-        $result = $this->CartRepository->DeleteProductInCart($id_cart, $id_product);
-        ResponseAssemblerSuccess::response(200, $result, "Requisição realizada com sucesso!");
+        $result = $this->CartRepository->deleteProductInCart($id_cart, $id_product);
+
+        if (!$result) {
+            Response::error($result, "Erro ao deletar Produto do carrinho", 400);
+        }
+
+        Response::noContent();
     }
 
 

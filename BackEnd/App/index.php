@@ -3,12 +3,9 @@ namespace Pi\Visgo;
 
 require_once "../vendor/autoload.php";
 
+use Pi\Visgo\Common\Validator;
 use Pi\Visgo\Controller\ProductController;
-use Pi\Visgo\Model\User;
-use Pi\Visgo\Model\Address;
-use Pi\Visgo\Controller\UserController;
 use Pi\Visgo\Repository\ProductRepository;
-use Pi\Visgo\Repository\UserRepository;
 
 header('Content-Type: application/json');
 
@@ -45,17 +42,12 @@ switch ($method) {
 
     case 'GET':
 
-        if(preg_match('/\/user\/(\d+)/', $uri, $match)){
+        $data = json_decode(file_get_contents('php://input'));
 
-            $idUser = $match[1];
-            $userController->getUserById($idUser);
+        Validator::validatorObjectInput($data);
+        exit;
 
-        }else if($uri === '/user') {
-            
-            $userController->getAll();
-
-        }
-    break;
+        break;
 
     case 'DELETE':
 

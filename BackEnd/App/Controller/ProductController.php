@@ -27,14 +27,14 @@ class ProductController
             ResponseAssemblerError::response(400, "");
         }
 
-        ResponseAssemblerSuccess::response(201, $result);
+        ResponseAssemblerSuccess::response(201, $result, "Produto cadastrados com sucesso");
     }
 
     public function getAll()
     {
         $result = $this->productRepository->getAllProducts();
 
-        ResponseAssemblerSuccess::response(200, $result);
+        ResponseAssemblerSuccess::response(200, $result, "Requisição realizada com sucesso");
     }
 
     public function getById(int $idProduct)
@@ -43,11 +43,11 @@ class ProductController
 
             $result = $this->productRepository->getProductById($idProduct);
             
-            ResponseAssemblerSuccess::response(200, $result);
+            ResponseAssemblerSuccess::response(200, $result, "Requisição realizada com sucesso");
             
         } catch (ResourceNotFoundException $e) {
             
-            ResponseAssemblerError::response(404, "");
+            ResponseAssemblerError::response(404, $e->getMessage());
             
         }
         
@@ -64,7 +64,7 @@ class ProductController
             ResponseAssemblerError::response(404, "");
         }
 
-        ResponseAssemblerSuccess::response(200, $result);
+        ResponseAssemblerSuccess::response(200, $result, "Produto atualiado com sucesso");
     }
 
     public function discontinue(int $idProduct)
@@ -75,7 +75,7 @@ class ProductController
             ResponseAssemblerError::response(404, "");
         }
 
-        ResponseAssemblerSuccess::response(204, $result);
+        ResponseAssemblerSuccess::response(204, $result, "Produto descontinuado com sucesso");
     }
 
     private function assamblerProduct(object $data): Product
