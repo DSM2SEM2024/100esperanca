@@ -3,11 +3,11 @@ import { clearBody } from "./functions/clear_body";
 import { criaHomeHTML } from "./pages/home/home";
 import { telaLoginHtml } from "./pages/login/login_screen";
 import { criarUsuarioHtml } from "./pages/create-user/create_user";
-import { gerenciarUsuarioHtml } from "./pages/user/user_management";
 import { telaProdutosHtml } from "./pages/products/products";
 import { footerHtml } from "./components/footer";
 import { cartHtml } from "./pages/cart/cart";
 import { renderProductDetails } from "./pages/productDetails/productDetails";
+import { consultarUsuariosHtml, gerenciarUsuarioHtml } from "./pages/user/user_management";
 
 function renderContentBasedOnHash() {
     clearBody();
@@ -23,6 +23,8 @@ function renderContentBasedOnHash() {
         criarUsuarioHtml();
     } else if (location.hash === '#gerenciarUsuario') {
         gerenciarUsuarioHtml();
+    } else if (location.hash === '#consultarUsuario') {
+        consultarUsuariosHtml();
     } else if (location.hash === '#produtos') {
         telaProdutosHtml();
     } else if (location.hash === '#comprarProduto') {
@@ -33,7 +35,7 @@ function renderContentBasedOnHash() {
         clearBody();
         criaHomeHTML();
     } else if (location.hash.startsWith("#productDetails")) {
-        const id = location.hash.split("/")[1]; // Ajustar o acesso ao location.hash
+        const id = location.hash.split("/")[1];
         if (id) {
             renderProductDetails(id);
         } else {

@@ -1,4 +1,5 @@
-import { bolsas, cadernos, camisetas } from "../pages/products/components/constsProdutos";
+import { bolsas, cadernos, camisetas } from "../pages/products/components/consts-products";
+import { produtosLocais } from "../pages/products/products";
 
 export function getCarrinho() {
     const carrinho = localStorage.getItem("carrinho");
@@ -9,7 +10,7 @@ export function setCarrinho(carrinho) {
     localStorage.setItem("carrinho", JSON.stringify(carrinho));
 }
 
-export function addToCarrinho(produto) {
+export function addToCarrinho(produtosLocais) {
     console.log(produto);
     
     const carrinho = getCarrinho();

@@ -1,6 +1,6 @@
 import { getOrCreateMainElement } from "../../components/main";
 import { addToCarrinho } from "../../functions/cartManagement";
-import { cadernos, camisetas, bolsas } from "../products/components/constsProdutos";
+import { cadernos, camisetas, bolsas } from "../products/components/consts-products";
 
 export function renderProductDetails(id) {
     const produto = [...camisetas, ...cadernos, ...bolsas].find((item) => item.id === parseInt(id));
