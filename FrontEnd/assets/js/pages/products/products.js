@@ -1,5 +1,5 @@
 import { getOrCreateMainElement } from "../../components/main";
-import { getAllProducts } from "../../services/products-backend";
+import { getAllProducts } from "../../services/products";
 import { renderProducts } from "./components/render-products";
 
 let products;
@@ -7,6 +7,8 @@ let products;
 async function fetchProducts() {
     try {
         products = await getAllProducts();
+        console.log(products);
+        
     } catch (error) {
         console.error('Erro ao buscar produtos:', error);
     }
