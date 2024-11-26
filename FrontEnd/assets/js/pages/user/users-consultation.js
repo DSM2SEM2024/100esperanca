@@ -2,8 +2,8 @@ import { getOrCreateMainElement } from "../../components/main";
 import { gerenciarUsuarioHtml } from "./user-admin-screen";
 
 
-export function consultarUsuariosHtml(){
-    const consultarUsuarios = `
+export function gerenciarUsuariosHtml(){
+    const gerenciarUsuarios = `
     <section class="container-fluid flex-grow-1 p-4">
           <div id="tabela-container" class="text-center">
             <h2>Consulta de Usuários</h2>
@@ -77,6 +77,6 @@ export function consultarUsuariosHtml(){
           </div>
         </section>
     `
-    main.innerHTML = (consultarUsuarios);
+    main.innerHTML = gerenciarUsuarios;
     
 }  

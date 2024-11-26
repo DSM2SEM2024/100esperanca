@@ -8,7 +8,7 @@ import { footerHtml } from "./components/footer";
 import { cartHtml } from "./pages/cart/cart";
 import { renderProductDetails } from "./pages/productDetails/productDetails";
 import { telaAdminHtml } from "./pages/user/user-admin-screen";
-import { consultarUsuariosHtml } from "./pages/user/users-consultation";
+import { gerenciarUsuariosHtml } from "./pages/user/users-consultation";
 import { telaGerenciarProdutosHtml } from "./pages/user/products-management";
 import { telaGerenciarPromocoes } from "./pages/user/promotion-management";
 
@@ -23,8 +23,9 @@ function renderContentBasedOnHash() {
         criarUsuarioHtml();
     } else if (location.hash === '#telaAdmin') {
         telaAdminHtml();
-    } else if (location.hash === '#consultarUsuarios') {
-        consultarUsuariosHtml();
+    } else if (location.hash === '#gerenciarUsuarios') {
+
+        gerenciarUsuariosHtml();
     } else if (location.hash === '#produtos') {
         telaProdutosHtml();
     } else if (location.hash === '#comprarProduto') {

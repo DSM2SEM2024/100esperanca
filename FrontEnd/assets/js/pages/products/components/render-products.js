@@ -1,4 +1,3 @@
-
 export function renderProducts(produtos) {
     return produtos.map((produto) => `
         <div class="col" onclick='navegarParaDetalhes(${produto.id})'>
