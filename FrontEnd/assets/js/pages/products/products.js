@@ -1,6 +1,12 @@
 import { getOrCreateMainElement } from "../../components/main";
 import { addToCarrinho } from "../../functions/cartManagement";
+import { getAllProducts } from "../../services/products-backend";
 import { renderProducts } from "./components/render-products";
+
+const products = getAllProducts().then(result => result.data);
+console.log(products);
+
+
 
 // Dados simulados localmente
 export const produtosLocais = [

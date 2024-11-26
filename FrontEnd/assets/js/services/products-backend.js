@@ -4,7 +4,11 @@ const uri = "products";
 
 export async function getAllProducts() {
     try {
-        const response = await fetch(`${baseUrl}${uri}`);
+        const response = await fetch(`${baseUrl}${uri}`, { 
+            method: 'GET', 
+            headers: { 
+                'Content-Type': 'application/json' 
+        }});
         const result = await response.json();
         return result;
     } catch (error) {

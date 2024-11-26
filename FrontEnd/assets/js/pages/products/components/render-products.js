@@ -8,7 +8,6 @@ function navegarParaDetalhes(id) {
     
 
 export function renderProducts(produtos) {
-    console.log(getAllProducts);
     
     return produtos.map((produto) => `
         <div class="col" onclick='navegarParaDetalhes(${produto.id})'>
