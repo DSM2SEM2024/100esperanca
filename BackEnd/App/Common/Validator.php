@@ -3,9 +3,9 @@ namespace Pi\Visgo\Common;
 
 
 use Exception;
-use Pi\Visgo\Common\Responses\ResponseAssemblerError;
 use Pi\Visgo\Common\DateTimeZoneCustom;
-use Pi\Visgo\Common\Responses\ProblemAndFiledError;
+use Pi\Visgo\Common\Responses\ProblemAndFieldError;
+use Pi\Visgo\Common\Responses\Response;
 
 class Validator
 {
@@ -16,7 +16,7 @@ class Validator
         $currentDateTime = DateTimeZoneCustom::getCurrentDateTime();
 
         if (!($date > $currentDateTime)) {
-            ResponseAssemblerError::response(404, "A data não pode ser antecedente a data atual");
+            Response::error( "A data não pode ser antecedente a data atual", 400);
             throw new Exception("Data não pode ser antecedente a data atual");
         }
 
@@ -44,11 +44,11 @@ class Validator
         $message = " é campo obrigatório";
         foreach ($data as $key => $value) {
             if (!self::isValidValue($value)) {
-                ProblemAndFiledError::addFieldsWithError(['field' => $key, 'message' => $key . $message]);
+                ProblemAndFieldError::addFieldsWithError(['field' => $key, 'message' => $key . $message]);
             }
         }
 
-        return ProblemAndFiledError::getFieldsError();
+        return ProblemAndFieldError::getFieldsError();
     }
     private static function isValidValue($value): bool
     {
