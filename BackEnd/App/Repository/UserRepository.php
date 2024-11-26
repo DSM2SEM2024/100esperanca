@@ -5,6 +5,7 @@ use PDO;
 use Exception;
 use PDOException;
 use Pi\Visgo\Common\Exceptions\ErrorCreatingEntityException;
+use Pi\Visgo\Common\Exceptions\ResourceNotFoundException;
 use Pi\Visgo\Model\User;
 use Pi\Visgo\Model\Address;
 use Pi\Visgo\Database\Connection;
@@ -28,7 +29,7 @@ class UserRepository
         $this->roleRepository = new RoleRepository($this->connection);
     }
 
-    public function createUser(User $user)
+    public function createUser(User $user): bool
     {
         try {
             $this->connection->beginTransaction();
@@ -82,13 +83,14 @@ class UserRepository
 
     }
 
-    public function updateUserAddress(User $user)
+    public function updateUserWithAddress(User $user): bool
     {
         try {
             $this->connection->beginTransaction();
             $oldUser = $this->getUserById($user->getId());
+            $idUser = $oldUser->getId();
 
-            $resultDeleteAddress = $this->addressRepository->deleteByIdAddress($oldUser->getId());
+            $resultDeleteAddress = $this->deleteUserAddresses($idUser);
 
             if (!$resultDeleteAddress) {
                 throw new Exception("Erro ao deletar Address");
@@ -100,11 +102,18 @@ class UserRepository
                 throw new ErrorCreatingEntityException('Address');
             }
 
-            $newAddressId = $this->connection->lastInsertId();
+            $resultAddresses = $this->creatorAssociationUserAddress($idsAddress, $idUser);
 
-            $query = "UPDATE $this->table SET id_address = :id_address";
+            $name = $oldUser->getName();
+            $email = $oldUser->getEmail();
+            $password = $oldUser->getPassword();
+
+            $query = "UPDATE $this->table SET password = :password, email = :email, name = :name WHERE id = :idUser";
             $stmt = $this->connection->prepare($query);
-            $stmt->bindParam(":id_address", $newAddressId, PDO::PARAM_INT);
+            $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+            $stmt->bindParam(':id', $idUser, PDO::PARAM_INT);
             $result = $stmt->execute();
 
             $this->connection->commit();
@@ -112,22 +121,7 @@ class UserRepository
             return $result;
         } catch (PDOException $e) {
             $this->connection->rollBack();
-            throw new Exception($e->getMessage(), $e->getCode(), $e);
-        }
-    }
-
-    /* 
-        Implementação junto com a lógica de login e segmentação de recursos por tipo de usuário
-    */
-    public function updateUserRole(User $user)
-    {
-        try {
-
-
-
-        } catch (PDOException $e) {
-            $this->connection->rollBack();
-            throw new Exception($e->getMessage(), $e->getCode(), $e);
+            return false;
         }
     }
 
@@ -165,12 +159,17 @@ class UserRepository
     }
 
 
-    public function getUserById($id)
+    public function getUserById(int $idUser): User
     {
         $query = "SELECT * FROM $this->table WHERE $this->table.id = :id";
         $stmt = $this->connection->prepare($query);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
+        $stmt->bindParam(':id', $idUser, PDO::PARAM_INT);
+        $result = $stmt->execute();
+
+        if (!$result) {
+            throw new ResourceNotFoundException('User', $idUser);
+        }
+
         $userData = $stmt->fetch(PDO::FETCH_OBJ);
         $userModel = $this->assemblerUserWithAddress($userData);
 
@@ -275,6 +274,14 @@ class UserRepository
             $this->connection->rollBack();
             return false;
         }
+    }
+
+    private function deleteUserAddresses(int $idUser): bool
+    {
+        $query = "DELETE FROM $this->tableAssocAddress WHERE id_user = :id_user";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindParam(":idUser", $idUser, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 
 }

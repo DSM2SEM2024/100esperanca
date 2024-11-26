@@ -31,6 +31,18 @@ class UserController
         }
     }
 
+    public function update(object $data)
+    {
+        try {
+            $user = $this->assemblerUser($data);
+            $this->userRepository->updateUserWithAddress($user);
+        } catch (ErrorCreatingEntityException $e) {
+            Response::error($e->getMessage(), 500);
+        } catch (PDOException $e) {
+            Response::error($e->getMessage(), 500);
+        }
+    }
+
     public function getAll()
     {
         $users = $this->userRepository->getAllUsers();
