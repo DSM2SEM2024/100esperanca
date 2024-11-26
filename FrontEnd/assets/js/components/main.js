@@ -8,6 +8,10 @@ export const getOrCreateMainElement = () => {
         if (header) {
             header.insertAdjacentElement('afterend', main);
         }
+        const footer = document.getElementsByTagName('footer')[0];
+        if (footer) {
+            footer.insertAdjacentElement('beforebegin', main);
+        }
     }
     return main;
 };

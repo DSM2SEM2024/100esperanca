@@ -17,12 +17,8 @@ export const headerHtml = `
         <button class="btn btn-outline-success border-0">Home</button>
       </a>
 
-      <a id="createUser-Link" href="#criarUsuario" class="text-decoration-none text-success" role="button">
-        <button class="btn btn-outline-success border-0">Criar Usuário</button>
-      </a>
-
-      <a id="manageUser-Link" href="#gerenciarUsuario" class="text-decoration-none text-success" role="button">
-        <button class="btn btn-outline-success border-0">Gerenciar Usuário</button>
+      <a id="manageUser-Link" href="#telaAdmin" class="text-decoration-none text-success" role="button">
+        <button class="btn btn-outline-success border-0">Tela Admin</button>
       </a>
 
       <a id="produtos-Link" href="#produtos" class="text-decoration-none text-success" role="button">
@@ -47,8 +43,8 @@ export const headerHtml = `
           </li>
 
           <li>
-            <a class="dropdown-item dropdown-item-text text-danger" href="#">
-              Logout
+            <a class="dropdown-item link-outline-success dropdown-item-text text-success" href="#criarUsuario">
+              Cadastro
             </a>
           </li>
         </ul>
@@ -80,13 +76,13 @@ voltarButton.addEventListener('click', () => {
 });
 
 export function updateNavbarLinks() {
-  const createUserLink = document.getElementById('createUser-Link');
+  
   const manageUserLink = document.getElementById('manageUser-Link');
   const productsLink = document.getElementById('produtos-Link');
   const homeLink = document.getElementById('home-Link');
 
-  createUserLink.style.display = location.hash === '#criarUsuario' ? 'none' : 'inline';
-  manageUserLink.style.display = location.hash === '#gerenciarUsuario' ? 'none' : 'inline';
+  
+  manageUserLink.style.display = location.hash === '#telaAdmin' ? 'none' : 'inline';
   productsLink.style.display = location.hash === '#produtos' ? 'none' : 'inline';
   homeLink.style.display = location.hash === '#home' || location.hash === '' ? 'none' : 'inline';
   

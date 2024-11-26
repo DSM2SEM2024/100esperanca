@@ -21,22 +21,22 @@ export const produtosLocais = [
     {
         id: 1,
         nome: "Camiseta Branca",
-        descricao: "Camiseta básica branca de algodão",
-        preco: "R$49,99",
+        descricao: "Camiseta básica",
+        preco: "R$59,99",
         img: "https://via.placeholder.com/150"
     },
     {
         id: 2,
         nome: "Bolsa de Couro",
-        descricao: "Bolsa estilosa de couro legítimo",
-        preco: "R$149,99",
+        descricao: "Bolsa estilosa",
+        preco: "R$89,99",
         img: "https://via.placeholder.com/150"
     },
     {
         id: 3,
         nome: "Caderno",
         descricao: "Caderno de 200 folhas",
-        preco: "R$19,99",
+        preco: "R$39,99",
         img: "https://via.placeholder.com/150"
     }
 ];

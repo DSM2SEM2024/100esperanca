@@ -7,7 +7,12 @@ import { telaProdutosHtml } from "./pages/products/products";
 import { footerHtml } from "./components/footer";
 import { cartHtml } from "./pages/cart/cart";
 import { renderProductDetails } from "./pages/productDetails/productDetails";
-import { consultarUsuariosHtml, gerenciarUsuarioHtml } from "./pages/user/user_management";
+import { telaAdminHtml } from "./pages/user/user-admin-screen";
+import { consultarUsuariosHtml } from "./pages/user/users-consultation";
+import { telaGerenciarProdutosHtml } from "./pages/user/products-management";
+import { telaGerenciarPromocoes } from "./pages/user/promotion-management";
+
+
 
 function renderContentBasedOnHash() {
     clearBody();
@@ -16,9 +21,9 @@ function renderContentBasedOnHash() {
         telaLoginHtml();
     } else if (location.hash === '#criarUsuario') {
         criarUsuarioHtml();
-    } else if (location.hash === '#gerenciarUsuario') {
-        gerenciarUsuarioHtml();
-    } else if (location.hash === '#consultarUsuario') {
+    } else if (location.hash === '#telaAdmin') {
+        telaAdminHtml();
+    } else if (location.hash === '#consultarUsuarios') {
         consultarUsuariosHtml();
     } else if (location.hash === '#produtos') {
         telaProdutosHtml();
@@ -36,6 +41,13 @@ function renderContentBasedOnHash() {
         } else {
             console.error("ID do produto não especificado.");
         }
+    } else if (location.hash === '#gerenciarProdutos') {
+        clearBody();
+        telaGerenciarProdutosHtml();
+
+    } else if (location.hash === '#gerenciarPromocoes') {
+        clearBody();
+        telaGerenciarPromocoes();
     }
 }
 
