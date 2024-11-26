@@ -1,7 +1,10 @@
 <?php
 namespace Pi\Visgo\Controller;
 
+use PDOException;
+use Pi\Visgo\Common\Exceptions\ErrorCreatingEntityException;
 use Pi\Visgo\Common\Responses\Response;
+use Pi\Visgo\Model\Address;
 use Pi\Visgo\Model\Role;
 use Pi\Visgo\Model\User;
 use Pi\Visgo\Repository\UserRepository;
@@ -14,6 +17,18 @@ class UserController
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
+    }
+
+    public function create(object $data)
+    {
+        try {
+            $user = $this->assemblerUser($data);
+            $user = $this->userRepository->createUser($user);
+        } catch (ErrorCreatingEntityException $e) {
+            Response::error($e->getMessage(), 500);
+        } catch (PDOException $e) {
+            Response::error($e->getMessage(), 500);
+        }
     }
 
     public function getAll()
@@ -41,15 +56,33 @@ class UserController
 
     private function assemblerUser(object $data): User
     {
-        $role = new Role();
-        $role->setId($data->role);
+        $roles = array();
+        $addresses = array();
+
+        foreach ($data->roles as $idRole) {
+            $role = new Role();
+            $role->setId($idRole);
+            array_push($roles, $role);
+        }
+
+        foreach ($data->addresses as $address) {
+            $addressModel = new Address();
+            $addressModel->setState($address->state)
+                ->setCity($address->city)
+                ->setNeighborhood($address->neighborhood)
+                ->setNumber($address->number)
+                ->setStreet($address->street)
+                ->setCep($address->cep);
+            array_push($addresses, $address);
+        }
 
         $user = new User();
         $user->setName($data->name)
-        ->setEmail($data->email)
-        ->setPassword($data->password)
-        ->setRole($role)
-        ->
+            ->setEmail($data->email)
+            ->setPassword($data->password)
+            ->setRole($roles)
+            ->setAddresses($addresses);
 
+        return $user;
     }
 }

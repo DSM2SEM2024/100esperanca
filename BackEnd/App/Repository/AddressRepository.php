@@ -40,6 +40,37 @@ class AddressRepository
         return $executionCompleted;
     }
 
+    public function createsMultipleAddresses(array $addresses): array
+    {
+        $idsAddresses = array();
+
+        foreach ($addresses as $address) {
+            $state = $address->getState();
+            $city = $address->getCity();
+            $neighborhood = $address->getNeighborhood();
+            $number = $address->getNumber();
+            $street = $address->getStreet();
+            $cep = $address->getCep();
+    
+            $query = "INSERT INTO $this->table (state, city, neighborhood, number, street, cep) VALUES (:state, :city, :neighborhood, :number, :street, :cep)";
+    
+            $stmt = $this->connection->prepare($query);
+    
+            $stmt->bindParam(":state", $state);
+            $stmt->bindParam(":city", $city);
+            $stmt->bindParam(":neighborhood", $neighborhood);
+            $stmt->bindParam(":number", $number);
+            $stmt->bindParam(":street", $street);
+            $stmt->bindParam(":cep", $cep);
+    
+            $executionCompleted = $stmt->execute();
+
+            array_push ($idsAddresses, $this->connection->lastInsertId());
+        }
+
+        return $idsAddresses;
+    }
+
     public function updateAddress($id, Address $address)
     {
         $state = $address->getState();

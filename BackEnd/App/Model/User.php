@@ -2,18 +2,16 @@
 namespace Pi\Visgo\Model;
 
 use JsonSerializable;
-use Pi\Visgo\Model\Address;
-use Pi\Visgo\Model\Role;
 
 class User implements JsonSerializable
 {
 
-    private $id;
-    private $name;
-    private $email;
-    private $password;
-    private Role $role;
-    private Address $address;
+    private int $id;
+    private string $name;
+    private string $email;
+    private string $password;
+    private array $role;
+    private array $addresses;
 
 
     /**
@@ -106,40 +104,36 @@ class User implements JsonSerializable
     }
 
     /**
-     * Get the value of address
-     *
-     * @return Address
+     * @return array
      */
-    public function getAddress(): Address
+    public function getAddresses(): array
     {
-        return $this->address;
+        return $this->addresses;
     }
 
     /**
-     * Set the value of address
-     *
-     * @param Address $address
+     * @param array $addresses 
      * @return self
      */
-    public function setAddress(Address $address): self
+    public function setAddresses(array $addresses): self
     {
-        $this->address = $address;
+        $this->addresses = $addresses;
         return $this;
     }
 
     /**
-     * @return Role
+     * @return array
      */
-    public function getRole(): Role
+    public function getRole(): array
     {
         return $this->role;
     }
 
     /**
-     * @param Role $role 
+     * @param array $role 
      * @return self
      */
-    public function setRole(Role $role): self
+    public function setRole(array $role): self
     {
         $this->role = $role;
         return $this;
@@ -151,7 +145,7 @@ class User implements JsonSerializable
             'id' => $this->getId(),
             'name' => $this->getName(),
             'email' => $this->getEmail(),
-            'address' => $this->getAddress()
+            'addresses' => $this->getAddresses()
         ];
     }
 
