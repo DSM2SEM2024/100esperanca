@@ -36,7 +36,7 @@ export const footerHtml = `
       <ul class="nav flex-column">
         <li class="nav-item mb-2">
           <p>
-            Visgo de Jaca é uma marca autoral, cuja essência está profundamente ligada à cultura baiana, especialmente à capoeira e à música, com foco na percussão. Antes de fundar a marca, Jaca atuou na área de enfermagem até 2014, mas decidiu canalizar suas vivências pessoais e artísticas em um projeto que reflete sua identidade e paixão pela arte.
+        Antes de fundar a marca, Jaca atuou na área de enfermagem até 2014, mas decidiu canalizar suas vivências pessoais e artísticas em um projeto que reflete sua identidade e paixão pela arte.
           </p>
         </li>
       </ul>
