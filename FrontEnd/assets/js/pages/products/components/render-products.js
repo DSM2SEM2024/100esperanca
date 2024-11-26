@@ -1,6 +1,12 @@
 import { addToCarrinho } from "../../../functions/cartManagement";
 import { getAllProducts } from "../../../services/products-backend";
 
+function navegarParaDetalhes(id) {
+    localStorage.setItem("produtoId", id);
+    window.location.hash = `#productDetails/${id}`;
+    }
+    
+
 export function renderProducts(produtos) {
     console.log(getAllProducts);
     
@@ -23,4 +29,5 @@ export function renderProducts(produtos) {
             </div>
         </div>
     `).join(''); 
+    
 }
