@@ -1,10 +1,18 @@
 import { getOrCreateMainElement } from "../../components/main";
-import { addToCarrinho } from "../../functions/cartManagement";
 import { getAllProducts } from "../../services/products-backend";
 import { renderProducts } from "./components/render-products";
 
-const products = getAllProducts().then(result => result.data);
-console.log(products);
+let products;
+
+async function fetchProducts() {
+    try {
+        products = await getAllProducts();
+    } catch (error) {
+        console.error('Erro ao buscar produtos:', error);
+    }
+}
+
+fetchProducts();
 
 
 
@@ -35,6 +43,8 @@ export const produtosLocais = [
 
 // Função principal para renderizar a tela de produtos
 export function telaProdutosHtml() {
+
+    fetchProducts();
     const telaProdutos = `
         <nav class="navbar navbar-expand-lg d-flex bg-body-tertiary bg-opacity-75" id="navFiltros">
             <section class="container-fluid d-flex justify-content-evenly">
@@ -102,11 +112,11 @@ export function telaProdutosHtml() {
     function navegarParaDetalhes(id) {
         localStorage.setItem("produtoId", id);
         window.location.hash = `#productDetails/${id}`;
-        }
+    }
 
     const productContainer = document.querySelector("#productContainer .row");
     if (productContainer) {
-        productContainer.innerHTML = renderProducts(produtosLocais);
+        productContainer.innerHTML = renderProducts(products);
     } else {
         console.error("Container de produtos não encontrado");
     }

@@ -11,11 +11,6 @@ import { consultarUsuariosHtml, gerenciarUsuarioHtml } from "./pages/user/user_m
 
 function renderContentBasedOnHash() {
     clearBody();
-    const main = document.getElementById("main");
-    if (!main) {
-        console.error("Elemento principal não encontrado!");
-        return;
-    }
 
     if (location.hash === '#login') {
         telaLoginHtml();
