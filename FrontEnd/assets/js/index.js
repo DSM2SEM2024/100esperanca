@@ -9,7 +9,7 @@ import { cartHtml } from "./pages/cart/cart";
 import { renderProductDetails } from "./pages/productDetails/productDetails";
 import { telaAdminHtml } from "./pages/user/user-admin-screen";
 import { consultarUsuariosHtml } from "./pages/user/users-consultation";
-import { telaGerenciarUsuariosHtml } from "./pages/user/products-management";
+import { telaGerenciarProdutosHtml } from "./pages/user/products-management";
 import { telaGerenciarPromocoes } from "./pages/user/promotion-management";
 
 
@@ -46,9 +46,9 @@ function renderContentBasedOnHash() {
         } else {
             console.error("ID do produto não especificado.");
         }
-    } else if (location.hash === '#gerenciarUsuarios') {
+    } else if (location.hash === '#gerenciarProdutos') {
         clearBody();
-        telaGerenciarUsuariosHtml();
+        telaGerenciarProdutosHtml();
 
     } else if (location.hash === '#gerenciarPromocoes') {
         clearBody();

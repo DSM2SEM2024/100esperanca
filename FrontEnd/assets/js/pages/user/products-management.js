@@ -1,14 +1,14 @@
 import { getOrCreateMainElement } from "../../components/main";
 
-export function telaGerenciarUsuariosHtml() {
-    const gerenciarUsuarios = `
+export function telaGerenciarProdutosHtml() {
+    const gerenciarProdutos = `
     <section class="container-fluid flex-grow pb-5">
       <form id="formGerenciarProdutos" class="border p-4 rounded shadow">
   <h4 class="mb-3">Gerenciar Produtos</h4>
   <div class="mb-4">
   <label for="pesquisaProduto" class="form-label">Pesquisar Produto</label>
   <div class="input-group">
-    <input type="text" class="form-control" id="pesquisaProduto" placeholder="Digite o nome, arte ou ID do produto">
+    <input type="text" class="form-control" id="pesquisaProduto" placeholder="Digite o nome, arte ou ID do produto ou Promoção">
     <button class="btn btn-success" type="button" id="botaoPesquisar">Pesquisar</button>
   </div>
   <small class="text-muted">Pesquise por Nome, ID ou Arte do Produto.</small>
@@ -60,6 +60,6 @@ export function telaGerenciarUsuariosHtml() {
     `;
     const main = getOrCreateMainElement();
     main.classList = "d-flex p-5 justify-content-center align-items-center"
-    main.innerHTML = (gerenciarUsuarios);
+    main.innerHTML = (gerenciarProdutos);
   }
   

@@ -37,13 +37,13 @@ export function telaAdminHtml() {
 
         <ul class="list-group list-group justify-content-center">
           <li class="list-group-item">
-            <a href="#consultarUsuarios" class="text-decoration-none text-success">
-            Consultar Usuários
+            <a href="#gerenciarUsuarios" class="text-decoration-none text-success">
+            Gerenciar Usuários
             </a>
           </li>
           <li class="list-group-item">
-            <a href="#gerenciarUsuarios" class="text-decoration-none text-success">
-            Gerenciar Usuários
+            <a href="#gerenciarProdutos" class="text-decoration-none text-success">
+            Gerenciar Produtos
             </a>
           </li>
           <li class="list-group-item">
