@@ -22,7 +22,7 @@ class ArtController
     {
         $isValid = Validator::validatorObjectInput($data);
 
-        if (!$isValid) {
+        if (!empty($isValid)) {
             Response::error(ProblemAndFieldError::getFieldsError(), "Verifique seus dados de entrada", 400);
         }
 
@@ -37,7 +37,7 @@ class ArtController
     {
         $isValid = Validator::validatorObjectInput($data);
 
-        if (!$isValid) {
+        if (!empty($isValid)) {
             Response::error(ProblemAndFieldError::getFieldsError(), "Verifique seus dados de entrada", 400);
         }
 

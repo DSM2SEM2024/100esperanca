@@ -20,9 +20,9 @@ class Routes
                 '/products' => [ProductController::class, 'getAll'],
                 '/products/{id}' => [ProductController::class, 'getById'],
 
-                '/orders' => [OrderController::class, 'getAll'],
-                '/orders/{id}' => [OrderController::class, 'getById'],
                 '/orders/art' => [OrderController::class, 'getAllOrderFromArt'],
+                '/orders/{id}' => [OrderController::class, 'getById'],
+                '/orders' => [OrderController::class, 'getAll'], 
 
                 '/promotions' => [PromotionController::class, 'getAllPromotion'],
                 '/promotions/{id}' => [PromotionController::class, 'searchById'],
