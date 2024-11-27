@@ -3,6 +3,7 @@ namespace Pi\Visgo\Controller;
 
 use PDOException;
 use Pi\Visgo\Common\Exceptions\ErrorCreatingEntityException;
+use Pi\Visgo\Common\Exceptions\ResourceNotFoundException;
 use Pi\Visgo\Common\Responses\Response;
 use Pi\Visgo\Model\Address;
 use Pi\Visgo\Model\Role;
@@ -14,9 +15,9 @@ class UserController
 
     private UserRepository $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct()
     {
-        $this->userRepository = $userRepository;
+        $this->userRepository = new UserRepository('sqlite');
     }
 
     public function create(object $data)
@@ -51,8 +52,12 @@ class UserController
 
     public function getById($idUser)
     {
-        $user = $this->userRepository->getUserById($idUser);
-        Response::success($user, "Requisição realizada com sucesso", 200);
+        try {
+            $user = $this->userRepository->getUserById($idUser);
+            Response::success($user, "Requisição realizada com sucesso", 200);
+        } catch (ResourceNotFoundException $e) {
+            Response::error($e->getMessage(), 404);
+        }
     }
 
     public function delete($idUser)

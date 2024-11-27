@@ -7,8 +7,8 @@ use Pi\Visgo\Database\Connection;
 use PDO;
 
 class ArtRepository {
-    private $connection;
-    private $table = "art";
+    private PDO $connection;
+    private string $table = "art";
 
 
     public function __construct($drive){

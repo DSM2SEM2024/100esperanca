@@ -12,9 +12,9 @@ use Pi\Visgo\Common\Responses\Response;
 class PromotionRepository
 {
 
-    private $connection;
-    private $table = "promotion";
-    private $tableassoc = "product_promotion";
+    private PDO $connection;
+    private string $table = "promotion";
+    private string $tableassoc = "product_promotion";
 
     public function __construct($drive)
     {

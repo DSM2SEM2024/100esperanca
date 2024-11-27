@@ -11,9 +11,9 @@ class CartController
 
     private $CartRepository;
 
-    public function __construct(CartRepository $CartRepository)
+    public function __construct()
     {
-        $this->CartRepository = $CartRepository;
+        $this->CartRepository = new CartRepository('sqlite');
     }
 
     public function create($data)

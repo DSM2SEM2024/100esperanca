@@ -7,8 +7,8 @@ use PDO;
 class AddressRepository
 {
 
-    private $connection;
-    private $table = "address";
+    private PDO $connection;
+    private string $table = "address";
 
     public function __construct(PDO $connection)
     {

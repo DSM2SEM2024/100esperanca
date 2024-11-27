@@ -15,7 +15,7 @@ use Pi\Visgo\Repository\AddressRepository;
 class UserRepository
 {
 
-    private $connection;
+    private PDO $connection;
     private AddressRepository $addressRepository;
     private RoleRepository $roleRepository;
     private string $table = 'user';
@@ -164,13 +164,14 @@ class UserRepository
         $query = "SELECT * FROM $this->table WHERE $this->table.id = :id";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(':id', $idUser, PDO::PARAM_INT);
-        $result = $stmt->execute();
+        $stmt->execute();
 
-        if (!$result) {
+        $userData = $stmt->fetch(PDO::FETCH_OBJ);
+
+        if (!$userData) {
             throw new ResourceNotFoundException('User', $idUser);
         }
 
-        $userData = $stmt->fetch(PDO::FETCH_OBJ);
         $userModel = $this->assemblerUserWithAddress($userData);
 
         return $userModel;

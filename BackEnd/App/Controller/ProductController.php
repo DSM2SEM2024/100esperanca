@@ -11,9 +11,9 @@ class ProductController
 {
     private ProductRepository $productRepository;
 
-    public function __construct(ProductRepository $productRepository)
+    public function __construct()
     {
-        $this->productRepository = $productRepository;
+        $this->productRepository = new ProductRepository('sqlite');
     }
 
     public function create(object $data)

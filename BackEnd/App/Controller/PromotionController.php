@@ -45,7 +45,7 @@ class PromotionController
         Response::success($result, "Promoção atualizada com sucesso", 200);
     }
 
-    public function ClosingPromotion($id)
+    public function closingPromotion($id)
     {
 
         $result = $this->promotionRepository->ClosePromotionById($id);
@@ -57,7 +57,7 @@ class PromotionController
         Response::success($result, "Promoção fechada com sucesso!", 200);
     }
 
-    public function OpeningPromotion($id, $data)
+    public function openingPromotion($id, $data)
     {
 
         $promotionModel = new Promotion();

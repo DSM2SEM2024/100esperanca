@@ -3,19 +3,20 @@ namespace Pi\Visgo\Repository;
 
 use PDO;
 use PDOException;
+use Pi\Visgo\Database\Connection;
 use Pi\Visgo\Model\Order;
 
 class OrderRepository
 {
-    private $connection;
-    private $table = "`order`";
+    private PDO $connection;
+    private string $table = "`order`";
 
-    private $tableAssoc = "order_art";
+    private string $tableAssoc = "order_art";
 
 
-    public function __construct(PDO $connection)
+    public function __construct($drive)
     {
-        $this->connection = $connection;
+        $this->connection = Connection::getInstance($drive);
     }
 
 

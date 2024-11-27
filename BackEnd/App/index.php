@@ -1,66 +1,22 @@
 <?php
 namespace Pi\Visgo;
 
+use Pi\Visgo\Router\Router;
+use Pi\Visgo\Router\Routes;
+
 require_once "../vendor/autoload.php";
 
-use Pi\Visgo\Common\Validator;
-use Pi\Visgo\Controller\ProductController;
-use Pi\Visgo\Repository\ProductRepository;
-
 header("Access-Control-Allow-Origin: *");
-header('Content-Type: application/json');
-
-$productRepository = new ProductRepository('sqlite');
-$productController = new ProductController($productRepository);
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
+$routes = Routes::getRoutes();
 
-
-switch ($method) {
-    case 'POST':
-        $data = json_decode(file_get_contents('php://input'));
-
-        if ($uri == '/products') {
-
-            $productController->create($data);
-
-        }
-
-
-        break;
-
-    case 'PUT':
-
-        if (preg_match('/\/products\/(\d+)$/', $uri, $match)) {
-            $idUser = $match[1];
-            $data = json_decode(file_get_contents('php://input'));
-
-            $productController->update($idUser, $data);
-        }
-
-        break;
-
-    case 'GET':
-
-        if (preg_match('/\/products\/(\d+)$/', $uri, $match)) {
-            $idProduct = $match[1];
-
-            $productController->getById($idProduct);
-
-        }
-
-        $productController->getAll();
-
-        break;
-
-    case 'DELETE':
-
-        if (preg_match('/\/products\/(\d+)/', $uri, $match)) {
-            $idUser = $match[1];
-            $productController->discontinue($idUser);
-        }
-
-    default:
-        break;
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
 }
+
+Router::dispatcher($routes,$method,$uri);

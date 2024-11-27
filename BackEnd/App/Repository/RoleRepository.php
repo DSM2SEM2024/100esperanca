@@ -7,8 +7,8 @@ use PDO;
 
 class RoleRepository{
 
-    private $connection;
-    private $table = "role";
+    private PDO $connection;
+    private string $table = "role";
 
     public function __construct(PDO $connection) {
         $this->connection = $connection;

@@ -11,9 +11,9 @@ class OrderController
 
     private $orderRepository;
 
-    public function __construct(OrderRepository $orderRepository)
+    public function __construct()
     {
-        $this->orderRepository = $orderRepository;
+        $this->orderRepository = new OrderRepository('sqlite');
     }
 
     public function create($data)

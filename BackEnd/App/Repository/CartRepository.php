@@ -10,9 +10,9 @@ use PDOException;
 class CartRepository
 {
 
-    private $connection;
-    private $table = "cart";
-    private $tableassoc = "cart_product";
+    private PDO $connection;
+    private string $table = "cart";
+    private string $tableassoc = "cart_product";
 
     public function __construct($drive)
     {

@@ -13,9 +13,9 @@ class ArtController
 
     private $artRepository;
 
-    public function __construct(ArtRepository $artRepository)
+    public function __construct()
     {
-        $this->artRepository = $artRepository;
+        $this->artRepository = new ArtRepository('sqlite');
     }
 
     public function create($data)
