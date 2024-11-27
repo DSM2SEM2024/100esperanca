@@ -1,6 +1,6 @@
 import { bolsas, cadernos, camisetas } from "../pages/products/components/consts-products";
-import { produtosLocais } from "../pages/products/products";
-import { getAllProducts } from "../services/products-backend";
+//  import { produtosLocais } from "../pages/products/products";
+// import { getAllProducts } from "../services/products-backend";
 
 export function getCarrinho() {
     const carrinho = localStorage.getItem("carrinho");

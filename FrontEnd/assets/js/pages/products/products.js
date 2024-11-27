@@ -8,14 +8,12 @@ async function fetchProducts() {
     try {
         products = await getAllProducts();
         console.log(products);
-        
+
     } catch (error) {
         console.error('Erro ao buscar produtos:', error);
     }
 }
-
 fetchProducts();
-
 
 
 // Dados simulados localmente
@@ -46,8 +44,9 @@ export const produtosLocais = [
 // Função principal para renderizar a tela de produtos
 export function telaProdutosHtml() {
 
-    fetchProducts();
+
     const telaProdutos = `
+    <button onclick="${getAllProducts}">butao</button>
         <nav class="navbar navbar-expand-lg d-flex bg-body-tertiary bg-opacity-75" id="navFiltros">
             <section class="container-fluid d-flex justify-content-evenly">
                 <div class="">

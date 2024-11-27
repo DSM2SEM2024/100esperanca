@@ -19,8 +19,9 @@ export function renderProducts(produtos) {
             </div>
         </div>
     `).join('');
-
+   
 }
+
 
 function navegarParaDetalhes(id) {
     localStorage.setItem("produtoId", id);
