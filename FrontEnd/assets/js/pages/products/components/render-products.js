@@ -1,6 +1,8 @@
+
+
 export function renderProducts(produtos) {
     return produtos.map((produto) => `
-        <div class="col" onclick='navegarParaDetalhes(${produto.id})'>
+        <div class="col card-container" product-id="${produto.id}">
             <div class="card product-card shadow-sm hover-card border-0">
                 <img src="${produto.img}" class="card-img-top card-img-custom" alt="${produto.name}">
                 <div class="card-body border rounded-bottom border-success">
@@ -18,11 +20,4 @@ export function renderProducts(produtos) {
             </div>
         </div>
     `).join('');
-
 }
-
-function navegarParaDetalhes(id) {
-    localStorage.setItem("produtoId", id);
-    window.location.hash = `#productDetails/${id}`;
-}
-

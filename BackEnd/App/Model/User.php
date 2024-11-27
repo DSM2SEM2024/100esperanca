@@ -2,16 +2,16 @@
 namespace Pi\Visgo\Model;
 
 use JsonSerializable;
-use Pi\Visgo\Model\Address;
 
-class User implements JsonSerializable {
+class User implements JsonSerializable
+{
 
-    private $id;
-    private $name;
-    private $email;
-    private $password;
-    private $role;
-    private Address $address;
+    private int $id;
+    private string $name;
+    private string $email;
+    private string $password;
+    private array $role;
+    private array $addresses;
 
 
     /**
@@ -19,7 +19,8 @@ class User implements JsonSerializable {
      *
      * @return int
      */
-    public function getId(): int {
+    public function getId(): int
+    {
         return $this->id;
     }
 
@@ -29,7 +30,8 @@ class User implements JsonSerializable {
      * @param int $id
      * @return self
      */
-    public function setId(int $id): self {
+    public function setId(int $id): self
+    {
         $this->id = $id;
         return $this;
     }
@@ -39,7 +41,8 @@ class User implements JsonSerializable {
      *
      * @return string
      */
-    public function getName(): string {
+    public function getName(): string
+    {
         return $this->name;
     }
 
@@ -49,7 +52,8 @@ class User implements JsonSerializable {
      * @param string $name
      * @return self
      */
-    public function setName(string $name): self {
+    public function setName(string $name): self
+    {
         $this->name = $name;
         return $this;
     }
@@ -59,7 +63,8 @@ class User implements JsonSerializable {
      *
      * @return string
      */
-    public function getEmail(): string {
+    public function getEmail(): string
+    {
         return $this->email;
     }
 
@@ -69,7 +74,8 @@ class User implements JsonSerializable {
      * @param string $email
      * @return self
      */
-    public function setEmail(string $email): self {
+    public function setEmail(string $email): self
+    {
         $this->email = $email;
         return $this;
     }
@@ -79,7 +85,8 @@ class User implements JsonSerializable {
      *
      * @return string
      */
-    public function getPassword(): string {
+    public function getPassword(): string
+    {
         return $this->password;
     }
 
@@ -89,58 +96,56 @@ class User implements JsonSerializable {
      * @param string $password
      * @return self
      */
-    public function setPassword(string $password): self {
+    public function setPassword(string $password): self
+    {
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
         $this->password = $hashedPassword;
         return $this;
     }
 
     /**
-     * Get the value of role
-     *
-     * @return string
+     * @return array
      */
-    public function getRole(): string {
+    public function getAddresses(): array
+    {
+        return $this->addresses;
+    }
+
+    /**
+     * @param array $addresses 
+     * @return self
+     */
+    public function setAddresses(array $addresses): self
+    {
+        $this->addresses = $addresses;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRole(): array
+    {
         return $this->role;
     }
 
     /**
-     * Set the value of role
-     *
-     * @param string $role
+     * @param array $role 
      * @return self
      */
-    public function setRole(string $role): self {
+    public function setRole(array $role): self
+    {
         $this->role = $role;
         return $this;
     }
 
-    /**
-     * Get the value of address
-     *
-     * @return Address
-     */
-    public function getAddress(): Address {
-        return $this->address;
-    }
-
-    /**
-     * Set the value of address
-     *
-     * @param Address $address
-     * @return self
-     */
-    public function setAddress(Address $address): self {
-        $this->address = $address;
-        return $this;
-    }
-
-    public function jsonSerialize(): mixed {
+    public function jsonSerialize(): mixed
+    {
         return [
             'id' => $this->getId(),
             'name' => $this->getName(),
             'email' => $this->getEmail(),
-            'address' => $this->getAddress()
+            'addresses' => $this->getAddresses()
         ];
     }
 

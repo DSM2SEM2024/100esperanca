@@ -2,9 +2,10 @@ import { baseUrl } from "../services/baseUrl/base-url";
 
 const uri = "products";
 
+
 export async function getAllProducts() {
     try {
-        const response = await fetch(`${baseUrl}${uri}`, {
+        const response = await fetch(`${baseUrl}${uri}`,{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

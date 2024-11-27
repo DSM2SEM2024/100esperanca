@@ -1,13 +1,14 @@
 <?php
 namespace Pi\Visgo\Repository;
 
+use Pi\Visgo\Common\Exceptions\ResourceNotFoundException;
 use Pi\Visgo\Model\Art;
 use Pi\Visgo\Database\Connection;
 use PDO;
 
 class ArtRepository {
-    private $connection;
-    private $table = "art";
+    private PDO $connection;
+    private string $table = "art";
 
 
     public function __construct($drive){
@@ -59,13 +60,19 @@ class ArtRepository {
 
 }
 
-    public function getByIdArt($id){
+    public function getArtById($id): object{
         $query = "SELECT * FROM $this->table WHERE art.id = :id";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
         $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(PDO::FETCH_OBJ);
+
+        if (!$result) {
+            throw new ResourceNotFoundException("Art", $id);
+        }
+
+        return $result;
     }
 
     public function getAllArt(){
@@ -77,7 +84,7 @@ class ArtRepository {
     }
 
     public function deleteByIdArt($id){
-        $arraySearch = $this->getByIdArt($id);
+        $arraySearch = $this->getArtById($id);
         $query = "DELETE FROM ART WHERE art.id = :id";
         $stmt = $this->connection->prepare($query);
 
@@ -89,7 +96,7 @@ class ArtRepository {
         
     }
 
-    public function isDeletedArt($id) {
+    public function isDeletedArt($id): bool {
         $is_deleted = 1;
 
         $query = "UPDATE $this->table SET is_deleted = :is_deleted WHERE $this->table.id = :id";
@@ -104,7 +111,7 @@ class ArtRepository {
         return $executionCompleted;
     }
 
-    public function IsNotDeletedArt($id) {
+    public function IsNotDeletedArt($id): bool {
         $is_deleted = 0;
 
         $query = "UPDATE $this->table SET is_deleted = :is_deleted WHERE $this->table.id = :id";

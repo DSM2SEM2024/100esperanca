@@ -3,36 +3,33 @@ namespace Pi\Visgo\Common;
 
 
 use Exception;
-use Pi\Visgo\Database\Connection;
-use Pi\Visgo\Common\ResponseAssemblerError;
 use Pi\Visgo\Common\DateTimeZoneCustom;
+use Pi\Visgo\Common\Responses\ProblemAndFieldError;
+use Pi\Visgo\Common\Responses\Response;
 
-class Validator {
+class Validator
+{
 
-    private $connection;
-
-    public function __construct($drive) {
-        $this->connection = Connection::getInstance($drive);
-    }
-
-    public function ValidatorCurrentDate($date) {
+    public static function validatorCurrentDate($date)
+    {
 
         $currentDateTime = DateTimeZoneCustom::getCurrentDateTime();
 
-        if(!($date > $currentDateTime)){
-            ResponseAssemblerError::response(404, "A data não pode ser antecedente a data atual");
+        if (!($date > $currentDateTime)) {
+            Response::error( "A data não pode ser antecedente a data atual", 400);
             throw new Exception("Data não pode ser antecedente a data atual");
         }
 
     }
 
-    public function ValidatorRepetedValuesInArray($data){
+    public static function validatorRepetedValuesInArray($data): bool
+    {
 
         $count = array_count_values($data);
 
-        foreach($count as $values=> $quantify){
+        foreach ($count as $values => $quantify) {
 
-            if($quantify > 1){
+            if ($quantify > 1) {
                 return true;
             }
 
@@ -42,30 +39,27 @@ class Validator {
 
     }
 
-/*     public function ValidatorById($table, $dataId){
-
-
-        foreach($dataId as $id){
-    
-            $query = "SELECT * FROM $table WHERE id = :id";
-            $stmt = $this->connection->prepare($query);
-            $stmt->bindParam(":id", $id);
-            $stmt->execute();
-            
-            $result = ($stmt->fetch() !== false);
-
-            var_dump($result);
-            
-
-            if(!$result){
-                ResponseAssemblerError::response(404, "Produto já presente na promoção!");
-                throw new Exception("Erro ao inserir id no banco!");
+    public static function validatorObjectInput(object $data): array
+    {
+        $message = " é campo obrigatório";
+        foreach ($data as $key => $value) {
+            if (!self::isValidValue($value)) {
+                ProblemAndFieldError::addFieldsWithError(['field' => $key, 'message' => $key . $message]);
             }
-
-            return true;
         }
 
-} */
-
-
+        return ProblemAndFieldError::getFieldsError();
+    }
+    private static function isValidValue($value): bool
+    {
+        return is_string($value) && !self::isEmptyString($value) || self::isIntOrFloat($value);
+    }
+    private static function isEmptyString($value): bool
+    {
+        return empty(trim($value));
+    }
+    private static function isIntOrFloat($value): bool
+    {
+        return is_int($value) || is_float($value);
+    }
 }

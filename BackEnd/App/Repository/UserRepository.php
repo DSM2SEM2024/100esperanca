@@ -4,42 +4,49 @@ namespace Pi\Visgo\Repository;
 use PDO;
 use Exception;
 use PDOException;
+use Pi\Visgo\Common\Exceptions\ErrorCreatingEntityException;
+use Pi\Visgo\Common\Exceptions\ResourceNotFoundException;
 use Pi\Visgo\Model\User;
 use Pi\Visgo\Model\Address;
 use Pi\Visgo\Database\Connection;
 use Pi\Visgo\Repository\RoleRepository;
 use Pi\Visgo\Repository\AddressRepository;
 
-class UserRepository {
-    
-    private $connection;
+class UserRepository
+{
+
+    private PDO $connection;
     private AddressRepository $addressRepository;
     private RoleRepository $roleRepository;
-    private $table = "user";
+    private string $table = 'user';
+    private string $tableAssocRole = 'user_role';
+    private string $tableAssocAddress = 'user_address';
 
-    public function __construct($drive) {
+    public function __construct($drive)
+    {
         $this->connection = Connection::getInstance($drive);
         $this->addressRepository = new AddressRepository($this->connection);
         $this->roleRepository = new RoleRepository($this->connection);
     }
 
-    public function createUser(User $user) {
+    public function createUser(User $user): bool
+    {
         try {
             $this->connection->beginTransaction();
-            
-            $resultAddress = $this->addressRepository->createAddress($user->getAddress());
 
-            if (!$resultAddress) {
-                throw new Exception("Erro ao criar addressa.");
+            $idsAddress = $this->addressRepository->createsMultipleAddresses($user->getAddresses());
+
+            if (empty($idsAddress)) {
+                throw new ErrorCreatingEntityException('Address');
             }
 
             $addressId = $this->connection->lastInsertId();
             $name = $user->getName();
             $email = $user->getEmail();
             $password = $user->getPassword();
-            
+
             $query = "INSERT INTO $this->table(password,email,name,id_address) VALUES (:password,:email,:name,:address)";
-            
+
             $stmt = $this->connection->prepare($query);
             $stmt->bindParam(':password', $password, PDO::PARAM_STR);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
@@ -48,15 +55,22 @@ class UserRepository {
             $resultUser = $stmt->execute();
 
             if (!$resultUser) {
-                throw new Exception("Erro ao criar user.");
+                throw new ErrorCreatingEntityException('User');
             }
 
-            $userId = $this->connection->lastInsertId();
+            $idUser = $this->connection->lastInsertId();
 
-            $resultRole = $this->assignRoleToUser($user->getRole(), $userId);
+            $resultAddresses = $this->creatorAssociationUserAddress($idsAddress, $idUser);
+
+            if (!$resultAddresses) {
+                throw new ErrorCreatingEntityException('User_address');
+            }
+
+
+            $resultRole = $this->assignRoleToUser($user->getRole(), $idUser);
 
             if (!$resultRole) {
-                throw new Exception("Erro ao associar role a user");
+                throw new ErrorCreatingEntityException('User_role');
             }
 
             $this->connection->commit();
@@ -66,31 +80,40 @@ class UserRepository {
             $this->connection->rollBack();
             return false;
         }
-        
+
     }
-    
-    public function updateUserAddress(User $user) {
+
+    public function updateUserWithAddress(User $user): bool
+    {
         try {
             $this->connection->beginTransaction();
             $oldUser = $this->getUserById($user->getId());
+            $idUser = $oldUser->getId();
 
-            $resultDeleteAddress = $this->addressRepository->deleteByIdAddress($oldUser->getId());
+            $resultDeleteAddress = $this->deleteUserAddresses($idUser);
 
             if (!$resultDeleteAddress) {
                 throw new Exception("Erro ao deletar Address");
             }
 
-            $resultCreateNewAddress = $this->addressRepository->createAddress($user->getAddress());
+            $idsAddress = $this->addressRepository->createsMultipleAddresses($user->getAddresses());
 
-            if (!$resultCreateNewAddress) {
-                throw new Exception("Erro ao criar Address");
+            if (empty($idsAddress)) {
+                throw new ErrorCreatingEntityException('Address');
             }
 
-            $newAddressId = $this->connection->lastInsertId();
+            $resultAddresses = $this->creatorAssociationUserAddress($idsAddress, $idUser);
 
-            $query = "UPDATE $this->table SET id_address = :id_address";
+            $name = $oldUser->getName();
+            $email = $oldUser->getEmail();
+            $password = $oldUser->getPassword();
+
+            $query = "UPDATE $this->table SET password = :password, email = :email, name = :name WHERE id = :idUser";
             $stmt = $this->connection->prepare($query);
-            $stmt->bindParam(":id_address", $newAddressId, PDO::PARAM_INT);
+            $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+            $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+            $stmt->bindParam(':id', $idUser, PDO::PARAM_INT);
             $result = $stmt->execute();
 
             $this->connection->commit();
@@ -98,25 +121,12 @@ class UserRepository {
             return $result;
         } catch (PDOException $e) {
             $this->connection->rollBack();
-            throw new Exception($e->getMessage(), $e->getCode(), $e);
-        }
-    }
-    
-    /* 
-        Implementação junto com a lógica de login e segmentação de recursos por tipo de usuário
-    */
-    public function updateUserRole(User $user) {
-        try {
-            
-
-
-        } catch (PDOException $e) {
-            $this->connection->rollBack();
-            throw new Exception($e->getMessage(), $e->getCode(), $e);
+            return false;
         }
     }
 
-    public function updateUserName(User $user) {
+    public function updateUserName(User $user)
+    {
         $query = "UPDATE $this->table SET name = :name WHERE id = :id";
         $stmt = $this->connection->prepare($query);
         $name = $user->getName();
@@ -126,7 +136,8 @@ class UserRepository {
         return $stmt->execute();
     }
 
-    public function updateUserEmail(User $user) {
+    public function updateUserEmail(User $user)
+    {
         $query = "UPDATE $this->table SET email = :email WHERE id = :id";
         $stmt = $this->connection->prepare($query);
         $email = $user->getEmail();
@@ -135,8 +146,9 @@ class UserRepository {
         $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
         return $stmt->execute();
     }
-    
-    public function updateUserPassword(User $user) {
+
+    public function updateUserPassword(User $user)
+    {
         $query = "UPDATE $this->table SET password = :password WHERE id = :id";
         $stmt = $this->connection->prepare($query);
         $password = $user->getPassword();
@@ -144,27 +156,35 @@ class UserRepository {
         $stmt->bindParam(':password', $password, PDO::PARAM_STR);
         $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
         return $stmt->execute();
-    }    
-    
-    
-    public function getUserById($id) {
+    }
+
+
+    public function getUserById(int $idUser): User
+    {
         $query = "SELECT * FROM $this->table WHERE $this->table.id = :id";
         $stmt = $this->connection->prepare($query);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $idUser, PDO::PARAM_INT);
         $stmt->execute();
+
         $userData = $stmt->fetch(PDO::FETCH_OBJ);
+
+        if (!$userData) {
+            throw new ResourceNotFoundException('User', $idUser);
+        }
+
         $userModel = $this->assemblerUserWithAddress($userData);
-        
+
         return $userModel;
     }
 
-    public function getAllUsers() {
+    public function getAllUsers()
+    {
         $usersWithAddress = [];
         $query = "SELECT * FROM $this->table";
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
         $usersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         foreach ($usersData as $userData) {
             $userModel = $this->assemblerUserWithAddress(json_decode(json_encode($userData)));
             array_push($usersWithAddress, $userModel);
@@ -173,62 +193,96 @@ class UserRepository {
         return $usersWithAddress;
     }
 
-    public function deleteUserById($userId) {
-        $this->connection->exec('PRAGMA foreign_keys = ON;');
+    public function deleteUserById(int $idUser): bool
+    {
+        $deleted = 1;
 
-        try {
-            $userToBeDeleted = $this->getUserById($userId);
-
-            $resultDeleteAddress = $this->addressRepository->deleteByIdAddress($userToBeDeleted->getAddress()->getId());
-
-            if (!$resultDeleteAddress) {
-                throw new Exception("Erro ao deletar Address");
-            }
-    
-            $query = "DELETE FROM $this->table WHERE $this->table.id = :id";
-            $stmt = $this->connection->prepare($query);
-            $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
-            $result = $stmt->execute();
-
-        } catch (PDOException $e) {
-            $this->connection->rollBack();
-            throw new Exception($e->getMessage(), $e->getCode(), $e);
-        }
-
-        return $result;
-    }
-
-    private function assignRoleToUser($role, $userId) {
-        $roleEntity = $this->roleRepository->getRoleByName($role);
-        $query = 'INSERT INTO user_role(id_role, id_user) VALUES(:id_role, :id_user)';
+        $query = "UPDATE $this->table SET is_deleted = :is_deleted WHERE id = :idUser";
         $stmt = $this->connection->prepare($query);
-        $stmt->bindParam(':id_role', $roleEntity->id, PDO::PARAM_INT);
-        $stmt->bindParam(':id_user', $userId, PDO::PARAM_INT);
+        $stmt->bindParam(':is_deleted', $deleted, PDO::PARAM_INT);
+        $stmt->bindParam(':idUser', $idUser, PDO::PARAM_INT);
         $result = $stmt->execute();
 
         return $result;
     }
-    
-    private function assemblerUserWithAddress($userData) {
+
+    private function assignRoleToUser(array $roles, int $idUser): bool
+    {
+        try {
+            $this->connection->beginTransaction();
+
+            foreach ($roles as $role) {
+                $roleEntity = $this->roleRepository->getRoleById($role->getId());
+                $query = "INSERT INTO $this->tableAssocRole(id_role, id_user) VALUES(:id_role, :id_user)";
+                $stmt = $this->connection->prepare($query);
+                $stmt->bindParam(':id_role', $roleEntity->id, PDO::PARAM_INT);
+                $stmt->bindParam(':id_user', $idUser, PDO::PARAM_INT);
+                $result = $stmt->execute();
+            }
+
+            $this->connection->commit();
+            return true;
+        } catch (\Throwable $e) {
+            $this->connection->rollBack();
+            return false;
+        }
+    }
+
+    private function assemblerUserWithAddress(object $userData): User
+    {
+        $addresses = array();
+
         $userModel = new User();
         $userModel->setId($userData->id);
         $userModel->setName($userData->name);
         $userModel->setEmail($userData->email);
 
-        $addressData = $this->addressRepository->getAddressById($userData->id_address);
+        foreach ($userData->addresses as $idAddress) {
+            $addressData = $this->addressRepository->getAddressById($idAddress);
 
-        $addressModel = new Address();
-        $addressModel->setId($addressData->id);
-        $addressModel->setState($addressData->state);
-        $addressModel->setCity($addressData->city);
-        $addressModel->setNeighborhood($addressData->neighborhood);
-        $addressModel->setNumber($addressData->number);
-        $addressModel->setStreet($addressData->street);
-        $addressModel->setCep($addressData->cep);
+            $addressModel = new Address();
+            $addressModel->setId($addressData->id);
+            $addressModel->setState($addressData->state);
+            $addressModel->setCity($addressData->city);
+            $addressModel->setNeighborhood($addressData->neighborhood);
+            $addressModel->setNumber($addressData->number);
+            $addressModel->setStreet($addressData->street);
+            $addressModel->setCep($addressData->cep);
 
-        $userModel->setAddress($addressModel);
+            array_push($addresses, $addressModel);
+        }
+
+        $userModel->setAddresses($addresses);
 
         return $userModel;
+    }
+
+    private function creatorAssociationUserAddress(array $idsAddress, int $idUser): bool
+    {
+        try {
+            $this->connection->beginTransaction();
+            foreach ($idsAddress as $idAddress) {
+                $query = "INSERT INTO $this->tableAssocAddress(id_user, id_address) VALUES(:id_user, :id_address)";
+                $stmt = $this->connection->prepare($query);
+                $stmt->bindParam(":id_user", $idUser, PDO::PARAM_INT);
+                $stmt->bindParam(":id_address", $idAddress, PDO::PARAM_INT);
+                $stmt->execute();
+            }
+
+            $this->connection->commit();
+            return true;
+        } catch (\Throwable $e) {
+            $this->connection->rollBack();
+            return false;
+        }
+    }
+
+    private function deleteUserAddresses(int $idUser): bool
+    {
+        $query = "DELETE FROM $this->tableAssocAddress WHERE id_user = :id_user";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindParam(":idUser", $idUser, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 
 }

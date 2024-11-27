@@ -7,14 +7,14 @@ use PDO;
 
 class RoleRepository{
 
-    private $connection;
-    private $table = "role";
+    private PDO $connection;
+    private string $table = "role";
 
     public function __construct(PDO $connection) {
         $this->connection = $connection;
     }
 
-    public function createRole(Role $role) {
+    public function createRole(Role $role): bool {
         $name = $role->getName();
         $query = "INSERT INTO $this->table (name) VALUES (:name)";
         $stmt = $this->connection->prepare($query);
@@ -25,7 +25,7 @@ class RoleRepository{
     }
 
 
-    public function updateRole($id, Role $role) {
+    public function updateRole($id, Role $role): bool {
         $name = $role->getName();
         $query = "UPDATE $this->table SET name = :name WHERE role.id = :role_id";
         $stmt = $this->connection->prepare($query);
@@ -36,7 +36,7 @@ class RoleRepository{
         return $executeCompleted;
     }
 
-    public function getRoleById($id){
+    public function getRoleById(int $idRole): object{
         $query = "SELECT * FROM $this->table WHERE role.id = :id";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
@@ -45,7 +45,7 @@ class RoleRepository{
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    public function getRoleByName($role){
+    public function getRoleByName($role): object{
         $query = "SELECT * FROM $this->table WHERE role.name = :name";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(":name", $role, PDO::PARAM_STR);
@@ -54,7 +54,7 @@ class RoleRepository{
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    public function getAllRoles(){
+    public function getAllRoles(): array{
         $query = "SELECT * FROM $this->table";
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
@@ -62,7 +62,7 @@ class RoleRepository{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function deleteByIdRole($id){
+    public function deleteByIdRole($id): bool{
         $arraySearch = $this->getRoleById($id);
         $query = "DELETE FROM  WHERE role.id = :id";
         $stmt = $this->connection->prepare($query);

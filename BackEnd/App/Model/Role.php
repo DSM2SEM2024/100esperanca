@@ -1,25 +1,45 @@
 <?php
 namespace Pi\Visgo\Model;
 
-class Role {
+class Role
+{
 
     private $id;
     private $name;
 
-    public function __construct($name) {
-        $this->name = $name;
-    }
-
-    public function getId() {
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getName(){
+    /**
+     * @param mixed $id 
+     * @return self
+     */
+    public function setId($id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function setName($name){
+    /**
+     * @param mixed $name 
+     * @return self
+     */
+    public function setName($name): self
+    {
         $this->name = $name;
+        return $this;
     }
-
 }

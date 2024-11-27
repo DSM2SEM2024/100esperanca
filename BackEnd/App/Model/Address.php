@@ -3,8 +3,9 @@ namespace Pi\Visgo\Model;
 
 use JsonSerializable;
 
-class Address implements JsonSerializable {
-    
+class Address implements JsonSerializable
+{
+
     private $id;
     private $state;
     private $city;
@@ -13,63 +14,135 @@ class Address implements JsonSerializable {
     private $street;
     private $cep;
 
-    public function getId() {
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getState() {
+    /**
+     * @param mixed $id 
+     * @return self
+     */
+    public function setId($id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getState()
+    {
         return $this->state;
     }
 
-    public function getCity() {
+    /**
+     * @param mixed $state 
+     * @return self
+     */
+    public function setState($state): self
+    {
+        $this->state = $state;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
         return $this->city;
     }
 
-    public function getNeighborhood() {
+    /**
+     * @param mixed $city 
+     * @return self
+     */
+    public function setCity($city): self
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNeighborhood()
+    {
         return $this->neighborhood;
     }
 
-    public function getNumber(){
+    /**
+     * @param mixed $neighborhood 
+     * @return self
+     */
+    public function setNeighborhood($neighborhood): self
+    {
+        $this->neighborhood = $neighborhood;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumber()
+    {
         return $this->number;
     }
 
-    public function getStreet() {
+    /**
+     * @param mixed $number 
+     * @return self
+     */
+    public function setNumber($number): self
+    {
+        $this->number = $number;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStreet()
+    {
         return $this->street;
     }
 
-    public function getCep() {
+    /**
+     * @param mixed $street 
+     * @return self
+     */
+    public function setStreet($street): self
+    {
+        $this->street = $street;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCep()
+    {
         return $this->cep;
     }
 
-    public function setId($id) {
-        $this->id = $id;
-    }
-
-    public function setState($state) {
-        $this->state = $state;
-    }
-
-    public function setCity($city) {
-        $this->city = $city;
-    }
-
-    public function setNeighborhood($neighborhood) {
-        $this->neighborhood = $neighborhood;
-    }
-
-    public function setNumber($number){
-        $this->number = $number;
-    }
-
-    public function setStreet($street) {
-        $this->street = $street;
-    }
-
-    public function setCep($cep) {
+    /**
+     * @param mixed $cep 
+     * @return self
+     */
+    public function setCep($cep): self
+    {
         $this->cep = $cep;
+        return $this;
     }
 
-    public function jsonSerialize(): mixed {
+    public function jsonSerialize(): mixed
+    {
         return [
             'state' => $this->getState(),
             'city' => $this->getCity(),
