@@ -1,100 +1,22 @@
 import { getOrCreateMainElement } from "../../components/main";
-import { getCarrinho, setCarrinho, addToCarrinho } from "../../functions/cartManagement";
+import { getAllProducts } from "../../services/products";
+import { renderProductDetails } from "../productDetails/productDetails";
+import { renderProducts } from "./components/render-products";
 
-import { cadernos, camisetas, bolsas, todosProdutos } from "./components/constsProdutos";
+let products;
 
-const produtosPorPagina = 6;
-
-let paginas = []; 
-let totalDePaginas = 0;
-let paginaAtual = 0;
-
-function dividirProdutosEmPaginas(produtos) {
-    const paginas = [];
-    for (let i = 0; i < produtos.length; i += produtosPorPagina) {
-        paginas.push(produtos.slice(i, i + produtosPorPagina));
-    }
-    return paginas;
-}
-
-function renderProducts(produto) {
-    return produto.map(produto => `
-        <div class="col" onclick='navegarParaDetalhes(${produto.id})'>
-            <div class="card product-card shadow-sm hover-card border-0">
-                <img src="${produto.img}" class="card-img-top card-img-custom" alt="${produto.nome}">
-                <div class="card-body border rounded-bottom border-success">
-                    <h5 class="card-title text-success">${produto.nome}</h5>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <p class="card-text fs-5 mb-0">${produto.descricao}</p>
-                        <span class="fw-bold text-end">${produto.preco}</span>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <button class="btn btn-success w-75 mt-2" onclick='event.stopPropagation(); addToCarrinho(${JSON.stringify(produto)})'>
-                            Adicionar ao Carrinho
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `).join('');
-}
-
-function renderizarPagina(produtosDaPagina) {
-    const productContainer = document.querySelector("#productContainer .row");
-    if (productContainer) {
-        productContainer.innerHTML = renderProducts(produtosDaPagina);
-    } else {
-        console.error("Container de produtos não encontrado");
+async function fetchProducts() {
+    try {
+        products = await getAllProducts();
+    } catch (error) {
+        console.error('Erro ao buscar produtos:', error);
     }
 }
 
-function atualizarPaginacao() {
-    const paginationContainer = document.querySelector(".pagination");
-    let paginasHtml = '';
-
-    paginasHtml += `
-        <li class="page-item ${paginaAtual === 0 ? 'disabled' : ''}">
-            <a class="page-link text-success" href="#produtos" onclick="irParaPagina(${paginaAtual - 1})">Anterior</a>
-        </li>
-    `;
-
-    for (let i = 0; i < totalDePaginas; i++) {
-        paginasHtml += `
-            <li class="page-item ${i === paginaAtual ? 'active' : ''}">
-                <a class="page-link text-success" href="#produtos" onclick="irParaPagina(${i})">${i + 1}</a>
-            </li>
-        `;
-    }
-
-    paginasHtml += `
-        <li class="page-item ${paginaAtual === totalDePaginas - 1 ? 'disabled' : ''}">
-            <a class="page-link text-success" href="#produtos" onclick="irParaPagina(${paginaAtual + 1})">Próxima</a>
-        </li>
-    `;
-
-    if (paginationContainer) {
-        paginationContainer.innerHTML = paginasHtml;
-    } else {
-        console.error("Container de navegação não encontrado");
-    }
-}
-
-window.irParaPagina = function (numeroPagina) {
-    if (numeroPagina < 0 || numeroPagina >= totalDePaginas) return;
-
-    paginaAtual = numeroPagina;
-    const produtosDaPagina = paginas[paginaAtual];
-    renderizarPagina(produtosDaPagina);
-    atualizarPaginacao();
-
-    const productContainer = document.querySelector("h2.text-success");
-    if (productContainer) {
-        productContainer.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-};
+fetchProducts();
 
 export function telaProdutosHtml() {
-    const telaProdutos2 = `
+    const telaProdutos = `
         <nav class="navbar navbar-expand-lg d-flex bg-body-tertiary bg-opacity-75" id="navFiltros">
             <section class="container-fluid d-flex justify-content-evenly">
                 <div class="">
@@ -127,13 +49,7 @@ export function telaProdutosHtml() {
             </div>
         </section>
 
-        <nav aria-label="Page navigation example">
-            <ul class="pagination pe-3 justify-content-center">
-                <!-- A navegação será renderizada aqui -->
-            </ul>
-        </nav>
-
-        <div class="modal fade" id="modalCarrinho" tabindex="-1" aria-labelledby="modalCarrinhoLabel" aria-hidden="true">
+         <div class="modal fade" id="modalCarrinho" tabindex="-1" aria-labelledby="modalCarrinhoLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -158,49 +74,28 @@ export function telaProdutosHtml() {
                 </div>
             </div>
         </div>
-`;
+    `;
 
-const main = getOrCreateMainElement();
-main.classList = null;
-main.innerHTML = telaProdutos2;
+    const main = getOrCreateMainElement();
+    main.classList = null;
+    main.innerHTML = telaProdutos;
 
-// Inicializa e divide os produtos em páginas
-paginas = dividirProdutosEmPaginas(todosProdutos);  // Inicializa as páginas com todos os produtos
-totalDePaginas = paginas.length;
-paginaAtual = 0;
-
-// Renderiza a primeira página de produtos e a navegação
-renderizarPagina(paginas[paginaAtual]);
-atualizarPaginacao();
-
-const filterSelect = document.getElementById("filterSelect");
-filterSelect.addEventListener("change", (event) => {
-    let filteredProducts;
-    const selectedCategory = event.target.value;
-
-    if (selectedCategory === "Camisetas") {
-        filteredProducts = camisetas;
-    } else if (selectedCategory === "Bolsas") {
-        filteredProducts = bolsas;
-    } else if (selectedCategory === "Cadernos") {
-        filteredProducts = cadernos;
+    const productContainer = document.querySelector("#productContainer .row");
+    if (productContainer) {
+        productContainer.innerHTML = renderProducts(products);
     } else {
-        filteredProducts = todosProdutos;
+        console.error("Container de produtos não encontrado");
     }
 
-    // Atualiza os produtos e a navegação
-    paginas = dividirProdutosEmPaginas(filteredProducts);
-    totalDePaginas = paginas.length;
-    paginaAtual = 0; // Resetar para a primeira página após o filtro
-    renderizarPagina(paginas[paginaAtual]);
-    atualizarPaginacao();
-});
-}
+    document.querySelectorAll('.card-container').forEach(card => {
+        card.addEventListener('click', () => {
+            const productId = card.getAttribute('product-id');
+            navegarParaDetalhes(productId);
+        });
+    });
 
-function navegarParaDetalhes(id) {
-localStorage.setItem("produtoId", id);
-window.location.hash = `#productDetails/${id}`;
+    function navegarParaDetalhes(id) {
+        window.location.hash = `#productDetails/${id}`;
+        renderProductDetails(id);
+    }
 }
-
-window.addToCarrinho = addToCarrinho;
-window.navegarParaDetalhes = navegarParaDetalhes;

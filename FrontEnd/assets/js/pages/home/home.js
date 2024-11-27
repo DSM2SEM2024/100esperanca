@@ -2,8 +2,6 @@ import { getOrCreateMainElement } from "../../components/main"
 import visgoImgPLACEHOLDER from "/assets/imgs/visgo.jpg"
 import dowloadPLAC from "./imgs/download.jpg"
 
-import {carrosel} from "bootstrap/js/dist/carousel"
-
 img = visgoImgPLACEHOLDER;
 ota_img = dowloadPLAC;
 
@@ -84,23 +82,24 @@ export function criaHomeHTML(){
             </section>
         </section>
 
-
-        <section class="about d-flex flex-column">
-
-            <figure>
-                <img src="${img}" alt="visgo de jaca" class="rounded-circle">
-            </figure>
-
-            <section class="about-body h-100">
-                <p class="text-center text-wrap h2">
-                    visco de jaca piriri pororo pipi popo papum pirulito bao doce, é isso aq q ele faz e pá, essa é a
-                    loja dele e nao sei q lá
+        <div class="container px-4 text-center">
+  <div class="row gx-5">
+    <div class="col">
+     <div class="p-3">
+     <figure>
+                <img src="${img}" alt="visgo de jaca" class="rounded-circle w-50">
+    </figure>
+    </div>
+    </div>
+    <div class="col p-3">
+      <p class="align-middle text-center text-wrap h2">
+                    Visgo de Jaca é uma marca autoral, cuja essência está profundamente ligada à cultura baiana, especialmente à capoeira e à música, com foco na percussão.
                 </p>
-
-            </section>
-
-        </section>
-        `;
+    </div>
+    </div>
+  </div>
+</div>
+`;
 
     const main = getOrCreateMainElement();
     main.classList = "d-flex flex-column align-items-center"

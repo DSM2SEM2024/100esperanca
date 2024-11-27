@@ -1,4 +1,6 @@
-import { bolsas, cadernos, camisetas } from "../pages/products/components/constsProdutos";
+import { bolsas, cadernos, camisetas } from "../pages/products/components/consts-products";
+//  import { produtosLocais } from "../pages/products/products";
+// import { getAllProducts } from "../services/products-backend";
 
 export function getCarrinho() {
     const carrinho = localStorage.getItem("carrinho");
@@ -9,11 +11,11 @@ export function setCarrinho(carrinho) {
     localStorage.setItem("carrinho", JSON.stringify(carrinho));
 }
 
-export function addToCarrinho(produto) {
-    console.log(produto);
+export function addToCarrinho(produtosLocais) {
+    console.log(produtosLocais);
     
     const carrinho = getCarrinho();
-    carrinho.push(produto);
+    carrinho.push(produtosLocais);
     setCarrinho(carrinho);
 
     const modal = new bootstrap.Modal(document.getElementById('modalCarrinho'));
