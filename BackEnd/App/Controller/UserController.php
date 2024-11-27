@@ -1,35 +1,55 @@
 <?php
 namespace Pi\Visgo\Controller;
 
-use Pi\Visgo\Common\ResponseAssemblerError;
-use Pi\Visgo\Common\ResponseAssemblerSuccess;
+use Pi\Visgo\Common\Responses\Response;
+use Pi\Visgo\Model\Role;
+use Pi\Visgo\Model\User;
 use Pi\Visgo\Repository\UserRepository;
 
-class UserController {
+class UserController
+{
 
     private UserRepository $userRepository;
 
-    public function __construct(UserRepository $userRepository) {
+    public function __construct(UserRepository $userRepository)
+    {
         $this->userRepository = $userRepository;
     }
 
-    public function getAll() { 
+    public function getAll()
+    {
         $users = $this->userRepository->getAllUsers();
-        ResponseAssemblerSuccess::response(200, $users);
+        Response::success($users, "Requisição realizada com sucesso", 200);
     }
 
-    public function getUserById($idUser) {
+    public function getById($idUser)
+    {
         $user = $this->userRepository->getUserById($idUser);
-        ResponseAssemblerSuccess::response(200, $user);
+        Response::success($user, "Requisição realizada com sucesso", 200);
     }
 
-    public function deleteUser($idUser) { 
+    public function delete($idUser)
+    {
         $result = $this->userRepository->deleteUserById($idUser);
 
         if (!$result) {
-            ResponseAssemblerError::response(400,"");
+            Response::error($result, "Erro ao deletar usuário", 500);
         }
 
-        ResponseAssemblerSuccess::response(200, $result);
+        Response::noContent();
+    }
+
+    private function assemblerUser(object $data): User
+    {
+        $role = new Role();
+        $role->setId($data->role);
+
+        $user = new User();
+        $user->setName($data->name)
+        ->setEmail($data->email)
+        ->setPassword($data->password)
+        ->setRole($role)
+        ->
+
     }
 }

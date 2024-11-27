@@ -7,8 +7,7 @@ use Pi\Visgo\Model\Promotion;
 use Pi\Visgo\Database\Connection;
 use PDO;
 use PDOException;
-use PDORow;
-use Pi\Visgo\Common\ResponseAssemblerError;
+use Pi\Visgo\Common\Responses\Response;
 
 class PromotionRepository
 {
@@ -17,19 +16,21 @@ class PromotionRepository
     private $table = "promotion";
     private $tableassoc = "product_promotion";
 
-    public function __construct($drive) {
+    public function __construct($drive)
+    {
         $this->connection = Connection::getInstance($drive);
     }
 
-    public function createPromotion(Promotion $promotion){
+    public function createPromotion(Promotion $promotion)
+    {
         $start_date_promotion = $promotion->getStartDatePromotion();
         $end_date_promotion = $promotion->getEndDatePromotion();
         $cod_promotion = $promotion->getCodPromotion();
 
         $validCodPromotion = $this->validatorCodPromotion($cod_promotion);
 
-        if($validCodPromotion){
-            ResponseAssemblerError::response(404, "Código de promoção já existente!");
+        if ($validCodPromotion) {
+            Response::error("Código de promoção já existente!", 400);
             throw new Exception("Código de promoção já existente!");
         }
 
@@ -46,13 +47,14 @@ class PromotionRepository
         return $executionCompleted;
     }
 
-    public function validatorCodPromotion($cod_promotion){
-        
+    public function validatorCodPromotion($cod_promotion)
+    {
+
         $query = "SELECT * FROM $this->table WHERE cod_promotion = :cod_promotion";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(':cod_promotion', $cod_promotion);
         $stmt->execute();
-        
+
         return $stmt->fetch() !== false;
 
     }
@@ -65,8 +67,8 @@ class PromotionRepository
 
         $validCodPromotion = $this->validatorCodPromotion($cod_promotion);
 
-        if($validCodPromotion){
-            ResponseAssemblerError::response(404, "Código de promoção já existente!");
+        if ($validCodPromotion) {
+            Response::error("Código de promoção já existente!", 400);
             throw new Exception("Código de promoção já existente!");
         }
 
@@ -84,10 +86,11 @@ class PromotionRepository
         return $executionCompleted;
     }
 
-    public function ClosePromotionById($id){
+    public function ClosePromotionById($id)
+    {
 
         $is_closed = 1;
-        
+
         $query = "UPDATE $this->table SET is_closed = :is_closed WHERE $this->table.id = :id";
 
         $stmt = $this->connection->prepare($query);
@@ -101,10 +104,11 @@ class PromotionRepository
 
     }
 
-    public function OpenPromotionById($id, Promotion  $promotion){
+    public function OpenPromotionById($id, Promotion $promotion)
+    {
 
         $is_closed = 0;
-        
+
         $start_date_promotion = $promotion->getStartDatePromotion();
         $end_date_promotion = $promotion->getEndDatePromotion();
 
@@ -145,7 +149,7 @@ class PromotionRepository
     public function insertProductInPromotion($promotion, $products)
     {
         try {
-            
+
             $this->connection->beginTransaction();
             $id_promotion = $promotion;
 
@@ -166,10 +170,8 @@ class PromotionRepository
             return true;
         } catch (PDOException $e) {
             $this->connection->rollBack();
-            throw new PDOException($e);
+            return false;
         }
-
-        return $executionCompleted;
     }
 
     public function getAllProductPromotion()

@@ -1,50 +1,54 @@
 <?php
 
 namespace Pi\Visgo\Model;
-Class Art{
+class Art
+{
 
-    private $characteristic;
-    private $description;
-    private $name;
     private $id;
-
+    private $name;
+    private $description;
+    private $characteristic;
     private $is_deleted;
 
 
-    public function __construct($characteristic, $description, $name, $is_deleted) {
-
-        $this->characteristic = $characteristic;
-        $this->description = $description;
-        $this->name = $name;
-        $this->is_deleted = $is_deleted;
-
+    public function setId($id): self
+    {
+        $this->id = $id;
+        return $this;
     }
 
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getCharacteristic(){
+    public function getCharacteristic()
+    {
         return $this->characteristic;
     }
 
-    public function getDescription(){
+    public function getDescription()
+    {
         return $this->description;
     }
 
-    public function getName(){
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function setCharacteristic($characteristic){
+    public function setCharacteristic($characteristic)
+    {
         return $this->characteristic = $characteristic;
     }
 
-    public function setDescription($description){
+    public function setDescription($description)
+    {
         return $this->description = $description;
     }
 
-    public function setName($name){
+    public function setName($name)
+    {
         return $this->name = $name;
     }
 
@@ -55,7 +59,5 @@ Class Art{
     public function setIsDeleted($is_deleted){
         return $this->is_deleted = $is_deleted;
     }
-
-    
 
 }
