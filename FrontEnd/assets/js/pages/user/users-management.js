@@ -1,7 +1,6 @@
 import { getOrCreateMainElement } from "../../components/main";
 import { gerenciarUsuarioHtml } from "./user-admin-screen";
 
-
 export function gerenciarUsuariosHtml(){
     const gerenciarUsuarios = `
     <section class="container-fluid flex-grow-1 p-4">
@@ -78,5 +77,4 @@ export function gerenciarUsuariosHtml(){
         </section>
     `
     main.innerHTML = gerenciarUsuarios;
-    
 }  

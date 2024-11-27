@@ -43,10 +43,10 @@ export function criarUsuarioHtml() {
                     <input name="uf" type="text" id="uf" class="form-control w-25" placeholder="UF" />
                 </div>
 
-                <div class="form-group col ms-5">
+                <div class="form-group col">
                     <input name="bairro" type="text" id="bairro" class="form-control m-2 w-75" placeholder="Bairro" />
                 </div>
-                <div class="form-group ms-5">
+                <div class="form-group">
                     <input name="rua" type="text" id="rua" class="form-control m-2 w-75" placeholder="Rua" />
                 </div>
             </div>
