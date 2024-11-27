@@ -1,5 +1,6 @@
 import { getOrCreateMainElement } from "../../components/main";
 import { getAllProducts } from "../../services/products";
+import { renderProductDetails } from "../productDetails/productDetails";
 import { renderProducts } from "./components/render-products";
 
 let products;
@@ -7,46 +8,15 @@ let products;
 async function fetchProducts() {
     try {
         products = await getAllProducts();
-        console.log(products);
-
     } catch (error) {
         console.error('Erro ao buscar produtos:', error);
     }
 }
+
 fetchProducts();
 
-
-// Dados simulados localmente
-export const produtosLocais = [
-    {
-        id: 1,
-        nome: "Camiseta Branca",
-        descricao: "Camiseta básica",
-        preco: "R$59,99",
-        img: "https://via.placeholder.com/150"
-    },
-    {
-        id: 2,
-        nome: "Bolsa de Couro",
-        descricao: "Bolsa estilosa",
-        preco: "R$89,99",
-        img: "https://via.placeholder.com/150"
-    },
-    {
-        id: 3,
-        nome: "Caderno",
-        descricao: "Caderno de 200 folhas",
-        preco: "R$39,99",
-        img: "https://via.placeholder.com/150"
-    }
-];
-
-// Função principal para renderizar a tela de produtos
 export function telaProdutosHtml() {
-
-
     const telaProdutos = `
-    <button onclick="${getAllProducts}">butao</button>
         <nav class="navbar navbar-expand-lg d-flex bg-body-tertiary bg-opacity-75" id="navFiltros">
             <section class="container-fluid d-flex justify-content-evenly">
                 <div class="">
@@ -110,15 +80,22 @@ export function telaProdutosHtml() {
     main.classList = null;
     main.innerHTML = telaProdutos;
 
-    function navegarParaDetalhes(id) {
-        localStorage.setItem("produtoId", id);
-        window.location.hash = `#productDetails/${id}`;
-    }
-
     const productContainer = document.querySelector("#productContainer .row");
     if (productContainer) {
         productContainer.innerHTML = renderProducts(products);
     } else {
         console.error("Container de produtos não encontrado");
+    }
+
+    document.querySelectorAll('.card-container').forEach(card => {
+        card.addEventListener('click', () => {
+            const productId = card.getAttribute('product-id');
+            navegarParaDetalhes(productId);
+        });
+    });
+
+    function navegarParaDetalhes(id) {
+        window.location.hash = `#productDetails/${id}`;
+        renderProductDetails(id);
     }
 }
