@@ -4,10 +4,10 @@ export function criarUsuarioHtml() {
     const criarUsuario = `
     <section>
     <h1 class="text-center text-success justify-content-center">Cadastre-se</h1>
-    <div class="d-flex flex-wrap justify-content-center align-items-center mb-4">
+    <div class="d-flex flex-wrap justify-content-center align-items-center">
         <!-- Formulário de Dados Pessoais -->
-        <form id="form-dados-pessoais">
-            <div class="container">
+        <form id="form-dados-pessoais" class="container w-75">
+            <div class="container-sm">
                 <div class="form-group col">
                     <label for="nome">Nome</label>
                     <input type="text" class="form-control" id="nome" placeholder="Nome">
@@ -31,32 +31,37 @@ export function criarUsuarioHtml() {
         </form>
 
         <!-- Formulário de Endereço -->
-        <form id="form-endereco" class="d-flex flex-column justify-content-between">
-            <div class="form-row mt-4">
-                <div class="form-group m-2 d-flex">
-                    <input name="cep" type="text" id="cep" class="form-control" placeholder="CEP" />
-                    <input name="N" type="number" id="numero" class="form-control w-25" placeholder="N" />
+        <form id="form-endereco" class="container w-75">
+            <div class="container-sm">
+
+                <label>cep</label>
+                <div class="d-flex">
+                    <input name="cep" type="text" id="cep" class="form-control" placeholder="CEP">
+                    <input name="N" type="number" id="numero" class="form-control col-1 w-25" placeholder="N">
                 </div>
 
-                <div class="form-group m-2 d-flex">
-                    <input name="cidade" type="text" id="cidade" class="form-control" placeholder="Cidade" />
-                    <input name="uf" type="text" id="uf" class="form-control w-25" placeholder="UF" />
+                <div class="form-group">
+                <label>cidade</label>
+                <section class="d-flex">
+                    <input name="cidade" type="text" id="cidade" class="form-control " placeholder="Cidade">
+                    <input name="uf" type="text" id="uf" class="form-control col-1 w-25 " placeholder="UF">  
+                </section>
                 </div>
 
                 <div class="form-group col">
-                    <input name="bairro" type="text" id="bairro" class="form-control m-2 w-75" placeholder="Bairro" />
+                <label for="bairro">bairro</label>
+                    <input name="bairro" type="text" id="bairro" class="form-control w-100" placeholder="Bairro">
                 </div>
                 <div class="form-group">
-                    <input name="rua" type="text" id="rua" class="form-control m-2 w-75" placeholder="Rua" />
+                  <label for="bairro">bairro</label>
+                    <input name="rua" type="text" id="rua" class="form-control w-100" placeholder="Rua">
                 </div>
             </div>
         </form>
-        
-        
-            <aside class="d-flex justify-content-center m-4 p-4">
+    </div>
+    <aside class="d-flex justify-content-center m-4 p-4">
                 <button id="submit-btn" class="btn btn-success w-100">Cadastrar</button>
             </aside>
-    </div>
     </section>
     `;
 
