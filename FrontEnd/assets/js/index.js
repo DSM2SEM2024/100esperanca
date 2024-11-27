@@ -11,6 +11,7 @@ import { gerenciarUsuariosHtml } from "./pages/user/users-management";
 import { telaGerenciarProdutosHtml } from "./pages/user/products-management";
 import { telaGerenciarPromocoes } from "./pages/user/promotion-management";
 import { createFooterElement, footerHtml } from "./components/footer";
+import { renderProducts } from "./pages/products/components/render-products";
 
 function renderContentBasedOnHash() {
     clearBody(); // Limpa o body

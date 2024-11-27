@@ -10,7 +10,7 @@ export function telaGerenciarPromocoes() {
       <!-- Row para organizar os forms -->
       <div class="row">
         <!-- Coluna 1: Formulário para adicionar promoção -->
-        <div class="col-md-6">
+        <div class="col-md-6 pb-3">
           <form id="formAdicionarPromocao" class="border p-4 rounded shadow">
             <h4 class="mb-3">Adicionar Promoção</h4>
             <div class="mb-3">

@@ -20,33 +20,37 @@ export function telaGerenciarProdutosHtml() {
           <small class="text-muted">Pesquise por Nome, ID ou Arte do Produto.</small>
         </div>
 
-        <!-- Nome do Produto e ID do Produto -->
         <div class="mb-3 d-flex gap-2">
           <div class="flex-grow-1">
             <label for="nomeProduto" class="form-label">Nome do Produto</label>
             <input type="text" class="form-control" id="nomeProduto" placeholder="Digite o nome do produto">
           </div>
+
           <div class="flex-grow-1">
             <label for="idProduto" class="form-label">ID do Produto</label>
-            <input type="text" class="form-control" id="idProduto" placeholder="Digite o ID do produto" readonly>
+            <input type="text" class="form-control" id="idProduto" placeholder="Digite o ID do produto">
           </div>
         </div>
 
         <!-- Categoria e Preço -->
         <div class="mb-3 d-flex gap-2">
+
           <div class="flex-grow-1">
             <label for="categoriaProduto" class="form-label">Categoria</label>
             <select class="form-select" id="categoriaProduto" required>
               <option value="" selected disabled>Selecione a categoria</option>
               <option value="bolsas">Bolsas</option>
               <option value="cadernos">Cadernos</option>
+              <option value="canecas">Canecas</option>
               <option value="camisetas">Camisetas</option>
             </select>
           </div>
+
           <div class="flex-grow-1">
             <label for="precoProduto" class="form-label">Preço</label>
-            <input type="number" class="form-control" id="precoProduto" placeholder="Digite o preço do produto" step="0.01" required>
+            <input type="number" class="form-control" id="precoProduto" placeholder="Digite o preço do produto" required>
           </div>
+
         </div>
 
         <!-- Arte do Produto -->
@@ -54,7 +58,7 @@ export function telaGerenciarProdutosHtml() {
           <label for="imagemProduto" class="form-label">Arte do Produto</label>
           <input type="file" class="form-control" id="imagemProduto" accept="image/*">
         </div>
-        <!-- Botões de ação -->
+        
         <div class="d-grid gap-2 justify-content-center">
         <button type="submit" class="btn btn-success">Salvar Produto</button>
         <button type="reset" class="btn btn-secondary">Limpar</button>

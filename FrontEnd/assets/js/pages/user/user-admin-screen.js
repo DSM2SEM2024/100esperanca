@@ -8,7 +8,7 @@ main.classList = "vh-100 d-flex flex-column";
 
 export function telaAdminHtml() {
   const sidebarGerenciarUsuarios = `
-    <nav id="navGerenciamento" class="navbar navbar-expand-lg bg-success">
+    <nav id="navGerenciamento" class="navbar navbar-expand-lg bg-success w-100">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
