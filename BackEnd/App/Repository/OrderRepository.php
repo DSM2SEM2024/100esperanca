@@ -39,11 +39,12 @@ class OrderRepository
 
         $executionCompleted = $stmt->execute();
 
-        if ($executionCompleted) {
+        if ($executionCompleted) 
+        {
             return $this->connection->lastInsertId();
         }
 
-        return false;
+            return false;
     }
 
 
@@ -180,9 +181,9 @@ class OrderRepository
     
             $this->connection->commit();
             return true;
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             $this->connection->rollBack();
-            throw new \PDOException($e->getMessage());
+            throw new PDOException($e->getMessage());
         }
     }
 
