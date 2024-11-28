@@ -1,73 +1,136 @@
+import { createProduct, getAllProducts, getProductById, deleteProduct } from "../../services/products";
 import { createFooterElement, footerHtml } from "../../components/footer";
 import { getOrCreateMainElement } from "../../components/main";
 
 const main = getOrCreateMainElement();
 
+// Função para renderizar a tela de gerenciamento de produtos
 export function telaGerenciarProdutosHtml() {
   const gerenciarProdutos = `
-    <section class="container-fluid lg d-flex flex-grow mt-2 pb-5 justify-content-center">
-    <div class="">
-      <form id="formGerenciarProdutos" class="border p-4 rounded shadow">
-    
-        <h4 class="mb-3 fs-1 text-center">Gerenciar Produtos</h4>
-        
-        <div class="mb-4">
-          <label for="pesquisaProduto" class="form-label">Pesquisar Produto</label>
-          <div class="input-group">
-            <input type="text" class="form-control" id="pesquisaProduto" placeholder="Digite o nome, arte ou ID do produto ou Promoção">
-            <button class="btn btn-success" type="button" id="botaoPesquisar">Pesquisar</button>
+    <section class="container-fluid lg d-flex flex-grow mt-5 justify-content-center">
+      <div class="pb-4">
+        <form id="formGerenciarProdutos" class="border p-4 rounded shadow">
+          <h4 class="mb-3 fs-1 text-center">Gerenciar Produtos</h4>
+          <div class="mb-4">
+            <label for="pesquisaProduto" class="form-label">Pesquisar Produto</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="pesquisaProduto" placeholder="Pesquisar">
+              <button class="btn btn-success rounded-end" type="button" id="botaoPesquisar">
+                <i class="bi bi-search text-white"></i>
+              </button>
+            </div>
+            <small class="text-muted">Pesquise por Nome, ID ou ID da Arte</small>
           </div>
-          <small class="text-muted">Pesquise por Nome, ID ou Arte do Produto.</small>
-        </div>
-
-        <div class="mb-3 d-flex gap-2">
-          <div class="flex-grow-1">
-            <label for="nomeProduto" class="form-label">Nome do Produto</label>
-            <input type="text" class="form-control" id="nomeProduto" placeholder="Digite o nome do produto">
+          <div class="mb-3 d-flex gap-2">
+            <div class="flex-grow-1">
+              <label for="nomeProduto" class="form-label">Nome do Produto</label>
+              <input type="text" class="form-control" id="nomeProduto" placeholder="Digite o nome do produto">
+            </div>
+            <div class="flex-grow-1">
+              <label for="idProduto" class="form-label">ID do Produto</label>
+              <input type="text" class="form-control" id="idProduto" placeholder="Digite o ID do produto">
+            </div>
           </div>
-
-          <div class="flex-grow-1">
-            <label for="idProduto" class="form-label">ID do Produto</label>
-            <input type="text" class="form-control" id="idProduto" placeholder="Digite o ID do produto">
+          <div class="mb-3 d-flex gap-2">
+            <div class="flex-grow-1">
+              <label for="categoriaProduto" class="form-label">Tipo do Produto</label>
+              <select class="form-select" id="categoriaProduto" required>
+                <option value="" selected disabled>Selecione a categoria</option>
+                <option value="Bolsas">Bolsas</option>
+                <option value="Cadernos">Cadernos</option>
+                <option value="Canecas">Canecas</option>
+                <option value="Camisetas">Camisetas</option>
+              </select>
+            </div>
+            <div class="flex-grow-1">
+              <label for="precoProduto" class="form-label">Preço</label>
+              <input type="number" class="form-control" id="precoProduto" placeholder="Digite o preço do produto" required>
+            </div>
           </div>
-        </div>
-
-        <!-- Categoria e Preço -->
-        <div class="mb-3 d-flex gap-2">
-
-          <div class="flex-grow-1">
-            <label for="categoriaProduto" class="form-label">Categoria</label>
-            <select class="form-select" id="categoriaProduto" required>
-              <option value="" selected disabled>Selecione a categoria</option>
-              <option value="bolsas">Bolsas</option>
-              <option value="cadernos">Cadernos</option>
-              <option value="canecas">Canecas</option>
-              <option value="camisetas">Camisetas</option>
-            </select>
+          <div class="mb-3">
+            <label for="imagemProduto" class="form-label">Arte do Produto</label>
+            <input type="file" class="form-control" id="imagemProduto" accept="image/*">
           </div>
-
-          <div class="flex-grow-1">
-            <label for="precoProduto" class="form-label">Preço</label>
-            <input type="number" class="form-control" id="precoProduto" placeholder="Digite o preço do produto" required>
+          <div class="d-grid gap-2 justify-content-center">
+            <button type="submit" class="btn btn-success">Salvar Produto</button>
+            <button type="button" id="botaoLimpar" class="btn btn-secondary">Limpar</button>
+            <button type="button" id="botaoRemover" class="btn btn-danger">Remover Produto</button>
           </div>
-
-        </div>
-
-        <!-- Arte do Produto -->
-        <div class="mb-3">
-          <label for="imagemProduto" class="form-label">Arte do Produto</label>
-          <input type="file" class="form-control" id="imagemProduto" accept="image/*">
-        </div>
-        
-        <div class="d-grid gap-2 justify-content-center">
-        <button type="submit" class="btn btn-success">Salvar Produto</button>
-        <button type="reset" class="btn btn-secondary">Limpar</button>
-        <button type="button" class="btn btn-danger">Remover Produto</button>
-        </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </section>
   `;
 
   main.innerHTML = gerenciarProdutos;
-}  
+  addEventListeners();
+}
+
+function addEventListeners() {
+  const form = document.getElementById("formGerenciarProdutos");
+  const searchInput = document.getElementById("pesquisaProduto");
+  const searchButton = document.getElementById("botaoPesquisar");
+  const clearButton = document.getElementById("botaoLimpar");
+  const deleteButton = document.getElementById("botaoRemover");
+
+  let currentProductId = null; // Armazena o ID real do produto para remoção
+
+  // Função para preencher os campos com os dados do produto encontrado
+  const fillForm = (product) => {
+    document.getElementById("nomeProduto").value = product.name;
+    document.getElementById("idProduto").value = product.cod_product; // Preencher com o cod_product correto
+    document.getElementById("categoriaProduto").value = product.type_product; // Preencher com type_product
+    document.getElementById("precoProduto").value = product.price;
+    currentProductId = product.id; // Usar o `id` real do produto
+  };
+
+  // Pesquisar produto
+  searchButton.addEventListener("click", async () => {
+    const query = searchInput.value;
+    try {
+      let product;
+      if (isNaN(query)) {
+        const products = await getAllProducts();
+        product = products.find(
+          (p) =>
+            p.name.toLowerCase() === query.toLowerCase() ||
+            p.cod_product.toLowerCase() === query.toLowerCase()
+        );
+      } else {
+        product = await getProductById(parseInt(query, 10));
+      }
+      if (product) {
+        fillForm(product);
+        alert("Produto encontrado e carregado no formulário.");
+      } else {
+        alert("Produto não encontrado.");
+      }
+    } catch (error) {
+      console.error("Erro ao buscar o produto:", error);
+      alert("Erro ao buscar o produto. Verifique os dados e tente novamente.");
+    }
+  });
+
+  // Limpar os campos do formulário
+  clearButton.addEventListener("click", () => {
+    document.getElementById("nomeProduto").value = "";
+    document.getElementById("idProduto").value = "";
+    document.getElementById("categoriaProduto").value = "";
+    document.getElementById("precoProduto").value = "";
+    currentProductId = null; // Limpa o ID atual
+  });
+
+  deleteButton.addEventListener("click", async () => {
+    if (currentProductId) {
+        try {
+            const result = await deleteProduct(currentProductId);
+            alert(result); // Mostra a mensagem de sucesso ou dados retornados
+            form.reset();
+            currentProductId = null; // Reseta o ID após exclusão
+        } catch (error) {
+            alert(`Erro ao remover o produto: ${error.message}`);
+        }
+    } else {
+        alert("Nenhum produto selecionado para remoção.");
+    }
+});
+}

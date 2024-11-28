@@ -88,14 +88,23 @@ export async function updateProduct(body) {
 export async function deleteProduct(id) {
     try {
         const response = await fetch(`${baseUrl}${uri}/${id}`, {
-            method: 'GET',
+            method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'
-            }
+                'Content-Type': 'application/json',
+            },
         });
-        const result = await response.json();
-        return result.data;
+
+        // Verifica o status da resposta
+        if (response.ok) {
+            // Sucesso: Retorna um status ou uma mensagem, se disponível
+            return response.status === 204 ? "Produto deletado com sucesso" : await response.json();
+        } else {
+            // Caso de erro, captura a mensagem do backend
+            const errorData = await response.json();
+            throw new Error(errorData.message || "Erro ao deletar o produto");
+        }
     } catch (error) {
-        console.error("Erro ao buscar os produtos do backend:", error);
+        console.error("Erro ao deletar o produto:", error);
+        throw error;
     }
 }
