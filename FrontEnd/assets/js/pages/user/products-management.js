@@ -1,6 +1,7 @@
-import { createProduct, getAllProducts, getProductById, deleteProduct } from "../../services/products";
+import { createProduct, getAllProducts, getProductById, deleteProduct, uri } from "../../services/products";
 import { createFooterElement, footerHtml } from "../../components/footer";
 import { getOrCreateMainElement } from "../../components/main";
+import { baseUrl } from "../../services/baseUrl/base-url";
 
 const main = getOrCreateMainElement();
 
@@ -52,7 +53,7 @@ export function telaGerenciarProdutosHtml() {
             <input type="file" class="form-control" id="imagemProduto" accept="image/*">
           </div>
           <div class="d-grid gap-2 justify-content-center">
-            <button type="submit" class="btn btn-success">Salvar Produto</button>
+            <button type="button" id="botaoSalvar" class="btn btn-success">Salvar Produto</button>
             <button type="button" id="botaoLimpar" class="btn btn-secondary">Limpar</button>
             <button type="button" id="botaoRemover" class="btn btn-danger">Remover Produto</button>
           </div>
@@ -63,6 +64,7 @@ export function telaGerenciarProdutosHtml() {
 
   main.innerHTML = gerenciarProdutos;
   addEventListeners();
+  console.log(`${baseUrl}${uri}`);
 }
 
 function addEventListeners() {
@@ -71,6 +73,7 @@ function addEventListeners() {
   const searchButton = document.getElementById("botaoPesquisar");
   const clearButton = document.getElementById("botaoLimpar");
   const deleteButton = document.getElementById("botaoRemover");
+  const saveButton = document.getElementById("botaoSalvar"); // Botão de salvar produto
 
   let currentProductId = null; // Armazena o ID real do produto para remoção
 
@@ -119,18 +122,74 @@ function addEventListeners() {
     currentProductId = null; // Limpa o ID atual
   });
 
+  // Deletar produto
   deleteButton.addEventListener("click", async () => {
     if (currentProductId) {
-        try {
-            const result = await deleteProduct(currentProductId);
-            alert(result); // Mostra a mensagem de sucesso ou dados retornados
-            form.reset();
-            currentProductId = null; // Reseta o ID após exclusão
-        } catch (error) {
-            alert(`Erro ao remover o produto: ${error.message}`);
-        }
+      try {
+        const result = await deleteProduct(currentProductId);
+        alert(result); // Mostra a mensagem de sucesso ou dados retornados
+        form.reset();
+        currentProductId = null; // Reseta o ID após exclusão
+      } catch (error) {
+        alert(`Erro ao remover o produto: ${error.message}`);
+      }
     } else {
-        alert("Nenhum produto selecionado para remoção.");
+      alert("Nenhum produto selecionado para remoção.");
     }
-});
+  });
+
+  // Salvar produto
+  saveButton.addEventListener("click", async () => {
+    const productData = {
+      name: document.getElementById("nomeProduto").value,
+      typeProduct: document.getElementById("categoriaProduto").value,
+      codProduct: document.getElementById("idProduto").value,
+      price: document.getElementById("precoProduto").value,
+      art: document.getElementById("imagemProduto").value
+    };
+
+    try {
+      const result = await createProduct(productData);
+      alert("Produto criado com sucesso.");
+      form.reset();
+      currentProductId = null; // Reseta o ID após criação
+    } catch (error) {
+      console.error("Erro ao criar o produto:", error);
+      alert("Erro ao criar o produto. Verifique os dados e tente novamente.");
+    }
+  });
+}
+
+export async function createProduct(body) {
+  const bodyRequest = JSON.stringify({
+    "name": body.name,
+    "type_Product": body.typeProduct,
+    "cod_Product": body.codProduct,
+    "price": body.price,
+    "art": body.art
+  });
+
+  try {
+    const response = await fetch(`${baseUrl}${uri}`, {
+      method: 'POST',
+      body: bodyRequest,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    // Verificar se a resposta está no formato JSON
+    const contentType = response.headers.get("content-type");
+    if (response.ok && contentType && contentType.includes("application/json")) {
+      const result = await response.json();
+      return result.data;
+    } else {
+      const errorText = await response.text();
+      console.error("Erro ao criar o produto:", errorText);
+      throw new Error("Erro ao criar o produto. Verifique os dados e tente novamente.");
+    }
+  } catch (error) {
+    console.error("Erro ao criar o produto:", error);
+    throw error;
+  }
 }

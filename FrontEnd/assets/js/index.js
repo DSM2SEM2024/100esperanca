@@ -14,8 +14,8 @@ import { createFooterElement, footerHtml } from "./components/footer";
 import { renderProducts } from "./pages/products/components/render-products";
 
 function renderContentBasedOnHash() {
-    clearBody(); // Limpa o body
-    createFooterElement(); // Garante que o footer seja recriado
+    clearBody(); 
+    createFooterElement(); 
 
     if (location.hash === '#login') {
         telaLoginHtml();
@@ -27,7 +27,6 @@ function renderContentBasedOnHash() {
         gerenciarUsuariosHtml();
     } else if (location.hash === '#produtos') {
         telaProdutosHtml();
-        // renderProducts();
     } else if (location.hash === '#comprarProduto') {
         telaDetalhesProduto();
     } else if (location.hash === '#cart') {

@@ -1,6 +1,6 @@
 import { baseUrl } from "../services/baseUrl/base-url";
 
-const uri = "products";
+export const uri = "products";
 
 
 export async function getAllProducts() {
@@ -37,8 +37,8 @@ export async function createProduct(body) {
 
     const bodyResquest = JSON.stringify({
         "name": body.name,
-        "typeProduct": body.typeProduct,
-        "codProduct": body.codProduct,
+        "type_Product": body.typeProduct,
+        "cod_Product": body.codProduct,
         "price": body.price,
         "art": body.art
     });
