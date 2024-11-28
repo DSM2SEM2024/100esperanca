@@ -28,17 +28,7 @@ export const footerHtml = `
       </ul>
   </div>
 
-   <div class="col mb-3">
-      <h5>Motivaçao  do Site</h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2">
-          <p>
-        Antes de fundar a marca, Jaca atuou na área de enfermagem até 2014, mas decidiu canalizar suas vivências pessoais e artísticas em um projeto que reflete sua identidade e paixão pela arte.
-          </p>
-        </li>
-      </ul>
-    </div>
-
+  
       <div class="col mb-3">
       <h5>Formas de Pagamento</h5>
       <ul class="nav flex-row gap-2">
