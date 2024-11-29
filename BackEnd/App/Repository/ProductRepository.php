@@ -39,6 +39,22 @@ class ProductRepository
         return $result;
     }
 
+    public function ReciveImage(Product $id, $product){
+
+        $image_path = $product->getImagePath();
+
+        $query = "INSERT INTO $this->table (image_path) VALUES (:image_path) WHERE $this->table.id = :id";
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":image_path", $image_path);
+
+        $result = $stmt->execute();
+
+        return $result;
+
+    }
+
     public function getAllProducts(): array
     {
         $query = "SELECT * FROM $this->table";

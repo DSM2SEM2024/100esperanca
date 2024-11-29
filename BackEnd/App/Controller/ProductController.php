@@ -29,6 +29,33 @@ class ProductController
         Response::success($result, "Produto cadastrados com sucesso", 201);
     }
 
+    public function InsertImage($data, $files){
+
+        var_dump($files);
+        var_dump($data);
+
+        $id = $data->id;
+        
+        $imageDir = 'Images/';
+
+        $fileTmpName = $files['image']['tmp_name'];
+        $fileName = $files['image']['name'];
+        $image_path = ("\Pi\Visgo\Common\Images\$fileName");
+        
+        $result = $image_path;
+
+        $result = $this->productRepository->ReciveImage($id, $image_path);
+
+        $destination = $imageDir . basename($fileName);
+
+        if(move_uploaded_file($fileTmpName, $destination)){
+            Response::success(true, "Imagem movida com sucesso!", 200);
+        } else  {
+            Response::error(false, "Falha ao mover imagem!", 500);
+        }
+        
+    }
+
     public function getAll()
     {
         $result = $this->productRepository->getAllProducts();

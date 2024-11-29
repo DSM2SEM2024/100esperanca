@@ -25,10 +25,10 @@ class CartController
         $result = $this->CartRepository->createCart($cartModel);
 
         if (!$result) {
-            Response::error($result, "Erro ao criar Promoção", 400);
+            Response::error($result, "Erro ao criar carrinho", 400);
         }
 
-        Response::success($result, "Promoção criada com sucesso", 201);
+        Response::success($result, "Carrinho criado com sucesso!", 201);
 
     }
 

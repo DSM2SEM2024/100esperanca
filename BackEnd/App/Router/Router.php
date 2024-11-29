@@ -20,9 +20,12 @@ class Router
                 $parameters = $reflection->getParameters();
 
                 $args = [];
+
                 foreach ($parameters as $param) {
-                    if ($param->getName() == 'data') {
+                    if ($param->getName() === 'data') {
                         $args[] = $data;
+                    } elseif ($param->getName() === 'files' && !empty($_FILES)) {
+                        $args[] = $_FILES;
                     } elseif (!empty($recurso)) {
                         $args[] = array_shift($recurso);
                     } else {

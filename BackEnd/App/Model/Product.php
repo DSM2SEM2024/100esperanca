@@ -7,6 +7,7 @@ class Product {
     
     private $id;
     private $name;
+    private $image_path;
     private $typeProduct;
     private $codProduct;
     private $price;
@@ -27,6 +28,14 @@ class Product {
      */
     public function setId(int $id): void {
         $this->id = $id;
+    }
+
+    public function getImagePath() :string  {
+        return $this->image_path;
+    }
+
+    public function setImagePath($image_path) :void{
+        $this->image_path = $image_path;
     }
 
     /**
