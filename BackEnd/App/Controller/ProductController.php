@@ -36,7 +36,9 @@ class ProductController
         var_dump($id);
         var_dump($files);
     
-        $imageDir = 'C:\\Users\\bea20\\Desktop\\PI-Web\\100esperanca\\BackEnd\\App\\Images\\';
+        $imageDir = 'Images/';
+
+        
         $fileTmpName = $files['image']['tmp_name'];
         $fileName = $files['image']['name'];
         $image_path = $imageDir . basename($fileName);
