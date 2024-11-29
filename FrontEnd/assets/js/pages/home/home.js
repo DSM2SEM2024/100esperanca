@@ -8,101 +8,61 @@ ota_img = dowloadPLAC;
 
 export function criaHomeHTML(){
     const homeHTML= `
-<div class="container text-center bg-success">
-  <div class="d-flex flex-column">
-  
-            <div class="p-3">
-                    <figure class="container-sm">
-                        <img src="${img}" alt="visgo de jaca">
-                    </figure>
-            </div>
+  <section class=" d-flex justify-content-center">
+        <figure class=" position-relative rounded-3 m-5">
 
-        <h2 class="h2">Quem é a marca Visgo de Jaca?</h2>
-        <h1>é uma bixa</h1>
-        <br>
-            <p class="fs-3 lh-1 p-3 text-center">
-                Criada a partir das experiências de Jaca, que incorpora sua herança baiana e experiências pessoais em cada criação, Visgo de Jaca é uma marca que mescla tradição, arte e autenticidade. Oferecer peças que são mais do que roupas, são manifestações culturais e autorais, é um sinal de resistência cultural com estreita relação com a capoeira, a música e o movimento anticolonial.
+            <img src="${ota_img}" class="rounded-3 img-fluid" width="300px">
+        </figure>
+
+        <figure class=" position-relative rounded-3">
+            <img src="${ota_img}" class="rounded-3 img-fluid position-relative top-25 end-75"width="300px" title="secundary main image">
+        </figure>
+    </section>
+
+    <section class="countainer-xxl d-flex p-5 flex-wrap">
+
+        <section class="countainer-sm m-1 d-inline" id="first-container">
+            <h1>inicio de tudo</h1>
+            <p class="fs-5 text-wrap">
+                adiburai naxumerus silimulambukaidro Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa similique iste fugit hic atque blanditiis praesentium, esse quidem accusantium perferendis qui at ad voluptatibus quia saepe veritatis voluptas illo! Culpa repudiandae vero totam, illum at consectetur nihil doloremque voluptates ullam laboriosam tempora ad id cumque ab labore. Accusamus harum voluptatibus, delectus id nemo illo dicta consequatur ipsa nulla recusandae quibusdam et! Quae eos corporis reiciendis quibusdam debitis sed mollitia tenetur et porro ab, modi vel ipsum eveniet neque vitae perspiciatis! Cupiditate illo mollitia necessitatibus porro sit alias voluptatem distinctio deserunt dolor rerum? Expedita laudantium ex, accusantium delectus sed officia totam? 
             </p>
-    </div>
-  </div>
-</div>
-
-<label class="h1 fw-bold text-start fs-1">bolsas</labe>
-<section class="d-flex flex-wrap justify-content-between d-flex">
-
-    <section class="d-flex">
-       <section class="col p-0 m-2">
-            <img src="${img}" class="img-fluid">
-       </section>
-
-       <section class="col p-0 m-2">
-            <img src="${img}" class="img-fluid">
-       </section>
-    </section>
-
-        <section class="d-flex">
-            <section class="col p-0 m-2">
-                    <img src="${img}" class="img-fluid">
-            </section>
-
-            <section class="col p-0 m-2">
-                    <img src="${img}" class="img-fluid">
-            </section>
         </section>
     </section>
-</section>
-      
-<label class="h1 fw-bold text-start fs-1">canecas</labe> 
-<section class="d-flex flex-wrap  justify-content-between d-flex ">
+    
+    <hr>
 
-    <section class="d-flex">
-       <section class="col p-0 m-2">
-            <img src="${img}" class="img-fluid">
-       </section>
+    <section class="d-flex flex-row" id="countent">
+        <section class="countainer-sm d-inline text-center text-wrap" id="our_objective">
+            <h1>
+                <img src="${img}">
+                Qual nosso objetivo?
+            </h1>
+            <p class="p-1">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni molestiae tempora voluptate dolore, itaque maxime? Veniam labore, magni error fuga ipsa quod iusto porro aperiam voluptates. Inventore maxime blanditiis cumque animi ratione perferendis consectetur error quisquam et perspiciatis sapiente at officia, praesentium incidunt? Ex aperiam dolores distinctio, tempore commodi laboriosam?
+            </p>
 
-       <section class="col p-0 m-2">
-            <img src="${img}" class="img-fluid">
-       </section>
-    </section>
-
-        <section class="d-flex">
-            <section class="col p-0 m-2">
-                    <img src="${img}" class="img-fluid">
-            </section>
-
-            <section class="col p-0 m-2">
-                    <img src="${img}" class="img-fluid">
-            </section>
+        </section>
+        <section class="countainer-sm d-inline text-center text-wrap" id="nao_sei_oq_colocar_aqui">
+            <h1>
+                <img src="${img}">
+                Rafael Viado
+            </h1>
+            <p class="p-1">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni molestiae tempora voluptate dolore, itaque maxime? Veniam labore, magni error fuga ipsa quod iusto porro aperiam voluptates. Inventore maxime blanditiis cumque animi ratione perferendis consectetur error quisquam et perspiciatis sapiente at officia, praesentium incidunt? Ex aperiam dolores distinctio, tempore commodi laboriosam?
+            </p>
+            
         </section>
     </section>
-</section>
-       
+    <hr>
+        <section class="countainer-sm d-flex flex-column text-center align-items-center text-wrap" id="nao_sei_oq_colocar_aqui">
+            <img src="${img}" alt="visgo main logo" class="img-thumbnail" style="border-radius: 100%;" width="400rem">
 
-<label class="h1 fw-bold text-start fs-1">camisas</labe> 
-<section class="d-flex flex-wrap  justify-content-between d-flex ">
-
-    <section class="d-flex">
-       <section class="col p-0 m-2">
-            <img src="${img}" class="img-fluid">
-       </section>
-
-       <section class="col p-0 m-2">
-            <img src="${img}" class="img-fluid">
-       </section>
-    </section>
-
-        <section class="d-flex">
-            <section class="col p-0 m-2">
-                    <img src="${img}" class="img-fluid">
-            </section>
-
-            <section class="col p-0 m-2">
-                    <img src="${img}" class="img-fluid">
-            </section>
+            <h1>VISGO DE JACA</h1>
+            <p class="p-5">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni molestiae tempora voluptate dolore, itaque maxime? Veniam labore, magni error fuga ipsa quod iusto porro aperiam voluptates. Inventore maxime blanditiis cumque animi ratione perferendis consectetur error quisquam et perspiciatis sapiente at officia, praesentium incidunt? Ex aperiam dolores distinctio, tempore commodi laboriosam?
+            </p>
+            
         </section>
-    </section>
-</section>
-       
 `;
 
     const main = getOrCreateMainElement();
