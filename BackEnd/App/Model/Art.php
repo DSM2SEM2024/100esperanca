@@ -8,7 +8,7 @@ class Art
     private $name;
     private $description;
     private $characteristic;
-    private $is_deleted;
+    private $is_deleted = 0;
 
 
     public function setId($id): self
@@ -22,9 +22,26 @@ class Art
         return $this->id;
     }
 
-    public function getCharacteristic()
+    public function setName($name)
     {
-        return $this->characteristic;
+        $this->name = $name;
+        return $this;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function setCharacteristic($characteristic)
+    {
+        $this->characteristic = $characteristic;
+        return $this;
+    }
+    public function getName()
+    {
+        return $this->name;
     }
 
     public function getDescription()
@@ -32,32 +49,19 @@ class Art
         return $this->description;
     }
 
-    public function getName()
+    public function getCharacteristic()
     {
-        return $this->name;
+        return $this->characteristic;
     }
 
-    public function setCharacteristic($characteristic)
-    {
-        return $this->characteristic = $characteristic;
-    }
-
-    public function setDescription($description)
-    {
-        return $this->description = $description;
-    }
-
-    public function setName($name)
-    {
-        return $this->name = $name;
-    }
 
     public function getIsDeleted(){
         return $this->is_deleted;
     }
 
-    public function setIsDeleted($is_deleted){
-        return $this->is_deleted = $is_deleted;
+    public function setIsDeleted($is_deleted): self{
+         $this->is_deleted = $is_deleted;
+         return $this;
     }
 
 }
