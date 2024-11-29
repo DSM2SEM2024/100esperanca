@@ -28,8 +28,8 @@ export function telaGerenciarProdutosHtml() {
               <input type="text" class="form-control" id="nomeProduto" placeholder="Digite o nome do produto">
             </div>
             <div class="flex-grow-1">
-              <label for="idProduto" class="form-label">ID do Produto</label>
-              <input type="text" class="form-control" id="idProduto" placeholder="Digite o ID do produto">
+              <label for="idProduto" class="form-label">Código do Produto</label>
+              <input type="text" class="form-control" id="idProduto" placeholder="Digite o Código do produto">
             </div>
           </div>
           <div class="mb-3 d-flex gap-2">
@@ -146,9 +146,11 @@ function addEventListeners() {
       price: document.getElementById("precoProduto").value,
       art: document.getElementById("imagemProduto").value
     };
-
+    
+    console.log(productData);
+    
     try {
-      const result = await createProduct(productData);
+      // const result = await createProduct(productData);
       alert("Produto criado com sucesso.");
       form.reset();
       currentProductId = null; // Reseta o ID após criação
@@ -159,6 +161,7 @@ function addEventListeners() {
   });
 }
 
+
 export async function createProduct(body) {
   const bodyRequest = JSON.stringify({
     "name": body.name,
@@ -166,16 +169,19 @@ export async function createProduct(body) {
     "codProduct": body.codProduct,
     "price": body.price,
     "art": body.art
-  });
 
+  });
+  console.log(bodyRequest);
+  
   try {
-    const response = await fetch(`${baseUrl}${uri}`, {
-      method: 'POST',
-      body: bodyRequest,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+     const response = await fetch(`${baseUrl}${uri}`, {
+       method: 'POST',
+       body: bodyRequest,
+       headers: {
+         'Content-Type': 'application/json'
+       }
+    
+     });
 
     // Verificar se a resposta está no formato JSON
     const contentType = response.headers.get("content-type");

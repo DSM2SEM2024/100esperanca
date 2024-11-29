@@ -37,7 +37,7 @@ export async function createProduct(body) {
     const bodyRequest = JSON.stringify({
       "name": body.name,
       "type_Product": body.typeProduct,
-      "cod_Product": body.codProduct,
+      "codProduct": body.codProduct,
       "price": body.price,
       "art": body.art
     });
@@ -71,7 +71,7 @@ export async function updateProduct(body) {
 
     const bodyResquest = JSON.stringify({
         "name": body.name,
-        "typeProduct": body.typeProduct,
+        "type_Product": body.typeProduct,
         "codProduct": body.codProduct,
         "price": body.price,
         "art": body.art
