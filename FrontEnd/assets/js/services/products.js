@@ -36,7 +36,7 @@ export async function getProductById(id) {
 export async function createProduct(body) {
     const bodyRequest = JSON.stringify({
       "name": body.name,
-      "type_Product": body.typeProduct,
+      "typeProduct": body.typeProduct,
       "codProduct": body.codProduct,
       "price": body.price,
       "art": body.art
@@ -71,7 +71,7 @@ export async function updateProduct(body) {
 
     const bodyResquest = JSON.stringify({
         "name": body.name,
-        "type_Product": body.typeProduct,
+        "typeProduct": body.typeProduct,
         "codProduct": body.codProduct,
         "price": body.price,
         "art": body.art
