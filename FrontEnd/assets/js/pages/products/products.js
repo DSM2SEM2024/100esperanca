@@ -45,7 +45,7 @@ export function telaProdutosHtml() {
 
         <section class="container" id="productContainer">
             <div class="row row-cols-1 row-cols-md-3 g-4 p-4 justify-content-evenly">
-                <!-- Produtos serão renderizados aqui -->
+                <!-- Cards de produtos serão renderizados aqui -->
             </div>
         </section>
 
