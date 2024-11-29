@@ -34,30 +34,38 @@ export async function getProductById(id) {
 }
 
 export async function createProduct(body) {
-
-    const bodyResquest = JSON.stringify({
-        "name": body.name,
-        "type_Product": body.typeProduct,
-        "cod_Product": body.codProduct,
-        "price": body.price,
-        "art": body.art
+    const bodyRequest = JSON.stringify({
+      "name": body.name,
+      "type_Product": body.typeProduct,
+      "cod_Product": body.codProduct,
+      "price": body.price,
+      "art": body.art
     });
-
+  
     try {
-        const response = await fetch(`${baseUrl}${uri}`, {
-            method: 'POST',
-            body: bodyResquest,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
+      const response = await fetch(`${baseUrl}${uri}`, {
+        method: 'POST',
+        body: bodyRequest,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      // Verificar se a resposta está no formato JSON
+      const contentType = response.headers.get("content-type");
+      if (response.ok && contentType && contentType.includes("application/json")) {
         const result = await response.json();
         return result.data;
+      } else {
+        const errorText = await response.text();
+        console.error("Erro ao criar o produto:", errorText);
+        throw new Error("Erro ao criar o produto. Verifique os dados e tente novamente.");
+      }
     } catch (error) {
-        console.error("Erro ao buscar os produtos do backend:", error);
+      console.error("Erro ao criar o produto:", error);
+      throw error;
     }
-}
+  }  
 
 export async function updateProduct(body) {
 

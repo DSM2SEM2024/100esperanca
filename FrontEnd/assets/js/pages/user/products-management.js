@@ -64,7 +64,6 @@ export function telaGerenciarProdutosHtml() {
 
   main.innerHTML = gerenciarProdutos;
   addEventListeners();
-  console.log(`${baseUrl}${uri}`);
 }
 
 function addEventListeners() {
@@ -163,8 +162,8 @@ function addEventListeners() {
 export async function createProduct(body) {
   const bodyRequest = JSON.stringify({
     "name": body.name,
-    "type_Product": body.typeProduct,
-    "cod_Product": body.codProduct,
+    "typeProduct": body.typeProduct,
+    "codProduct": body.codProduct,
     "price": body.price,
     "art": body.art
   });
