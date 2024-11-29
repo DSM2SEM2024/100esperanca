@@ -1,21 +1,9 @@
 import { getOrCreateMainElement } from "../../components/main";
-import { getAllProducts } from "../../services/products";
 import { renderProductDetails } from "../productDetails/productDetails";
 import { renderProducts } from "./components/render-products";
 
-let products;
 
-async function fetchProducts() {
-    try {
-        products = await getAllProducts();
-    } catch (error) {
-        console.error('Erro ao buscar produtos:', error);
-    }
-}
-
-fetchProducts();
-
-export function telaProdutosHtml() {
+export async function telaProdutosHtml() {
     const telaProdutos = `
         <nav class="navbar navbar-expand-lg d-flex bg-body-tertiary bg-opacity-75" id="navFiltros">
             <section class="container-fluid d-flex justify-content-evenly">
@@ -81,8 +69,9 @@ export function telaProdutosHtml() {
     main.innerHTML = telaProdutos;
 
     const productContainer = document.querySelector("#productContainer .row");
+
     if (productContainer) {
-        productContainer.innerHTML = renderProducts(products);
+        productContainer.innerHTML = await renderProducts();
     } else {
         console.error("Container de produtos não encontrado");
     }
