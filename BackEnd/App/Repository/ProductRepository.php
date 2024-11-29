@@ -12,6 +12,8 @@ class ProductRepository
     private PDO $connection;
     private string $table = "product";
 
+    private string $tableassoc = "product_image";
+
     public function __construct($drive)
     {
         $this->connection = Connection::getInstance($drive);
@@ -39,20 +41,15 @@ class ProductRepository
         return $result;
     }
 
-    public function ReciveImage(Product $id, $product){
-
-        $image_path = $product->getImagePath();
-
-        $query = "INSERT INTO $this->table (image_path) VALUES (:image_path) WHERE $this->table.id = :id";
-
+    public function reciveImage(int $id, string $image_path): bool 
+    {
+        $query = "INSERT INTO $this->tableassoc (id, image_path) VALUES (:id, :image_path)";
+    
         $stmt = $this->connection->prepare($query);
-        $stmt->bindParam(":id", $id);
-        $stmt->bindParam(":image_path", $image_path);
-
-        $result = $stmt->execute();
-
-        return $result;
-
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        $stmt->bindParam(":image_path", $image_path, PDO::PARAM_STR);
+    
+        return $stmt->execute();
     }
 
     public function getAllProducts(): array

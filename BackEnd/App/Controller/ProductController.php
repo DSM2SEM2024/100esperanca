@@ -29,32 +29,41 @@ class ProductController
         Response::success($result, "Produto cadastrados com sucesso", 201);
     }
 
-    public function InsertImage($data, $files){
-
-        var_dump($files);
-        var_dump($data);
-
-        $id = $data->id;
-        
-        $imageDir = 'Images/';
-
-        $fileTmpName = $files['image']['tmp_name'];
-        $fileName = $files['image']['name'];
-        $image_path = ("\Pi\Visgo\Common\Images\$fileName");
-        
-        $result = $image_path;
-
-        $result = $this->productRepository->ReciveImage($id, $image_path);
-
-        $destination = $imageDir . basename($fileName);
-
-        if(move_uploaded_file($fileTmpName, $destination)){
-            Response::success(true, "Imagem movida com sucesso!", 200);
-        } else  {
-            Response::error(false, "Falha ao mover imagem!", 500);
+    public function InsertImage($data, $files)
+    {
+        $id = $data[0] ?? null; 
+    
+        if (empty($id)) {
+            Response::error(false, "ID do produto não foi fornecido.", 400);
+            return;
         }
         
+        if (empty($files['image']['tmp_name'])) {
+            Response::error(false, "Nenhuma imagem foi enviada.", 400);
+            return;
+        }
+    
+        $imageDir = 'Images/';
+    
+        $fileTmpName = $files['image']['tmp_name'];
+        $fileName = $files['image']['name'];
+        $image_path = $imageDir . basename($fileName);
+    
+        $destination = $imageDir . basename($fileName);
+        if (move_uploaded_file($fileTmpName, $destination)) {
+            $result = $this->productRepository->reciveImage($id, $image_path);
+    
+            if ($result) {
+                Response::success(true, "Imagem movida e caminho armazenado com sucesso!", 200);
+            } else {
+                Response::error(false, "Falha ao inserir o caminho da imagem no banco de dados.", 500);
+            }
+        } else {
+            Response::error(false, "Falha ao mover a imagem.", 500);
+        }
     }
+    
+    
 
     public function getAll()
     {
