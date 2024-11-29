@@ -48,7 +48,7 @@ class OrderController
     {
         $isValid = Validator::validatorObjectInput($data);
 
-        if (!$isValid) {
+        if (!empty($isValid)) {
             Response::error($isValid, "Erro ao atualziar a encomenda. Verifique seus dados de entrada", 400);
         }
 
@@ -104,27 +104,37 @@ class OrderController
     }
 
     public function getAllOrderFromArt()
-    {
-        $result = $this->orderRepository->getAllOrderArts();
+{
+    $result = $this->orderRepository->getAllOrderArts();
 
-        if (!$result) {
-            Response::error($result, "Nenhuma associação de arte encontrada.", 404);
-        }
-
-        Response::success($result, "Requisição realizada com sucesso", 200);
+    if (!$result) {
+        Response::error(false, "Nenhuma associação de arte encontrada.", 404);
+        return;
     }
 
+    Response::success($result, "Requisição realizada com sucesso", 200);
+}
 
-    public function addArtToOrder($order, $arts)
+
+    public function addArtToOrder($order, $data)
     {
+        if (!isset($data->arts) || empty($data->arts)) {
+            Response::error(false, "Nenhuma arte fornecida.", 400);
+            return;
+        }
+    
+        $arts = $data->arts;
+    
         $result = $this->orderRepository->insertArtInOrder($order, $arts);
-
+    
         if (!$result) {
-            Response::error($result, "Erro ao adicionar arte(s) ao pedido.", 500);
+            Response::error(false, "Erro ao adicionar arte(s) ao pedido.", 500);
+            return;
         }
-
-        Response::success($result, "Arte(s) adicionada(s) ao pedido.", 200);
+    
+        Response::success(true, "Arte(s) adicionada(s) ao pedido.", 200);
     }
+    
 
 
 

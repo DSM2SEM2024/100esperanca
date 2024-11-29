@@ -58,10 +58,7 @@ export const headerHtml = `
 
         </li>
       </ul>
-  </nav>
-
-
-  
+  </nav>  
 `;
 
 const headerElement = document.createElement('header');
