@@ -24,7 +24,9 @@ class UserController
     {
         try {
             $user = $this->assemblerUser($data);
-            $user = $this->userRepository->createUser($user);
+            $result = $this->userRepository->createUser($user);
+
+            Response::success($result, 'Usuário criado com sucesso', 201);
         } catch (ErrorCreatingEntityException $e) {
             Response::error($e->getMessage(), 500);
         } catch (PDOException $e) {
@@ -76,9 +78,9 @@ class UserController
         $roles = array();
         $addresses = array();
 
-        foreach ($data->roles as $idRole) {
+        foreach ($data->roles as $nameRole) {
             $role = new Role();
-            $role->setId($idRole);
+            $role->setName($nameRole);
             array_push($roles, $role);
         }
 
@@ -97,7 +99,7 @@ class UserController
         $user->setName($data->name)
             ->setEmail($data->email)
             ->setPassword($data->password)
-            ->setRole($roles)
+            ->setRoles($roles)
             ->setAddresses($addresses);
 
         return $user;

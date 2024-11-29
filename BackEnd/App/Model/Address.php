@@ -144,6 +144,7 @@ class Address implements JsonSerializable
     public function jsonSerialize(): mixed
     {
         return [
+            'id' => $this->getId(),
             'state' => $this->getState(),
             'city' => $this->getCity(),
             'neighborhood' => $this->getNeighborhood(),

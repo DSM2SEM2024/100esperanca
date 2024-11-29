@@ -1,6 +1,7 @@
 <?php
 namespace Pi\Visgo\Repository;
 
+use Pi\Visgo\Common\Exceptions\ResourceNotFoundException;
 use Pi\Visgo\Model\Role;
 use PDO;
 
@@ -51,7 +52,13 @@ class RoleRepository{
         $stmt->bindParam(":name", $role, PDO::PARAM_STR);
         $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_OBJ);
+        $roleData = $stmt->fetch(PDO::FETCH_OBJ);
+
+        if (!$roleData) {
+            throw new ResourceNotFoundException('Role', $roleData);
+        }
+
+        return $roleData;
     }
 
     public function getAllRoles(): array{
