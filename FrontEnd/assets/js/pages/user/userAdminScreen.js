@@ -1,9 +1,8 @@
-import { footerHtml } from "../../components/footer";
 import { getOrCreateMainElement } from "../../components/main";
-import { clearBody } from "../../functions/clear_body";
 
 
 const main = getOrCreateMainElement();
+main.classList = "";
 main.classList = "vh-100 d-flex flex-column";
 
 export function telaAdminHtml() {

@@ -1,10 +1,7 @@
 import { getOrCreateMainElement } from "../../components/main";
-import { addToCarrinho } from "../../functions/cartManagement";
-import { getProductById } from "../../services/products";
-import { cadernos, camisetas, bolsas } from "../products/components/consts-products";
+import { getProductById } from "../../services/productsService";
 
 export async function renderProductDetails(id) {
-    // const productId = getIdFromHash();
 
     try {
         const product = await fetchProduct(id);

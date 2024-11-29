@@ -1,6 +1,6 @@
 import { getOrCreateMainElement } from "../../components/main";
 import { renderProductDetails } from "../productDetails/productDetails";
-import { renderProducts } from "./components/render-products";
+import { renderProducts } from "./components/renderProducts";
 
 
 export async function telaProdutosHtml() {

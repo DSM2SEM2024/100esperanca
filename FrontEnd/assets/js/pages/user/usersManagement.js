@@ -1,7 +1,6 @@
 import { getOrCreateMainElement } from "../../components/main";
 
 export function gerenciarUsuariosHtml() {
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
     const gerarTabelaUsuarios = () => {
         return usuarios
@@ -49,10 +48,6 @@ export function gerenciarUsuariosHtml() {
     // Excluir usuários
     document.querySelectorAll("#btn-excluir").forEach((botao) => {
         botao.addEventListener("click", () => {
-            const idUsuario = botao.getAttribute("data-id");
-            const novosUsuarios = usuarios.filter((user) => user.id !== parseInt(idUsuario));
-            localStorage.setItem("usuarios", JSON.stringify(novosUsuarios));
-            gerenciarUsuariosHtml(); // Atualiza a tabela
         });
     });
 }

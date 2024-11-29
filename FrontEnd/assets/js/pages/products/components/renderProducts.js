@@ -1,4 +1,4 @@
-import { getAllProducts } from "../../../services/products";
+import { getAllProducts } from "../../../services/productsService";
 
 export async function renderProducts() {
     const products = await getAllProducts();

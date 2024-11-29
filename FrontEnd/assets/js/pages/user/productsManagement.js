@@ -1,4 +1,3 @@
-import { createFooterElement, footerHtml } from "../../components/footer";
 import { getOrCreateMainElement } from "../../components/main";
 
 const main = getOrCreateMainElement();

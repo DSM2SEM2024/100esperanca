@@ -1,21 +1,20 @@
-import { headerHtml, updateNavbarLinks } from "./components/header"
-import { clearBody } from "./functions/clear_body";
+import { clearBody } from "./functions/clearBody";
 import { criaHomeHTML } from "./pages/home/home";
-import { telaLoginHtml } from "./pages/login/login_screen";
-import { criarUsuarioHtml } from "./pages/create-user/create_user";
+import { telaLoginHtml } from "./pages/login/loginScreen";
+import { criarUsuarioHtml } from "./pages/createUser/createUser";
 import { telaProdutosHtml } from "./pages/products/products";
 import { cartHtml } from "./pages/cart/cart";
 import { renderProductDetails } from "./pages/productDetails/productDetails";
-import { telaAdminHtml } from "./pages/user/user-admin-screen";
-import { gerenciarUsuariosHtml } from "./pages/user/users-management";
-import { telaGerenciarProdutosHtml } from "./pages/user/products-management";
-import { telaGerenciarPromocoes } from "./pages/user/promotion-management";
-import { createFooterElement, footerHtml } from "./components/footer";
-import { renderProducts } from "./pages/products/components/render-products";
+import { telaAdminHtml } from "./pages/user/userAdminScreen";
+import { gerenciarUsuariosHtml } from "./pages/user/usersManagement";
+import { telaGerenciarProdutosHtml } from "./pages/user/productsManagement";
+import { telaGerenciarPromocoes } from "./pages/user/promotionManagement";
+import { createFooterElement } from "./components/footer";
+import { headerHtml } from "./components/header";
 
 function renderContentBasedOnHash() {
-    clearBody(); // Limpa o body
-    createFooterElement(); // Garante que o footer seja recriado
+    clearBody();
+    createFooterElement();
 
     if (location.hash === '#login') {
         telaLoginHtml();
