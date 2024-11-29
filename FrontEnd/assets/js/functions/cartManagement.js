@@ -8,8 +8,6 @@ export function setCarrinho(carrinho) {
 }
 
 export function addToCarrinho(produtosLocais) {
-    console.log(produtosLocais);
-
     const carrinho = getCarrinho();
     carrinho.push(produtosLocais);
     setCarrinho(carrinho);

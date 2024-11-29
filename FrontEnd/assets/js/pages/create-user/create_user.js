@@ -2,65 +2,59 @@ import { getOrCreateMainElement } from "../../components/main";
 
 export function criarUsuarioHtml() {
     const criarUsuario = `
-    <section>
+    <section class="p-3">
     <h1 class="text-center text-success justify-content-center">Cadastre-se</h1>
-    <div class="d-flex flex-wrap justify-content-center align-items-center mb-4">
+    <div class="d-flex flex-column gap-3">
         <!-- Formulário de Dados Pessoais -->
         <form id="form-dados-pessoais">
-            <div class="container">
-                <div class="form-group col">
-                    <label for="nome">Nome</label>
+            <div class="d-flex flex-column gap-3">
+                <div>
                     <input type="text" class="form-control" id="nome" placeholder="Nome" required>
                 </div>
 
-                <div class="form-group col">
-                    <label for="inputEmail4">Email</label>
+                <div>
                     <input type="email" class="form-control" id="email" placeholder="Email" required>
                 </div>
 
-                <div class="form-group col">
-                    <label for="senha">Senha</label>
-                    <input type="password" class="form-control" id="senha" required>
+                <div>
+                    <input type="password" class="form-control" id="senha" placeholder="Senha" required>
                 </div>
 
-                <div class="form-group col">
-                    <label for="confirmarSenha">Confirmar Senha</label>
-                    <input type="password" class="form-control" id="confirmarSenha" required>
+                <div>
+                    <input type="password" class="form-control" id="confirmarSenha" placeholder="Confirmar senha" required>
                 </div>
             </div>
         </form>
 
         <!-- Formulário de Endereço -->
-        <form id="form-endereco" class="d-flex flex-column justify-content-between">
-            <div class="form-row mt-4">
-                <div class="form-group m-2 d-flex">
+        <form id="form-endereco">
+            <div class="d-flex flex-column gap-3">
+                <div class="d-flex gap-3">
                     <input name="cep" type="text" id="cep" class="form-control" placeholder="CEP" required />
-                    <input name="N" type="number" id="numero" class="form-control w-25" placeholder="N" required />
+                    <input name="N" type="number" id="numero" class="form-control w-25" placeholder="Nº" required />
                 </div>
 
-                <div class="form-group m-2 d-flex">
+                <div class="d-flex gap-3">
                     <input name="cidade" type="text" id="cidade" class="form-control" placeholder="Cidade" required />
                     <input name="uf" type="text" id="uf" class="form-control w-25" placeholder="UF" required />
                 </div>
 
-                <div class="form-group col">
-                    <input name="bairro" type="text" id="bairro" class="form-control m-2 w-75" placeholder="Bairro" required />
+                <div >
+                    <input name="bairro" type="text" id="bairro" class="form-control" placeholder="Bairro" required />
                 </div>
-                <div class="form-group">
-                    <input name="rua" type="text" id="rua" class="form-control m-2 w-75" placeholder="Rua" required />
+                <div>
+                    <input name="rua" type="text" id="rua" class="form-control" placeholder="Rua" required />
                 </div>
             </div>
-        </form>
-        
-        <aside class="d-flex justify-content-center m-4 p-4">
-            <button id="submit-btn" class="btn btn-success w-100">Cadastrar</button>
-        </aside>
+            </form>
+            
     </div>
+        <button id="submit-btn" class="mt-3 w-100 btn btn-success">Cadastrar</button>
     </section>
     `;
 
     const main = getOrCreateMainElement();
-    main.classList = "d-flex flex-column align-items-center h-100";
+    main.classList = "d-flex flex-column align-items-center justify-content-center";
     main.innerHTML = criarUsuario;
 
     const submitBtn = document.getElementById("submit-btn");
@@ -85,7 +79,7 @@ export function criarUsuarioHtml() {
         }
 
         const usuario = {
-            id: Date.now(), 
+            id: Date.now(),
             nome,
             email,
             senha,
