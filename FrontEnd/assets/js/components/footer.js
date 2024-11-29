@@ -1,9 +1,6 @@
 import { getOrCreateMainElement } from "./main";
 
-const main = getOrCreateMainElement;
-getOrCreateMainElement
 export const footerHtml = `
-
 <section class="row p-4 border-top w-100 d-flex" id="footer-rows">
 
     <div class="col mb-3">
@@ -95,7 +92,13 @@ export const footerHtml = `
   </section>
 `;
 
-const footerElement = document.createElement('footer');
-footerElement.innerHTML = footerHtml;
-document.body.insertAdjacentElement('beforeend',footerElement)
-
+export const createFooterElement = () => {
+  let footerElement = document.getElementById("footer");
+  if (!footerElement) {
+    footerElement = document.createElement("footer");
+    footerElement.id = "footer";
+    footerElement.innerHTML = footerHtml;
+    document.body.insertAdjacentElement("beforeend", footerElement);
+  }
+};
+createFooterElement();
