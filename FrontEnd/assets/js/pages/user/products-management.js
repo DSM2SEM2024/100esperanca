@@ -1,4 +1,10 @@
-import { createProduct, getAllProducts, getProductById, deleteProduct, updateProduct } from "../../services/products";
+import {
+  createProduct,
+  getAllProducts,
+  getProductById,
+  deleteProduct,
+  updateProduct,
+} from "../../services/products";
 import { getOrCreateMainElement } from "../../components/main";
 
 const main = getOrCreateMainElement();
@@ -37,6 +43,11 @@ export function telaGerenciarProdutosHtml() {
             </tr>
           </tbody>
         </table>
+      </div>
+      <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-success" id="modalAddProduto">
+          Adicionar Produto
+        </button>
       </div>
     </section>
 
@@ -92,6 +103,57 @@ export function telaGerenciarProdutosHtml() {
         </div>
       </div>
     </div>
+
+    <!-- Modal de Adição de Produto --> 
+    <div class="modal fade" id="modalAdicionarProduto" tabindex="-1" aria-labelledby="modalAdicionarProdutoLabel" aria-hidden="true"> 
+      <div class="modal-dialog modal-dialog-centered"> 
+        <div class="modal-content">
+          <div class="modal-header"> 
+            <h5 class="modal-title text-success" id="modalAdicionarProdutoLabel">
+              Adicionar Produto
+            </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+              </button> 
+          </div>
+          <div class="modal-body">
+            <form id="formAdicionarProduto"> 
+              <div class="mb-3"> 
+                <label for="addNome" class="form-label">
+                  Nome
+                </label> 
+                  <input type="text" class="form-control" id="addNome" name="addNome" required> 
+              </div> 
+              
+              <div class="mb-3"> 
+                <label for="addCodigo" class="form-label">
+                  Código
+                </label> 
+                <input type="text" class="form-control" id="addCodigo" name="addCodigo" required>
+              </div> 
+              
+              <div class="mb-3"> 
+                <label for="addCategoria" class="form-label">Categoria</label> 
+                  <input type="text" class="form-control" id="addCategoria" name="addCategoria" required> 
+              </div> 
+              
+              <div class="mb-3"> 
+                <label for="addPreco" class="form-label">Preço</label> 
+                  <input type="number" step="0.01" class="form-control" id="addPreco" name="addPreco" required> 
+              </div> 
+            </form>
+          </div> 
+          
+          <div class="modal-footer"> 
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cancelar
+            </button> 
+            <button type="button" class="btn btn-success" id="btnSalvarProduto">
+              Salvar Produto
+            </button>
+          </div> 
+        </div> 
+      </div> 
+    </div>
   `;
 
   main.innerHTML = gerenciarProdutos;
@@ -105,9 +167,10 @@ async function renderTabelaProdutos(produtos = null) {
   tabela.innerHTML = "<tr><td colspan='6'>Carregando...</td></tr>";
 
   try {
-    const produtosLista = produtos || await getAllProducts();
+    const produtosLista = produtos || (await getAllProducts());
     if (!produtosLista || produtosLista.length === 0) {
-      tabela.innerHTML = "<tr><td colspan='6'>Nenhum produto encontrado</td></tr>";
+      tabela.innerHTML =
+        "<tr><td colspan='6'>Nenhum produto encontrado</td></tr>";
       return;
     }
 
@@ -121,10 +184,14 @@ async function renderTabelaProdutos(produtos = null) {
             <td>${produto.type_product}</td>
             <td>R$ ${produto.price.toFixed(2)}</td>
             <td>
-              <button class="btn btn-danger shadow-lg btnExcluir" data-id="${produto.id}">
+              <button class="btn btn-danger shadow-lg btnExcluir" data-id="${
+                produto.id
+              }">
                 <i class="bi bi-trash-fill text-white"></i>
               </button>
-              <button class="btn btn-success shadow-lg btnEditar" data-id="${produto.id}">
+              <button class="btn btn-success shadow-lg btnEditar" data-id="${
+                produto.id
+              }">
                 <i class="bi bi-pencil-square text-white"></i>
               </button>
             </td>
@@ -208,7 +275,9 @@ function addTabelaEventListeners() {
       try {
         const produto = await getProductById(productId);
         preencherModalEdicao(produto);
-        const modal = new bootstrap.Modal(document.getElementById("modalEditarProduto"));
+        const modal = new bootstrap.Modal(
+          document.getElementById("modalEditarProduto")
+        );
         modal.show();
       } catch (error) {
         console.error("Erro ao carregar produto para edição:", error);
@@ -217,29 +286,34 @@ function addTabelaEventListeners() {
     })
   );
 
-  document.getElementById("btnSalvarAlteracoes")?.addEventListener("click", async () => {
-    const form = document.getElementById("formEditarProduto");
-    const formData = new FormData(form);
+  document
+    .getElementById("btnSalvarAlteracoes")
+    ?.addEventListener("click", async () => {
+      const form = document.getElementById("formEditarProduto");
+      const formData = new FormData(form);
 
-    const productId = formData.get("editProdutoId");
+      const productId = formData.get("editProdutoId");
 
-    const produtoAtualizado = {
-      name: formData.get("editNome"),
-      cod_product: formData.get("editCodigo"),
-      type_product: formData.get("editCategoria"),
-      price: parseFloat(formData.get("editPreco")),
-    };
+      const produtoAtualizado = {
+        name: formData.get("editNome"),
+        cod_product: formData.get("editCodigo"),
+        type_product: formData.get("editCategoria"),
+        price: parseFloat(formData.get("editPreco")),
+      };
 
-    try {
-      await updateProduct(productId, produtoAtualizado);
-      const statusModal = new bootstrap.Modal(document.getElementById("modalSalvarProduto"));
-      document.getElementById("modalSalvarProdutoMensagem").textContent = "Produto atualizado com sucesso.";
-      statusModal.show();
-      renderTabelaProdutos();
-    } catch (error) {
-      alert(`Erro ao atualizar o produto: ${error.message}`);
-    }
-  });
+      try {
+        await updateProduct(productId, produtoAtualizado);
+        const statusModal = new bootstrap.Modal(
+          document.getElementById("modalSalvarProduto")
+        );
+        document.getElementById("modalSalvarProdutoMensagem").textContent =
+          "Produto atualizado com sucesso.";
+        statusModal.show();
+        renderTabelaProdutos();
+      } catch (error) {
+        alert(`Erro ao atualizar o produto: ${error.message}`);
+      }
+    });
 }
 
 function preencherModalEdicao(produto) {
