@@ -49,7 +49,7 @@ class Routes
                 '/carts/products' => [CartController::class, 'InsertProductInCart'],
 
                 '/products' => [ProductController::class, 'create'],
-                '/products/{id}/image' => [ProductController::class, 'InsertImage'],
+                '/products/{id}/image' => [ProductController::class, 'insertImage'],
 
                 '/arts' => [ArtController::class, 'create'],
             ],

@@ -29,29 +29,19 @@ class ProductController
         Response::success($result, "Produto cadastrados com sucesso", 201);
     }
 
-    public function InsertImage($data, $files)
+    public function insertImage($id, $files)
     {
-        
+        $id = (int) $id;
 
-        $id = $data[0] ?? null; 
-    
         var_dump($id);
-        var_dump($data);
         var_dump($files);
-        
-        if (empty($files['image']['tmp_name'])) {
-            Response::error(false, "Nenhuma imagem foi enviada.", 400);
-            return;
-        }
     
         $imageDir = 'C:\\Users\\bea20\\Desktop\\PI-Web\\100esperanca\\BackEnd\\App\\Images\\';
-
-    
         $fileTmpName = $files['image']['tmp_name'];
         $fileName = $files['image']['name'];
         $image_path = $imageDir . basename($fileName);
         $destination = $imageDir . basename($fileName);
-
+    
         if (move_uploaded_file($fileTmpName, $destination)) {
             $result = $this->productRepository->reciveImage($id, $image_path);
     
@@ -64,6 +54,8 @@ class ProductController
             Response::error(false, "Falha ao mover a imagem.", 500);
         }
     }
+    
+
     
     
 

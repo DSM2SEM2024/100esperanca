@@ -12,7 +12,7 @@ class ProductRepository
     private PDO $connection;
     private string $table = "product";
 
-    private string $tableassoc = "product_image";
+    private string $tableassoc = "product_images";
 
     public function __construct($drive)
     {
@@ -41,16 +41,22 @@ class ProductRepository
         return $result;
     }
 
-    public function reciveImage(int $id, string $image_path): bool 
+    public function reciveImage(int $product_id, string $image_path): bool 
     {
-        $query = "INSERT INTO $this->tableassoc (id, image_path) VALUES (:id, :image_path)";
+        if ($product_id <= 0) {
+            return false;
+        }
     
+        $query = "INSERT INTO $this->tableassoc (product_id, image_path) VALUES (:product_id, :image_path)";
+        
         $stmt = $this->connection->prepare($query);
-        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
-        $stmt->bindParam(":image_path", $image_path, PDO::PARAM_STR);
     
+        $stmt->bindParam(":product_id", $product_id, PDO::PARAM_INT);
+        $stmt->bindParam(":image_path", $image_path, PDO::PARAM_STR);
+        
         return $stmt->execute();
     }
+    
 
     public function getAllProducts(): array
     {
