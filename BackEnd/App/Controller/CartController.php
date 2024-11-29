@@ -64,7 +64,7 @@ class CartController
     {
 
         $result = $this->CartRepository->getAllCartsAssoc();
-        Response::success(200, $result, "Requisição bem sucedida");
+        Response::success($result, "Requisição bem sucedida", 200);
 
     }
 
