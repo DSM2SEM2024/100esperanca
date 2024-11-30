@@ -1,28 +1,24 @@
 import { getOrCreateMainElement } from "../../components/main"
 import visgoImgPLACEHOLDER from "/assets/imgs/visgo.jpg"
-import dowloadPLAC from "./imgs/tambor.jpg"
-import sois from "./imgs/dois_sois_laranja.jpg"
+import sois from "./imgs/thumbnail.png"
 
 img = visgoImgPLACEHOLDER;
-ota_img = dowloadPLAC;
 sois = sois;
 
 
 export function criaHomeHTML(){
     const homeHTML= `
-  <section class=" d-flex justify-content-center mty-5">
-        <figure class=" position-relative rounded-3 m-5">
 
-            <img src="${sois}" class="rounded-3 img-fluid" width="300px">
+    <section class="container-sm my-1">
+
+        <figure class="rounded-3 d-flex justify-content-center align-items-center">
+                <img src="${sois}" class="rounded-3 img-fluid img-main-thumb">
         </figure>
 
-        <figure class=" position-relative rounded-3">
-            <img src="${ota_img}" class="rounded-3 img-fluid position-relative top-25 end-100"width="300px" title="secundary main image">
-        </figure>
     </section>
+  
 
-    <section class="countainer-xxl d-flex p-4 flex-wrap m-5">
-
+    <section class="countainer-xxl d-flex p-4 flex-wrap">
         <section class="countainer-sm d-inline" id="first-container">
             <h1>inicio de tudo</h1>
             <p class="fs-5 text-wrap">
@@ -36,7 +32,7 @@ export function criaHomeHTML(){
     <section class="d-flex flex-row" id="countent">
         <section class="countainer-sm d-inline text-center text-wrap" id="our_objective">
             <h1>
-                <img src="${img}">
+                <i class="bi bi-flag-fill"></i>
                 Qual nosso objetivo?
             </h1>
             <p class="p-4">
@@ -46,8 +42,8 @@ export function criaHomeHTML(){
         </section>
         <section class="countainer-sm d-inline text-center text-wrap" id="nao_sei_oq_colocar_aqui">
             <h1>
-                <img src="${img}">
-                Rafael Viado
+                <i class="bi bi-code-slash"></i>
+                 Desenvolvimento do site
             </h1>
             <p class="p-4">
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni molestiae tempora voluptate dolore, itaque maxime? Veniam labore, magni error fuga ipsa quod iusto porro aperiam voluptates. Inventore maxime blanditiis cumque animi ratione perferendis consectetur error quisquam et perspiciatis sapiente at officia, praesentium incidunt? Ex aperiam dolores distinctio, tempore commodi laboriosam?
