@@ -56,6 +56,7 @@ export function telaGerenciarProdutosHtml() {
     ${modalAdicionarProdutoHtml()}
     ${modalEditarProdutoHtml()}
     ${modalFeedbackHtml()}
+    ${modalDeleteHtml}
   `;
 
   main.innerHTML = gerenciarProdutos;
@@ -143,7 +144,31 @@ function modalEditarProdutoHtml() {
     </div>
   `;
 }
-
+function modalDeleteHtml(){
+  `<!-- Modal de Confirmação de Exclusão -->
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalDeleteLabel">Confirmar Exclusão</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Tem certeza de que deseja excluir este produto?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-danger" id="confirmDelete">
+              Excluir
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+`
+}
 // Função para renderizar o modal de feedback
 function modalFeedbackHtml() {
   return `
@@ -244,7 +269,7 @@ async function renderTabelaProdutos(produtos = null) {
             <td>
               <button class="btn btn-danger shadow-lg btnExcluir" data-id="${
                 produto.id
-              }">
+              }" onclick="modalDelete()">
                 <i class="bi bi-trash-fill text-white"></i>
               </button>
               <button class="btn btn-success shadow-lg btnEditar" data-id="${
@@ -423,9 +448,9 @@ function addTabelaEventListeners() {
 }
 
 function preencherModalEdicao(produto) {
-  document.getElementById("editProdutoId").value = produto.id;
   document.getElementById("editNome").value = produto.name;
   document.getElementById("editCodigo").value = produto.cod_product;
   document.getElementById("editCategoria").value = produto.type_product;
-  document.getElementById("editPreco").value = produto.price.toFixed(2);
+  document.getElementById("editPreco").value = produto.price;
+  document.getElementById("editProdutoId").value = produto.id;
 }
