@@ -1,41 +1,61 @@
 import { getOrCreateMainElement } from "../../components/main";
+import { getAllUsersWithRoles } from "../../services/usersService";
 
-export function gerenciarUsuariosHtml() {
+export async function gerenciarUsuariosHtml() {
 
-    const gerarTabelaUsuarios = () => {
-        return usuarios
-            .map(
-                (usuario) => `
-                <tr>
-                    <td>${usuario.id}</td>
-                    <td>${usuario.nome}</td>
-                    <td>${usuario.email}</td>
-                    <td>
-                        <button class="btn btn-danger shadow-lg" data-id="${usuario.id}" id="btn-excluir">
-                            <i class="bi bi-trash-fill text-white"></i>
-                        </button>
-                    </td>
-                </tr>
-            `
-            )
-            .join("");
+    const listRoles = (roles) => {
+        return roles.map(role => `
+            <ul>
+                <li>${role.name}</li>
+            </ul>
+        `).join('');
+    }
+    
+    const gerarTabelaUsuarios = async () => {
+        const users = await getAllUsersWithRoles();
+        
+        const lineUser = users.map((user) => `
+            <tr>
+                <td>${user.id}</td>
+                <td>${user.name}</td>
+                <td>${user.email}</td>
+                <td>${listRoles(user.roles)}</td>
+                <td>
+                    <button class="btn btn-warning shadow-lg" data-id="${user.id}" id="btn-update">
+                        <i class="bi bi-house-gear-fill"></i>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-primary shadow-lg" data-id="${user.id}" id="btn-update">
+                        <i class="bi bi-arrow-clockwise"></i>
+                    </button>
+                    <button class="btn btn-danger shadow-lg" data-id="${user.id}" id="btn-excluir">
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
+                </td>
+            </tr>
+        `).join("");
+
+        return lineUser;
     };
 
     const gerenciarUsuarios = `
     <section class="container-fluid flex-grow-1 p-4">
         <div id="tabela-container" class="text-center">
-            <h2>Consulta de Usuários</h2>
-            <table class="table table-bordered table-responsive">
+            <h2>Usuários</h2>
+            <table class="table table-striped-columns table-bordered table-responsive table-hover">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Id</th>
                         <th>Nome</th>
                         <th>Email</th>
+                        <th>Tipo</th>
+                        <th>Endereços</th>
                         <th>Ação</th>
                     </tr>
                 </thead>
-                <tbody id="tabela-usuarios">
-                    ${gerarTabelaUsuarios()}
+                <tbody id="table-users">
+                    
                 </tbody>
             </table>
         </div>
@@ -45,9 +65,6 @@ export function gerenciarUsuariosHtml() {
     const main = getOrCreateMainElement();
     main.innerHTML = gerenciarUsuarios;
 
-    // Excluir usuários
-    document.querySelectorAll("#btn-excluir").forEach((botao) => {
-        botao.addEventListener("click", () => {
-        });
-    });
+    const tableBody = document.getElementById('table-users');
+    tableBody.innerHTML = await gerarTabelaUsuarios();
 }

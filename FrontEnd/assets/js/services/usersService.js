@@ -18,6 +18,22 @@ export async function getAllUsers() {
 }
 
 
+export async function getAllUsersWithRoles() {
+    try {
+        const response = await fetch(`${baseUrl}${uri}/with-roles`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const result = await response.json();
+        return result.data;
+    } catch (error) {
+        console.error("Erro ao buscar os produtos do backend:", error);
+    }
+}
+
+
 
 export async function createUser(body) {
     const roles = body.roles.map(element => element);
