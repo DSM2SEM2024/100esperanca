@@ -141,13 +141,19 @@ class User implements JsonSerializable
 
     public function jsonSerialize(): mixed
     {
-        return [
-            'id' => $this->getId(),
-            'name' => $this->getName(),
-            'email' => $this->getEmail(),
-            'roles' => $this->getRoles(),
+        $data = [
+            'id' => $this->getId(), 
+            'name' => $this->getName(), 
+            'email' => $this->getEmail(), 
             'addresses' => $this->getAddresses()
         ];
+
+        if (!empty($this->roles)) {
+            $data['roles'] = $this->getRoles();
+        }
+
+        return $data;
     }
+
 
 }
