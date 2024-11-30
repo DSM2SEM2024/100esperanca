@@ -67,31 +67,29 @@ export async function createProduct(body) {
     }
   }  
 
-export async function updateProduct(body) {
-
-    const bodyResquest = JSON.stringify({
-        "name": body.name,
-        "typeProduct": body.typeProduct,
-        "codProduct": body.codProduct,
-        "price": body.price,
-        "art": body.art
-    });
-
+export async function updateProduct(id, productData) {
     try {
-        const response = await fetch(`${baseUrl}${uri}`, {
+        const response = await fetch(`/api/products/${id}`, {
             method: 'PUT',
-            body: bodyResquest,
             headers: {
-                'Content-Type': 'application/json'
-            }
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(productData),
         });
 
-        const result = await response.json();
-        return result.data;
+        if (!response.ok) {
+            throw new Error(`Erro ao atualizar o produto: ${response.statusText}`);
+        }
+
+        const updatedProduct = await response.json();
+        console.log('Produto atualizado com sucesso:', updatedProduct);
+        return updatedProduct;
     } catch (error) {
-        console.error("Erro ao buscar os produtos do backend:", error);
+        console.error('Erro ao atualizar o produto:', error);
+        throw error;
     }
 }
+
 
 export async function deleteProduct(id) {
     try {

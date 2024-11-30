@@ -6,6 +6,7 @@ import {
   updateProduct,
 } from "../../services/products";
 import { getOrCreateMainElement } from "../../components/main";
+import { baseUrl } from "../../services/baseUrl/base-url";
 
 const main = getOrCreateMainElement();
 
@@ -51,7 +52,60 @@ export function telaGerenciarProdutosHtml() {
       </div>
     </section>
 
-    <!-- Modal de Edição de Produto -->
+    <!-- Modais -->
+    ${modalAdicionarProdutoHtml()}
+    ${modalEditarProdutoHtml()}
+    ${modalFeedbackHtml()}
+  `;
+
+  main.innerHTML = gerenciarProdutos;
+  renderTabelaProdutos();
+  addEventListeners();
+}
+
+// Função para renderizar o modal de adicionar produto
+function modalAdicionarProdutoHtml() {
+  return `
+    <div class="modal fade" id="modalAdicionarProduto" tabindex="-1" aria-labelledby="modalAdicionarProdutoLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-success">
+            <h5 class="modal-title text-success" id="modalAdicionarProdutoLabel">Adicionar Produto</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="formAdicionarProduto">
+              <div class="mb-3">
+                <label for="addNome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="addNome" name="addNome" required>
+              </div>
+              <div class="mb-3">
+                <label for="addCodigo" class="form-label">Código</label>
+                <input type="text" class="form-control" id="addCodigo" name="addCodigo" required>
+              </div>
+              <div class="mb-3">
+                <label for="addCategoria" class="form-label">Categoria</label>
+                <input type="text" class="form-control" id="addCategoria" name="addCategoria" required>
+              </div>
+              <div class="mb-3">
+                <label for="addPreco" class="form-label">Preço</label>
+                <input type="number" step="0.01" class="form-control" id="addPreco" name="addPreco" required>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-success" id="btnSalvarProduto">Salvar Produto</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// Função para renderizar o modal de editar produto
+function modalEditarProdutoHtml() {
+  return `
     <div class="modal fade" id="modalEditarProduto" tabindex="-1" aria-labelledby="modalEditarProdutoLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -87,13 +141,17 @@ export function telaGerenciarProdutosHtml() {
         </div>
       </div>
     </div>
+  `;
+}
 
-    <!-- Modal de Feedback -->
+// Função para renderizar o modal de feedback
+function modalFeedbackHtml() {
+  return `
     <div class="modal fade" id="modalSalvarProduto" tabindex="-1" aria-labelledby="modalSalvarProdutoLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modalSalvarProdutoLabel">Status</h5>
+            <h5 class="modal-title text-success" id="modalSalvarProdutoLabel">Status</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body text-center" id="modalSalvarProdutoMensagem"></div>
@@ -232,6 +290,54 @@ function addEventListeners() {
       alert("Erro ao buscar o produto. Tente novamente.");
     }
   });
+  // Eventos para o modal de adicionar produto
+document
+.getElementById("modalAddProduto")
+?.addEventListener("click", () => {
+  // Exibe o modal de adicionar produto
+  const modal = new bootstrap.Modal(
+    document.getElementById("modalAdicionarProduto")
+  );
+  modal.show();
+});
+
+document.getElementById("btnSalvarProduto")?.addEventListener("click", async () => {
+  const form = document.getElementById("formAdicionarProduto");
+  const formData = new FormData(form);
+
+  // Criação do objeto do produto
+  const novoProduto = {
+    name: formData.get("addNome"),
+    cod_product: formData.get("addCodigo"),
+    type_product: formData.get("addCategoria"),
+    price: parseFloat(formData.get("addPreco")),
+  };
+
+  try {
+    // Envia o produto para o backend
+    await createProduct(novoProduto);
+
+    // Exibe feedback de sucesso
+    const statusModal = new bootstrap.Modal(
+      document.getElementById("modalSalvarProduto")
+    );
+    document.getElementById("modalSalvarProdutoMensagem").textContent =
+      "Produto adicionado com sucesso!";
+    statusModal.show();
+
+    // Fecha o modal de adicionar produto e limpa o formulário
+    const modal = bootstrap.Modal.getInstance(
+      document.getElementById("modalAdicionarProduto")
+    );
+    modal.hide();
+    form.reset();
+
+    // Atualiza a tabela de produtos
+    renderTabelaProdutos();
+  } catch (error) {
+    alert(`Erro ao adicionar o produto: ${error.message}`);
+  }
+});
 
   // Evento para remover backdrop residual
   const modais = document.querySelectorAll(".modal");
@@ -286,12 +392,11 @@ function addTabelaEventListeners() {
     })
   );
 
-  document
-    .getElementById("btnSalvarAlteracoes")
+  document.getElementById("btnSalvarAlteracoes")
     ?.addEventListener("click", async () => {
       const form = document.getElementById("formEditarProduto");
       const formData = new FormData(form);
-
+      
       const productId = formData.get("editProdutoId");
 
       const produtoAtualizado = {
@@ -300,6 +405,7 @@ function addTabelaEventListeners() {
         type_product: formData.get("editCategoria"),
         price: parseFloat(formData.get("editPreco")),
       };
+      
 
       try {
         await updateProduct(productId, produtoAtualizado);
