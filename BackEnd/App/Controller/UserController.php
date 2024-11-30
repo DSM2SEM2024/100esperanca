@@ -52,6 +52,12 @@ class UserController
         Response::success($users, "Requisição realizada com sucesso", 200);
     }
 
+    public function getAllWithRoles()
+    {
+        $roles = $this->userRepository->getAllUsersWithRoles();
+        Response::success($roles, "Requisição realizada com sucesso",200);
+    }
+
     public function getById($idUser)
     {
         try {

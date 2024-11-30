@@ -1,7 +1,9 @@
 <?php
 namespace Pi\Visgo\Model;
 
-class Role
+use JsonSerializable;
+
+class Role implements JsonSerializable
 {
 
     private $id;
@@ -41,5 +43,15 @@ class Role
     {
         $this->name = $name;
         return $this;
+    }
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            "id" => $this->getId(),
+            "name" => $this->getName()
+        ];
     }
 }

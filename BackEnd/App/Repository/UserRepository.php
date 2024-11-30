@@ -183,27 +183,64 @@ class UserRepository
         $query = "SELECT * FROM $this->table";
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
-        $usersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $usersData = $stmt->fetchAll(PDO::FETCH_OBJ);
 
         foreach ($usersData as $userData) {
-            $userModel = $this->assemblerUserWithAddress(json_decode(json_encode($userData)));
+            $userModel = $this->assemblerUserWithAddress($userData);
             array_push($usersWithAddress, $userModel);
         }
 
         return $usersWithAddress;
     }
 
+    public function getAllUsersWithRoles()
+    {
+        $usersWithAddress = array();
+        $query = "SELECT * FROM $this->table";
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+        $usersData = $stmt->fetchAll(PDO::FETCH_OBJ);
+        
+        
+        foreach ($usersData as $userData) {
+            $userModel = $this->assemblerUserWithAddress($userData);
+            $roles = $this->getAllRolesByIdUser($userModel->getId());
+            $userModel->setRoles($roles);
+            array_push($usersWithAddress, $userModel);
+        }
+        
+        return $usersWithAddress;
+    }
+    
     public function deleteUserById(int $idUser): bool
     {
         $deleted = 1;
-
+        
         $query = "UPDATE $this->table SET is_deleted = :is_deleted WHERE id = :idUser";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(':is_deleted', $deleted, PDO::PARAM_INT);
         $stmt->bindParam(':idUser', $idUser, PDO::PARAM_INT);
         $result = $stmt->execute();
-
+        
         return $result;
+    }
+    
+    private function getAllRolesByIdUser(int $idUser): array {
+        $roles = array();
+        $query = "SELECT * FROM $this->tableAssocRole WHERE id_user = :id_user";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindParam(":id_user", $idUser, PDO::PARAM_INT);
+        $stmt->execute();
+        $rolesData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($rolesData as $roleData) {
+            if (isset($roleData['id_role'])) {
+                $role = $this->roleRepository->getRoleById($roleData['id_role']);
+                array_push($roles, $role);
+            }
+        }
+
+        return $roles;
     }
 
     private function assignRoleToUser(array $roles, int $idUser): bool

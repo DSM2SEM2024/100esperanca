@@ -16,6 +16,7 @@ class Routes
         return [
             'GET' => [
                 '/users' => [UserController::class, 'getAll'],
+                '/users/with-roles' => [UserController::class, 'getAllWithRoles'],
                 '/users/{id}' => [UserController::class, 'getById'],
 
                 '/products' => [ProductController::class, 'getAll'],
