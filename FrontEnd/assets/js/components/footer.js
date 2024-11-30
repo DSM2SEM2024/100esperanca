@@ -73,8 +73,8 @@ export const footerHtml = `
         </li>
 
          <li>
-          <a href="https://github.com/RudeBoyOne" class="nav-link p-0 text-body-secondary" target="_blank">
-            <i class="bi bi-github m-2"></i>RudeBoyOne
+          <a href="https://github.com/1Felipedev" class="nav-link p-0 text-body-secondary" target="_blank">
+            <i class="bi bi-github m-2"></i>1Felipedev
           </a>
         </li>
       </ul>
