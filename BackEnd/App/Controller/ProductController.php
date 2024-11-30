@@ -32,9 +32,6 @@ class ProductController
     public function insertImage($id, $files)
     {
         $id = (int) $id;
-
-        var_dump($id);
-        var_dump($files);
     
         $imageDir = 'Images/';
 
@@ -57,16 +54,24 @@ class ProductController
         }
     }
     
-
-    
-    
-
     public function getAll()
     {
         $result = $this->productRepository->getAllProducts();
 
         Response::success($result, "Requisição realizada com sucesso", 200);
     }
+
+    public function getAllImages()
+{
+    $images = $this->productRepository->getAllImage();
+
+    if ($images) {
+        Response::success($images, "Todas as imagens recuperadas com sucesso.", 200,);
+    } else {
+        Response::error(false, "Nenhuma imagem encontrada.", 404);
+    }
+}
+
 
     public function getById(int $idProduct)
     {
@@ -84,6 +89,17 @@ class ProductController
         
     }
 
+    public function getImageById($id) {
+        $image = $this->productRepository->getImageById($id);
+
+        if ($image) {
+            Response::success(true, $image, 200);
+        } else {
+            Response::error(false, "Imagem não encontrada.", 404);
+        }
+    }
+
+
     public function update(int $idProduct, object $data)
     {
         $product = $this->assamblerProduct($data);
@@ -98,6 +114,35 @@ class ProductController
         Response::success($result, "Produto atualiado com sucesso", 200);
     }
 
+    public function updateImage($id, $files)
+{
+    $id = (int) $id;
+
+    $imageDir = 'Images/';
+
+    if (empty($files['image']['tmp_name'])) {
+        Response::error(false, "Nenhuma imagem foi enviada.", 400);
+        return;
+    }
+
+    $fileTmpName = $files['image']['tmp_name'];
+    $fileName = $files['image']['name'];
+    $imagePath = $imageDir . basename($fileName);
+
+    if (move_uploaded_file($fileTmpName, $imagePath)) {
+        $result = $this->productRepository->updateImage($id, $imagePath);
+
+        if ($result) {
+            Response::success(true, "Imagem atualizada com sucesso.", 200);
+        } else {
+            Response::error(false, "Falha ao atualizar o caminho da imagem no banco de dados.", 500);
+        }
+    } else {
+        Response::error(false, "Falha ao mover a imagem.", 500);
+    }
+}
+
+    
     public function discontinue(int $idProduct)
     {
         $result = $this->productRepository->discontinueProduct($idProduct);
@@ -107,6 +152,16 @@ class ProductController
         }
 
         Response::success($result, "Produto descontinuado com sucesso", 200);
+    }
+
+    public function deleteImageById($id) {
+        $result = $this->productRepository->deleteImageById($id);
+
+        if ($result) {
+            Response::success(true, "Imagem excluída com sucesso.", 200);
+        } else {
+            Response::error(false, "Falha ao excluir a imagem.", 500);
+        }
     }
 
     private function assamblerProduct(object $data): Product
