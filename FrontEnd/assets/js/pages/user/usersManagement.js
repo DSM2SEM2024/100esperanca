@@ -1,7 +1,10 @@
 import { getOrCreateMainElement } from "../../components/main";
 import { getAllUsersWithRoles } from "../../services/usersService";
+import { telaAdminHtml } from "./userAdminScreen";
 
 export async function gerenciarUsuariosHtml() {
+
+
 
     const listRoles = (roles) => {
         return roles.map(role => `
@@ -10,10 +13,10 @@ export async function gerenciarUsuariosHtml() {
             </ul>
         `).join('');
     }
-    
+
     const gerarTabelaUsuarios = async () => {
         const users = await getAllUsersWithRoles();
-        
+
         const lineUser = users.map((user) => `
             <tr>
                 <td>${user.id}</td>
@@ -62,9 +65,13 @@ export async function gerenciarUsuariosHtml() {
     </section>
     `;
 
+
     const main = getOrCreateMainElement();
     main.innerHTML = gerenciarUsuarios;
 
+    telaAdminHtml();
+
     const tableBody = document.getElementById('table-users');
     tableBody.innerHTML = await gerarTabelaUsuarios();
+
 }

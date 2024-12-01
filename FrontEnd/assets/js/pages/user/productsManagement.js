@@ -1,4 +1,5 @@
 import { getOrCreateMainElement } from "../../components/main";
+import { telaAdminHtml } from "./userAdminScreen";
 
 const main = getOrCreateMainElement();
 
@@ -69,4 +70,6 @@ export function telaGerenciarProdutosHtml() {
   `;
 
   main.innerHTML = gerenciarProdutos;
+  
+  telaAdminHtml();
 }  
