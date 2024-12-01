@@ -78,7 +78,6 @@ class UserRepository
         } catch (PDOException $e) {
             $this->connection->rollBack();
             throw new PDOException($e->getMessage());
-            return false;
         }
 
     }
