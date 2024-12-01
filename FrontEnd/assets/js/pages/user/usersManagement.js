@@ -5,8 +5,8 @@ export async function gerenciarUsuariosHtml() {
 
     const listRoles = (roles) => {
         return roles.map(role => `
-            <ul>
-                <li>${role.name}</li>
+            <ul class="list-group">
+                <li class="list-group-item">${role.name}</li>
             </ul>
         `).join('');
     }
