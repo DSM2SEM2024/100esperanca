@@ -16,38 +16,50 @@ function renderContentBasedOnHash() {
     clearBody();
     createFooterElement();
 
-    if (location.hash === '#login') {
-        telaLoginHtml();
-    } else if (location.hash === '#criarUsuario') {
-        criarUsuarioHtml();
-    } else if (location.hash === '#telaAdmin') {
-        telaAdminHtml();
-    } else if (location.hash === '#gerenciarUsuarios') {
-        gerenciarUsuariosHtml();
-    } else if (location.hash === '#produtos') {
-        telaProdutosHtml();
-    } else if (location.hash === '#comprarProduto') {
-        telaDetalhesProduto();
-    } else if (location.hash === '#cart') {
-        cartHtml();
-    } else if (location.hash === '' || !location.hash || location.hash === '#home') {
-        criaHomeHTML();
-    } else if (location.hash.startsWith("#productDetails")) {
-        const id = location.hash.split("/")[1];
-        if (id) {
-            renderProductDetails(id);
-        } else {
-            console.error("ID do produto não especificado.");
-        }
-    } else if (location.hash === '#gerenciarProdutos') {
-        createFooterElement();
-        telaGerenciarProdutosHtml();
-    } else if (location.hash === '#gerenciarPromocoes') {
-        createFooterElement();
-        telaGerenciarPromocoes();
+    switch (location.hash) {
+        case '#login':
+            telaLoginHtml();
+            break;
+        case '#criarUsuario':
+            criarUsuarioHtml();
+            break;
+        case '#produtos':
+            telaProdutosHtml();
+            break;
+        case '#comprarProduto':
+            telaDetalhesProduto();
+            break;
+        case '#cart':
+            cartHtml();
+            break;
+        case '#gerenciarUsuarios':
+            gerenciarUsuariosHtml();
+            break;
+        case '#gerenciarProdutos':
+            createFooterElement();
+            telaGerenciarProdutosHtml();
+            break;
+        case '#gerenciarPromocoes':
+            createFooterElement();
+            telaGerenciarPromocoes();
+            break;
+        case '':
+        case '#home':
+        case undefined:
+            criaHomeHTML();
+            break;
+        default:
+            if (location.hash.startsWith("#productDetails")) {
+                const id = location.hash.split("/")[1];
+                if (id) {
+                    renderProductDetails(id);
+                } else {
+                    console.error("ID do produto não especificado.");
+                }
+            }
+            break;
     }
 }
-
 
 renderContentBasedOnHash();
 
