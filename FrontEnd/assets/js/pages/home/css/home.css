@@ -1,0 +1,18 @@
+@media screen and (max-width:375px){
+    #countent{
+        flex-wrap: wrap;
+    }   
+}
+
+@media  screen and (min-width:400px) {
+    .px-3.fs-4{
+        padding-left: 15% !important;
+        padding-right: 15% !important;
+    }
+}
+p{
+    text-align: justify;
+}
+.img-main-thumb{
+    width: 80%;
+}
