@@ -1,17 +1,21 @@
 import { getOrCreateMainElement } from "../../components/main";
 import { getAllUsersWithRoles } from "../../services/usersService";
-import { telaAdminHtml } from "./userAdminScreen";
+import { sidebar } from "./components/sidebar";
 
 export async function gerenciarUsuariosHtml() {
 
 
 
     const listRoles = (roles) => {
-        return roles.map(role => `
-            <ul class="list-group">
-                <li class="list-group-item">${role.name}</li>
-            </ul>
-        `).join('');
+        if (!(roles === undefined)) {
+            return roles.map(role => `
+                <ul class="list-group">
+                    <li class="list-group-item">${role.name}</li>
+                </ul>
+            `).join('');
+        }
+        
+        return [];
     }
 
     const gerarTabelaUsuarios = async () => {
@@ -69,7 +73,7 @@ export async function gerenciarUsuariosHtml() {
     const main = getOrCreateMainElement();
     main.innerHTML = gerenciarUsuarios;
 
-    telaAdminHtml();
+    sidebar();
 
     const tableBody = document.getElementById('table-users');
     tableBody.innerHTML = await gerarTabelaUsuarios();

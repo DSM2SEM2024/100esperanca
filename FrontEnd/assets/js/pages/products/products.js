@@ -1,9 +1,9 @@
 import { getOrCreateMainElement } from "../../components/main";
-import { renderProductDetails } from "../productDetails/productDetails";
-import { renderProducts } from "./components/renderProducts";
+import { productDetailsScreen } from "./pages/productDetails";
+import { renderCardsProducts } from "./components/renderCardsProducts";
 
 
-export async function telaProdutosHtml() {
+export async function productScreen() {
     const telaProdutos = `
         <nav class="navbar navbar-expand-lg d-flex bg-body-tertiary bg-opacity-75" id="navFiltros">
             <section class="container-fluid d-flex justify-content-evenly">
@@ -65,13 +65,12 @@ export async function telaProdutosHtml() {
     `;
 
     const main = getOrCreateMainElement();
-    main.classList = null;
     main.innerHTML = telaProdutos;
 
     const productContainer = document.querySelector("#productContainer .row");
 
     if (productContainer) {
-        productContainer.innerHTML = await renderProducts();
+        productContainer.innerHTML = await renderCardsProducts();
     } else {
         console.error("Container de produtos não encontrado");
     }
@@ -85,6 +84,6 @@ export async function telaProdutosHtml() {
 
     function navegarParaDetalhes(id) {
         window.location.hash = `#productDetails/${id}`;
-        renderProductDetails(id);
+        productDetailsScreen(id);
     }
 }

@@ -1,5 +1,5 @@
 import { getOrCreateMainElement } from "../../components/main";
-import { telaAdminHtml } from "./userAdminScreen";
+import { sidebar } from "./components/sidebar";
 
 const main = getOrCreateMainElement();
 
@@ -77,5 +77,5 @@ export function telaGerenciarPromocoes() {
   `;
   main.innerHTML = gerenciarPromocoes;
 
-  telaAdminHtml()
+  sidebar()
 }

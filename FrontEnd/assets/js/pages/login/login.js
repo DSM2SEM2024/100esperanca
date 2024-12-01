@@ -1,6 +1,6 @@
 import { getOrCreateMainElement } from "../../components/main";
 
-export function telaLoginHtml() {
+export function loginScreen() {
     const telaLogin = `
             <section class="container-sm login-container m-4 p-4 rounded shadow-lg align-self-center">
                 <h2 class="text-success mb-4">Login</h2>

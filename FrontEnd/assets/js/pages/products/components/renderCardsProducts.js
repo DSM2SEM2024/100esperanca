@@ -1,6 +1,6 @@
 import { getAllProducts } from "../../../services/productsService";
 
-export async function renderProducts() {
+export async function renderCardsProducts() {
     const products = await getAllProducts();
 
     if (products.length === 0) { 

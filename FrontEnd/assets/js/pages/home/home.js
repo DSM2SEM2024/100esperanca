@@ -6,7 +6,7 @@ img = visgoImgPLACEHOLDER;
 ota_img = dowloadPLAC;
 
 
-export function criaHomeHTML(){
+export function homeScreen(){
     const homeHTML= `
   
         <figure class="d-flex flex-wrap justify-content-center">

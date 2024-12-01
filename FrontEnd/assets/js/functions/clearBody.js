@@ -1,12 +1,9 @@
-import { getOrCreateMainElement } from "../components/main";
-
-
 export function clearBody() {
     const main = document.getElementById("main");
     if (main) {
-        main.innerHTML = ''; // Limpa apenas o conteúdo principal
+        main.innerHTML = '';
+        main.classList = null;
+        const body = document.getElementsByTagName('body');
+        body[0].classList = "";
     }
-
-    const body = document.getElementsByTagName('body');
-     body[0].classList = "";
 }

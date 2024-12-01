@@ -2,7 +2,7 @@ import { showModal } from "../../components/globalModal";
 import { getOrCreateMainElement } from "../../components/main";
 import { createUser } from "../../services/usersService";
 
-export function criarUsuarioHtml() {
+export function createUserScreen() {
     const criarUsuario = `
     <section class="p-3">
     <h1 class="text-center text-success justify-content-center">Cadastre-se</h1>

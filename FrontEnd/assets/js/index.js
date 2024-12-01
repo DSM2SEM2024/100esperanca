@@ -1,16 +1,15 @@
 import { clearBody } from "./functions/clearBody";
-import { criaHomeHTML } from "./pages/home/home";
-import { telaLoginHtml } from "./pages/login/loginScreen";
-import { criarUsuarioHtml } from "./pages/createUser/createUser";
-import { telaProdutosHtml } from "./pages/products/products";
+import { homeScreen } from "./pages/home/home";
+import { createUserScreen } from "./pages/createUser/createUser";
+import { productScreen } from "./pages/products/products";
 import { cartHtml } from "./pages/cart/cart";
-import { renderProductDetails } from "./pages/productDetails/productDetails";
-import { telaAdminHtml } from "./pages/user/userAdminScreen";
-import { gerenciarUsuariosHtml } from "./pages/user/usersManagement";
-import { telaGerenciarProdutosHtml } from "./pages/user/productsManagement";
-import { telaGerenciarPromocoes } from "./pages/user/promotionManagement";
+import { gerenciarUsuariosHtml } from "./pages/management/usersManagement";
+import { telaGerenciarProdutosHtml } from "./pages/management/productsManagement";
+import { telaGerenciarPromocoes } from "./pages/management/promotionManagement";
 import { createFooterElement } from "./components/footer";
 import { headerHtml } from "./components/header";
+import { loginScreen } from "./pages/login/login";
+import { productDetailsScreen } from "./pages/products/pages/productDetails";
 
 function renderContentBasedOnHash() {
     clearBody();
@@ -18,13 +17,13 @@ function renderContentBasedOnHash() {
 
     switch (location.hash) {
         case '#login':
-            telaLoginHtml();
+            loginScreen();
             break;
         case '#criarUsuario':
-            criarUsuarioHtml();
+            createUserScreen();
             break;
         case '#produtos':
-            telaProdutosHtml();
+            productScreen();
             break;
         case '#comprarProduto':
             telaDetalhesProduto();
@@ -46,13 +45,13 @@ function renderContentBasedOnHash() {
         case '':
         case '#home':
         case undefined:
-            criaHomeHTML();
+            homeScreen();
             break;
         default:
             if (location.hash.startsWith("#productDetails")) {
                 const id = location.hash.split("/")[1];
                 if (id) {
-                    renderProductDetails(id);
+                    productDetailsScreen(id);
                 } else {
                     console.error("ID do produto não especificado.");
                 }

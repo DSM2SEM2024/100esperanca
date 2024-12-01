@@ -1,6 +1,6 @@
-import { getOrCreateMainElement } from "../../components/main";
+import { getOrCreateMainElement } from "../../../components/main";
 
-export function telaAdminHtml() {
+export function sidebar() {
   const sidebarGerenciarUsuarios = `
     <!-- Botão para abrir a sidebar no mobile -->
     <div class="d-flex justify-content-start align-items-start">
