@@ -118,6 +118,7 @@ class ProductController
 {
     $id = (int) $id;
 
+
     $imageDir = 'Images/';
 
     if (empty($files['image']['tmp_name'])) {

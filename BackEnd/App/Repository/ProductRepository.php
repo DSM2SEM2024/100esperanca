@@ -124,6 +124,8 @@ class ProductRepository
 
     public function updateImage(int $id, string $image_path): bool 
     {
+        $id = (int) $id;
+
         $query = "UPDATE $this->tableassoc SET image_path = :image_path WHERE id = :id";
 
         $stmt = $this->connection->prepare($query);

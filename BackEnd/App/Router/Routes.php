@@ -51,7 +51,7 @@ class Routes
                 '/carts/products' => [CartController::class, 'InsertProductInCart'],
 
                 '/products' => [ProductController::class, 'create'],
-                '/products/{id}/image' => [ProductController::class, 'insertImage'],
+                '/products/{id}/images' => [ProductController::class, 'insertImage'],
 
                 '/arts' => [ArtController::class, 'create'],
             ],
@@ -67,7 +67,7 @@ class Routes
                 '/promotions/{id}/open' => [PromotionController::class, 'OpeningPromotion'],
 
                 '/products/{id}' => [ProductController::class, 'update'],
-                '/products/{id}/image' => [ProductController::class, 'updateImage'],
+                '/products/{id}/images' => [ProductController::class, 'updateImage'],
 
                 '/arts/{id}' => [ArtController::class, 'update'],
                 '/arts/{id}/delete' => [ArtController::class, 'isDeleteArt'],
