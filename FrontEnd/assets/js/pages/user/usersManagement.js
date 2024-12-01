@@ -43,7 +43,7 @@ export async function gerenciarUsuariosHtml() {
     };
 
     const gerenciarUsuarios = `
-    <section class="container-fluid flex-grow-1 p-4">
+    <section class="container-fluid">
         <div id="tabela-container" class="text-center">
             <h2>Usuários</h2>
             <table class="table table-striped-columns table-bordered table-responsive table-hover">

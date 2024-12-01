@@ -4,3 +4,10 @@
 section #products-row{
     width: 80% !important;
 }
+
+@media (max-width: 992px) {
+    main {
+      flex-direction: column;
+    }
+  }
+  
