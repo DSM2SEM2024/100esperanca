@@ -20,7 +20,9 @@ class Routes
                 '/users/{id}' => [UserController::class, 'getById'],
 
                 '/products' => [ProductController::class, 'getAll'],
+                '/products/images' => [ProductController::class, 'getAllImages'],
                 '/products/{id}' => [ProductController::class, 'getById'],
+                '/products/{id}/images' => [ProductController::class, 'getImageById'],
 
                 '/orders/art' => [OrderController::class, 'getAllOrderFromArt'],
                 '/orders/{id}' => [OrderController::class, 'getById'],
@@ -56,6 +58,7 @@ class Routes
                 '/carts/products' => [CartController::class, 'InsertProductInCart'],
 
                 '/products' => [ProductController::class, 'create'],
+                '/products/{id}/images' => [ProductController::class, 'insertImage'],
 
                 '/arts' => [ArtController::class, 'create'],
 
@@ -74,6 +77,7 @@ class Routes
                 '/promotions/{id}/open' => [PromotionController::class, 'OpeningPromotion'],
 
                 '/products/{id}' => [ProductController::class, 'update'],
+                '/products/{id}/images' => [ProductController::class, 'updateImage'],
 
                 '/arts/{id}' => [ArtController::class, 'update'],
                 '/arts/{id}/delete' => [ArtController::class, 'isDeleteArt'],
@@ -94,6 +98,7 @@ class Routes
                 '/carts/products' => [CartController::class, 'deleteProductFromACart'],
 
                 '/products/{id}' => [ProductController::class, 'discontinue'],
+                '/products/{id}/images' => [ProductController::class, 'deleteImageById'],
             ],
         ];
     }

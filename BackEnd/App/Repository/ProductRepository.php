@@ -12,6 +12,8 @@ class ProductRepository
     private PDO $connection;
     private string $table = "product";
 
+    private string $tableassoc = "product_images";
+
     public function __construct($drive)
     {
         $this->connection = Connection::getInstance($drive);
@@ -39,6 +41,23 @@ class ProductRepository
         return $result;
     }
 
+    public function reciveImage(int $product_id, string $image_path): bool 
+    {
+        if ($product_id <= 0) {
+            return false;
+        }
+    
+        $query = "INSERT INTO $this->tableassoc (product_id, image_path) VALUES (:product_id, :image_path)";
+        
+        $stmt = $this->connection->prepare($query);
+    
+        $stmt->bindParam(":product_id", $product_id, PDO::PARAM_INT);
+        $stmt->bindParam(":image_path", $image_path, PDO::PARAM_STR);
+        
+        return $stmt->execute();
+    }
+    
+
     public function getAllProducts(): array
     {
         $query = "SELECT * FROM $this->table";
@@ -48,6 +67,17 @@ class ProductRepository
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getAllImage(): array
+{
+    $query = "SELECT * FROM product_images";
+
+    $stmt = $this->connection->prepare($query);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 
     public function getProductById(int $idProduct): object
     {
@@ -67,6 +97,17 @@ class ProductRepository
         return $result;
     }
 
+    public function getImageById(int $id): ?array 
+    {
+        $query = "SELECT * FROM $this->tableassoc WHERE id = :id";
+        
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+    }
+
     public function updateProduct(Product $product): bool
     {
         $query = "UPDATE $this->table SET name = :name, type_product = :type_product, cod_product = :cod_product, price = :price, id_art = :id_art WHERE id = :product_id";
@@ -81,6 +122,19 @@ class ProductRepository
         return $stmt->execute();
     }
 
+    public function updateImage(int $id, string $image_path): bool 
+    {
+        $id = (int) $id;
+
+        $query = "UPDATE $this->tableassoc SET image_path = :image_path WHERE id = :id";
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        $stmt->bindParam(":image_path", $image_path, PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
+
     public function discontinueProduct(int $idProduct): bool
     {
         $query = "UPDATE $this->table SET is_discontinued = 1 WHERE id = :product_id";
@@ -90,4 +144,14 @@ class ProductRepository
 
         return $stmt->execute();
     }
+
+    public function deleteImageById(int $id): bool {
+        $query = "DELETE FROM $this->tableassoc WHERE id = :id";
+
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+
 }
