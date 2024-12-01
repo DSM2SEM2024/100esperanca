@@ -54,7 +54,7 @@ export function telaGerenciarPromocoes() {
       </div>
     </section>
 
-    ${modalAddPromocao};
+    ${modalAddPromocao()};
   `;
   
   function modalAddPromocao() {
@@ -101,7 +101,7 @@ export function telaGerenciarPromocoes() {
       </div>
     `;
   }
-  
+ 
   
   main.innerHTML = gerenciarPromocoes;
   sidebar()
