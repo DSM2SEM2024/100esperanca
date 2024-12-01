@@ -10,7 +10,7 @@ class User implements JsonSerializable
     private string $name;
     private string $email;
     private string $password;
-    private array $role;
+    private array $roles;
     private array $addresses;
 
 
@@ -124,29 +124,36 @@ class User implements JsonSerializable
     /**
      * @return array
      */
-    public function getRole(): array
+    public function getRoles(): array
     {
-        return $this->role;
+        return $this->roles;
     }
 
     /**
      * @param array $role 
      * @return self
      */
-    public function setRole(array $role): self
+    public function setRoles(array $roles): self
     {
-        $this->role = $role;
+        $this->roles = $roles;
         return $this;
     }
 
     public function jsonSerialize(): mixed
     {
-        return [
-            'id' => $this->getId(),
-            'name' => $this->getName(),
-            'email' => $this->getEmail(),
+        $data = [
+            'id' => $this->getId(), 
+            'name' => $this->getName(), 
+            'email' => $this->getEmail(), 
             'addresses' => $this->getAddresses()
         ];
+
+        if (!empty($this->roles)) {
+            $data['roles'] = $this->getRoles();
+        }
+
+        return $data;
     }
+
 
 }

@@ -1,7 +1,3 @@
-import { bolsas, cadernos, camisetas } from "../pages/products/components/consts-products";
-//  import { produtosLocais } from "../pages/products/products";
-// import { getAllProducts } from "../services/products-backend";
-
 export function getCarrinho() {
     const carrinho = localStorage.getItem("carrinho");
     return carrinho ? JSON.parse(carrinho) : [];
@@ -12,8 +8,6 @@ export function setCarrinho(carrinho) {
 }
 
 export function addToCarrinho(produtosLocais) {
-    console.log(produtosLocais);
-    
     const carrinho = getCarrinho();
     carrinho.push(produtosLocais);
     setCarrinho(carrinho);
@@ -22,10 +16,14 @@ export function addToCarrinho(produtosLocais) {
     modal.show();
 
     const goToCartButton = document.querySelector(".modal-footer .btn-success");
-    goToCartButton.onclick = function() {
+    goToCartButton.onclick = function () {
         modal.hide();
         window.location.href = '/#cart';
     };
+}
+
+function calcFinalPrice(price, frete) {
+    return (price + frete).toFixed(2);
 }
 
 export function atualizarCarrinho() {
@@ -38,7 +36,7 @@ export function atualizarCarrinho() {
     let subtotal = 0;
     const frete = 20;
 
-    const carrinho = getCarrinho().filter(item => item);  // Filtra itens indefinidos
+    const carrinho = getCarrinho().filter(item => item);
 
     carrinho.forEach((produto, index) => {
         if (!produto) {
@@ -48,18 +46,18 @@ export function atualizarCarrinho() {
 
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td><img src="${produto.img}" alt="${produto.nome}" class="cart-item-img"></td>
-            <td>${produto.nome}</td>
-            <td>${produto.preco}</td>
+            <td><img src="${produto.img}" alt="${produto.name}" class="cart-item-img"></td>
+            <td>${produto.name}</td>
+            <td>${produto.price}</td>
             <td><button class="btn btn-danger btn-sm remove-item-btn" data-index="${index}">Remover</button></td>
         `;
         cartItems.appendChild(row);
-        subtotal += parseFloat(produto.preco);
+        subtotal += parseFloat(produto.price);
     });
 
     subtotalElem.textContent = `R$ ${subtotal.toFixed(2)}`;
     freteElem.textContent = `R$ ${frete.toFixed(2)}`;
-    totalElem.textContent = `R$ ${(subtotal + frete).toFixed(2)}`;
+    totalElem.textContent = `R$ ${calcFinalPrice(subtotal, frete)}`;
 
     document.querySelectorAll('.remove-item-btn').forEach((button) => {
         button.addEventListener('click', () => {
@@ -68,6 +66,10 @@ export function atualizarCarrinho() {
             carrinho.splice(index, 1);
             setCarrinho(carrinho);
             atualizarCarrinho();
+
+            if (carrinho.length === 0) {
+                totalElem.textContent = `R$ ${parseFloat(0).toFixed(2)}`
+            }
         });
     });
 }
@@ -76,7 +78,7 @@ export function concluirCompra() {
     const modal = new bootstrap.Modal(document.getElementById('modalConfirmacaoCompra'));
     modal.show();
 
-    document.getElementById('okButton').onclick = function() {
+    document.getElementById('okButton').onclick = function () {
         localStorage.removeItem('carrinho');
         modal.hide();
         window.location.href = '/#pagamento';

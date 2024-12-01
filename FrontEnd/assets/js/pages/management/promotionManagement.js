@@ -1,5 +1,5 @@
-import { footerHtml } from "../../components/footer";
 import { getOrCreateMainElement } from "../../components/main";
+import { sidebar } from "./components/sidebar";
 
 const main = getOrCreateMainElement();
 
@@ -76,4 +76,6 @@ export function telaGerenciarPromocoes() {
     </div>
   `;
   main.innerHTML = gerenciarPromocoes;
+
+  sidebar()
 }

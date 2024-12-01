@@ -1,4 +1,4 @@
-import { baseUrl } from "../services/baseUrl/base-url";
+import { baseUrl } from "./baseUrl/baseUrl";
 
 export const uri = "products";
 

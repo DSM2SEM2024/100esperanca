@@ -10,14 +10,12 @@ export const headerHtml = `
   </section>
 
   <nav class="navbar mb-lg-0 d-none d-lg-flex d-flex justify-content-evenly">
-    
-
     <div>
       <a id="home-Link" href="#home" class="text-decoration-none text-success" role="button">
         <button class="btn btn-outline-success border-0">Home</button>
       </a>
 
-      <a id="manageUser-Link" href="#telaAdmin" class="text-decoration-none text-success" role="button">
+      <a id="manageUser-Link" href="#gerenciarUsuarios" class="text-decoration-none text-success" role="button">
         <button class="btn btn-outline-success border-0">Tela Admin</button>
       </a>
 
@@ -27,13 +25,12 @@ export const headerHtml = `
     </div>
   </nav>
 
-      
   <nav class="navbar px-3 d-flex justify-content-evenly">
-      <ul class="navbar-nav">
-        <li class="nav-item dropstart">
-          <button class="btn btn-success btn-sm dropdown-toggle dropdown-toggle-split rounded-3" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-people-fill "></i>
-          </button>
+    <ul class="navbar-nav">
+      <li class="nav-item dropstart">
+        <button class="btn btn-success btn-sm dropdown-toggle dropdown-toggle-split rounded-3" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-people-fill"></i>
+        </button>
 
         <ul class="dropdown-menu dropdown-menu position-absolute">
           <li>
@@ -51,38 +48,37 @@ export const headerHtml = `
 
         <a class="icon-link" href="#cart">
           <button type="button" class="btn btn-success btn-sm rounded-3">
-            <i class="bi bi-cart-fill text-decoration-none">
-            </i>
+            <i class="bi bi-cart-fill text-decoration-none"></i>
           </button>
         </a>
-
-        </li>
-      </ul>
-  </nav>  
+      </li>
+    </ul>
+  </nav>
+</header>
 `;
 
 const headerElement = document.createElement('header');
-
 headerElement.innerHTML = headerHtml;
 document.body.insertAdjacentElement('afterbegin', headerElement);
-headerElement.classList="w-100 p-2 text-center d-flex justify-content-between align-items-center"
+headerElement.classList = "w-100 p-2 text-center d-flex justify-content-between align-items-center";
 
-let voltarButton = document.querySelector("#voltar_btn");
+const voltarButton = document.querySelector("#voltar_btn");
 voltarButton.addEventListener('click', () => {
-    window.history.go(-1);
+  window.history.go(-1);
 });
 
 export function updateNavbarLinks() {
-  
   const manageUserLink = document.getElementById('manageUser-Link');
   const productsLink = document.getElementById('produtos-Link');
   const homeLink = document.getElementById('home-Link');
 
-  
   manageUserLink.style.display = location.hash === '#telaAdmin' ? 'none' : 'inline';
   productsLink.style.display = location.hash === '#produtos' ? 'none' : 'inline';
   homeLink.style.display = location.hash === '#home' || location.hash === '' ? 'none' : 'inline';
-  
+
+  voltarButton.style.display = location.hash === '#home' || location.hash === '' ? 'none' : 'inline';
 }
+
 window.addEventListener('hashchange', updateNavbarLinks);
+window.addEventListener("load", updateNavbarLinks);
 updateNavbarLinks();
