@@ -45,13 +45,12 @@ class UserRepository
             $email = $user->getEmail();
             $password = $user->getPassword();
 
-            $query = "INSERT INTO $this->table(password,email,name,id_address) VALUES (:password,:email,:name,:address)";
+            $query = "INSERT INTO $this->table(password,email,name) VALUES (:password,:email,:name)";
 
             $stmt = $this->connection->prepare($query);
             $stmt->bindParam(':password', $password, PDO::PARAM_STR);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
             $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-            $stmt->bindParam(':address', $addressId, PDO::PARAM_INT);
             $resultUser = $stmt->execute();
 
             if (!$resultUser) {
@@ -67,7 +66,7 @@ class UserRepository
             }
 
 
-            $resultRole = $this->assignRoleToUser($user->getRole(), $idUser);
+            $resultRole = $this->assignRoleToUser($user->getRoles(), $idUser);
 
             if (!$resultRole) {
                 throw new ErrorCreatingEntityException('User_role');
@@ -78,7 +77,7 @@ class UserRepository
             return $resultUser;
         } catch (PDOException $e) {
             $this->connection->rollBack();
-            return false;
+            throw new PDOException($e->getMessage());
         }
 
     }
@@ -183,49 +182,101 @@ class UserRepository
         $query = "SELECT * FROM $this->table";
         $stmt = $this->connection->prepare($query);
         $stmt->execute();
-        $usersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $usersData = $stmt->fetchAll(PDO::FETCH_OBJ);
 
         foreach ($usersData as $userData) {
-            $userModel = $this->assemblerUserWithAddress(json_decode(json_encode($userData)));
+            $userModel = $this->assemblerUserWithAddress($userData);
             array_push($usersWithAddress, $userModel);
         }
 
         return $usersWithAddress;
     }
 
+    public function getAllUsersWithRoles()
+    {
+        $usersWithAddress = array();
+        $query = "SELECT * FROM $this->table";
+        $stmt = $this->connection->prepare($query);
+        $stmt->execute();
+        $usersData = $stmt->fetchAll(PDO::FETCH_OBJ);
+        
+        
+        foreach ($usersData as $userData) {
+            $userModel = $this->assemblerUserWithAddress($userData);
+            $roles = $this->getAllRolesByIdUser($userModel->getId());
+            $userModel->setRoles($roles);
+            array_push($usersWithAddress, $userModel);
+        }
+        
+        return $usersWithAddress;
+    }
+    
     public function deleteUserById(int $idUser): bool
     {
         $deleted = 1;
-
+        
         $query = "UPDATE $this->table SET is_deleted = :is_deleted WHERE id = :idUser";
         $stmt = $this->connection->prepare($query);
         $stmt->bindParam(':is_deleted', $deleted, PDO::PARAM_INT);
         $stmt->bindParam(':idUser', $idUser, PDO::PARAM_INT);
         $result = $stmt->execute();
-
+        
         return $result;
+    }
+    
+    private function getAllRolesByIdUser(int $idUser): array {
+        $roles = array();
+        $query = "SELECT * FROM $this->tableAssocRole WHERE id_user = :id_user";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindParam(":id_user", $idUser, PDO::PARAM_INT);
+        $stmt->execute();
+        $rolesData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($rolesData as $roleData) {
+            if (isset($roleData['id_role'])) {
+                $role = $this->roleRepository->getRoleById($roleData['id_role']);
+                array_push($roles, $role);
+            }
+        }
+
+        return $roles;
     }
 
     private function assignRoleToUser(array $roles, int $idUser): bool
     {
         try {
-            $this->connection->beginTransaction();
-
             foreach ($roles as $role) {
-                $roleEntity = $this->roleRepository->getRoleById($role->getId());
+                $roleEntity = $this->roleRepository->getRoleByName($role->getName());
                 $query = "INSERT INTO $this->tableAssocRole(id_role, id_user) VALUES(:id_role, :id_user)";
                 $stmt = $this->connection->prepare($query);
                 $stmt->bindParam(':id_role', $roleEntity->id, PDO::PARAM_INT);
                 $stmt->bindParam(':id_user', $idUser, PDO::PARAM_INT);
-                $result = $stmt->execute();
+                $stmt->execute();
             }
-
-            $this->connection->commit();
             return true;
-        } catch (\Throwable $e) {
-            $this->connection->rollBack();
-            return false;
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage());
+
         }
+    }
+
+    private function getAllAddressesByIdUser(int $idUser): array
+    {
+        $idsAddresses = array();
+        $query = "SELECT * FROM $this->tableAssocAddress WHERE id_user = :id_user";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindParam(":id_user", $idUser, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($result as $id) {
+            if (isset($id['id_address'])) {
+                array_push($idsAddresses, $id['id_address']);
+            }
+        }
+
+        return $idsAddresses;
     }
 
     private function assemblerUserWithAddress(object $userData): User
@@ -237,7 +288,9 @@ class UserRepository
         $userModel->setName($userData->name);
         $userModel->setEmail($userData->email);
 
-        foreach ($userData->addresses as $idAddress) {
+        $idsAddresses = $this->getAllAddressesByIdUser($userData->id);
+
+        foreach ($idsAddresses as $idAddress) {
             $addressData = $this->addressRepository->getAddressById($idAddress);
 
             $addressModel = new Address();
@@ -260,7 +313,6 @@ class UserRepository
     private function creatorAssociationUserAddress(array $idsAddress, int $idUser): bool
     {
         try {
-            $this->connection->beginTransaction();
             foreach ($idsAddress as $idAddress) {
                 $query = "INSERT INTO $this->tableAssocAddress(id_user, id_address) VALUES(:id_user, :id_address)";
                 $stmt = $this->connection->prepare($query);
@@ -268,12 +320,9 @@ class UserRepository
                 $stmt->bindParam(":id_address", $idAddress, PDO::PARAM_INT);
                 $stmt->execute();
             }
-
-            $this->connection->commit();
             return true;
-        } catch (\Throwable $e) {
-            $this->connection->rollBack();
-            return false;
+        } catch (PDOException $e) {
+            throw new PDOException($e->getMessage());
         }
     }
 

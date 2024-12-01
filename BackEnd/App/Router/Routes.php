@@ -7,6 +7,7 @@ use Pi\Visgo\Controller\OrderController;
 use Pi\Visgo\Controller\PromotionController;
 use Pi\Visgo\Controller\CartController;
 use Pi\Visgo\Controller\ArtController;
+use Pi\Visgo\Controller\SaleController;
 
 class Routes
 {
@@ -15,6 +16,7 @@ class Routes
         return [
             'GET' => [
                 '/users' => [UserController::class, 'getAll'],
+                '/users/with-roles' => [UserController::class, 'getAllWithRoles'],
                 '/users/{id}' => [UserController::class, 'getById'],
 
                 '/products' => [ProductController::class, 'getAll'],
@@ -22,9 +24,9 @@ class Routes
                 '/products/{id}' => [ProductController::class, 'getById'],
                 '/products/{id}/images' => [ProductController::class, 'getImageById'],
 
-                '/orders' => [OrderController::class, 'getAll'],
-                '/orders/{id}' => [OrderController::class, 'getById'],
                 '/orders/art' => [OrderController::class, 'getAllOrderFromArt'],
+                '/orders/{id}' => [OrderController::class, 'getById'],
+                '/orders' => [OrderController::class, 'getAll'], 
 
                 '/promotions' => [PromotionController::class, 'getAllPromotion'],
                 '/promotions/{id}' => [PromotionController::class, 'searchById'],
@@ -37,6 +39,11 @@ class Routes
 
                 '/arts' => [ArtController::class, 'getAll'],
                 '/arts/{id}' => [ArtController::class, 'getById'],
+
+                '/sales/product' => [SaleController::class, 'getAllProductFromSale'],
+                '/sales/{id}' => [saleController::class, 'getById'],
+                '/sales' => [saleController::class, 'getAll'], 
+
             ],
             'POST' => [
                 '/users' => [UserController::class, 'create'],
@@ -54,6 +61,9 @@ class Routes
                 '/products/{id}/images' => [ProductController::class, 'insertImage'],
 
                 '/arts' => [ArtController::class, 'create'],
+
+                '/sales' => [SaleController::class, 'create'],
+                '/sales/{sale}/products' => [SaleController::class, 'addProductsToSale'],
             ],
             'PUT' => [
                 '/users' => [UserController::class, 'update'],
@@ -72,6 +82,10 @@ class Routes
                 '/arts/{id}' => [ArtController::class, 'update'],
                 '/arts/{id}/delete' => [ArtController::class, 'isDeleteArt'],
                 '/arts/{id}/undelete' => [ArtController::class, 'isNotDelete'],
+
+                '/sales/{id}' => [SaleController::class, 'update'],
+                '/sales/{id}/finish' => [saleController::class, 'finish'],
+                '/sales/{id}/reopen' => [saleController::class, 'reOpen'],
             ],
             'DELETE' => [
                 '/users/{id}' => [UserController::class, 'delete'],

@@ -42,15 +42,16 @@ class AddressRepository
 
     public function createsMultipleAddresses(array $addresses): array
     {
-        $idsAddresses = array();
 
+        $idsAddresses = array();
+        
         foreach ($addresses as $address) {
-            $state = $address->getState();
-            $city = $address->getCity();
-            $neighborhood = $address->getNeighborhood();
-            $number = $address->getNumber();
-            $street = $address->getStreet();
-            $cep = $address->getCep();
+            $state = $address->state;
+            $city = $address->city;
+            $neighborhood = $address->neighborhood;
+            $number = $address->number;
+            $street = $address->street;
+            $cep = $address->cep;
     
             $query = "INSERT INTO $this->table (state, city, neighborhood, number, street, cep) VALUES (:state, :city, :neighborhood, :number, :street, :cep)";
     
@@ -63,7 +64,7 @@ class AddressRepository
             $stmt->bindParam(":street", $street);
             $stmt->bindParam(":cep", $cep);
     
-            $executionCompleted = $stmt->execute();
+            $stmt->execute();
 
             array_push ($idsAddresses, $this->connection->lastInsertId());
         }

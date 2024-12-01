@@ -1,56 +1,66 @@
-import { headerHtml, updateNavbarLinks } from "./components/header";
-import { clearBody } from "./functions/clear_body";
-import { criaHomeHTML } from "./pages/home/home";
-import { telaLoginHtml } from "./pages/login/login_screen";
-import { criarUsuarioHtml } from "./pages/create-user/create_user";
-import { telaProdutosHtml } from "./pages/products/products";
-import { footerHtml } from "./components/footer";
+import { clearBody } from "./functions/clearBody";
+import { homeScreen } from "./pages/home/home";
+import { createUserScreen } from "./pages/createUser/createUser";
+import { productScreen } from "./pages/products/products";
 import { cartHtml } from "./pages/cart/cart";
-import { renderProductDetails } from "./pages/productDetails/productDetails";
-import { telaAdminHtml } from "./pages/user/user-admin-screen";
-import { consultarUsuariosHtml } from "./pages/user/users-consultation";
-import { telaGerenciarProdutosHtml } from "./pages/user/products-management";
-import { telaGerenciarPromocoes } from "./pages/user/promotion-management";
-
-
+import { gerenciarUsuariosHtml } from "./pages/management/usersManagement";
+import { telaGerenciarProdutosHtml } from "./pages/management/productsManagement";
+import { telaGerenciarPromocoes } from "./pages/management/promotionManagement";
+import { createFooterElement } from "./components/footer";
+import { headerHtml } from "./components/header";
+import { loginScreen } from "./pages/login/login";
+import { productDetailsScreen } from "./pages/products/pages/productDetails";
 
 function renderContentBasedOnHash() {
     clearBody();
+    createFooterElement();
 
-    if (location.hash === '#login') {
-        telaLoginHtml();
-    } else if (location.hash === '#criarUsuario') {
-        criarUsuarioHtml();
-    } else if (location.hash === '#telaAdmin') {
-        telaAdminHtml();
-    } else if (location.hash === '#consultarUsuarios') {
-        consultarUsuariosHtml();
-    } else if (location.hash === '#produtos') {
-        telaProdutosHtml();
-    } else if (location.hash === '#comprarProduto') {
-        telaDetalhesProduto();
-    } else if (location.hash === '#cart') {
-        cartHtml();
-    } else if (location.hash === '' || !location.hash || location.hash === '#home') {
-        clearBody();
-        criaHomeHTML();
-    } else if (location.hash.startsWith("#productDetails")) {
-        const id = location.hash.split("/")[1];
-        if (id) {
-            renderProductDetails(id);
-        } else {
-            console.error("ID do produto não especificado.");
-        }
-    } else if (location.hash === '#gerenciarProdutos') {
-        clearBody();
-        telaGerenciarProdutosHtml();
-
-    } else if (location.hash === '#gerenciarPromocoes') {
-        clearBody();
-        telaGerenciarPromocoes();
+    switch (location.hash) {
+        case '#login':
+            loginScreen();
+            break;
+        case '#criarUsuario':
+            createUserScreen();
+            break;
+        case '#produtos':
+            productScreen();
+            break;
+        case '#comprarProduto':
+            telaDetalhesProduto();
+            break;
+        case '#cart':
+            cartHtml();
+            break;
+        case '#gerenciarUsuarios':
+            gerenciarUsuariosHtml();
+            break;
+        case '#gerenciarProdutos':
+            createFooterElement();
+            telaGerenciarProdutosHtml();
+            break;
+        case '#gerenciarPromocoes':
+            createFooterElement();
+            telaGerenciarPromocoes();
+            break;
+        case '':
+        case '#home':
+        case undefined:
+            homeScreen();
+            break;
+        default:
+            if (location.hash.startsWith("#productDetails")) {
+                const id = location.hash.split("/")[1];
+                if (id) {
+                    productDetailsScreen(id);
+                } else {
+                    console.error("ID do produto não especificado.");
+                }
+            }
+            break;
     }
 }
 
 renderContentBasedOnHash();
+
 window.addEventListener('hashchange', renderContentBasedOnHash);
 window.addEventListener("load", renderContentBasedOnHash);

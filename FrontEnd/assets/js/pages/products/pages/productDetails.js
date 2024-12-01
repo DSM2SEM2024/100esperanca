@@ -1,10 +1,7 @@
-import { getOrCreateMainElement } from "../../components/main";
-import { addToCarrinho } from "../../functions/cartManagement";
-import { getProductById } from "../../services/products";
-import { cadernos, camisetas, bolsas } from "../products/components/consts-products";
+import { getOrCreateMainElement } from "../../../components/main";
+import { getProductById } from "../../../services/productsService";
 
-export async function renderProductDetails(id) {
-    // const productId = getIdFromHash();
+export async function productDetailsScreen(id) {
 
     try {
         const product = await fetchProduct(id);
@@ -79,7 +76,6 @@ export async function renderProductDetails(id) {
         `;
 
         const main = getOrCreateMainElement();
-        main.classList = null;
         main.innerHTML = details;
     } catch (error) {
         console.error('Erro ao buscar produto:', error);

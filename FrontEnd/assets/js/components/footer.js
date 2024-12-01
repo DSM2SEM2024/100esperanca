@@ -1,9 +1,6 @@
 import { getOrCreateMainElement } from "./main";
 
-const main = getOrCreateMainElement;
-getOrCreateMainElement
 export const footerHtml = `
-
 <section class="row p-4 border-top w-100 d-flex" id="footer-rows">
 
     <div class="col mb-3">
@@ -31,17 +28,7 @@ export const footerHtml = `
       </ul>
   </div>
 
-   <div class="col mb-3">
-      <h5>Motivaçao  do Site</h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2">
-          <p>
-        Antes de fundar a marca, Jaca atuou na área de enfermagem até 2014, mas decidiu canalizar suas vivências pessoais e artísticas em um projeto que reflete sua identidade e paixão pela arte.
-          </p>
-        </li>
-      </ul>
-    </div>
-
+  
       <div class="col mb-3">
       <h5>Formas de Pagamento</h5>
       <ul class="nav flex-row gap-2">
@@ -86,8 +73,8 @@ export const footerHtml = `
         </li>
 
          <li>
-          <a href="https://github.com/RudeBoyOne" class="nav-link p-0 text-body-secondary" target="_blank">
-            <i class="bi bi-github m-2"></i>RudeBoyOne
+          <a href="https://github.com/1Felipedev" class="nav-link p-0 text-body-secondary" target="_blank">
+            <i class="bi bi-github m-2"></i>1Felipedev
           </a>
         </li>
       </ul>
@@ -95,7 +82,13 @@ export const footerHtml = `
   </section>
 `;
 
-const footerElement = document.createElement('footer');
-footerElement.innerHTML = footerHtml;
-document.body.insertAdjacentElement('beforeend',footerElement)
-
+export const createFooterElement = () => {
+  let footerElement = document.getElementById("footer");
+  if (!footerElement) {
+    footerElement = document.createElement("footer");
+    footerElement.id = "footer";
+    footerElement.innerHTML = footerHtml;
+    document.body.insertAdjacentElement("beforeend", footerElement);
+  }
+};
+createFooterElement();

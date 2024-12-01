@@ -39,11 +39,12 @@ class OrderRepository
 
         $executionCompleted = $stmt->execute();
 
-        if ($executionCompleted) {
+        if ($executionCompleted) 
+        {
             return $this->connection->lastInsertId();
         }
 
-        return false;
+            return false;
     }
 
 
@@ -161,23 +162,23 @@ class OrderRepository
     {
         try {
             $this->connection->beginTransaction();
-
+            
             $id_order = $order;
-
+    
             $query = "INSERT INTO $this->tableAssoc (id_order, id_art) VALUES (:id_order, :id_art)";
             $stmt = $this->connection->prepare($query);
-
+    
             if (!empty($arts) && is_array($arts)) {
                 foreach ($arts as $id_art) {
                     $stmt->bindParam(":id_order", $id_order);
                     $stmt->bindParam(":id_art", $id_art);
-
+                    
                     if (!$stmt->execute()) {
                         throw new PDOException("Erro ao inserir arte no pedido.");
                     }
                 }
             }
-
+    
             $this->connection->commit();
             return true;
         } catch (PDOException $e) {
@@ -185,6 +186,7 @@ class OrderRepository
             throw new PDOException($e->getMessage());
         }
     }
+
 
 
 
