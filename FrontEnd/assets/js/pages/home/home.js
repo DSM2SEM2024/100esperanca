@@ -46,7 +46,7 @@ export function homeScreen(){
             
         </section>
     </section>
-    <section class="countainer-sm d-flex fflex-column flex-md-row text-center align-items-center text-wrap" id="nao_sei_oq_colocar_aqui">
+    <section class="countainer-sm d-flex flex-column flex-md-row text-center align-items-center text-wrap m-4" id="nao_sei_oq_colocar_aqui">
         
         <div>
             <h1  class="h1 text-center">VISGO DE JACA</h1>
