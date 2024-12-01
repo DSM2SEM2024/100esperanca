@@ -1,5 +1,5 @@
-import { footerHtml } from "../../components/footer";
 import { getOrCreateMainElement } from "../../components/main";
+import { sidebar } from "./components/sidebar";
 
 const main = getOrCreateMainElement();
 
@@ -10,7 +10,7 @@ export function telaGerenciarPromocoes() {
       <!-- Row para organizar os forms -->
       <div class="row">
         <!-- Coluna 1: Formulário para adicionar promoção -->
-        <div class="col-md-6">
+        <div class="col-md-6 pb-3">
           <form id="formAdicionarPromocao" class="border p-4 rounded shadow">
             <h4 class="mb-3">Adicionar Promoção</h4>
             <div class="mb-3">
@@ -76,4 +76,6 @@ export function telaGerenciarPromocoes() {
     </div>
   `;
   main.innerHTML = gerenciarPromocoes;
+
+  sidebar()
 }

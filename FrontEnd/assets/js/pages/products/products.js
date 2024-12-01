@@ -1,21 +1,9 @@
 import { getOrCreateMainElement } from "../../components/main";
-import { getAllProducts } from "../../services/products";
-import { renderProductDetails } from "../productDetails/productDetails";
-import { renderProducts } from "./components/render-products";
+import { productDetailsScreen } from "./pages/productDetails";
+import { renderCardsProducts } from "./components/renderCardsProducts";
 
-let products;
 
-async function fetchProducts() {
-    try {
-        products = await getAllProducts();
-    } catch (error) {
-        console.error('Erro ao buscar produtos:', error);
-    }
-}
-
-fetchProducts();
-
-export function telaProdutosHtml() {
+export async function productScreen() {
     const telaProdutos = `
         <nav class="navbar navbar-expand-lg d-flex bg-body-tertiary bg-opacity-75" id="navFiltros">
             <section class="container-fluid d-flex justify-content-evenly">
@@ -45,7 +33,7 @@ export function telaProdutosHtml() {
 
         <section class="container" id="productContainer">
             <div class="row row-cols-1 row-cols-md-3 g-4 p-4 justify-content-evenly">
-                <!-- Produtos serão renderizados aqui -->
+                <!-- Cards de produtos serão renderizados aqui -->
             </div>
         </section>
 
@@ -77,12 +65,12 @@ export function telaProdutosHtml() {
     `;
 
     const main = getOrCreateMainElement();
-    main.classList = null;
     main.innerHTML = telaProdutos;
 
     const productContainer = document.querySelector("#productContainer .row");
+
     if (productContainer) {
-        productContainer.innerHTML = renderProducts(products);
+        productContainer.innerHTML = await renderCardsProducts();
     } else {
         console.error("Container de produtos não encontrado");
     }
@@ -96,6 +84,6 @@ export function telaProdutosHtml() {
 
     function navegarParaDetalhes(id) {
         window.location.hash = `#productDetails/${id}`;
-        renderProductDetails(id);
+        productDetailsScreen(id);
     }
 }

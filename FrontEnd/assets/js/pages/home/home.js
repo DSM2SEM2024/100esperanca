@@ -6,7 +6,7 @@ img = visgoImgPLACEHOLDER;
 sois = sois;
 
 
-export function criaHomeHTML(){
+export function homeScreen(){
     const homeHTML= `
 
     <section class="container-sm my-1">
