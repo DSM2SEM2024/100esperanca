@@ -9,6 +9,7 @@ export function telaGerenciarPromocoes() {
       <h4 class="mb-3 fs-1 text-center">
         Gerenciar Promoções
       </h4>
+
       <div class="mb-4">
         <label for="pesquisarPromocao" class="form-label">
           Pesquisar Promoção
@@ -52,7 +53,10 @@ export function telaGerenciarPromocoes() {
         </button>
       </div>
     </section>
+
+    ${modalAddPromocao};
   `;
+  
   function modalAddPromocao() {
     return `
       <div class="modal fade" id="modalAddPromocao" tabindex="-1" aria-labelledby="modalAdicionarProdutoLabel" aria-hidden="true">
@@ -95,7 +99,6 @@ export function telaGerenciarPromocoes() {
           </div>
         </div>
       </div>
-      ${modalAddPromocao};
     `;
   }
   
