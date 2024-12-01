@@ -5,77 +5,101 @@ const main = getOrCreateMainElement();
 
 export function telaGerenciarPromocoes() {
   const gerenciarPromocoes = `
-    <div class="container mt-4">
-      <h2 class="text-center mb-4">Gerenciar Promoções</h2>
-      <!-- Row para organizar os forms -->
-      <div class="row">
-        <!-- Coluna 1: Formulário para adicionar promoção -->
-        <div class="col-md-6 pb-3">
-          <form id="formAdicionarPromocao" class="border p-4 rounded shadow">
-            <h4 class="mb-3">Adicionar Promoção</h4>
-            <div class="mb-3">
-              <label for="nomePromocao" class="form-label">Nome da Promoção</label>
-              <input type="text" class="form-control" id="nomePromocao" placeholder="Digite o nome da promoção" required>
-            </div>
-            <div class="mb-3">
-              <label for="descontoPromocao" class="form-label">Desconto (%)</label>
-              <input type="number" class="form-control" id="descontoPromocao" placeholder="Digite o percentual de desconto" required>
-            </div>
-            <div class="mb-3">
-              <label for="selecionarProdutos" class="form-label">Selecionar Produtos</label>
-              <select multiple class="form-select" id="selecionarProdutos" required>
-                <option value="1">Produto 1 - ID: 001</option>
-                <option value="2">Produto 2 - ID: 002</option>
-              </select>
-            </div>
-          <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-success">Adicionar Promoção</button>
-              </div>
-            </form>
+    <section class="container-fluid p-4">
+      <h4 class="mb-3 fs-1 text-center">
+        Gerenciar Promoções
+      </h4>
+      <div class="mb-4">
+        <label for="pesquisarPromocao" class="form-label">
+          Pesquisar Promoção
+        </label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="pesquisarPromocao" placeholder="Pesquisar por Código da Promoção ou Categoria">
+              <button class="btn btn-success rounded-end" type="button" id="botaoPesquisar">
+                <i class="bi bi-search text-white"></i>
+              </button>
           </div>
-
-          <!-- Coluna 2: Formulário para gerenciar produtos em promoções -->
-          <div class="col-md-6">
-            <form id="formGerenciarProdutos" class="border p-4 rounded shadow">
-              <h4 class="mb-3">Gerenciar Produtos em Promoções</h4>
-              <div class="mb-3">
-                <label for="selecionarPromocao" class="form-label">Selecionar Promoção</label>
-                <select class="form-select" id="selecionarPromocao" required>
-                  <option value="promo1">Promoção 1</option>
-                  <option value="promo2">Promoção 2</option>
-                </select>
-              </div>
-
-              <div class="mb-3">
-                <label for="adicionarProduto" class="form-label">
-                  Adicionar Produto
-                </label>
-                  <input type="text" class="form-control mb-2" id="nomeProduto" placeholder="Nome do Produto">
-                  <div class="input-group mb-2 w-75">
-                    <input type="text" class="form-control" id="idProduto" placeholder="ID do Produto">
-                      <button class="btn bg-success">
-                        <span class="input-group-text bg-success border-0">
-                          <i class="bi bi-search text-white">
-                          </i>
-                        </span>
-                      </button>
-                  </div>
-              </div>
-
-              <div class="d-grid gap-2 justify-content-center">
-                <button type="button" class="btn btn-success">
-                  Adicionar Produto
-                </button>
-                <button type="button" class="btn btn-danger">
-                  Remover Produto
-                </button>
-              </div>
-            </form>
-          </div>
+        <small class="text-muted">Pesquise por cod ou Data da Promoção</small>
       </div>
-    </div>
-  `;
-  main.innerHTML = gerenciarPromocoes;
 
+      <div class="text-center">
+        <h2>
+          Consulta de Promoções
+        </h2>
+
+        <table class="table table-bordered table-responsive table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Código</th>
+              <th>Data de Início</th>
+              <th>Data de Encerramento</th>
+              <th>Categoria</th>
+            </tr>
+          </thead>
+          
+          <tbody id="tabelaPromocoes">
+            <tr>
+              <td colspan="6">Nenhuma Promoção encontrada</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-success" id="modalAddPromocao">
+          Adicionar Promoção
+        </button>
+      </div>
+    </section>
+  `;
+  function modalAddPromocao() {
+    return `
+      <div class="modal fade" id="modalAddPromocao" tabindex="-1" aria-labelledby="modalAdicionarProdutoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-success" id="modalAdicionarPromocaoLabel">
+                Adicionar Produto
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+              </button>
+            </div>
+
+            <div class="modal-body">
+               <form id="formAdicionarPromocao" class="border p-4 rounded shadow">
+                 <h4 class="mb-3">Adicionar Promoção</h4>
+                 <div class="mb-3">
+                   <label for="codPromocao" class="form-label">cod da Promoção</label>
+                   <input type="text" class="form-control" id="codPromocao" placeholder="Digite o cod da promoção" required>
+                 </div>
+                 <div class="mb-3">
+                   <label for="descontoPromocao" class="form-label">Desconto (%)</label>
+                   <input type="number" class="form-control" id="descontoPromocao" placeholder="Digite o percentual de desconto" required>
+                 </div>
+
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-success">Adicionar Promoção</button>
+                </div>
+                </form>
+              </div>
+              
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  Cancelar
+                </button>
+                <button type="button" class="btn btn-success" id="btnSalvarPromocao">
+                  Salvar Promoção
+                </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      ${modalAddPromocao};
+    `;
+  }
+  
+  
+  main.innerHTML = gerenciarPromocoes;
   sidebar()
 }
