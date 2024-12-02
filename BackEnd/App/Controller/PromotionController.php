@@ -11,11 +11,11 @@ use Pi\Visgo\Common\Validator;
 class PromotionController
 {
 
-    private $promotionRepository;
+    private PromotionRepository $promotionRepository;
 
-    public function __construct(PromotionRepository $promotionRepository)
+    public function __construct()
     {
-        $this->promotionRepository = $promotionRepository;
+        $this->promotionRepository = new PromotionRepository('sqlite');
     }
 
     public function create($data)
@@ -70,20 +70,20 @@ class PromotionController
             Response::error(404, "Erro ao fechar promoção");
         }
 
-        Response::success(200, $result, "Promoção reaberta com sucesso!");
+        Response::success($result, "Promoção reaberta com sucesso!", 200);
     }
 
 
     public function getAllPromotion()
     {
         $result = $this->promotionRepository->getAllPromotion();
-        Response::success(200, $result, 'Requisição bem sucedida!');
+        Response::success($result, 'Requisição bem sucedida!', 200);
     }
 
     public function searchById($id)
     {
         $result = $this->promotionRepository->searchByIdPromotion($id);
-        Response::success(200, $result, 'Requisição bem sucedida!');
+        Response::success($result, 'Requisição bem sucedida!', 200);
     }
 
     public function addProductsInPromotion($data)

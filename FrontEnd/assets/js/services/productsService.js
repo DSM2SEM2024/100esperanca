@@ -2,100 +2,47 @@ import { baseUrl } from "./baseUrl/baseUrl";
 
 const uri = "products";
 
-
-export async function getAllProducts() {
+const fetchData = async (url, options) => {
     try {
-        const response = await fetch(`${baseUrl}${uri}`,{
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+        const response = await fetch(url, options);
+        if (!response.ok) throw new Error(`Erro: ${response.statusText}`);
         const result = await response.json();
         return result.data;
     } catch (error) {
-        console.error("Erro ao buscar os produtos do backend:", error);
+        console.error(error.message);
+        throw error;
     }
-}
+};
 
-export async function getProductById(id) {
-    try {
-        const response = await fetch(`${baseUrl}${uri}/${id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const result = await response.json();
-        return result.data;
-    } catch (error) {
-        console.error("Erro ao buscar os produtos do backend:", error);
+export const getAllProducts = () => fetchData(`${baseUrl}${uri}`, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
     }
-}
+});
 
-export async function createProduct(body) {
-
-    const bodyResquest = JSON.stringify({
-        "name": body.name,
-        "typeProduct": body.typeProduct,
-        "codProduct": body.codProduct,
-        "price": body.price,
-        "art": body.art
-    });
-
-    try {
-        const response = await fetch(`${baseUrl}${uri}`, {
-            method: 'POST',
-            body: bodyResquest,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        const result = await response.json();
-        return result.data;
-    } catch (error) {
-        console.error("Erro ao buscar os produtos do backend:", error);
+export const getProductById = (id) => fetchData(`${baseUrl}${uri}/${id}`, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
     }
-}
+});
 
-export async function updateProduct(body) {
+export const createProduct = (body) => fetchData(`${baseUrl}${uri}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+});
 
-    const bodyResquest = JSON.stringify({
-        "name": body.name,
-        "typeProduct": body.typeProduct,
-        "codProduct": body.codProduct,
-        "price": body.price,
-        "art": body.art
-    });
+export const updateProduct = (id, productData) => fetchData(`${baseUrl}${uri}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(productData)
+});
 
-    try {
-        const response = await fetch(`${baseUrl}${uri}`, {
-            method: 'PUT',
-            body: bodyResquest,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        const result = await response.json();
-        return result.data;
-    } catch (error) {
-        console.error("Erro ao buscar os produtos do backend:", error);
+export const deleteProduct = (id) => fetchData(`${baseUrl}${uri}/${id}`, {
+    method: 'DELETE',
+    headers: {
+        'Content-Type': 'application/json'
     }
-}
-
-export async function deleteProduct(id) {
-    try {
-        const response = await fetch(`${baseUrl}${uri}/${id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const result = await response.json();
-        return result.data;
-    } catch (error) {
-        console.error("Erro ao buscar os produtos do backend:", error);
-    }
-}
+});
