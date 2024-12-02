@@ -22,7 +22,13 @@ export function homeScreen(){
         <section class="countainer-sm d-inline" id="first-container py-5">
             <h1 class="h1 text-center">inicio de tudo</h1>
             <p class="px-3 fs-4 text-wrap">
-                adiburai naxumerus silimulambukaidro Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa similique iste fugit hic atque blanditiis praesentium, esse quidem accusantium perferendis qui at ad voluptatibus quia saepe veritatis voluptas illo! Culpa repudiandae vero totam, illum at consectetur nihil doloremque voluptates ullam laboriosam tempora ad id cumque ab labore. Accusamus harum voluptatibus, delectus id nemo illo dicta consequatur ipsa nulla recusandae quibusdam et! Quae eos corporis reiciendis quibusdam debitis sed mollitia tenetur et porro ab, modi vel ipsum eveniet neque vitae perspiciatis! Cupiditate illo mollitia necessitatibus porro sit alias voluptatem distinctio deserunt dolor rerum? Expedita laudantium ex, accusantium delectus sed officia totam? 
+                A Visgo de Jaca é uma marca fortemente conectada à cultura da Bahia, com raízes profundas na capoeira, na música, especialmente na percussão, e em uma estética autoral. Seu nome e identidade carregam elementos que refletem vivências pessoais e valores como a luta anticolonial e a valorização da cultura sul-americana. A marca se inspira na simbologia da Cruz Andina e em traços artísticos influenciados por Caribé, traduzindo essas referências em desenhos exclusivos para camisetas.
+            </p>
+            <p class="px-3 fs-4 text-wrap"> 
+                Embora ainda seja representada por uma única pessoa, o Jaca, a Visgo de Jaca tem como público-alvo indivíduos ligados à capoeira, à música, e à arte com um toque pessoal. A faixa etária varia, mas o foco principal são adultos de 20 a 50 anos. Sob encomenda, atende também ao público infantil.
+            </p>
+            <p class="px-3 fs-4 text-wrap">
+                A identidade visual se baseia em tons de preto e verde, explorando variações mais claras desse verde para dar mais leveza. O site será uma vitrine para vendas, sem outras funcionalidades adicionais, e contará com uma galeria mostrando parceiros que utilizam a marca. A frase de efeito "Pego no Visgo" é usada para reforçar a conexão com o público, aparecendo em locais estratégicos como a navbar ou a finalização da compra. 
             </p>
         </section>
     </section>
@@ -36,31 +42,23 @@ export function homeScreen(){
                 Qual nosso objetivo?
             </h1>
             <p class="px-3 fs-4">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni molestiae tempora voluptate dolore, itaque maxime? Veniam labore, magni error fuga ipsa quod iusto porro aperiam voluptates. Inventore maxime blanditiis cumque animi ratione perferendis consectetur error quisquam et perspiciatis sapiente at officia, praesentium incidunt? Ex aperiam dolores distinctio, tempore commodi laboriosam?
+                O objetivo da marca Visgo de Jaca, é compartilhar e valorizar sua vivência pessoal e as raízes culturais baianas por meio da arte e do design. Ele busca criar um espaço onde a identidade cultural, especialmente ligada à capoeira, à música (percussão) e à luta anticolonial, seja celebrada e reconhecida.
             </p>
 
         </section>
         <section class="  countainer-sm d-inline text-center text-wrap" id="nao_sei_oq_colocar_aqui">
             <h1  class="h1 text-center">
                 <i class="bi bi-code-slash"></i>
-                 Desenvolvimento do site
+               Pretençao pro futuro
             </h1>
             <p class="px-3 fs-4">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni molestiae tempora voluptate dolore, itaque maxime? Veniam labore, magni error fuga ipsa quod iusto porro aperiam voluptates. Inventore maxime blanditiis cumque animi ratione perferendis consectetur error quisquam et perspiciatis sapiente at officia, praesentium incidunt? Ex aperiam dolores distinctio, tempore commodi laboriosam?
+                A Visgo de Jaca tem como visão se tornar uma referência cultural e artística, expandindo sua presença no mercado enquanto mantém sua essência autêntica e autoral. No futuro, a marca espera alcançar novos públicos que compartilhem da paixão pela capoeira, pela música e pela arte sul-americana, fortalecendo ainda mais os laços com sua comunidade.
             </p>
             
         </section>
     </section>
-    <hr>
-        <section class=" countainer-sm d-flex flex-column text-center align-items-center text-wrap" id="nao_sei_oq_colocar_aqui">
-            <img src="${img}" alt="visgo main logo" class="img-thumbnail" style="border-radius: 100%;" width="400rem">
-
-            <h1  class="h1 text-center">VISGO DE JACA</h1>
-            <p class="px-3 fs-4">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni molestiae tempora voluptate dolore, itaque maxime? Veniam labore, magni error fuga ipsa quod iusto porro aperiam voluptates. Inventore maxime blanditiis cumque animi ratione perferendis consectetur error quisquam et perspiciatis sapiente at officia, praesentium incidunt? Ex aperiam dolores distinctio, tempore commodi laboriosam?
-            </p>
-            
-        </section>
+    <hr>     
+    </section>
 `;
 
     const main = getOrCreateMainElement();

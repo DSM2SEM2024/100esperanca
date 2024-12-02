@@ -1,10 +1,10 @@
-@media screen and (max-width:375px){
+@media screen and (max-width:440px){
     #countent{
         flex-wrap: wrap;
     }   
 }
 
-@media  screen and (min-width:400px) {
+@media  screen and (min-width:441px) {
     .px-3.fs-4{
         padding-left: 15% !important;
         padding-right: 15% !important;
