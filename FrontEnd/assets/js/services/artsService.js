@@ -1,6 +1,6 @@
 import { baseUrl } from "./baseUrl/baseUrl";
 
-const uri = "users";
+const uri = "arts";
 
 const fetchData = async (url, options) => {
     try {
@@ -14,24 +14,9 @@ const fetchData = async (url, options) => {
     }
 };
 
-export const getAllUsers = () => fetchData(`${baseUrl}${uri}`, {
+export const getAllArts = () => fetchData(`${baseUrl}${uri}`, {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json'
     }
 });
-
-export const getAllUsersWithRoles = () => fetchData(`${baseUrl}${uri}/with-roles`, {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json'
-    }
-});
-
-export const createUser = (body) => {
-    return fetchData(`${baseUrl}${uri}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-    });
-};

@@ -1,6 +1,6 @@
-import { getOrCreateMainElement } from "../../components/main";
-import { getAllUsersWithRoles } from "../../services/usersService";
-import { sidebar } from "./components/sidebar";
+import { getOrCreateMainElement } from "../../../components/main";
+import { getAllUsersWithRoles } from "../../../services/usersService";
+import { sidebar } from "../components/sidebar";
 
 export async function gerenciarUsuariosHtml() {
 

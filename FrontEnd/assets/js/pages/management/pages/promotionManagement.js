@@ -1,5 +1,5 @@
-import { getOrCreateMainElement } from "../../components/main";
-import { sidebar } from "./components/sidebar";
+import { getOrCreateMainElement } from "../../../components/main";
+import { sidebar } from "../components/sidebar";
 
 const main = getOrCreateMainElement();
 
