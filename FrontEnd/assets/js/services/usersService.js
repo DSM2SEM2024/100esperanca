@@ -1,64 +1,37 @@
 import { baseUrl } from "./baseUrl/baseUrl";
 
-const uri = "users"
+const uri = "users";
 
-export async function getAllUsers() {
+const fetchData = async (url, options) => {
     try {
-        const response = await fetch(`${baseUrl}${uri}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+        const response = await fetch(url, options);
+        if (!response.ok) throw new Error(`Erro: ${response.statusText}`);
         const result = await response.json();
         return result.data;
     } catch (error) {
-        console.error("Erro ao buscar os produtos do backend:", error);
+        console.error(error.message);
+        throw error;
     }
-}
+};
 
-
-export async function getAllUsersWithRoles() {
-    try {
-        const response = await fetch(`${baseUrl}${uri}/with-roles`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const result = await response.json();
-        return result.data;
-    } catch (error) {
-        console.error("Erro ao buscar os produtos do backend:", error);
+export const getAllUsers = () => fetchData(`${baseUrl}${uri}`, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
     }
-}
+});
 
+export const getAllUsersWithRoles = () => fetchData(`${baseUrl}${uri}/with-roles`, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+});
 
-
-export async function createUser(body) {
-    const roles = body.roles.map(element => element);
-    const addresses = body.addresses.map(element => element);
-
-    const bodyResquest = JSON.stringify({
-        "name": body.name,
-        "email": body.email,
-        "password": body.password,
-        "role": roles,
-        "addresses": addresses
+export const createUser = (body) => {
+    return fetchData(`${baseUrl}${uri}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
     });
-
-    try {
-        const response = await fetch(`${baseUrl}${uri}`, {
-            method: 'POST',
-            body: bodyResquest,
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        const result = await response.json();
-        return result.data;
-    } catch (error) {
-        throw new Error(`Erro ao criar usuário: ${error}`);
-    }
-}
+};
