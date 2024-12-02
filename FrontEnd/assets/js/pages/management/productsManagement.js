@@ -7,7 +7,8 @@ import {
 } from "../../services/productsService";
 import { getOrCreateMainElement } from "../../components/main";
 import { sidebar } from "./components/sidebar";
-
+import { baseUrl } from "../../services/baseUrl/baseUrl";
+baseUrl
 
 
 const main = getOrCreateMainElement();
