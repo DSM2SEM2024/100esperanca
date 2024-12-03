@@ -83,7 +83,7 @@ export async function renderTabelaProdutos(produtos = null) {
             <td>${produto.name}</td>
             <td>${produto.cod_product}</td>
             <td>${produto.type_product}</td>
-            <td>R$ ${produto.price.toFixed(2)}</td>
+            <td>R$ ${Number(produto.price).toFixed(2)}</td>
             <td>
               <button class="btn btn-danger shadow-lg btnExcluir" data-id="${produto.id}">
                 <i class="bi bi-trash-fill text-white"></i>

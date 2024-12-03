@@ -2,10 +2,10 @@
   "name": "pi-visgo",
   "version": "1.0.0",
   "description": "Aplicação frontend da loja visgo de jaca, projeto integrador FATEC 2º Semestre 2024",
-  "main": "index.js",
   "scripts": {
     "start": "parcel serve index.html --dist-dir dev --open --port 3000",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "parcel build index.html --dist-dir docs"
   },
   "repository": {
     "type": "git",
