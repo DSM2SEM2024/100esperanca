@@ -5,7 +5,7 @@
   "scripts": {
     "start": "parcel serve index.html --dist-dir dev --open --port 3000",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel build index.html --dist-dir docs"
+    "build": "parcel build index.html --dist-dir docs --public-url ./"
   },
   "repository": {
     "type": "git",

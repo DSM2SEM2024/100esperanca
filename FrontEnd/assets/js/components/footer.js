@@ -1,5 +1,3 @@
-import { getOrCreateMainElement } from "./main";
-
 export const footerHtml = `
 <section class="row p-4 border-top w-100 d-flex" id="footer-rows">
 

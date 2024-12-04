@@ -1,5 +1,5 @@
 import { getOrCreateMainElement } from "../../components/main";
-import { addToCarrinho, atualizarCarrinho, concluirCompra, getCarrinho, setCarrinho } from "../../functions/cartManagement";
+import { atualizarCarrinho, concluirCompra } from "../../functions/cartManagement";
 
 export function cartHtml() {
     const cart = `

@@ -1,17 +1,13 @@
 import { getOrCreateMainElement } from "../../components/main"
-import visgoImgPLACEHOLDER from "/assets/imgs/visgo.jpg"
-import sois from "./imgs/thumbnail.png"
-
-img = visgoImgPLACEHOLDER;
-sois = sois;
-
+import visgoImg from "../../../imgs/visgo.jpg"
+import thumbnail from "./imgs/thumbnail.png"
 
 export function homeScreen(){
     const homeHTML= `
     <section class="d-flex flex-column flex-md-row align-items-center border-bottom m-4">
         <section class="container-sm my-1 col-md-7">
             <figure class="rounded-3 d-flex justify-content-center align-items-center">
-                <img src="${sois}" class="rounded-3 img-fluid img-main-thumb w-100 h-auto">
+                <img src="${thumbnail}" class="rounded-3 img-fluid img-main-thumb w-100 h-auto">
             </figure>
         </section>
         <section class="container-xxl d-flex flex-wrap col-md-5">
@@ -46,7 +42,7 @@ export function homeScreen(){
             </p>
         </div>
 
-        <img src="${img}" alt="visgo main logo" class="img-thumbnail" style="border-radius: 100%;" width="400rem">
+        <img src="${visgoImg}" alt="visgo main logo" class="img-thumbnail" style="border-radius: 100%;" width="400rem">
         
     </section>
 `;
