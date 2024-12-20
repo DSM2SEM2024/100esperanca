@@ -13,7 +13,7 @@ class CartController
 
     public function __construct()
     {
-        $this->CartRepository = new CartRepository('sqlite');
+        $this->CartRepository = new CartRepository('mysql');
     }
 
     public function create($data)

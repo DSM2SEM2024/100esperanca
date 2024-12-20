@@ -15,7 +15,7 @@ class PromotionController
 
     public function __construct()
     {
-        $this->promotionRepository = new PromotionRepository('sqlite');
+        $this->promotionRepository = new PromotionRepository('mysql');
     }
 
     public function create($data)

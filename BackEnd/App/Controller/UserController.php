@@ -1,4 +1,4 @@
-<?php
+mysql<?php
 namespace Pi\Visgo\Controller;
 
 use PDOException;
@@ -17,7 +17,7 @@ class UserController
 
     public function __construct()
     {
-        $this->userRepository = new UserRepository('sqlite');
+        $this->userRepository = new UserRepository('mysql');
     }
 
     public function create(object $data)

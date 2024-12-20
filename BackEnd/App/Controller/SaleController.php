@@ -14,7 +14,7 @@ class SaleController {
 
     public function __construct()
     {
-        $this->saleRepository = new SaleRepository('sqlite');
+        $this->saleRepository = new SaleRepository('mysql');
     }
 
     public function create($data) {
