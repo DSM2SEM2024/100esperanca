@@ -9,7 +9,7 @@ export const headerHtml = `
     </button>
   </section>
 
-  <nav class="navbar  d-flex justify-content-evenly">
+  <nav class="navbar  d-flex justify-content-evenly flex-wrap row">
     <section class="d-flex flex-wrap justify-content-center col">
         <a id="home-Link" href="#home" class="text-decoration-none text-success" role="button">
           <button class="btn btn-outline-success border-0">Home</button>
