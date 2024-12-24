@@ -9,20 +9,20 @@ export const headerHtml = `
     </button>
   </section>
 
-  <nav class="navbar mb-lg-0 d-none d-lg-flex d-flex justify-content-evenly">
-    <div>
-      <a id="home-Link" href="#home" class="text-decoration-none text-success" role="button">
-        <button class="btn btn-outline-success border-0">Home</button>
-      </a>
+  <nav class="navbar  d-flex justify-content-evenly">
+    <section class="d-flex flex-wrap justify-content-center col">
+        <a id="home-Link" href="#home" class="text-decoration-none text-success" role="button">
+          <button class="btn btn-outline-success border-0">Home</button>
+        </a>
 
-      <a id="manageUser-Link" href="#gerenciarUsuarios" class="text-decoration-none text-success" role="button">
-        <button class="btn btn-outline-success border-0">Tela Admin</button>
-      </a>
+        <a id="manageUser-Link" href="#gerenciarUsuarios" class="text-decoration-none text-success" role="button">
+          <button class="btn btn-outline-success border-0">Tela Admin</button>
+        </a>
 
-      <a id="produtos-Link" href="#produtos" class="text-decoration-none text-success" role="button">
-        <button class="btn btn-outline-success border-0">Produtos</button>
-      </a>
-    </div>
+        <a id="produtos-Link" href="#produtos" class="text-decoration-none text-success" role="button">
+          <button class="btn btn-outline-success border-0">Produtos</button>
+        </a>
+    </section>
   </nav>
 
   <nav class="navbar px-3 d-flex justify-content-evenly">
