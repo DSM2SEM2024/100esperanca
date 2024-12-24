@@ -32,7 +32,7 @@ export async function productScreen() {
         </nav>
     <section class="justify-content-center container d-flex" id="productContainer">
   
-                <div class="row gap-2 d-flexinline">
+                <div class="ms-5 row gap-2 d-flexinline">
                 </div>
       
     </section>
