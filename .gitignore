@@ -1,6 +1,7 @@
 composer.phar
-BackEnd/vendor
+BackEnd/App/vendor
 BackEnd/backend.code-workspace
+BackEnd/package-lock.json
 .vscode
 FrontEnd/node_modules
 FrontEnd/.parcel-cache
