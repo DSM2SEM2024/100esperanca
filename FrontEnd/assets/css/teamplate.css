@@ -86,10 +86,29 @@ header{
     .card-img-custom {
         max-height: 350px; 
     }
+    .horizontal-nav{
+        display: none;
+        background-color: yellow;
+    }
+    #mobile-nav{
+        display: none;
+        background-color: yellow;
+    }
 }
 @media (max-width:375px) {
     section#footer-rows{
         display: flex;
         flex-direction: column;
     }
+    .horizontal-nav{
+        display: none;
+        background-color: red;
+    }
+    #mobile-nav{
+        display: none;
+        background-color: red;
+    }
+}
+@media screen ,(max-width:500px){
+    
 }
