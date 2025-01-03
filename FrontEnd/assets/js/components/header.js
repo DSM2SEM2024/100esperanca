@@ -10,7 +10,7 @@ export const headerHtml = `
     </button>
   </section>
 
-  <nav class="horizontal-nav d-flex">
+  <nav class="d-flex" id="nav-horizontal">
         <a id="manageUser-Link" href="#gerenciarUsuarios" class="text-decoration-none text-success" role="button">
           <button class="btn btn-outline-success w-100 border-0">
             Tela Admin
@@ -31,7 +31,7 @@ export const headerHtml = `
 
 
 
-  <nav class="navbar d-flex justify-content-evenly p-0 m-0" id="mobile-nav">
+  <nav class="navbar d-none justify-content-evenly p-0 m-0" id="button_nav">
     <ul class="navbar-nav">
       <li class="nav-item dropbottom">
         <button class="btn btn-success btn-sm  dropdown-toggle-split rounded-3" data-bs-toggle="dropdown" aria-expanded="false">
@@ -119,6 +119,7 @@ export function updateNavbarLinks() {
 
   voltarButton.style.display = location.hash === '#home' || location.hash === '' ? 'none' : 'inline';
 }
+
 window.addEventListener('hashchange', updateNavbarLinks);
 window.addEventListener("load", updateNavbarLinks);
 updateNavbarLinks();
