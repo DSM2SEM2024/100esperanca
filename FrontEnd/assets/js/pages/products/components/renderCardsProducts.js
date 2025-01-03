@@ -15,10 +15,10 @@ export async function renderCardsProducts() {
                 <div class="card-body border rounded-bottom border-success">
                     <h5 class="card-title text-success">${product.name}</h5>
                     <div class=" d-flex justify-content-between align-items-center">
-                        <p class="card-text fs-5">${product.type_product}</p>
+                        <p class="card-text fs-5 m-0">${product.type_product}</p>
                         <span class="fw-bold text-end">${product.price}</span>
                     </div>
-                    <div class=" justify-content-center">
+                    <div class="d-flex justify-content-center">
                         <button class="btn btn-success w-75 mt-2" onclick='event.stopPropagation(); addToCarrinho(${JSON.stringify(product)})'>
                             Adicionar ao Carrinho
                         </button>
