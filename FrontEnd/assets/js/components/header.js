@@ -22,11 +22,6 @@ export const headerHtml = `
                  Produtos
               </button>
           </a>
-        <a id="produtos-Link" href="#produtos" class="text-decoration-none text-success" role="button">
-          <button class="btn btn-outline-success w-100 border-0">
-              Produtos
-          </button>
-        </a>
   </nav>
 
 
@@ -35,7 +30,7 @@ export const headerHtml = `
     <ul class="navbar-nav">
       <li class="nav-item dropbottom">
         <button class="btn btn-success btn-sm  dropdown-toggle-split rounded-3" data-bs-toggle="dropdown" aria-expanded="false">
-        <p class="fs-5 m-0">
+        <p class="m-0">
            menu
         </p>
         
@@ -43,7 +38,9 @@ export const headerHtml = `
         <ul class="dropdown-menu dropdown-menu position-absolute">
           <li>
              <a id="manageUser-Link" href="#gerenciarUsuarios" class="text-decoration-none text-success" role="button">
-          <button class="btn btn-outline-success w-100 border-0">Tela Admin</button>
+          <button class="btn btn-outline-success w-100 border-0">
+          Tela Admin
+          </button>
         </a>
           </li>
 
