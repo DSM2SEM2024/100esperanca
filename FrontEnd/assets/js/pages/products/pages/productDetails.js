@@ -26,7 +26,7 @@ export async function productDetailsScreen(id) {
                     <div class="col-md-5 bg-white p-4 rounded shadow">
                         <h2 class="fw-bold">${product.name}</h2>
                         <p class="text-success fs-3 fw-bold">${product.price} <small class="text-muted text-decoration-line-through"></small></p>
-                        <p class="text-secondary">${product.description}</p>
+                        <p class="text-secondary m-0">${product.description}</p>
 
                         <button class="btn btn-success w-100 fw-bold mb-4" onclick='addToCarrinho(${JSON.stringify(product)})'>
                             Adicionar ao Carrinho

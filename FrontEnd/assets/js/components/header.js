@@ -2,6 +2,7 @@ import visgo from "../../imgs/visgo.jpg";
 
 export const headerHtml = `
 <header class="w-100 p-2 text-center d-flex justify-content-between align-items-center">
+
   <section>
     <img src="${visgo}" alt="LogoVisgo" class="img-fluid">
     <button id="voltar_btn" class="btn ms-3 btn-sm btn-success">
@@ -9,21 +10,58 @@ export const headerHtml = `
     </button>
   </section>
 
-  <nav class="navbar mb-lg-0 d-none d-lg-flex d-flex justify-content-evenly">
-    <div>
-      <a id="home-Link" href="#home" class="text-decoration-none text-success" role="button">
-        <button class="btn btn-outline-success border-0">Home</button>
-      </a>
+  <nav class="d-flex" id="nav-horizontal">
+        <a id="manageUser-Link" href="#gerenciarUsuarios" class="text-decoration-none text-success" role="button">
+          <button class="btn btn-outline-success w-100 border-0">
+            Tela Admin
+          </button>
+        </a>
 
-      <a id="manageUser-Link" href="#gerenciarUsuarios" class="text-decoration-none text-success" role="button">
-        <button class="btn btn-outline-success border-0">Tela Admin</button>
-      </a>
-
-      <a id="produtos-Link" href="#produtos" class="text-decoration-none text-success" role="button">
-        <button class="btn btn-outline-success border-0">Produtos</button>
-      </a>
-    </div>
+        <a id="produtos-Link" href="#produtos" class="text-decoration-none text-success" role="button">
+              <button class="btn btn-outline-success w-100 border-0">
+                 Produtos
+              </button>
+          </a>
   </nav>
+
+
+
+  <nav class="navbar d-none justify-content-evenly p-0 m-0" id="button_nav">
+    <ul class="navbar-nav">
+      <li class="nav-item dropbottom">
+        <button class="btn btn-success btn-sm  dropdown-toggle-split rounded-3" data-bs-toggle="dropdown" aria-expanded="false">
+        <p class="m-0">
+           menu
+        </p>
+        
+        </button>
+        <ul class="dropdown-menu dropdown-menu position-absolute">
+          <li>
+             <a id="manageUser-Link" href="#gerenciarUsuarios" class="text-decoration-none text-success" role="button">
+          <button class="btn btn-outline-success w-100 border-0">
+          Tela Admin
+          </button>
+        </a>
+          </li>
+
+          <li>
+           <a id="produtos-Link" href="#produtos" class="text-decoration-none text-success" role="button">
+              <button class="btn btn-outline-success w-100 border-0">
+                 Produtos
+              </button>
+           </a>
+          </li>
+          <li>
+            <a id="home-Link" href="#home" class="text-decoration-none" role="button">
+              <button class="btn btn-outline-success w-100 border-0">
+                Home
+              </button>
+            </a>
+        </li>
+    </ul>
+  </nav>
+
+  
 
   <nav class="navbar px-3 d-flex justify-content-evenly">
     <ul class="navbar-nav">
