@@ -1,9 +1,7 @@
 import { getOrCreateMainElement } from "../../../components/main";
 import { getAllUsersWithRoles } from "../../../services/usersService";
-import { sidebar } from "../components/sidebar";
-
+import { sidebar } from "../components/sidebar"
 export async function gerenciarUsuariosHtml() {
-
 
 
     const listRoles = (roles) => {
@@ -68,14 +66,15 @@ export async function gerenciarUsuariosHtml() {
         </div>
     </section>
     `;
-
+    sidebar();
 
     const main = getOrCreateMainElement();
     main.innerHTML = gerenciarUsuarios;
 
-    sidebar();
+    sidebar()
 
     const tableBody = document.getElementById('table-users');
     tableBody.innerHTML = await gerarTabelaUsuarios();
-
+    sidebar()
 }
+

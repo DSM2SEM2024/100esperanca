@@ -5,7 +5,7 @@ import {
     updateProduct,
 } from "../../../../services/productsService";
 import { getOrCreateMainElement } from "../../../../components/main";
-import { sidebar } from "../../components/sidebar";
+
 import { showModalCreatesProducts } from "./components/modalCreatesProducts"
 import { showModalFeedBack } from "./components/modalFeedBack";
 import { showModalUpdateProducts } from "./components/modalUpdatesProducts";
@@ -59,7 +59,7 @@ export function telaGerenciarProdutosHtml() {
     main.innerHTML = gerenciarProdutos;
     renderTabelaProdutos();
     addEventListeners();
-    sidebar();
+
 }
 
 
