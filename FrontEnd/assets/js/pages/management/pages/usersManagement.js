@@ -7,8 +7,8 @@ export async function gerenciarUsuariosHtml() {
     const listRoles = (roles) => {
         if (!(roles === undefined)) {
             return roles.map(role => `
-                <ul class="list-group">
-                    <li class="list-group-item">${role.name}</li>
+                <ul class="list-group d-flex">
+                    <li class="list-group-item p-0">${role.name}</li>
                 </ul>
             `).join('');
         }
@@ -18,63 +18,74 @@ export async function gerenciarUsuariosHtml() {
 
     const gerarTabelaUsuarios = async () => {
         const users = await getAllUsersWithRoles();
-
+        console.log(users);
+        
         const lineUser = users.map((user) => `
             <tr>
-                <td>${user.id}</td>
-                <td>${user.name}</td>
+                <td class="p-0">
+                <button class="btn btn-secondary " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    ${user.id} 
+                 </button> 
+                    <ul class="dropdown-menu">
+                        <div class="d-grid align-items-center container">
+                        <div class="row">
+                            <button class="col btn btn-primary shadow-lg " data-id="${user.id}" id="btn-update">
+                                <i class="bi bi-arrow-clockwise"></i>
+                            </button>
+                            
+                            <button class="col btn btn-danger shadow-lg " data-id="${user.id}" id="btn-excluir">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                        </div>
+                        <div class="row">
+                             <button class="col btn btn-secondary shadow-lg col" data-id="${user.id}" id="btn-excluir">
+                             ${listRoles(user.roles)}
+                            </button>
+                        </div>
+                        </div>
+                    </ul>
+                 </td>
                 <td>${user.email}</td>
-                <td>${listRoles(user.roles)}</td>
-                <td>
-                    <button class="btn btn-warning shadow-lg" data-id="${user.id}" id="btn-update">
-                        <i class="bi bi-house-gear-fill"></i>
-                    </button>
-                </td>
-                <td>
-                    <button class="btn btn-primary shadow-lg" data-id="${user.id}" id="btn-update">
-                        <i class="bi bi-arrow-clockwise"></i>
-                    </button>
-                    <button class="btn btn-danger shadow-lg" data-id="${user.id}" id="btn-excluir">
-                        <i class="bi bi-trash-fill"></i>
-                    </button>
-                </td>
+           
+            
             </tr>
         `).join("");
-
+        
+        
         return lineUser;
     };
 
     const gerenciarUsuarios = `
-    <section class="container-fluid">
+    <section class="container-fluid m-0">
         <div id="tabela-container" class="text-center">
             <h2>Usuários</h2>
-            <table class="table table-striped-columns table-bordered table-responsive table-hover">
+         
+            <table class="table table-striped-columns table-responsive table-hover">
                 <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>Tipo</th>
-                        <th>Endereços</th>
-                        <th>Ação</th>
+                    <tr class="p-0">
+                        <th class="p-0">Id</th>
+                        <th class="p-0">Email</th>
+
                     </tr>
                 </thead>
-                <tbody id="table-users">
+                <tbody id="table-users" class="overflow-scroll">
                     
                 </tbody>
             </table>
         </div>
     </section>
+    
+    
     `;
-    sidebar();
+
 
     const main = getOrCreateMainElement();
     main.innerHTML = gerenciarUsuarios;
 
-    sidebar()
+
 
     const tableBody = document.getElementById('table-users');
     tableBody.innerHTML = await gerarTabelaUsuarios();
-    sidebar()
+
 }
 
