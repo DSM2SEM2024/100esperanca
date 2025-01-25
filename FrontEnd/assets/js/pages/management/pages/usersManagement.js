@@ -7,8 +7,8 @@ export async function gerenciarUsuariosHtml() {
     const listRoles = (roles) => {
         if (!(roles === undefined)) {
             return roles.map(role => `
-                <ul class="list-group d-flex">
-                    <li class="list-group-item p-0">${role.name}</li>
+                <ul class="list-group">
+                    <li class="list-group-item">${role.name}</li>
                 </ul>
             `).join('');
         }
@@ -18,74 +18,111 @@ export async function gerenciarUsuariosHtml() {
 
     const gerarTabelaUsuarios = async () => {
         const users = await getAllUsersWithRoles();
-        console.log(users);
-        
+
         const lineUser = users.map((user) => `
-            <tr>
-                <td class="p-0">
-                <button class="btn btn-secondary " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    ${user.id} 
-                 </button> 
-                    <ul class="dropdown-menu">
-                        <div class="d-grid align-items-center container">
-                        <div class="row">
-                            <button class="col btn btn-primary shadow-lg " data-id="${user.id}" id="btn-update">
+            
+        <tr class="dropdown">
+               
+                    <td>
+                            ${user.id}
+                            <button class="btn d-inline d-md-none" type="button" data-bs-toggle="dropdown" aria-expanded="true">
+                                <i class="bi bi-caret-down-fill"></i>
+                            </button>
+                            <div class="dropdown">
+                        
+                        <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                        <section class="d-flex justify-content-center">
+                            <button class="btn btn-warning shadow-lg dropdown-item w-auto" data-id="${user.id}" id="btn-update">
+                                <i class="bi bi-house-gear-fill"></i>
+                            </button>
+
+                            <button class="btn btn-primary shadow-lg" data-id="${user.id}" id="btn-update">
                                 <i class="bi bi-arrow-clockwise"></i>
                             </button>
-                            
-                            <button class="col btn btn-danger shadow-lg " data-id="${user.id}" id="btn-excluir">
+
+                            <button class="btn btn-danger shadow-lg  " data-id="${user.id}" id="btn-excluir">
                                 <i class="bi bi-trash-fill"></i>
                             </button>
+                        </section> 
                         </div>
-                        <div class="row">
-                             <button class="col btn btn-secondary shadow-lg col" data-id="${user.id}" id="btn-excluir">
-                             ${listRoles(user.roles)}
+                        </div>
+                    </td>
+                    
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td class="d-none d-md-table-cell">${listRoles(user.roles)}</td>
+
+                    
+                        <td class="d-none d-md-table-cell">
+                            <button class="btn btn-warning shadow-lg" data-id="${user.id}" id="btn-update">
+                                <i class="bi bi-house-gear-fill"></i>
                             </button>
-                        </div>
-                        </div>
-                    </ul>
-                 </td>
-                <td>${user.email}</td>
-           
-            
+                        </td>
+
+                        <td class="d-none d-md-table-cell">
+                        
+                            <button class="btn btn-primary shadow-lg" data-id="${user.id}" id="btn-update">
+                                <i class="bi bi-arrow-clockwise"></i>
+                            </button>
+
+                            <button class="btn btn-danger shadow-lg  " data-id="${user.id}" id="btn-excluir">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                        </td>  
+                    
             </tr>
+            
+
+
         `).join("");
-        
-        
+
         return lineUser;
     };
 
     const gerenciarUsuarios = `
-    <section class="container-fluid m-0">
+    <section class="container-fluid p-0">
         <div id="tabela-container" class="text-center">
             <h2>Usuários</h2>
-         
-            <table class="table table-striped-columns table-responsive table-hover">
+            <table class="table table-striped-columns table-bordered table-responsive table-hover">
                 <thead>
-                    <tr class="p-0">
-                        <th class="p-0">Id</th>
-                        <th class="p-0">Email</th>
-
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Nome
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th class="d-none d-md-table-cell">
+                            Tipo
+                        </th>
+                        <th class="d-none d-md-table-cell">
+                            Endereços
+                        </th>
+                        <th class="d-none d-md-table-cell">
+                            Ação
+                        </th>
                     </tr>
                 </thead>
-                <tbody id="table-users" class="overflow-scroll">
+                <tbody id="table-users">
                     
                 </tbody>
             </table>
         </div>
     </section>
     
-    
     `;
-
+    sidebar();
 
     const main = getOrCreateMainElement();
     main.innerHTML = gerenciarUsuarios;
 
-
+    sidebar()
 
     const tableBody = document.getElementById('table-users');
     tableBody.innerHTML = await gerarTabelaUsuarios();
-
+    sidebar()
 }
 
