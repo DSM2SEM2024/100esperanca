@@ -1,4 +1,4 @@
-mysql<?php
+<?php
 namespace Pi\Visgo\Controller;
 
 use PDOException;
