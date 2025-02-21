@@ -4,7 +4,8 @@ namespace Pi\Visgo\Controller;
 
 use Pi\Visgo\Authentification\Auth;
 use Pi\Visgo\Authentification\Middleware;
-use Exception;
+use Pi\Visgo\Common\Responses\Response;
+
 
 class AuthController {
     
@@ -21,49 +22,57 @@ class AuthController {
             $data = $this->getRequestData();
 
             if (!isset($data['email']) || !isset($data['password'])) {
-                throw new Exception("Email and password ", 400);
+                Response::error($data,"Email or password incorrect", 400);
+                return;
             }
 
+
             $email = $data['email'];
+
             $password = $data['password'];
 
             $token = $this->auth->authenticate($email, $password);
+
             $userId = $this->auth->getUserIdFromEmail($email);
+
             $refreshToken = $this->auth->generateRefreshToken($userId);
 
             header('Content-Type: application/json');
-            echo json_encode([
+
+            response::success([
                 'access_token' => $token,
                 'refresh_token' => $refreshToken
-            ]);
-        } catch (Exception $e) {
-            http_response_code($e->getCode() ?: 401);
-            echo json_encode(['error' => $e->getMessage()]);
+            ], "Login realizado com sucesso!", 200);
+
+        } catch (\Exception $e) {
+            Response::error(null, $e->getMessage(), 500);
         }
+    
     }
     public function validateToken() {
-        try {
-            $decodedToken = $this->middleware->tokenJwt();
-            echo json_encode(['user_data' => $decodedToken]);
-        } catch (Exception $e) {
-            http_response_code(401);
-            echo json_encode(['error' => $e->getMessage()]);
-        }
-    }
 
+        $decodedToken = $this->middleware->tokenJwt();
+
+        response::success($decodedToken, "Token validado com sucesso!", 200);
+
+    }
     public function adminRoute() {
+
         $this->protectedRoute('admin');
     }
     
     public function fullAdminRoute() {
+
         $this->protectedRoute('full_admin');
     }
     
     public function clientRoute() {
+
         $this->protectedRoute('client');
     }
 
     private function getRequestData() {
+
         $data = json_decode(file_get_contents('php://input'), true);
 
         if (!$data) {
@@ -74,18 +83,18 @@ class AuthController {
     }   
 
     private function protectedRoute($role) {
-        try {
-            $decodedToken = $this->middleware->tokenJwt();  
-            $this->auth->checkPermission($role);
-            
-            echo json_encode([
-                'message' => 'Acesso permitido',
-                'user' => $decodedToken
-            ]);
-        } catch (Exception $e) {
-            http_response_code(403);
-            echo json_encode(['error' => $e->getMessage()]);
+        
+            try {
+
+                $decodedToken = $this->middleware->tokenJwt();  
+        
+                $this->auth->checkPermission($role);
+                
+                Response::success($decodedToken, "Acesso permitido", 200);
+                
+            } catch (\Exception $e) {
+                Response::error(null, $e->getMessage(), 403);
+            }
         }
-    }
 }
 

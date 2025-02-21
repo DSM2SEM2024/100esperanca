@@ -6,7 +6,6 @@ use PDO;
 use \Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
-use Pi\Visgo\Authentification\Config;
 use Pi\Visgo\Database\Connection;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\SignatureInvalidException;
@@ -14,13 +13,13 @@ use InvalidArgumentException;
 
 class Auth {
     private PDO $connection;
-    private string $jwtSecret;
+    private string $secret;
 
     public function __construct($drive = 'sqlite') {
 
         $this->connection = Connection::getInstance($drive);
 
-        $this->jwtSecret = Config::JWT()['jwt_secret'];
+        $this->secret = $_ENV['JWT_SECRET'] ?? 'default_secret';
 
     }
     private function generateToken($userId, $username, $roles) {
@@ -38,14 +37,13 @@ class Auth {
 
         ];
 
-        var_dump($payload);
-        return JWT::encode($payload, $this->jwtSecret, 'HS256');
+        return JWT::encode($payload, $this->secret, 'HS256');
     }
     
-
     public function validateToken($jwt) {
+
         try {
-            $decoded = JWT::decode($jwt, new Key($this->jwtSecret, 'HS256'));
+            $decoded = JWT::decode($jwt, new Key($this->secret, 'HS256'));
             return (array) $decoded;
         } catch (ExpiredException|SignatureInvalidException $e) {
             throw new Exception($e->getMessage(), 401);
@@ -83,6 +81,7 @@ class Auth {
     public function generateRefreshToken($userId) {
 
         $refreshToken = bin2hex(random_bytes(64));
+
         $hashedToken = password_hash($refreshToken, PASSWORD_DEFAULT);
 
         $query = "INSERT INTO user_tokens (user_id, token, expires) VALUES (:user_id, :token, :expires)";
@@ -114,6 +113,7 @@ class Auth {
     }
 
     public function checkPermission($requiredRole) {
+
         $headers = apache_request_headers();
     
         if (!isset($headers['Authorization'])) {
@@ -123,18 +123,28 @@ class Auth {
         $token = str_replace('Bearer ', '', $headers['Authorization']);
     
         try {
-            $decoded = JWT::decode($token, new Key($this->jwtSecret, 'HS256'));
+
+            $decoded = JWT::decode($token, new Key($this->secret, 'HS256'));
+
             $userRoles = $decoded->roles ?? [];
     
             if (in_array('FULL_ADMIN', $userRoles)) {
+
                 return $decoded;
-            } elseif (in_array('ADMIN', $userRoles)) {
+            } 
+
+            elseif (in_array('ADMIN', $userRoles)) {
+
                 if ($requiredRole === 'admin' || $requiredRole === 'client') {
                     return $decoded;
                 }
                 throw new Exception('Permission denied.', 403);
-            } elseif (in_array('CLIENT', $userRoles)) {
+            } 
+            
+            elseif (in_array('CLIENT', $userRoles)) {
+
                 if ($requiredRole === 'client') {
+
                     return $decoded;
                 }
                 throw new Exception('Permission denied.', 403);

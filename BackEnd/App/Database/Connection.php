@@ -10,7 +10,7 @@ class Connection {
     private static $instance = null;
     private $drive;
     private $connection;
-    private $path = __DIR__ . '/pi-visgo.db';
+    private $path = './Database/pi-visgo.db';
     private $dns = 'mysql:host=216.172.172.207;dbname=faust537_pi-4';
     private $usuario = 'faust537_pi-4';
     private $senha = 'faust537_pi-4';

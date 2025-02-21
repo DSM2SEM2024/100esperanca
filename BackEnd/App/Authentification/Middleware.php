@@ -15,7 +15,7 @@ class Middleware {
 
     private PDO $connection;
     private UserRepository $userRepository;
-    private string $jwtSecret;
+    private string $secret;
 
     public function __construct($drive = 'sqlite')    {
         
@@ -23,7 +23,7 @@ class Middleware {
 
         $this->userRepository = new UserRepository($this->connection);
 
-        $this->jwtSecret = Config::JWT()['jwt_secret'];
+        $this->secret = $_ENV['JWT_SECRET'] ?? 'default_secret'; 
         
     }
 
@@ -33,27 +33,25 @@ class Middleware {
 
     $token = $this->getTokenFromRequest();
 
-    var_dump(strlen($this->jwtSecret));
-
     if (!$token) {
-        throw new \Exception('Token não fornecido.', 401);
+        throw new \Exception('Token not found.', 401);
     }
 
     try {
 
-        $decoded = JWT::decode($token, new Key($this->jwtSecret, 'HS256'));
+        $decoded = JWT::decode($token, new Key($this->secret, 'HS256'));
 
         if (!$this->userExists($decoded->sub)) {
-            throw new \Exception('Usuário não encontrado.', 401);
+            throw new \Exception('Usuário not found.', 401);
         }
 
         return $decoded;
     } catch (ExpiredException $e) {
-        throw new \Exception('Token expirado.', 401);
+        throw new \Exception('Token expired.', 401);
     } catch (SignatureInvalidException $e) {
-        throw new \Exception('Assinatura do token inválida.', 401);
+        throw new \Exception(' Unknow token Signature .', 401);
     } catch (\Exception $e) {
-        throw new \Exception('Erro ao validar o token', 500);
+        throw new \Exception('Error validating the token', 500);
     }
 }
 
