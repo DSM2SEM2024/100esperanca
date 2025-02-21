@@ -4,7 +4,7 @@ namespace Pi\Visgo;
 use Pi\Visgo\Router\Router;
 use Pi\Visgo\Router\Routes;
 
-require_once "../vendor/autoload.php";
+require_once "/..vendor/autoload.php";
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");

@@ -3,157 +3,151 @@
 namespace Pi\Visgo\Authentification;
 
 use PDO;
+use \Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use Pi\Visgo\Authentification\Config;
 use Pi\Visgo\Database\Connection;
 use Firebase\JWT\ExpiredException;
-use Pi\Visgo\Authentification\Config;
-use Pi\Visgo\Repository\UserRepository;
 use Firebase\JWT\SignatureInvalidException;
+use InvalidArgumentException;
 
 class Auth {
-
     private PDO $connection;
-
-    private string $table = 'user_role';
-
-    private UserRepository $userRepository;
-
     private string $jwtSecret;
 
-    public function __construct($drive = 'sqlite')
-    {
+    public function __construct($drive = 'sqlite') {
+
         $this->connection = Connection::getInstance($drive);
-        
-        $this->userRepository = new UserRepository($this->connection);
 
         $this->jwtSecret = Config::JWT()['jwt_secret'];
-    }
 
-    private function generateToken($user)
-    {   
+    }
+    private function generateToken($userId, $username, $roles) {
+
+        if (empty($userId || $roles)) {
+            throw new InvalidArgumentException('User ID and role is required', 500);
+        }
+
         $payload = [
-            'iss' => 'http://localhost:8000',
-            'iat' => time(),                        // hora da emissão
-            'exp' => time() + 3600,  // ajustar dps
-            'sub' => $user ['id'],
-            'aud' => $_SERVER['REMOTE_ADDR'], // IP do usuario (talvez remova esses dois ultimos ou adicionar uma logica para nao prejudicar usuarios)
-            'user_agent' => $_SERVER['HTTP_USER_AGENT'] // dispositivo do usuario
+            'iat' => time(),
+            'exp' => time() + 3600,
+            'sub' => $userId,
+            "username" => "$username",
+            "roles" => $roles
+
         ];
 
-        try{
-            return JWT::encode($payload, $this->jwtSecret, 'HS256');
-        } catch (\Exception $e) {
-            throw new \Exception('Token not generated');
-        }
+        var_dump($payload);
+        return JWT::encode($payload, $this->jwtSecret, 'HS256');
     }
-    function validateToken($jwt){
+    
 
+    public function validateToken($jwt) {
         try {
             $decoded = JWT::decode($jwt, new Key($this->jwtSecret, 'HS256'));
-            return (array)$decoded;
-
-        } catch (ExpiredException $e) {
-            throw new \Exception('Token expired', 401);
-        } catch (SignatureInvalidException $e) {
-            throw new \Exception('Signature invalid', 401);
-        } catch (\Exception $e){
-            throw new \Exception('Invalid token or Unknown error', 401);
+            return (array) $decoded;
+        } catch (ExpiredException|SignatureInvalidException $e) {
+            throw new Exception($e->getMessage(), 401);
         }
     }
+    public function authenticate($email, $password) {
 
-    public function authenticate($email, $password)
-    {
-        $maxAttempts = 5; 
-        $lockoutTime = 300; // Tempo de bloqueio 5 min (mudar depois talvez)
-    
-        // Verifica se o usuário já atingiu o limite de tentativas falhas
-       $stmt = $this->connection->prepare("SELECT id, password, attempts, last_attempt FROM user WHERE email = :email");
+        $query = "SELECT id, name, password FROM user WHERE email = :email";
 
+        $stmt = $this->connection->prepare($query);
 
         $stmt->execute([':email' => $email]);
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-        if ($user) {
-            if ($user['attempts'] >= $maxAttempts) {
-                $remainingTime = ($user['last_attempt'] + $lockoutTime) - time();
-                if ($remainingTime > 0) {
-                    throw new \Exception('Too Many Attempts - Try Again in ' . $remainingTime . ' seconds.', 429);
-                }
-                    // Reseta tentativas após tempo de bloqueio
-                    $stmt = $this->connection->prepare("UPDATE user SET attempts = 0 WHERE email = :email");
-                    $stmt->execute([':email' => $email]);
-            }
-        }
-    
+
+        $stmt = null;
+
+
         if (!$user || !password_verify($password, $user['password'])) {
-            // Atualiza tentativas de login no banco
-            $stmt = $this->connection->prepare("UPDATE user SET attempts = attempts + 1, last_attempt = :time WHERE email = :email");
-            $stmt->execute([':time' => time(), ':email' => $email]);
-    
-            throw new \Exception('Invalid Credentials', 401);
+            throw new Exception('Invalid Credentials', 401);
         }
+
+        $roleQuery = "SELECT r.name FROM role r JOIN user_role ur ON r.id = ur.id_role WHERE ur.id_user = :user_id";
+
+        $stmt = $this->connection->prepare($roleQuery);
+
+        $stmt->execute([':user_id' => $user['id']]);
+
+        $roles = $stmt->fetchAll(PDO::FETCH_COLUMN);
     
-        // Login bem-sucedido, reseta tentativas
-        $stmt = $this->connection->prepare("UPDATE user SET attempts = 0 WHERE email = :email");
-        $stmt->execute([':email' => $email]);
-    
-        return $this->generateToken(['id' => $user['id']]);
+        return $this->generateToken($user['id'], $user['name'], $roles);
+
     }
     
-   public function generateRefreshToken ($userId){
+    public function generateRefreshToken($userId) {
 
         $refreshToken = bin2hex(random_bytes(64));
         $hashedToken = password_hash($refreshToken, PASSWORD_DEFAULT);
 
-        $stmt = $this->connection->prepare("INSERT INTO user_tokens (user_id, token, expires, ip_address, user_agent) VALUES (:user_id, :token, :expires, :ip_address, :user_agent)");
+        $query = "INSERT INTO user_tokens (user_id, token, expires) VALUES (:user_id, :token, :expires)";
+
+        $stmt = $this->connection->prepare($query);
 
         $stmt->execute([
             ':user_id' => $userId,
             ':token' => $hashedToken,
-            ':expires' => time() + (7 * 24 * 60 * 60),
-            ':ip_address' => $_SERVER['REMOTE_ADDR'],
-            ':user_agent' => $_SERVER['HTTP_USER_AGENT']
+            ':expires' => time() + (7 * 24 * 60 * 60)
         ]);
 
-        setcookie('refresh_token', $refreshToken, [
-            'expires' => time() + (7 * 24 * 60 * 60),
-            'path' => '/',
-            'secure' => false,     
-            'httponly' => true,    
-            'samesite' => 'Strict'
-        ]);
+        $stmt = null;
 
         return $refreshToken;
     }
 
-   public function refreshToken() {
+    public function getUserIdFromEmail ($email){
 
-    $refreshToken = $_COOKIE['refresh_token'] ?? null;
-        if (!$refreshToken) {
-            throw new \Exception('Refresh token not provided', 400);
-        }
+        $query = "SELECT id FROM user WHERE email = :email";
 
-    $stmt = $this->connection->prepare("SELECT user_id, token, ip_address, user_agent FROM user_tokens WHERE token = :token AND expires > :time");
-    $stmt->execute([
-    ':token' => $refreshToken,
-    ':time' => time()
-    ]);
+        $stmt = $this->connection->prepare($query);
 
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            if (password_verify($refreshToken, $row['token'])) {
-                if ($row['ip_address'] !== $_SERVER['REMOTE_ADDR'] || $row['user_agent'] !== $_SERVER['HTTP_USER_AGENT']) {
-                    file_put_contents(__DIR__.'/logs/refresh_token_attempts.log',
-                        date('Y-m-d H:i:s')." - Unauthorized refresh token usage attempt by user {$row['user_id']}\n",
-                        FILE_APPEND);
+        $stmt->execute([':email' => $email]);
 
-                    throw new \Exception('Invalid refresh token - Unrecognized device.', 403);
-                }
-                return $this->generateToken(['id' => $row['user_id']]);
-            }
-        }
-
-        throw new \Exception('Refresh token is expired or invalid', 401);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        return $user ? $user['id'] : null;
     }
+
+    public function checkPermission($requiredRole) {
+        $headers = apache_request_headers();
+    
+        if (!isset($headers['Authorization'])) {
+            throw new Exception('Token not found.', 401);
+        }
+    
+        $token = str_replace('Bearer ', '', $headers['Authorization']);
+    
+        try {
+            $decoded = JWT::decode($token, new Key($this->jwtSecret, 'HS256'));
+            $userRoles = $decoded->roles ?? [];
+    
+            if (in_array('FULL_ADMIN', $userRoles)) {
+                return $decoded;
+            } elseif (in_array('ADMIN', $userRoles)) {
+                if ($requiredRole === 'admin' || $requiredRole === 'client') {
+                    return $decoded;
+                }
+                throw new Exception('Permission denied.', 403);
+            } elseif (in_array('CLIENT', $userRoles)) {
+                if ($requiredRole === 'client') {
+                    return $decoded;
+                }
+                throw new Exception('Permission denied.', 403);
+            } else {
+                throw new Exception('Permission denied.', 403);
+            }
+        } catch (ExpiredException $e) {
+            throw new Exception('Token expired', 401);
+        } catch (SignatureInvalidException $e) {
+            throw new Exception('Invalid token signature', 401);
+        } catch (Exception $e) {
+            throw new Exception('Error validating token', 500);
+        }
+    }
+    
 }

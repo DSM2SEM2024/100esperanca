@@ -12,6 +12,7 @@ class User implements JsonSerializable
     private string $password;
     private array $roles;
     private array $addresses;
+    
 
 
     /**

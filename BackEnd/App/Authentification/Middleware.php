@@ -5,10 +5,11 @@ namespace Pi\Visgo\Authentification;
 use PDO;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use Pi\Visgo\Database\Connection;
 use Firebase\JWT\ExpiredException;
 use Pi\Visgo\Authentification\Config;
-use Pi\Visgo\Database\Connection;
 use Pi\Visgo\Repository\UserRepository;
+use Firebase\JWT\SignatureInvalidException;
 
 class Middleware {
 
@@ -23,45 +24,53 @@ class Middleware {
         $this->userRepository = new UserRepository($this->connection);
 
         $this->jwtSecret = Config::JWT()['jwt_secret'];
+        
     }
 
-    public function tokenJwt(): ?object 
+    public function tokenJwt(): ?object
+    
     {
-        $token = $this->getTokenFromRequest();
 
-        if (!$token) {
-            throw new \Exception('Token não fornecido.', 401);
-        }
+    $token = $this->getTokenFromRequest();
 
-        try {
-            $decoded = JWT::decode($token, new Key($this->jwtSecret, 'HS256'));
+    var_dump(strlen($this->jwtSecret));
 
-            if (!$this->userExists($decoded->sub)) {
-                throw new \Exception('Usuário not found.', 401);
-            }
-
-            return $decoded;
-
-        } catch (ExpiredException $e) {
-            throw new \Exception('Token expired.', 401);
-        } catch (\UnexpectedValueException $e) {
-            throw new \Exception('invalid Token.', 401);
-        } catch (\Exception $e) {
-            throw new \Exception('Error validating token', 500);
-        }
+    if (!$token) {
+        throw new \Exception('Token não fornecido.', 401);
     }
+
+    try {
+
+        $decoded = JWT::decode($token, new Key($this->jwtSecret, 'HS256'));
+
+        if (!$this->userExists($decoded->sub)) {
+            throw new \Exception('Usuário não encontrado.', 401);
+        }
+
+        return $decoded;
+    } catch (ExpiredException $e) {
+        throw new \Exception('Token expirado.', 401);
+    } catch (SignatureInvalidException $e) {
+        throw new \Exception('Assinatura do token inválida.', 401);
+    } catch (\Exception $e) {
+        throw new \Exception('Erro ao validar o token', 500);
+    }
+}
 
     private function getTokenFromRequest(): ?string
-    {
-        $headers = apache_request_headers();
-        $authHeader = $headers['Authorization'] ?? $_SERVER['HTTP_AUTHORIZATION'] ?? null;
+{
+    $headers = apache_request_headers();
 
-        if ($authHeader && preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
-            return $matches[1];
-        }
+    $authHeader = $headers['Authorization'] ?? 
 
-        return $_COOKIE['token'] ?? null;
+    $_SERVER['HTTP_AUTHORIZATION'] ?? null;
+
+    if ($authHeader && preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
+        return $matches[1];
     }
+    
+    return $_COOKIE['token'] ?? null;
+}
 
     private function userExists($userId): bool
     {

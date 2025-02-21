@@ -21,5 +21,7 @@
             "email": "ygorlopesm@hotmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "firebase/php-jwt": "^6.11"
+    }
 }

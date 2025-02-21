@@ -8,6 +8,7 @@ use Pi\Visgo\Controller\PromotionController;
 use Pi\Visgo\Controller\CartController;
 use Pi\Visgo\Controller\ArtController;
 use Pi\Visgo\Controller\SaleController;
+use Pi\Visgo\Controller\AuthController;
 
 class Routes
 {
@@ -44,6 +45,11 @@ class Routes
                 '/sales/{id}' => [saleController::class, 'getById'],
                 '/sales' => [saleController::class, 'getAll'], 
 
+                '/client' => [AuthController::class, 'clientRoute'],
+                '/admin' => [AuthController::class, 'adminRoute'],
+                '/full_admin' => [AuthController::class, 'fullAdminRoute'],
+
+
             ],
             'POST' => [
                 '/users' => [UserController::class, 'create'],
@@ -64,6 +70,9 @@ class Routes
 
                 '/sales' => [SaleController::class, 'create'],
                 '/sales/{sale}/products' => [SaleController::class, 'addProductsToSale'],
+
+                '/login' => [AuthController::class, 'login'],
+
             ],
             'PUT' => [
                 '/users' => [UserController::class, 'update'],
