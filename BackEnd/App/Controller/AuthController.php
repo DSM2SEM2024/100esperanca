@@ -12,11 +12,13 @@ class AuthController {
     private Auth $auth;
     private Middleware $middleware;
 
-    public function __construct() {
-        $this->auth = new Auth();
+    public function __construct() 
+    {
+        $this->auth = new Auth('sqlite');
         $this->middleware = new Middleware('sqlite');
     }
-    public function login() {
+    public function login() 
+    {
         try {
 
             $data = $this->getRequestData();
@@ -49,30 +51,30 @@ class AuthController {
         }
     
     }
-    public function validateToken() {
-
+    public function validateToken() 
+    {
         $decodedToken = $this->middleware->tokenJwt();
 
         response::success($decodedToken, "Token validado com sucesso!", 200);
 
     }
-    public function adminRoute() {
-
+    public function adminRoute() 
+    {
         $this->protectedRoute('admin');
     }
     
-    public function fullAdminRoute() {
-
+    public function fullAdminRoute() 
+    {
         $this->protectedRoute('full_admin');
     }
     
-    public function clientRoute() {
-
+    public function clientRoute() 
+    {
         $this->protectedRoute('client');
     }
 
-    private function getRequestData() {
-
+    private function getRequestData() 
+    {
         $data = json_decode(file_get_contents('php://input'), true);
 
         if (!$data) {
@@ -82,9 +84,10 @@ class AuthController {
         return $data ?: [];
     }   
 
-    private function protectedRoute($role) {
+    private function protectedRoute($role) 
+    {
         
-            try {
+        try {
 
                 $decodedToken = $this->middleware->tokenJwt();  
         
@@ -94,7 +97,7 @@ class AuthController {
                 
             } catch (\Exception $e) {
                 Response::error(null, $e->getMessage(), 403);
-            }
         }
+    }
 }
 

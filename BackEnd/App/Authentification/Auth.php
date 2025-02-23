@@ -15,15 +15,15 @@ class Auth {
     private PDO $connection;
     private string $secret;
 
-    public function __construct($drive = 'sqlite') {
-
+    public function __construct($drive) 
+    {
         $this->connection = Connection::getInstance($drive);
 
         $this->secret = $_ENV['JWT_SECRET'] ?? 'default_secret';
 
     }
-    private function generateToken($userId, $username, $roles) {
-
+    private function generateToken($userId, $username, $roles) 
+    {
         if (empty($userId || $roles)) {
             throw new InvalidArgumentException('User ID and role is required', 500);
         }
@@ -34,13 +34,13 @@ class Auth {
             'sub' => $userId,
             "username" => "$username",
             "roles" => $roles
-
-        ];
+        ]; 
 
         return JWT::encode($payload, $this->secret, 'HS256');
     }
     
-    public function validateToken($jwt) {
+    public function validateToken($jwt) 
+    {
 
         try {
             $decoded = JWT::decode($jwt, new Key($this->secret, 'HS256'));
@@ -49,7 +49,8 @@ class Auth {
             throw new Exception($e->getMessage(), 401);
         }
     }
-    public function authenticate($email, $password) {
+    public function authenticate($email, $password) 
+    {
 
         $query = "SELECT id, name, password FROM user WHERE email = :email";
 
@@ -78,7 +79,8 @@ class Auth {
 
     }
     
-    public function generateRefreshToken($userId) {
+    public function generateRefreshToken($userId) 
+    {
 
         $refreshToken = bin2hex(random_bytes(64));
 
@@ -99,7 +101,8 @@ class Auth {
         return $refreshToken;
     }
 
-    public function getUserIdFromEmail ($email){
+    public function getUserIdFromEmail ($email)
+    {
 
         $query = "SELECT id FROM user WHERE email = :email";
 
@@ -112,8 +115,9 @@ class Auth {
         return $user ? $user['id'] : null;
     }
 
-    public function checkPermission($requiredRole) {
-
+    public function checkPermission($requiredRole) 
+    {
+        
         $headers = apache_request_headers();
     
         if (!isset($headers['Authorization'])) {

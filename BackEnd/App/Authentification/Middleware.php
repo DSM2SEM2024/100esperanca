@@ -17,7 +17,8 @@ class Middleware {
     private UserRepository $userRepository;
     private string $secret;
 
-    public function __construct($drive = 'sqlite')    {
+    public function __construct($drive)    
+    {
         
         $this->connection = Connection::getInstance($drive);
 
@@ -31,44 +32,47 @@ class Middleware {
     
     {
 
-    $token = $this->getTokenFromRequest();
+        $token = $this->getTokenFromRequest();
 
-    if (!$token) {
-        throw new \Exception('Token not found.', 401);
-    }
-
-    try {
-
-        $decoded = JWT::decode($token, new Key($this->secret, 'HS256'));
-
-        if (!$this->userExists($decoded->sub)) {
-            throw new \Exception('Usuário not found.', 401);
+        if (!$token) {
+            throw new \Exception('Token not found.', 401);
         }
 
-        return $decoded;
-    } catch (ExpiredException $e) {
-        throw new \Exception('Token expired.', 401);
-    } catch (SignatureInvalidException $e) {
-        throw new \Exception(' Unknow token Signature .', 401);
-    } catch (\Exception $e) {
-        throw new \Exception('Error validating the token', 500);
+        try {
+
+            $decoded = JWT::decode($token, new Key($this->secret, 'HS256'));
+
+            if (!$this->userExists($decoded->sub)) {
+                throw new \Exception('Usuário not found.', 401);
+            }
+
+            return $decoded;
+        } catch (ExpiredException $e) {
+            throw new \Exception('Token expired.', 401);
+        } catch (SignatureInvalidException $e) {
+            throw new \Exception(' Unknow token Signature .', 401);
+        } catch (\Exception $e) {
+            throw new \Exception('Error validating the token', 500);
+        }
+
     }
-}
 
     private function getTokenFromRequest(): ?string
-{
-    $headers = apache_request_headers();
+    {
 
-    $authHeader = $headers['Authorization'] ?? 
+        $headers = apache_request_headers();
 
-    $_SERVER['HTTP_AUTHORIZATION'] ?? null;
+        $authHeader = $headers['Authorization'] ??
 
-    if ($authHeader && preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
-        return $matches[1];
+        $_SERVER['HTTP_AUTHORIZATION'] ?? null;
+
+        if ($authHeader && preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
+            return $matches[1];
+        }
+
+        return $_COOKIE['token'] ?? null;
+
     }
-    
-    return $_COOKIE['token'] ?? null;
-}
 
     private function userExists($userId): bool
     {

@@ -11,7 +11,7 @@ class ArtRepository {
     private string $table = "art";
 
 
-    public function __construct($drive = 'sqlite') {
+    public function __construct($drive) {
 
         $this->connection = Connection::getInstance($drive);
     }
