@@ -25,7 +25,10 @@ export async function gerenciarUsuariosHtml() {
                
                     <td class="p-0">
                             ${user.id}
-                            <button class="btn d-inline d-md-none" type="button" data-bs-toggle="dropdown" aria-expanded="true">
+                            <button class="btn d-inline d-md-none"
+                             type="button" 
+                             data-bs-toggle="dropdown"
+                              aria-expanded="true">
                                 <i class="bi bi-caret-down-fill"></i>
                             </button>
                             <div class="dropdown">
