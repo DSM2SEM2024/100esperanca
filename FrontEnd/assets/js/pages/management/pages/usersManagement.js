@@ -23,7 +23,7 @@ export async function gerenciarUsuariosHtml() {
             
         <tr class="dropdown">
                
-                    <td>
+                    <td class="p-0">
                             ${user.id}
                             <button class="btn d-inline d-md-none" type="button" data-bs-toggle="dropdown" aria-expanded="true">
                                 <i class="bi bi-caret-down-fill"></i>
@@ -48,8 +48,8 @@ export async function gerenciarUsuariosHtml() {
                         </div>
                     </td>
                     
-                    <td>${user.name}</td>
-                    <td>${user.email}</td>
+                    <td class="p-1">${user.name}</td>
+                    <td class="p-1">${user.email}</td>
                     <td class="d-none d-md-table-cell">${listRoles(user.roles)}</td>
 
                     
