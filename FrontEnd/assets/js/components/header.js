@@ -81,12 +81,12 @@ export const headerHtml = `
             tela admin
           </h5>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#gerenciarUsuarios">
+              <a class="nav-link active" aria-current="page" href="#gerenciarProdutos">
                 gerenciamento de produtos
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#gerenciarProdutos">
+              <a class="nav-link" href="#gerenciarUsuarios">
                   gerenciamento de usuarios
               </a>
             </li>

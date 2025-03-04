@@ -14,7 +14,7 @@ import { showModalUpdateProducts } from "./components/modalUpdatesProducts";
 
 export function telaGerenciarProdutosHtml() {
     const gerenciarProdutos = `
-    <section class="container-fluid p-4">
+    <section class="overflow-x-hidden p-0 p-sm-4">
       <h4 class="mb-3 fs-1 text-center">Gerenciar Produtos</h4>
       <div class="mb-4">
         <label for="pesquisaProduto" class="form-label">Pesquisar Produto</label>
@@ -28,7 +28,9 @@ export function telaGerenciarProdutosHtml() {
       </div>
       <div class="text-center">
         <h2>Consulta de Produtos</h2>
-        <table class="table table-bordered table-responsive table-striped">
+      </section>
+      <section class="overflow-x-scroll p-0 p-sm-4">
+        <table class="table table-bordered table-responsive table-striped overflow-x-scroll">
           <thead>
             <tr>
               <th>ID</th>
@@ -47,12 +49,15 @@ export function telaGerenciarProdutosHtml() {
         </table>
       </div>
       <div class="d-flex justify-content-center">
+        
+      </div>
+      
+    </section>
+    <section class=" text-center d-flex justify-content-center">
         <button type="button" class="btn btn-success" id="modalAddProduto">
           Adicionar Produto
         </button>
-      </div>
     </section>
-
   `;
 
     const main = getOrCreateMainElement();
@@ -79,12 +84,33 @@ export async function renderTabelaProdutos(produtos = null) {
             .map(
                 (produto) => `
           <tr data-id="${produto.id}">
-            <td>${produto.id}</td>
-            <td>${produto.name}</td>
-            <td>${produto.cod_product}</td>
-            <td>${produto.type_product}</td>
-            <td>R$ ${Number(produto.price).toFixed(2)}</td>
-            <td>
+            <td class="d-flex-inline align-content-center p-2 
+            p-sm-3 
+            d-sm-table-cell
+            text-sm-start
+            ">${produto.id}</td>
+            <td class="d-flex-inline align-content-center p-2 text-center  
+             p-sm-3 
+            d-sm-table-cell
+            text-sm-start
+            ">${produto.name}</td>
+            <td class="d-flex-inline align-content-center p-2 text-center 
+            p-sm-3 
+            d-sm-table-cell
+            text-sm-start
+            ">${produto.cod_product}</td>
+            <td class="d-flex-inline align-content-center p-2 text-center 
+            p-sm-3 
+            d-sm-table-cell
+            text-sm-start
+            ">${produto.type_product}</td>
+            <td class="d-flex-inline align-content-center p-2 text-center 
+            p-sm-3
+            d-sm-table-cell
+            text-sm-start
+             ">R$ ${Number(produto.price).toFixed(2)}</td>
+            <td class="d-inline-flex justify-content-center p-3">
+            
               <button class="btn btn-danger shadow-lg btnExcluir" data-id="${produto.id}">
                 <i class="bi bi-trash-fill text-white"></i>
               </button>
