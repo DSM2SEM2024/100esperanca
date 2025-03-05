@@ -1,104 +1,109 @@
 import visgo from "../../imgs/visgo.jpg";
 
 export const headerHtml = `
-<header class="w-100 p-2 text-center d-flex justify-content-between align-items-center">
 
-  <section>
+  <section class="d-flex justify-content-start align-items-center">
     <img src="${visgo}" alt="LogoVisgo" class="img-fluid">
     <button id="voltar_btn" class="btn ms-3 btn-sm btn-success">
       Voltar
     </button>
   </section>
 
-  <nav class="d-flex" id="nav-horizontal">
+  <nav class="d-flex justify-content-md-center w-100" id="nav-horizontal">
         <a id="manageUser-Link" href="#gerenciarUsuarios" class="text-decoration-none text-success" role="button">
           <button class="btn btn-outline-success w-100 border-0">
-            Tela Admin
+            gerenciamento de usuario
           </button>
         </a>
 
+        <a class="text-decoration-none text-success" aria-current="page" href="#gerenciarProdutos">
+              <button class="btn btn-outline-success w-100 border-0">
+                gerenciamento de produtos
+             </button>
+          </a>
+
+          
         <a id="produtos-Link" href="#produtos" class="text-decoration-none text-success" role="button">
               <button class="btn btn-outline-success w-100 border-0">
                  Produtos
+              </button>
+          </a>
+
+          <a class="text-decoration-none text-success" aria-current="page" href="#home" id="home-Link">
+                <button class="btn btn-outline-success w-100 border-0">
+                 home
               </button>
           </a>
   </nav>
 
 
 
-  <nav class="navbar d-none justify-content-evenly p-0 m-0" id="button_nav">
-    <ul class="navbar-nav">
-      <li class="nav-item dropbottom">
-        <button class="btn btn-success btn-sm  dropdown-toggle-split rounded-3" data-bs-toggle="dropdown" aria-expanded="false">
-        <p class="m-0">
-           menu
-        </p>
+
+
+  <nav class="navbar bg-body-tertiary p-0 d-flex d-xs-flex d-md-none">
+    <div class="container-fluid bg-success p-0">
+
+      <button class="navbar-toggler bg-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation ">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+
+        <div class="offcanvas-header bg-success">
         
-        </button>
-        <ul class="dropdown-menu dropdown-menu position-absolute">
-          <li>
-             <a id="manageUser-Link" href="#gerenciarUsuarios" class="text-decoration-none text-success" role="button">
-          <button class="btn btn-outline-success w-100 border-0">
-          Tela Admin
-          </button>
-        </a>
-          </li>
 
-          <li>
-           <a id="produtos-Link" href="#produtos" class="text-decoration-none text-success" role="button">
-              <button class="btn btn-outline-success w-100 border-0">
-                 Produtos
-              </button>
-           </a>
-          </li>
-          <li>
-            <a id="home-Link" href="#home" class="text-decoration-none" role="button">
-              <button class="btn btn-outline-success w-100 border-0">
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+
+        <div class="offcanvas-body bg-success">
+        
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <h5 class="text-start">
+            paginas
+          </h5>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#home" id="home-Link">
                 Home
-              </button>
-            </a>
-        </li>
-    </ul>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#produtos">
+              Produtos
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#cart">
+                carrinho
+              </a>
+            </li>
+            <hr>
+          <h5 class="text-start">
+            tela admin
+          </h5>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#gerenciarUsuarios">
+                gerenciamento de produtos
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#gerenciarProdutos">
+                  gerenciamento de usuarios
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
   </nav>
 
-  
-
-  <nav class="navbar px-3 d-flex justify-content-evenly">
-    <ul class="navbar-nav">
-      <li class="nav-item dropstart">
-        <button class="btn btn-success btn-sm dropdown-toggle dropdown-toggle-split rounded-3" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="bi bi-people-fill"></i>
-        </button>
-
-        <ul class="dropdown-menu dropdown-menu position-absolute">
-          <li>
-            <a class="dropdown-item link-outline-success dropdown-item-text text-success border-bottom" href="#login">
-              Login
-            </a>
-          </li>
-
-          <li>
-            <a class="dropdown-item link-outline-success dropdown-item-text text-success" href="#criarUsuario">
-              Cadastro
-            </a>
-          </li>
-        </ul>
-
-        <a class="icon-link" href="#cart">
-          <button type="button" class="btn btn-success btn-sm rounded-3">
-            <i class="bi bi-cart-fill text-decoration-none"></i>
-          </button>
-        </a>
-      </li>
-    </ul>
-  </nav>
-</header>
 `;
 
 const headerElement = document.createElement('header');
 headerElement.innerHTML = headerHtml;
 document.body.insertAdjacentElement('afterbegin', headerElement);
-headerElement.classList = "w-100 p-2 text-center d-flex justify-content-between align-items-center";
+headerElement.classList = "w-100  p-2 text-center align-items-center justify-content-between d-flex d-md-inline-flex" ;
 
 const voltarButton = document.querySelector("#voltar_btn");
 voltarButton.addEventListener('click', () => {

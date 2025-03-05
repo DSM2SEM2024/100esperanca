@@ -1,6 +1,5 @@
 import { getOrCreateMainElement } from "../../../components/main";
 import { baseUrl } from "../../../services/baseUrl/baseUrl";
-import { sidebar } from "../components/sidebar";
 const main = getOrCreateMainElement();
 
 export function telaGerenciarPromocoes() {
@@ -85,7 +84,6 @@ export function telaGerenciarPromocoes() {
   }
 
   main.innerHTML = gerenciarPromocoes;
-  sidebar();
 
   // Event listener para abrir o modal
   const abrirModalButton = document.getElementById(

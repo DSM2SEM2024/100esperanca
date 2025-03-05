@@ -2,13 +2,6 @@ import { getOrCreateMainElement } from "../../../components/main";
 
 export function sidebar() {
   const sidebarGerenciarUsuarios = `
-    <!-- Botão para abrir a sidebar no mobile -->
-    <div class="d-flex justify-content-start align-items-start">
-      <button class="btn btn-success d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
-        <i class="bi bi-list"></i>
-      </button>
-    </div>
-
     <!-- Sidebar Offcanvas -->
     <div class="offcanvas offcanvas-start d-lg-none bg-success text-white" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
       <div class="offcanvas-header">
@@ -31,7 +24,7 @@ export function sidebar() {
     </div>
 
     <!-- Sidebar visível no desktop -->
-    <div class="d-none d-lg-flex flex-column flex-shrink-0 p-3 bg-success text-white h-100">
+    <div class="d-none d-lg-flex flex-column p-3 bg-success text-white h-100">
       <h5>Gerenciar</h5>
       <ul class="nav nav-pills flex-column mb-auto gap-3">
         <li class="nav-item">
@@ -50,7 +43,7 @@ export function sidebar() {
   const main = getOrCreateMainElement(); 
   main.classList = "vh-100 d-flex";
   const sidebarContainer = document.createElement('div'); 
-  sidebarContainer.innerHTML = sidebarGerenciarUsuarios; main.prepend(sidebarContainer);
+  sidebarContainer.innerHTML = sidebarGerenciarUsuarios; ;
 
   const links = document.querySelectorAll('.nav-link');
   const updateActiveLink = () => {
