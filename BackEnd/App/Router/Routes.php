@@ -16,98 +16,98 @@ class Routes
     {
         return [
             'GET' => [
-                '/users' => [UserController::class, 'getAll'],
-                '/users/with-roles' => [UserController::class, 'getAllWithRoles'],
-                '/users/{id}' => [UserController::class, 'getById'],
+                '/users' => [UserController::class, 'getAll', 'full_admin'],
+                '/users/with-roles' => [UserController::class, 'getAllWithRoles', 'full_admin'],
+                '/users/{id}' => [UserController::class, 'getById', 'full_admin'],
 
-                '/products' => [ProductController::class, 'getAll'],
-                '/products/images' => [ProductController::class, 'getAllImages'],
-                '/products/{id}' => [ProductController::class, 'getById'],
-                '/products/{id}/images' => [ProductController::class, 'getImageById'],
+                '/products' => [ProductController::class, 'getAll'], // pública
+                '/products/images' => [ProductController::class, 'getAllImages', 'admin'],
+                '/products/{id}' => [ProductController::class, 'getById', 'admin'],
+                '/products/{id}/images' => [ProductController::class, 'getImageById', 'admin'],
 
-                '/orders/art' => [OrderController::class, 'getAllOrderFromArt'],
-                '/orders/{id}' => [OrderController::class, 'getById'],
-                '/orders' => [OrderController::class, 'getAll'], 
+                '/orders/art' => [OrderController::class, 'getAllOrderFromArt', 'admin'],
+                '/orders/{id}' => [OrderController::class, 'getById', 'admin'],
+                '/orders' => [OrderController::class, 'getAll', 'admin'],
 
-                '/promotions' => [PromotionController::class, 'getAllPromotion'],
-                '/promotions/{id}' => [PromotionController::class, 'searchById'],
-                '/promotions/products' => [PromotionController::class, 'getAllProductsInPromotion'],
+                '/promotions' => [PromotionController::class, 'getAllPromotion', 'client'],
+                '/promotions/{id}' => [PromotionController::class, 'searchById', 'client'],
+                '/promotions/products' => [PromotionController::class, 'getAllProductsInPromotion', 'client'],
 
-                '/carts' => [CartController::class, 'getAll'],
-                '/carts/assoc' => [CartController::class, 'getAllCartsAssoc'],
-                '/carts/{id}' => [CartController::class, 'getById'],
-                '/carts/{id}/products' => [CartController::class, 'getProductInCartById'],
+                '/carts' => [CartController::class, 'getAll', 'admin'],
+                '/carts/assoc' => [CartController::class, 'getAllCartsAssoc', 'admin'],
+                '/carts/{id}' => [CartController::class, 'getById', 'client'],
+                '/carts/{id}/products' => [CartController::class, 'getProductInCartById', 'client'],
 
-                '/arts' => [ArtController::class, 'getAll'],
-                '/arts/{id}' => [ArtController::class, 'getById'],
+                '/arts' => [ArtController::class, 'getAll', 'admin'],
+                '/arts/{id}' => [ArtController::class, 'getById', 'admin'],
 
-                '/sales/product' => [SaleController::class, 'getAllProductFromSale'],
-                '/sales/{id}' => [saleController::class, 'getById'],
-                '/sales' => [saleController::class, 'getAll'], 
+                '/sales/product' => [SaleController::class, 'getAllProductFromSale', 'admin'],
+                '/sales/{id}' => [SaleController::class, 'getById', 'admin'],
+                '/sales' => [SaleController::class, 'getAll', 'admin'],
 
-                '/client' => [AuthController::class, 'clientRoute'],
-                '/admin' => [AuthController::class, 'adminRoute'],
-                '/full_admin' => [AuthController::class, 'fullAdminRoute'],
-
-
+                '/client' => [AuthController::class, 'clientRoute', 'client'],
+                '/admin' => [AuthController::class, 'adminRoute', 'admin'],
+                '/full_admin' => [AuthController::class, 'fullAdminRoute', 'full_admin'],
             ],
+
             'POST' => [
-                '/users' => [UserController::class, 'create'],
+                '/users' => [UserController::class, 'create', 'full_admin'],
 
-                '/orders' => [OrderController::class, 'create'],
-                '/orders/{order}/arts' => [OrderController::class, 'addArtToOrder'],
+                '/orders' => [OrderController::class, 'create', 'client'],
+                '/orders/{order}/arts' => [OrderController::class, 'addArtToOrder', 'admin'],
 
-                '/promotions' => [PromotionController::class, 'create'],
-                '/promotions/products' => [PromotionController::class, 'addProductsInPromotion'],
+                '/promotions' => [PromotionController::class, 'create', 'admin'],
+                '/promotions/products' => [PromotionController::class, 'addProductsInPromotion', 'admin'],
 
-                '/carts' => [CartController::class, 'create'],
-                '/carts/products' => [CartController::class, 'InsertProductInCart'],
+                '/carts' => [CartController::class, 'create', 'client'],
+                '/carts/products' => [CartController::class, 'InsertProductInCart', 'client'],
 
-                '/products' => [ProductController::class, 'create'],
-                '/products/{id}/images' => [ProductController::class, 'insertImage'],
+                '/products' => [ProductController::class, 'create', 'admin'],
+                '/products/{id}/images' => [ProductController::class, 'insertImage', 'admin'],
 
-                '/arts' => [ArtController::class, 'create'],
+                '/arts' => [ArtController::class, 'create', 'admin'],
 
-                '/sales' => [SaleController::class, 'create'],
-                '/sales/{sale}/products' => [SaleController::class, 'addProductsToSale'],
+                '/sales' => [SaleController::class, 'create', 'admin'],
+                '/sales/{sale}/products' => [SaleController::class, 'addProductsToSale', 'admin'],
 
-                '/login' => [AuthController::class, 'login'],
-
+                '/login' => [AuthController::class, 'login'], // pública
             ],
+
             'PUT' => [
-                '/users' => [UserController::class, 'update'],
+                '/users' => [UserController::class, 'update', 'admin'],
 
-                '/orders/{id}' => [OrderController::class, 'update'],
-                '/orders/{id}/finish' => [OrderController::class, 'finishOrder'],
-                '/orders/{id}/reopen' => [OrderController::class, 'reopenOrder'],
+                '/orders/{id}' => [OrderController::class, 'update', 'admin'],
+                '/orders/{id}/finish' => [OrderController::class, 'finishOrder', 'full_admin'],
+                '/orders/{id}/reopen' => [OrderController::class, 'reopenOrder', 'full_admin'],
 
-                '/promotions/{id}' => [PromotionController::class, 'update'],
-                '/promotions/{id}/close' => [PromotionController::class, 'ClosingPromotion'],
-                '/promotions/{id}/open' => [PromotionController::class, 'OpeningPromotion'],
+                '/promotions/{id}' => [PromotionController::class, 'update', 'admin'],
+                '/promotions/{id}/close' => [PromotionController::class, 'ClosingPromotion', 'admin'],
+                '/promotions/{id}/open' => [PromotionController::class, 'OpeningPromotion', 'admin'],
 
-                '/products/{id}' => [ProductController::class, 'update'],
-                '/products/{id}/images' => [ProductController::class, 'updateImage'],
+                '/products/{id}' => [ProductController::class, 'update', 'admin'],
+                '/products/{id}/images' => [ProductController::class, 'updateImage', 'admin'],
 
-                '/arts/{id}' => [ArtController::class, 'update'],
-                '/arts/{id}/delete' => [ArtController::class, 'isDeleteArt'],
-                '/arts/{id}/undelete' => [ArtController::class, 'isNotDelete'],
+                '/arts/{id}' => [ArtController::class, 'update', 'admin'],
+                '/arts/{id}/delete' => [ArtController::class, 'isDeleteArt', 'full_admin'],
+                '/arts/{id}/undelete' => [ArtController::class, 'isNotDelete', 'full_admin'],
 
-                '/sales/{id}' => [SaleController::class, 'update'],
-                '/sales/{id}/finish' => [saleController::class, 'finish'],
-                '/sales/{id}/reopen' => [saleController::class, 'reOpen'],
+                '/sales/{id}' => [SaleController::class, 'update', 'admin'],
+                '/sales/{id}/finish' => [SaleController::class, 'finish', 'admin'],
+                '/sales/{id}/reopen' => [SaleController::class, 'reOpen', 'admin'],
             ],
+
             'DELETE' => [
-                '/users/{id}' => [UserController::class, 'delete'],
+                '/users/{id}' => [UserController::class, 'delete', 'full_admin'],
 
-                '/orders/{order}/art/{art}' => [OrderController::class, 'removeArtFromOrder'],
+                '/orders/{order}/art/{art}' => [OrderController::class, 'removeArtFromOrder', 'admin'],
 
-                '/promotions/products' => [PromotionController::class, 'deleteProductInPromotion'],
+                '/promotions/products' => [PromotionController::class, 'deleteProductInPromotion', 'admin'],
 
-                '/carts/{id}' => [CartController::class, 'delete'],
-                '/carts/products' => [CartController::class, 'deleteProductFromACart'],
+                '/carts/{id}' => [CartController::class, 'delete', 'client'],
+                '/carts/products' => [CartController::class, 'deleteProductFromACart', 'client'],
 
-                '/products/{id}' => [ProductController::class, 'discontinue'],
-                '/products/{id}/images' => [ProductController::class, 'deleteImageById'],
+                '/products/{id}' => [ProductController::class, 'discontinue', 'admin'],
+                '/products/{id}/images' => [ProductController::class, 'deleteImageById', 'admin'],
             ],
         ];
     }

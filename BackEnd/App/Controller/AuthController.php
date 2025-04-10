@@ -14,8 +14,9 @@ class AuthController {
 
     public function __construct() 
     {
-        $this->auth = new Auth('sqlite');
+        $this->auth = new Auth('sqlite');        
         $this->middleware = new Middleware('sqlite');
+
     }
     public function login() 
     {
@@ -84,20 +85,18 @@ class AuthController {
         return $data ?: [];
     }   
 
-    private function protectedRoute($role) 
+    public function ProtectedRoute($role)
     {
-        
         try {
-
-                $decodedToken = $this->middleware->tokenJwt();  
-        
-                $this->auth->checkPermission($role);
-                
-                Response::success($decodedToken, "Acesso permitido", 200);
-                
-            } catch (\Exception $e) {
-                Response::error(null, $e->getMessage(), 403);
+            $decodedToken = $this->middleware->tokenJwt();  
+            $this->auth->checkPermission($role);
+    
+            Response::success($decodedToken, "Token validado com sucesso!", 200);
+            exit;
+        } catch (\Exception $e) {
+            Response::error(null, $e->getMessage(), 403);
+            exit;
         }
     }
-}
-
+    
+}    

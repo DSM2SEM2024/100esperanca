@@ -7,7 +7,6 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Pi\Visgo\Database\Connection;
 use Firebase\JWT\ExpiredException;
-use Pi\Visgo\Authentification\Config;
 use Pi\Visgo\Repository\UserRepository;
 use Firebase\JWT\SignatureInvalidException;
 

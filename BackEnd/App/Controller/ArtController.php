@@ -1,18 +1,18 @@
 <?php
+
 namespace Pi\Visgo\Controller;
 
 use Pi\Visgo\Common\Exceptions\ResourceNotFoundException;
 use Pi\Visgo\Common\Responses\ProblemAndFieldError;
 use Pi\Visgo\Common\Responses\Response;
+use Pi\Visgo\Repository\ArtRepository;
 use Pi\Visgo\Common\Validator;
 use Pi\Visgo\Model\Art;
-use Pi\Visgo\Repository\ArtRepository;
 
 class ArtController
 {
 
     private $artRepository;
-
     public function __construct()
     {
         $this->artRepository = new ArtRepository('mysql');
@@ -20,6 +20,7 @@ class ArtController
 
     public function create($data)
     {
+       
         $isValid = Validator::validatorObjectInput($data);
 
         if (!empty($isValid)) {
@@ -35,6 +36,7 @@ class ArtController
 
     public function update($id, $data)
     {
+        
         $isValid = Validator::validatorObjectInput($data);
 
         if (!empty($isValid)) {
