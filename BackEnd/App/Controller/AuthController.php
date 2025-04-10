@@ -88,11 +88,11 @@ class AuthController {
     public function ProtectedRoute($role)
     {
         try {
+            
             $decodedToken = $this->middleware->tokenJwt();  
             $this->auth->checkPermission($role);
-    
-            Response::success($decodedToken, "Token validado com sucesso!", 200);
-            exit;
+            return $decodedToken;
+            
         } catch (\Exception $e) {
             Response::error(null, $e->getMessage(), 403);
             exit;
