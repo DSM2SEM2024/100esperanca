@@ -44,7 +44,9 @@ class ProductController
         
         $destination = $imageDir . basename($fileName);
     
-        if (move_uploaded_file($fileTmpName, $destination)) {
+        if (move_uploaded_file($fileTmpName, $destination)) 
+        {
+            
             $result = $this->productRepository->reciveImage($id, $image_path);
     
             if ($result) {
