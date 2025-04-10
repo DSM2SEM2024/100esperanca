@@ -18,6 +18,11 @@ class Connection {
 
     private function __construct($drive) {
         $this->drive = $drive;
+
+        if (!file_exists($this->path)) {
+    throw new ErrorException("❌ O banco de dados SQLite não foi encontrado em: " . realpath($this->path));
+}
+
         
         try {
             
@@ -37,14 +42,20 @@ class Connection {
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         } catch (PDOException $e) {
-            echo 'Falha na conexão: ' . $e->getMessage();        
-        } 
+            throw new ErrorException("❌ Erro na conexão: " . $e->getMessage());
+        }
+        
     }
 
     public static function getInstance($drive) {
         if (self::$instance === null) {
             self::$instance = new self($drive);
         }
+    
+        if (!self::$instance->connection) {
+            throw new ErrorException('Falha ao obter conexão com o banco de dados.');
+        }
+    
         return self::$instance->connection;
     }
-}
+} 

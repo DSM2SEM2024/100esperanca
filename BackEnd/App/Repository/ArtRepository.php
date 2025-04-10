@@ -11,7 +11,8 @@ class ArtRepository {
     private string $table = "art";
 
 
-    public function __construct($drive){
+    public function __construct($drive) {
+
         $this->connection = Connection::getInstance($drive);
     }
 
