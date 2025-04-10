@@ -23,6 +23,7 @@ class UserController
     public function create(object $data)
     {
         try {
+            
             $user = $this->assemblerUser($data);
             $result = $this->userRepository->createUser($user);
 
